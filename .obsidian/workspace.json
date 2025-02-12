@@ -184,14 +184,48 @@
         "height": 500,
         "maximize": false,
         "zoom": 0
+      },
+      {
+        "id": "162741133c9d52bc",
+        "type": "window",
+        "children": [
+          {
+            "id": "6b28334d6ee0d630",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "aeb6a836cfb862a7",
+                "type": "leaf",
+                "state": {
+                  "type": "canvas",
+                  "state": {
+                    "file": "main.canvas",
+                    "viewState": {
+                      "x": 0,
+                      "y": 0,
+                      "zoom": 0
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 190,
+        "y": 499,
+        "width": 1000,
+        "height": 500,
+        "maximize": false,
+        "zoom": 0
       }
     ]
   },
-  "active": "06fefc88b38f4995",
+  "active": "aeb6a836cfb862a7",
   "lastOpenFiles": [
     "index.md",
-    "index.canvas",
     "main.canvas",
+    "index.canvas",
     "index.md~"
   ]
 }
