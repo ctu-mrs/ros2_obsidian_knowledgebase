@@ -77307,7 +77307,7 @@ var _HTMLExportPlugin = class extends import_obsidian13.Plugin {
       id: "export-html-vault",
       name: "Export using previous settings",
       callback: async () => {
-        await await await await await await await await HTMLExporter.export(true);
+        await await await await await await await await await HTMLExporter.export(true);
       }
     });
     this.addCommand({
