@@ -9,14 +9,8 @@
     "inlineHTML": false,
     "exportPath": "/output",
     "filesToExport": [
-      "Geometria",
-      "Matrici",
-      "Quadratiche",
-      "Sistemi lineari",
-      "Spazi vettoriali",
-      "Vettori",
-      "index.md",
-      "Introduzione al corso.md"
+      "index.canvas",
+      "index.md"
     ],
     "addBodyClasses": true,
     "addMathjaxStyles": true,
