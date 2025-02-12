@@ -476,114 +476,92 @@
       "y": 240
     },
     {
-      "height": 260,
-      "id": "61b4ea56b7f515a7",
+      "height": 85,
+      "id": "f33f3af1ef6a7612",
       "styleAttributes": {
       },
-      "text": "MRS UAV Controllers\n\n- [ ] MpcController\n- [ ] Se3Controller\n- [ ] Failsafe controller\n- [ ] Midaiir actiivation controller\n- [ ] **Tests**",
-      "type": "text",
-      "width": 360,
-      "x": 100,
-      "y": -80
-    },
-    {
-      "height": 340,
-      "id": "f411a473cfddfefc",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Managers\n\n- [ ] Estimation manager\n- [ ] Control manager\n- [ ] UAV manager\n\t- [ ] maybe try the behavioral trees?\n- [ ] Transform manager\n- [ ] Constraint manager\n- [ ] Gain manager\n- [ ] bulding of doxygen docs",
-      "type": "text",
-      "width": 340,
-      "x": 60,
-      "y": -520
-    },
-    {
-      "height": 180,
-      "id": "1e19d8dd1cff6cf0",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV testing\n\n- [ ] the abstraction library\n- [ ] tests\n\t- [ ] example tests using the lib",
-      "type": "text",
-      "width": 360,
-      "x": 200,
-      "y": -770
-    },
-    {
-      "height": 180,
-      "id": "717b2d89e56666a4",
-      "styleAttributes": {
-      },
-      "text": "HW Api\n- [ ] plugin interface\n- [ ] example plugin\n- [ ] plugin manager",
+      "text": "Landing estimator\n- [ ] refactor",
       "type": "text",
       "width": 300,
-      "x": -180,
-      "y": -770
+      "x": -1260,
+      "y": 2355
     },
     {
-      "height": 140,
-      "id": "dd0cfd16a5d267ca",
+      "height": 150,
+      "id": "84a2304cec18d2c7",
       "styleAttributes": {
       },
-      "text": "Trajectory generation\n- [ ] Refactor\n- [ ] Tests",
+      "text": "MRS Utils\n- [ ] refactor",
       "type": "text",
-      "width": 360,
-      "x": -60,
-      "y": 260
+      "width": 260,
+      "x": -100,
+      "y": 1568
     },
     {
-      "height": 140,
-      "id": "e5a28be95a0f22b0",
+      "height": 180,
+      "id": "e75fc4bb88d1f7ef",
       "styleAttributes": {
       },
-      "text": "MRS UAV Auutostart\n- [ ] Refactor\n- [ ] Tests",
+      "text": "POINT LIO + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
       "type": "text",
-      "width": 360,
-      "x": -660,
-      "y": 260
+      "width": 260,
+      "x": -100,
+      "y": 1958
     },
     {
-      "height": 260,
-      "id": "5a01cb84218ab505",
+      "height": 180,
+      "id": "9e62dc2c0c6065b8",
       "styleAttributes": {
       },
-      "text": "MRS UAV Trackers\n\n- [ ] Mpc tracker\n- [ ] Line tracker\n- [ ] Midair activation tracker\n- [ ] Landoff tracker\n- [ ] Joy tracker **(keep?)**\n- [ ] Speed tracker **(keep?)**\n- [ ] **Tests**",
+      "text": "LIOSAM + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
       "type": "text",
-      "width": 340,
-      "x": -300,
-      "y": -80
+      "width": 260,
+      "x": -100,
+      "y": 1748
     },
     {
-      "height": 140,
-      "id": "e711ffc6949994de",
+      "height": 110,
+      "id": "da9ca37bc9e46d62",
       "styleAttributes": {
       },
-      "text": "MRS UAV Status\n- [ ] Acquisition node\n- [ ] Presentation node",
+      "text": "Trajectory loader\n- [ ] refactor",
       "type": "text",
-      "width": 360,
-      "x": -660,
-      "y": 460
+      "width": 260,
+      "x": 500,
+      "y": 2028
     },
     {
-      "height": 360,
-      "id": "3a54f9fc106ba176",
+      "height": 180,
+      "id": "5bee80f7149dac27",
       "styleAttributes": {
       },
-      "text": "MRS Multirotor simulator\n\n- [ ] refactor\n\t- [ ] dynamic reconfigure\n\t- [ ] rviz integration\n- [ ] test simtime generation\n- [ ] test max simulation rate\n- [ ] HW Api plugin (needs HW API)\n- [ ] tests\n\t- [ ] standalone tests\n\t- [ ] MRS system wide tests\n",
+      "text": "ALOAM + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
       "type": "text",
-      "width": 340,
-      "x": -580,
-      "y": -800
+      "width": 260,
+      "x": -390,
+      "y": 1958
     },
     {
-      "height": 160,
-      "id": "7db52771e751365b",
+      "height": 150,
+      "id": "a3d341dcadc5a396",
       "styleAttributes": {
       },
-      "text": "Octomap server\n\n- [ ] refactor\n- [ ] merge changes from SPRIND",
+      "text": "MRS Modulees msgs\n- [ ] refactor\n- [ ] building of doxygen docs",
       "type": "text",
-      "width": 280,
-      "x": 1020,
-      "y": 820
+      "width": 260,
+      "x": -390,
+      "y": 1568
+    },
+    {
+      "height": 180,
+      "id": "3ff50effdbdfc632",
+      "styleAttributes": {
+      },
+      "text": "OpenVins + Core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": -390,
+      "y": 1748
     },
     {
       "height": 240,
@@ -608,6 +586,171 @@
       "y": 820
     },
     {
+      "height": 480,
+      "id": "e4f4951aef61636f",
+      "styleAttributes": {
+      },
+      "text": "MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkg\n - [ ] profiiler (needs mrs lib)\n - [ ] msg extractor (needs mrs lib)\n - [x] service client handler\n - [ ] transformer\n - [ ] transform publisher\n - [ ] batch visualizer\n - [ ] safety zone\n - [ ] .. the rest of the minor libs\n - [ ] building of doxygen docs",
+      "type": "text",
+      "width": 320,
+      "x": -980,
+      "y": -800
+    },
+    {
+      "height": 119,
+      "id": "bf7515e702de9825",
+      "styleAttributes": {
+      },
+      "text": "Python\n\n- [ ] blob detector",
+      "type": "text",
+      "width": 310,
+      "x": 305,
+      "y": 1245
+    },
+    {
+      "height": 119,
+      "id": "5f4051d7df922f17",
+      "styleAttributes": {
+      },
+      "text": "CPP\n\n- [ ] edge detector",
+      "type": "text",
+      "width": 310,
+      "x": -60,
+      "y": 1245
+    },
+    {
+      "height": 85,
+      "id": "cc0db0e55e819beb",
+      "styleAttributes": {
+      },
+      "text": "Landing controller\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": -930,
+      "y": 2355
+    },
+    {
+      "height": 85,
+      "id": "245ff2530108fbfa",
+      "styleAttributes": {
+      },
+      "text": "April tag\n- [ ] find and adapt ROS2 version",
+      "type": "text",
+      "width": 300,
+      "x": -1260,
+      "y": 2465
+    },
+    {
+      "height": 80,
+      "id": "3dc9af2383a1ef5f",
+      "styleAttributes": {
+      },
+      "text": "Gazebo simulation package\n\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": -930,
+      "y": 2470
+    },
+    {
+      "height": 140,
+      "id": "e5a28be95a0f22b0",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Auutostart\n- [ ] Refactor\n- [ ] Tests",
+      "type": "text",
+      "width": 360,
+      "x": -660,
+      "y": 260
+    },
+    {
+      "height": 360,
+      "id": "3a54f9fc106ba176",
+      "styleAttributes": {
+      },
+      "text": "MRS Multirotor simulator\n\n- [ ] refactor\n\t- [ ] dynamic reconfigure\n\t- [ ] rviz integration\n- [ ] test simtime generation\n- [ ] test max simulation rate\n- [ ] HW Api plugin (needs HW API)\n- [ ] tests\n\t- [ ] standalone tests\n\t- [ ] MRS system wide tests\n",
+      "type": "text",
+      "width": 340,
+      "x": -580,
+      "y": -800
+    },
+    {
+      "height": 260,
+      "id": "2d25addcb4de54ed",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Estimators\n\n- [ ] AGL estimators\n- [ ] Altitude estimators\n- [ ] Heading estimators\n- [ ] Lateral estimators\n- [ ] State estimators\n- [ ] **Tests**",
+      "type": "text",
+      "width": 360,
+      "x": -720,
+      "y": -80
+    },
+    {
+      "height": 180,
+      "id": "ec583d3a2323e64c",
+      "styleAttributes": {
+      },
+      "text": "Gazebo",
+      "type": "text",
+      "width": 300,
+      "x": -1680,
+      "y": 1285
+    },
+    {
+      "height": 180,
+      "id": "37beab8f9e529623",
+      "styleAttributes": {
+      },
+      "text": "Drone spawner",
+      "type": "text",
+      "width": 320,
+      "x": -1320,
+      "y": 1285
+    },
+    {
+      "height": 100,
+      "id": "f04e30ef33e766bf",
+      "styleAttributes": {
+      },
+      "text": "- Who is going to do it?\n- Are there any dependencies to real sensor driverss?",
+      "type": "text",
+      "width": 580,
+      "x": -1660,
+      "y": 1910
+    },
+    {
+      "height": 110,
+      "id": "cff4a60eefb04a39",
+      "styleAttributes": {
+      },
+      "text": "UVDAR Core\n\n- [ ] Refactor",
+      "type": "text",
+      "width": 260,
+      "x": -1660,
+      "y": 2040
+    },
+    {
+      "height": 110,
+      "id": "eede414a96507632",
+      "styleAttributes": {
+      },
+      "text": "UVDAR Gazebo plugin\n\n- [ ] Refactor",
+      "type": "text",
+      "width": 260,
+      "x": -1340,
+      "y": 2040
+    },
+    {
+      "height": 140,
+      "id": "e711ffc6949994de",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Status\n- [ ] Acquisition node\n- [ ] Presentation node",
+      "type": "text",
+      "width": 360,
+      "x": -660,
+      "y": 460
+    },
+    {
       "height": 200,
       "id": "47b4058165fa7380",
       "styleAttributes": {
@@ -630,15 +773,48 @@
       "y": 820
     },
     {
-      "height": 140,
-      "id": "837972de6237beb0",
+      "height": 180,
+      "id": "67d9bf3e40cb0c2f",
       "styleAttributes": {
       },
-      "text": "Unreal sim package\n- [ ] Simulator node\n- [ ] HW APi",
+      "text": "PX4 SITL",
       "type": "text",
-      "width": 310,
-      "x": 860,
-      "y": 270
+      "width": 320,
+      "x": -940,
+      "y": 1285
+    },
+    {
+      "height": 180,
+      "id": "c7bfadc9dc195c59",
+      "styleAttributes": {
+      },
+      "text": "Sensor drivers",
+      "type": "text",
+      "width": 300,
+      "x": -1680,
+      "y": 1525
+    },
+    {
+      "height": 180,
+      "id": "3b837ed9ac42179c",
+      "styleAttributes": {
+      },
+      "text": "Gazebo custom drone example\n\nhttps://github.com/ctu-mrs/mrs_gazebo_custom_drone_example",
+      "type": "text",
+      "width": 320,
+      "x": -1320,
+      "y": 1525
+    },
+    {
+      "height": 180,
+      "id": "8fcbc6433e00a28c",
+      "styleAttributes": {
+      },
+      "text": "Gazebo extra resources",
+      "type": "text",
+      "width": 320,
+      "x": -940,
+      "y": 1525
     },
     {
       "height": 160,
@@ -650,28 +826,6 @@
       "width": 320,
       "x": 860,
       "y": -80
-    },
-    {
-      "height": 260,
-      "id": "2d25addcb4de54ed",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Estimators\n\n- [ ] AGL estimators\n- [ ] Altitude estimators\n- [ ] Heading estimators\n- [ ] Lateral estimators\n- [ ] State estimators\n- [ ] **Tests**",
-      "type": "text",
-      "width": 360,
-      "x": -720,
-      "y": -80
-    },
-    {
-      "height": 500,
-      "id": "948dcc65cf2336b0",
-      "styleAttributes": {
-      },
-      "text": "Buildfarm\n\n- [ ] creating of ROS2 PPAs\n- [ ] revisiting bloom\n- [ ] refactoring dockerized compilation pipeline\n- [ ] on-push builds\n- [ ] test pipeline\n- [ ] coverage pipeline",
-      "type": "text",
-      "width": 320,
-      "x": 860,
-      "y": -780
     },
     {
       "height": 240,
@@ -694,17 +848,6 @@
       "width": 276,
       "x": -1320,
       "y": -520
-    },
-    {
-      "height": 480,
-      "id": "e4f4951aef61636f",
-      "styleAttributes": {
-      },
-      "text": "MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkg\n - [ ] profiiler (needs mrs lib)\n - [ ] msg extractor (needs mrs lib)\n - [x] service client handler\n - [ ] transformer\n - [ ] transform publisher\n - [ ] batch visualizer\n - [ ] safety zone\n - [ ] .. the rest of the minor libs\n - [ ] building of doxygen docs",
-      "type": "text",
-      "width": 320,
-      "x": -980,
-      "y": -800
     },
     {
       "height": 240,
@@ -740,125 +883,48 @@
       "y": -520
     },
     {
-      "height": 180,
-      "id": "ec583d3a2323e64c",
+      "height": 160,
+      "id": "e300f42b6e595cb2",
       "styleAttributes": {
       },
-      "text": "Gazebo",
+      "text": "- [ ] refactor ROS bindings and integration\n- [ ] udpate examples",
+      "type": "text",
+      "width": 320,
+      "x": 1360,
+      "y": -80
+    },
+    {
+      "height": 180,
+      "id": "717b2d89e56666a4",
+      "styleAttributes": {
+      },
+      "text": "HW Api\n- [ ] plugin interface\n- [ ] example plugin\n- [ ] plugin manager",
       "type": "text",
       "width": 300,
-      "x": -1680,
-      "y": 1285
-    },
-    {
-      "height": 180,
-      "id": "37beab8f9e529623",
-      "styleAttributes": {
-      },
-      "text": "Drone spawner",
-      "type": "text",
-      "width": 320,
-      "x": -1320,
-      "y": 1285
-    },
-    {
-      "height": 180,
-      "id": "67d9bf3e40cb0c2f",
-      "styleAttributes": {
-      },
-      "text": "PX4 SITL",
-      "type": "text",
-      "width": 320,
-      "x": -940,
-      "y": 1285
-    },
-    {
-      "height": 150,
-      "id": "bd2beb927eff5b0f",
-      "styleAttributes": {
-      },
-      "text": "Libcamera driver library\n\n- [ ] refactor (probably stays the same)",
-      "type": "text",
-      "width": 260,
-      "x": 860,
-      "y": 1240
-    },
-    {
-      "height": 150,
-      "id": "7bc885cb50b155ac",
-      "styleAttributes": {
-      },
-      "text": "Libcamera ROS driver\n\n- [ ] there should be official ROS2 branch\n- [ ] rafactor",
-      "type": "text",
-      "width": 260,
-      "x": 1170,
-      "y": 1240
-    },
-    {
-      "height": 119,
-      "id": "bf7515e702de9825",
-      "styleAttributes": {
-      },
-      "text": "Python\n\n- [ ] blob detector",
-      "type": "text",
-      "width": 310,
-      "x": 305,
-      "y": 1245
-    },
-    {
-      "height": 119,
-      "id": "5f4051d7df922f17",
-      "styleAttributes": {
-      },
-      "text": "CPP\n\n- [ ] edge detector",
-      "type": "text",
-      "width": 310,
-      "x": -60,
-      "y": 1245
+      "x": -180,
+      "y": -770
     },
     {
       "height": 260,
-      "id": "97ed1d412efc528e",
+      "id": "5a01cb84218ab505",
       "styleAttributes": {
       },
-      "text": "Livox360 driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
+      "text": "MRS UAV Trackers\n\n- [ ] Mpc tracker\n- [ ] Line tracker\n- [ ] Midair activation tracker\n- [ ] Landoff tracker\n- [ ] Joy tracker **(keep?)**\n- [ ] Speed tracker **(keep?)**\n- [ ] **Tests**",
       "type": "text",
-      "width": 260,
-      "x": 885,
-      "y": 1568
+      "width": 340,
+      "x": -300,
+      "y": -80
     },
     {
-      "height": 180,
-      "id": "94aae341f9456076",
+      "height": 140,
+      "id": "837972de6237beb0",
       "styleAttributes": {
       },
-      "text": "Luxonis driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
+      "text": "Unreal sim package\n- [ ] Simulator node\n- [ ] HW APi",
       "type": "text",
-      "width": 260,
-      "x": 885,
-      "y": 1858
-    },
-    {
-      "height": 100,
-      "id": "f04e30ef33e766bf",
-      "styleAttributes": {
-      },
-      "text": "- Who is going to do it?\n- Are there any dependencies to real sensor driverss?",
-      "type": "text",
-      "width": 580,
-      "x": -1660,
-      "y": 1910
-    },
-    {
-      "height": 110,
-      "id": "cff4a60eefb04a39",
-      "styleAttributes": {
-      },
-      "text": "UVDAR Core\n\n- [ ] Refactor",
-      "type": "text",
-      "width": 260,
-      "x": -1660,
-      "y": 2040
+      "width": 310,
+      "x": 860,
+      "y": 270
     },
     {
       "height": 260,
@@ -906,105 +972,6 @@
     },
     {
       "height": 150,
-      "id": "84a2304cec18d2c7",
-      "styleAttributes": {
-      },
-      "text": "MRS Utils\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": -100,
-      "y": 1568
-    },
-    {
-      "height": 180,
-      "id": "e75fc4bb88d1f7ef",
-      "styleAttributes": {
-      },
-      "text": "POINT LIO + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": -100,
-      "y": 1958
-    },
-    {
-      "height": 180,
-      "id": "9e62dc2c0c6065b8",
-      "styleAttributes": {
-      },
-      "text": "LIOSAM + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": -100,
-      "y": 1748
-    },
-    {
-      "height": 110,
-      "id": "da9ca37bc9e46d62",
-      "styleAttributes": {
-      },
-      "text": "Trajectory loader\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": 500,
-      "y": 2028
-    },
-    {
-      "height": 110,
-      "id": "eede414a96507632",
-      "styleAttributes": {
-      },
-      "text": "UVDAR Gazebo plugin\n\n- [ ] Refactor",
-      "type": "text",
-      "width": 260,
-      "x": -1340,
-      "y": 2040
-    },
-    {
-      "height": 85,
-      "id": "f33f3af1ef6a7612",
-      "styleAttributes": {
-      },
-      "text": "Landing estimator\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": -1260,
-      "y": 2355
-    },
-    {
-      "height": 85,
-      "id": "cc0db0e55e819beb",
-      "styleAttributes": {
-      },
-      "text": "Landing controller\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": -930,
-      "y": 2355
-    },
-    {
-      "height": 85,
-      "id": "245ff2530108fbfa",
-      "styleAttributes": {
-      },
-      "text": "April tag\n- [ ] find and adapt ROS2 version",
-      "type": "text",
-      "width": 300,
-      "x": -1260,
-      "y": 2465
-    },
-    {
-      "height": 80,
-      "id": "3dc9af2383a1ef5f",
-      "styleAttributes": {
-      },
-      "text": "Gazebo simulation package\n\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": -930,
-      "y": 2470
-    },
-    {
-      "height": 150,
       "id": "29fdc67073be465c",
       "styleAttributes": {
       },
@@ -1013,39 +980,6 @@
       "width": 260,
       "x": 500,
       "y": 1568
-    },
-    {
-      "height": 180,
-      "id": "5bee80f7149dac27",
-      "styleAttributes": {
-      },
-      "text": "ALOAM + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": -390,
-      "y": 1958
-    },
-    {
-      "height": 150,
-      "id": "a3d341dcadc5a396",
-      "styleAttributes": {
-      },
-      "text": "MRS Modulees msgs\n- [ ] refactor\n- [ ] building of doxygen docs",
-      "type": "text",
-      "width": 260,
-      "x": -390,
-      "y": 1568
-    },
-    {
-      "height": 180,
-      "id": "3ff50effdbdfc632",
-      "styleAttributes": {
-      },
-      "text": "OpenVins + Core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": -390,
-      "y": 1748
     },
     {
       "height": 110,
@@ -1068,6 +1002,72 @@
       "width": 260,
       "x": 500,
       "y": 1883
+    },
+    {
+      "height": 200,
+      "id": "7f793a557a5ca152",
+      "styleAttributes": {
+      },
+      "text": "ROS2 inter-robot communication\n\n- How to correctly configure remote access to remote ROS2 machine?\n- How to replace the old Nimbro setup with native ROS2 features",
+      "type": "text",
+      "width": 400,
+      "x": 1320,
+      "y": 240
+    },
+    {
+      "height": 160,
+      "id": "7db52771e751365b",
+      "styleAttributes": {
+      },
+      "text": "Octomap server\n\n- [ ] refactor\n- [ ] merge changes from SPRIND",
+      "type": "text",
+      "width": 280,
+      "x": 1020,
+      "y": 820
+    },
+    {
+      "height": 150,
+      "id": "bd2beb927eff5b0f",
+      "styleAttributes": {
+      },
+      "text": "Libcamera driver library\n\n- [ ] refactor (probably stays the same)",
+      "type": "text",
+      "width": 260,
+      "x": 860,
+      "y": 1240
+    },
+    {
+      "height": 150,
+      "id": "7bc885cb50b155ac",
+      "styleAttributes": {
+      },
+      "text": "Libcamera ROS driver\n\n- [ ] there should be official ROS2 branch\n- [ ] rafactor",
+      "type": "text",
+      "width": 260,
+      "x": 1170,
+      "y": 1240
+    },
+    {
+      "height": 260,
+      "id": "97ed1d412efc528e",
+      "styleAttributes": {
+      },
+      "text": "Livox360 driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
+      "type": "text",
+      "width": 260,
+      "x": 885,
+      "y": 1568
+    },
+    {
+      "height": 180,
+      "id": "94aae341f9456076",
+      "styleAttributes": {
+      },
+      "text": "Luxonis driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
+      "type": "text",
+      "width": 260,
+      "x": 885,
+      "y": 1858
     },
     {
       "height": 150,
@@ -1103,37 +1103,48 @@
       "y": 820
     },
     {
-      "height": 180,
-      "id": "c7bfadc9dc195c59",
+      "height": 260,
+      "id": "61b4ea56b7f515a7",
       "styleAttributes": {
       },
-      "text": "Sensor drivers",
+      "text": "MRS UAV Controllers\n\n- [ ] MpcController\n- [ ] Se3Controller\n- [ ] Failsafe controller\n- [ ] Midaiir actiivation controller\n- [ ] **Tests**",
       "type": "text",
-      "width": 300,
-      "x": -1680,
-      "y": 1525
+      "width": 360,
+      "x": 100,
+      "y": -80
     },
     {
-      "height": 180,
-      "id": "3b837ed9ac42179c",
+      "height": 340,
+      "id": "f411a473cfddfefc",
       "styleAttributes": {
       },
-      "text": "Gazebo custom drone example\n\nhttps://github.com/ctu-mrs/mrs_gazebo_custom_drone_example",
+      "text": "MRS UAV Managers\n\n- [ ] Estimation manager\n- [ ] Control manager\n- [ ] UAV manager\n\t- [ ] maybe try the behavioral trees?\n- [ ] Transform manager\n- [ ] Constraint manager\n- [ ] Gain manager\n- [ ] bulding of doxygen docs",
       "type": "text",
-      "width": 320,
-      "x": -1320,
-      "y": 1525
+      "width": 340,
+      "x": 60,
+      "y": -520
     },
     {
-      "height": 180,
-      "id": "8fcbc6433e00a28c",
+      "height": 140,
+      "id": "dd0cfd16a5d267ca",
       "styleAttributes": {
       },
-      "text": "Gazebo extra resources",
+      "text": "Trajectory generation\n- [ ] Refactor\n- [ ] Tests",
+      "type": "text",
+      "width": 360,
+      "x": -60,
+      "y": 260
+    },
+    {
+      "height": 500,
+      "id": "948dcc65cf2336b0",
+      "styleAttributes": {
+      },
+      "text": "Buildfarm\n\n- [ ] creating of ROS2 PPAs\n- [ ] revisiting bloom\n- [ ] refactoring dockerized compilation pipeline\n- [ ] on-push builds\n- [ ] test pipeline\n- [ ] coverage pipeline",
       "type": "text",
       "width": 320,
-      "x": -940,
-      "y": 1525
+      "x": 860,
+      "y": -780
     },
     {
       "height": 150,
@@ -1147,28 +1158,6 @@
       "y": 1240
     },
     {
-      "height": 200,
-      "id": "7f793a557a5ca152",
-      "styleAttributes": {
-      },
-      "text": "ROS2 inter-robot communication\n\n- How to correctly configure remote access to remote ROS2 machine?\n- How to replace the old Nimbro setup with native ROS2 features",
-      "type": "text",
-      "width": 400,
-      "x": 1320,
-      "y": 240
-    },
-    {
-      "height": 160,
-      "id": "e300f42b6e595cb2",
-      "styleAttributes": {
-      },
-      "text": "- [ ] refactor ROS bindings and integration\n- [ ] udpate examples",
-      "type": "text",
-      "width": 320,
-      "x": 1360,
-      "y": -80
-    },
-    {
       "height": 500,
       "id": "b9590e396869d74d",
       "styleAttributes": {
@@ -1178,6 +1167,17 @@
       "width": 320,
       "x": 1360,
       "y": -780
+    },
+    {
+      "height": 180,
+      "id": "1e19d8dd1cff6cf0",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV testing\n\n- [ ] the abstraction library\n- [ ] tests\n\t- [ ] example tests using the lib",
+      "type": "text",
+      "width": 360,
+      "x": 200,
+      "y": -770
     }
   ]
 }
