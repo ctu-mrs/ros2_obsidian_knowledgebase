@@ -146,9 +146,12 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "webpage-html-export:Export Vault to HTML": false
     }
   },
   "active": "95e89262f7167202",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "index.md"
+  ]
 }
