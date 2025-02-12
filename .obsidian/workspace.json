@@ -30,7 +30,7 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "index.canvas",
+                "file": "main_canvas.canvas",
                 "viewState": {
                   "x": 40,
                   "y": 990,
@@ -38,28 +38,11 @@
                 }
               },
               "icon": "lucide-layout-dashboard",
-              "title": "index"
-            }
-          },
-          {
-            "id": "634cc94f29cb559b",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "index.canvas",
-                "viewState": {
-                  "x": 40,
-                  "y": 990,
-                  "zoom": -3.1970202726451413
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "index"
+              "title": "main_canvas"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -203,14 +186,16 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "webpage-html-export:Export as HTML": false,
+      "obsidian42-brat:BRAT": false
     }
   },
-  "active": "634cc94f29cb559b",
+  "active": "84eae486cfb14575",
   "lastOpenFiles": [
-    "index.canvas",
-    "general_notes.md",
     "index.md",
+    "main_canvas.canvas",
+    "general_notes.md",
     "README.md",
     "index.md~"
   ]

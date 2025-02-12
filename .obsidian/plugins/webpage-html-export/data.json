@@ -1,5 +1,5 @@
 {
-  "settingsVersion": "1.9.0",
+  "settingsVersion": "1.8.1-2b",
   "exportOptions": {
     "createDocumentContainer": true,
     "keepModHeaderFooter": false,
@@ -12,8 +12,8 @@
     "inlineHTML": false,
     "exportPath": "/home/klaxalk/mail/html/output",
     "filesToExport": [
-      "index.canvas",
-      "general_notes.md"
+      "index.md",
+      "main_canvas.canvas"
     ],
     "addBodyClasses": true,
     "addMathjaxStyles": true,
