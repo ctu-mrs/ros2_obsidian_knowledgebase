@@ -11,17 +11,12 @@
             "id": "95e89262f7167202",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "index.canvas",
-                "viewState": {
-                  "x": 40,
-                  "y": 990,
-                  "zoom": -2.042060038537269
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "index"
+                "file": "index.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -43,11 +38,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical",
-                "autoReveal": false
-              },
-              "icon": "lucide-folder-closed",
-              "title": "Files"
+                "sortOrder": "alphabetical"
+              }
             }
           },
           {
@@ -62,9 +54,7 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              },
-              "icon": "lucide-search",
-              "title": "Search"
+              }
             }
           },
           {
@@ -72,9 +62,7 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {},
-              "icon": "lucide-bookmark",
-              "title": "Bookmarks"
+              "state": {}
             }
           }
         ]
@@ -97,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.canvas",
+                "file": "main.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,9 +93,7 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              },
-              "icon": "links-coming-in",
-              "title": "Backlinks for index"
+              }
             }
           },
           {
@@ -116,12 +102,10 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "index.canvas",
+                "file": "main.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "Outgoing links from index"
+              }
             }
           },
           {
@@ -131,12 +115,8 @@
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-tags",
-              "title": "Tags"
+                "useHierarchy": true
+              }
             }
           },
           {
@@ -145,13 +125,8 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.canvas",
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "Outline of index"
+                "file": "main.canvas"
+              }
             }
           }
         ]
@@ -172,10 +147,51 @@
       "webpage-html-export:Export Vault to HTML": false
     }
   },
-  "active": "1dd497fb3d45d625",
+  "floating": {
+    "id": "b5b667030a2317a7",
+    "type": "floating",
+    "children": [
+      {
+        "id": "a9a00509b452287e",
+        "type": "window",
+        "children": [
+          {
+            "id": "ca9a8e8cfa3c2fd5",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "06fefc88b38f4995",
+                "type": "leaf",
+                "state": {
+                  "type": "canvas",
+                  "state": {
+                    "file": "main.canvas",
+                    "viewState": {
+                      "x": 0,
+                      "y": 0,
+                      "zoom": 0
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 190,
+        "y": 499,
+        "width": 1000,
+        "height": 500,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "06fefc88b38f4995",
   "lastOpenFiles": [
     "index.md",
     "index.canvas",
+    "main.canvas",
     "index.md~"
   ]
 }

@@ -9,7 +9,7 @@
     "inlineHTML": false,
     "exportPath": "/output",
     "filesToExport": [
-      "index.canvas",
+      "main.canvas",
       "index.md"
     ],
     "addBodyClasses": true,
