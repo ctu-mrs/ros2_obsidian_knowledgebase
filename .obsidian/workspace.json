@@ -4,22 +4,45 @@
     "type": "split",
     "children": [
       {
-        "id": "09ba4ea696228c51",
+        "id": "0864ae866bfb81d7",
         "type": "tabs",
         "children": [
           {
-            "id": "95e89262f7167202",
+            "id": "2f1cb1fffade3537",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "index.md",
-                "mode": "source",
-                "source": false
-              }
+                "file": "main.canvas",
+                "viewState": {
+                  "x": -198.63812711249955,
+                  "y": -611.1426263511397,
+                  "zoom": -1.3579131965479498
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "main"
+            }
+          },
+          {
+            "id": "84eae486cfb14575",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "main.canvas",
+                "viewState": {
+                  "x": 40,
+                  "y": 990,
+                  "zoom": -3.1970202726451413
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "main"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -38,8 +61,11 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
-              }
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
@@ -54,7 +80,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
@@ -62,7 +90,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
         ]
@@ -93,7 +123,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for main"
             }
           },
           {
@@ -105,7 +137,9 @@
                 "file": "main.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from main"
             }
           },
           {
@@ -115,8 +149,12 @@
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
-              }
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
@@ -125,8 +163,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "main.canvas"
-              }
+                "file": "main.canvas",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of main"
             }
           }
         ]
@@ -144,87 +187,15 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "webpage-html-export:Export Vault to HTML": false
+      "webpage-html-export:Export as HTML": false,
+      "obsidian42-brat:BRAT": false
     }
   },
-  "floating": {
-    "id": "b5b667030a2317a7",
-    "type": "floating",
-    "children": [
-      {
-        "id": "a9a00509b452287e",
-        "type": "window",
-        "children": [
-          {
-            "id": "ca9a8e8cfa3c2fd5",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "06fefc88b38f4995",
-                "type": "leaf",
-                "state": {
-                  "type": "canvas",
-                  "state": {
-                    "file": "main.canvas",
-                    "viewState": {
-                      "x": 0,
-                      "y": 0,
-                      "zoom": 0
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        ],
-        "direction": "vertical",
-        "x": 190,
-        "y": 499,
-        "width": 1000,
-        "height": 500,
-        "maximize": false,
-        "zoom": 0
-      },
-      {
-        "id": "162741133c9d52bc",
-        "type": "window",
-        "children": [
-          {
-            "id": "6b28334d6ee0d630",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "aeb6a836cfb862a7",
-                "type": "leaf",
-                "state": {
-                  "type": "canvas",
-                  "state": {
-                    "file": "main.canvas",
-                    "viewState": {
-                      "x": 0,
-                      "y": 0,
-                      "zoom": 0
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        ],
-        "direction": "vertical",
-        "x": 190,
-        "y": 499,
-        "width": 1000,
-        "height": 500,
-        "maximize": false,
-        "zoom": 0
-      }
-    ]
-  },
-  "active": "aeb6a836cfb862a7",
+  "active": "84eae486cfb14575",
   "lastOpenFiles": [
-    "index.md",
     "main.canvas",
+    "index.md",
+    "README.md",
     "index.canvas",
     "index.md~"
   ]

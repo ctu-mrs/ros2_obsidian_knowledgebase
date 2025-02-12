@@ -2,4 +2,4 @@
 
 ## Main canvas
 
-![[index.canvas]]
+![[main.canvas]]

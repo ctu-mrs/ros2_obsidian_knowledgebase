@@ -21,7 +21,7 @@ jobs:
           set +e
           mkdir -p ./.output
 
-          docker run --rm -v .:/vault -v ./.output:/output spartacus04/obsidian-webpage-export:latest >> ./.log.txt
+          docker run --rm -v .:/vault -v ./.output:/output klaxalk/obsidian_html_export:latest >> ./.log.txt
 
           cat ./.log.txt
 
