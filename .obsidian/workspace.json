@@ -11,10 +11,17 @@
             "id": "5fced7c289e54e73",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "canvas",
+              "state": {
+                "file": "main_canvas.canvas",
+                "viewState": {
+                  "x": -480.98263731656675,
+                  "y": -120.0729428013035,
+                  "zoom": -1.3171833287426595
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "main_canvas"
             }
           }
         ]
@@ -90,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "main.canvas",
+                "file": "main_canvas.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +107,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for main"
+              "title": "Backlinks for main_canvas"
             }
           },
           {
@@ -163,7 +170,7 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "webpage-html-export:Export as HTML": false,
-      "obsidian42-brat:BRAT": false
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "5fced7c289e54e73",

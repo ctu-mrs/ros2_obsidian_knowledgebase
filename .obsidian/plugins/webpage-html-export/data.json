@@ -1,5 +1,5 @@
 {
-  "settingsVersion": "1.8.1-2b",
+  "settingsVersion": "1.9.0",
   "exportOptions": {
     "createDocumentContainer": true,
     "keepModHeaderFooter": false,
@@ -126,7 +126,7 @@
     },
     "graphViewOptions": {
       "featureId": "graph-view",
-      "enabled": true,
+      "enabled": false,
       "unavailable": false,
       "alwaysEnabled": false,
       "displayTitle": "Graph View",
@@ -214,7 +214,7 @@
   "onlyExportModified": false,
   "deleteOldFiles": true,
   "exportPreset": "online",
-  "openAfterExport": true,
+  "openAfterExport": false,
   "filePickerBlacklist": [
     "(^|\\/)node_modules\\/",
     "(^|\\/)dist\\/",
