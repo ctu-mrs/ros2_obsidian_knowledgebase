@@ -11,13 +11,16 @@
             "id": "95e89262f7167202",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "index.md",
-                "mode": "source",
-                "source": false
+                "file": "index.canvas",
+                "viewState": {
+                  "x": 40,
+                  "y": 990,
+                  "zoom": -2.042060038537269
+                }
               },
-              "icon": "lucide-file",
+              "icon": "lucide-layout-dashboard",
               "title": "index"
             }
           }
@@ -94,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.md",
+                "file": "index.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "index.md",
+                "file": "index.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -142,7 +145,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "index.canvas",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -169,52 +172,10 @@
       "webpage-html-export:Export Vault to HTML": false
     }
   },
-  "floating": {
-    "id": "5a79cc661dafe75a",
-    "type": "floating",
-    "children": [
-      {
-        "id": "4b3434f034122a7b",
-        "type": "window",
-        "children": [
-          {
-            "id": "4aaf60feccb0f733",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "9411040884eb12df",
-                "type": "leaf",
-                "state": {
-                  "type": "canvas",
-                  "state": {
-                    "file": "index.canvas",
-                    "viewState": {
-                      "x": 0,
-                      "y": 0,
-                      "zoom": 0
-                    }
-                  },
-                  "icon": "lucide-layout-dashboard",
-                  "title": "index"
-                }
-              }
-            ]
-          }
-        ],
-        "direction": "vertical",
-        "x": 0,
-        "y": 44,
-        "width": 2048,
-        "height": 1109,
-        "maximize": false,
-        "zoom": 0
-      }
-    ]
-  },
-  "active": "95e89262f7167202",
+  "active": "1dd497fb3d45d625",
   "lastOpenFiles": [
-    "index.canvas",
     "index.md",
+    "index.canvas",
     "index.md~"
   ]
 }
