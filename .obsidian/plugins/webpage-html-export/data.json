@@ -12,8 +12,8 @@
     "inlineHTML": false,
     "exportPath": "/home/klaxalk/mail/html/output",
     "filesToExport": [
-      "index.md",
-      "main_canvas.canvas"
+      "main_canvas.canvas",
+      "index.md"
     ],
     "addBodyClasses": true,
     "addMathjaxStyles": true,
@@ -184,7 +184,7 @@
       "unavailable": false,
       "alwaysEnabled": false,
       "siteUrl": "",
-      "siteName": "index",
+      "siteName": "MRS ROS2 Knowledgebase",
       "authorName": ""
     },
     "relativeHeaderLinks": false,
