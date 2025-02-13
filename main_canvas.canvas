@@ -246,7 +246,9 @@
 		{"id":"c1fa6acda9d9def6","fromNode":"ea33ecac5acd018a","fromSide":"left","toNode":"ee618d5cfae44811","toSide":"right"},
 		{"id":"7b16b1ab06ed6080","fromNode":"557c4c5eac63ca96","fromSide":"right","toNode":"eede414a96507632","toSide":"left"},
 		{"id":"b709e0d80f3bfbc0","fromNode":"73686b6e8d0b2939","fromSide":"right","toNode":"00abcb0428f081e1","toSide":"left"},
-		{"id":"afaac9d55f7eeb67","fromNode":"d13488d2d74e6afd","fromSide":"left","toNode":"ce7b80ff4e267b8d","toSide":"bottom"}
+		{"id":"afaac9d55f7eeb67","fromNode":"d13488d2d74e6afd","fromSide":"left","toNode":"ce7b80ff4e267b8d","toSide":"bottom"},
+		{"id":"72c431fab059ff65","fromNode":"1f95f880d2933014","fromSide":"right","toNode":"7a5df689ca0fd012","toSide":"left"},
+		{"id":"223d21c38a0e833d","fromNode":"7a5df689ca0fd012","fromSide":"right","toNode":"f411a473cfddfefc","toSide":"left"}
 	],
 	"nodes":[
 		{
@@ -1083,6 +1085,8 @@
 			"y":813,
 			"width":280,
 			"height":160
-		}
+		},
+		{"id":"7a5df689ca0fd012","type":"text","text":"MRS Errorgraph viewer\n- [ ] refactor","x":-295,"y":-335,"width":230,"height":110},
+		{"id":"1f95f880d2933014","type":"text","text":"MRS Errorgraph\n- [ ] refactor","x":-580,"y":-335,"width":230,"height":110}
 	]
 }
