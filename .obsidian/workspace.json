@@ -15,9 +15,9 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 17.28918026570168,
-                  "y": -244.42087782026692,
-                  "zoom": -0.47970714281963944
+                  "x": 40,
+                  "y": 850,
+                  "zoom": -1.9963411214451563
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -169,13 +169,15 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "webpage-html-export:Export as HTML": false
+      "webpage-html-export:Export as HTML": false,
+      "card-board:CardBoard": false
     }
   },
   "active": "5fced7c289e54e73",
   "lastOpenFiles": [
     "index.md",
     "main_canvas.canvas",
+    "Main.md",
     "general_notes.md",
     "README.md",
     "index.md~"
