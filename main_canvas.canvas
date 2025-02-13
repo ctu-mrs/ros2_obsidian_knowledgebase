@@ -245,7 +245,8 @@
 		{"id":"ca5046d0665f5ac5","fromNode":"e08798985a78c903","fromSide":"right","toNode":"916453ea96973390","toSide":"left"},
 		{"id":"c1fa6acda9d9def6","fromNode":"ea33ecac5acd018a","fromSide":"left","toNode":"ee618d5cfae44811","toSide":"right"},
 		{"id":"7b16b1ab06ed6080","fromNode":"557c4c5eac63ca96","fromSide":"right","toNode":"eede414a96507632","toSide":"left"},
-		{"id":"b709e0d80f3bfbc0","fromNode":"73686b6e8d0b2939","fromSide":"right","toNode":"00abcb0428f081e1","toSide":"left"}
+		{"id":"b709e0d80f3bfbc0","fromNode":"73686b6e8d0b2939","fromSide":"right","toNode":"00abcb0428f081e1","toSide":"left"},
+		{"id":"afaac9d55f7eeb67","fromNode":"d13488d2d74e6afd","fromSide":"left","toNode":"ce7b80ff4e267b8d","toSide":"bottom"}
 	],
 	"nodes":[
 		{
@@ -286,7 +287,7 @@
 			"y":1245,
 			"width":1140,
 			"height":500,
-			"label":"Gazebo + PX4 SITL"
+			"label":"Gazebo + PX4 SITL (Petr Stibinger)"
 		},
 		{
 			"id":"6f991b4128ffbe75",
@@ -307,16 +308,6 @@
 			"width":730,
 			"height":481,
 			"label":"UVDAR"
-		},
-		{
-			"id":"e08798985a78c903",
-			"styleAttributes":{},
-			"type":"group",
-			"x":-1720,
-			"y":780,
-			"width":860,
-			"height":320,
-			"label":"PX4 + Mavros"
 		},
 		{
 			"id":"10401c97066d19b4",
@@ -349,6 +340,16 @@
 			"label":"Core example packages"
 		},
 		{
+			"id":"e08798985a78c903",
+			"styleAttributes":{},
+			"type":"group",
+			"x":-1720,
+			"y":780,
+			"width":840,
+			"height":280,
+			"label":"PX4 + Mavros"
+		},
+		{
 			"id":"ea33ecac5acd018a",
 			"styleAttributes":{},
 			"type":"group",
@@ -372,8 +373,8 @@
 			"id":"9b86b866afbb2c3b",
 			"styleAttributes":{},
 			"type":"group",
-			"x":980,
-			"y":780,
+			"x":1040,
+			"y":773,
 			"width":680,
 			"height":240,
 			"label":"Octomap mapping & planning"
@@ -532,7 +533,7 @@
 		{
 			"id":"ec583d3a2323e64c",
 			"styleAttributes":{},
-			"text":"Gazebo",
+			"text":"Gazebo\n* [ ] refactor the metapackage\n\t* [ ] launch files\n\t* [ ] configs",
 			"type":"text",
 			"x":-1680,
 			"y":1285,
@@ -542,7 +543,7 @@
 		{
 			"id":"37beab8f9e529623",
 			"styleAttributes":{},
-			"text":"Drone spawner",
+			"text":"Drone spawner\n\n* [ ] keep the functionalities\n* [ ] dockerization?",
 			"type":"text",
 			"x":-1320,
 			"y":1285,
@@ -552,7 +553,7 @@
 		{
 			"id":"67d9bf3e40cb0c2f",
 			"styleAttributes":{},
-			"text":"PX4 SITL",
+			"text":"PX4 SITL\n* [ ] updgrade to the newest reasonable PX4 version",
 			"type":"text",
 			"x":-940,
 			"y":1285,
@@ -602,7 +603,7 @@
 		{
 			"id":"47b4058165fa7380",
 			"styleAttributes":{},
-			"text":"Mavros\n\n- does it exists in Jazzy?\n- should we implement our own?",
+			"text":"Mavros\n\n- does it exists in Jazzy?\n- or should we implement our own?",
 			"type":"text",
 			"x":-1680,
 			"y":820,
@@ -612,7 +613,7 @@
 		{
 			"id":"6ebb466899965363",
 			"styleAttributes":{},
-			"text":"PX4 Hw API\n\n- [ ] Refactor",
+			"text":"PX4 Hw API\n\n- [ ] Refactor\n- [ ] Test with a real drone first (if the comunications work as expected)",
 			"type":"text",
 			"x":-1280,
 			"y":820,
@@ -674,7 +675,7 @@
 		{
 			"id":"c7bfadc9dc195c59",
 			"styleAttributes":{},
-			"text":"Sensor drivers",
+			"text":"Sensor drivers (px4_sitl_gazebo)\n* [ ] our custom fixes to the maagnetometer (did not use inclination)\n* [ ] custom fixes to lidar\n* [ ] custom fixes to GPS plugin",
 			"type":"text",
 			"x":-1680,
 			"y":1525,
@@ -694,7 +695,7 @@
 		{
 			"id":"8fcbc6433e00a28c",
 			"styleAttributes":{},
-			"text":"Gazebo extra resources",
+			"text":"Gazebo extra resources\n* [ ] other custom plugins\n* [ ] other custom worlds",
 			"type":"text",
 			"x":-940,
 			"y":1525,
@@ -702,40 +703,19 @@
 			"height":180
 		},
 		{
-			"id":"7db52771e751365b",
-			"styleAttributes":{},
-			"text":"Octomap server\n\n- [ ] refactor\n- [ ] merge changes from SPRIND",
-			"type":"text",
-			"x":1020,
-			"y":820,
-			"width":280,
-			"height":160
-		},
-		{
-			"id":"17a1b4e2b844cba9",
-			"styleAttributes":{},
-			"text":"Octomap planner\n\n- [ ] refactor\n- [ ] merge changes from SPRIND",
-			"type":"text",
-			"x":1340,
-			"y":820,
-			"width":280,
-			"height":160
-		},
-		{
 			"id":"b9590e396869d74d",
 			"styleAttributes":{},
-			"text":"# Docs\n\n- [ ] updating prerequisities about ROS\n- [ ] refactoring all example pages\n- [ ] refactoring pieces of ROS1-related code snippets\n\n# Cheatsheet\n\n- [ ] Update ROS-related sutff",
+			"text":"# Docs\n\n- [ ] updating prerequisities about ROS\n- [ ] refactoring all example pages\n- [ ] refactoring pieces of ROS1-related code snippets\n\n# Cheatsheet\n\n- [ ] Update ROS-related sutff\n\n## Main github page\n\n* [ ] update when ready",
 			"type":"text",
 			"x":1360,
 			"y":-780,
 			"width":320,
 			"height":500
 		},
-		{"id":"916453ea96973390","type":"text","text":"MRS UAV Deployment\n\n* [ ] refactor config files\n* [ ] example tmux sessions","x":-740,"y":873,"width":369,"height":135},
 		{
 			"id":"948dcc65cf2336b0",
 			"styleAttributes":{},
-			"text":"Buildfarm\n\n- [ ] creating of ROS2 PPAs\n- [ ] revisiting bloom\n- [ ] refactoring dockerized compilation pipeline\n- [ ] on-push builds\n- [ ] test pipeline\n- [ ] coverage pipeline",
+			"text":"## Buildfarm\n\n- [ ] creating of ROS2 PPAs\n- [ ] revisiting bloom\n- [ ] refactoring dockerized compilation pipeline\n- [ ] on-push builds\n- [ ] test pipeline\n- [ ] coverage pipeline",
 			"type":"text",
 			"x":860,
 			"y":-780,
@@ -751,36 +731,6 @@
 			"y":1908,
 			"width":260,
 			"height":150
-		},
-		{
-			"id":"5edac578fb58a05a",
-			"styleAttributes":{},
-			"text":"MRS Serial\n- [ ] refactor",
-			"type":"text",
-			"x":-780,
-			"y":2088,
-			"width":260,
-			"height":110
-		},
-		{
-			"id":"4a4d70d4bf3e922b",
-			"styleAttributes":{},
-			"text":"Path loader\n- [ ] refactor",
-			"type":"text",
-			"x":-780,
-			"y":2223,
-			"width":260,
-			"height":110
-		},
-		{
-			"id":"da9ca37bc9e46d62",
-			"styleAttributes":{},
-			"text":"Trajectory loader\n- [ ] refactor",
-			"type":"text",
-			"x":-780,
-			"y":2368,
-			"width":260,
-			"height":110
 		},
 		{
 			"id":"84a2304cec18d2c7",
@@ -815,7 +765,7 @@
 		{
 			"id":"ce7b80ff4e267b8d",
 			"styleAttributes":{},
-			"text":"MRS PCL Tools\n- [ ] refactor",
+			"text":"MRS PCL Tools\n- [ ] refactor\n- depends on Ouster ROS, should we rethink this?",
 			"type":"text",
 			"x":-1080,
 			"y":1908,
@@ -912,7 +862,7 @@
 			"width":260,
 			"height":110
 		},
-		{"id":"ee618d5cfae44811","x":-20,"y":1813,"width":260,"height":120,"type":"text","text":"Robofly's UVDAR\n\n- [ ] rafactor"},
+		{"id":"ee618d5cfae44811","type":"text","text":"Robofly's UVDAR\n\n- [ ] rafactor","x":-20,"y":1813,"width":260,"height":120},
 		{
 			"id":"eede414a96507632",
 			"styleAttributes":{},
@@ -1082,6 +1032,57 @@
 			"y":200,
 			"width":400,
 			"height":200
+		},
+		{"id":"916453ea96973390","type":"text","text":"MRS UAV Deployment\n\n* [ ] refactor config files\n* [ ] example tmux sessions","x":-780,"y":853,"width":369,"height":135},
+		{
+			"id":"da9ca37bc9e46d62",
+			"styleAttributes":{},
+			"text":"Trajectory loader\n- [ ] refactor",
+			"type":"text",
+			"x":-780,
+			"y":2414,
+			"width":260,
+			"height":110
+		},
+		{
+			"id":"4a4d70d4bf3e922b",
+			"styleAttributes":{},
+			"text":"Path loader\n- [ ] refactor",
+			"type":"text",
+			"x":-780,
+			"y":2267,
+			"width":260,
+			"height":110
+		},
+		{
+			"id":"5edac578fb58a05a",
+			"styleAttributes":{},
+			"text":"MRS Serial\n- [ ] refactor\n- important for RTK",
+			"type":"text",
+			"x":-780,
+			"y":2088,
+			"width":260,
+			"height":144
+		},
+		{
+			"id":"7db52771e751365b",
+			"styleAttributes":{},
+			"text":"Octomap server\n\n- [ ] refactor\n- [ ] merge changes from SPRIND",
+			"type":"text",
+			"x":1080,
+			"y":813,
+			"width":280,
+			"height":160
+		},
+		{
+			"id":"17a1b4e2b844cba9",
+			"styleAttributes":{},
+			"text":"Octomap planner\n\n- [ ] refactor\n- [ ] merge changes from SPRIND",
+			"type":"text",
+			"x":1400,
+			"y":813,
+			"width":280,
+			"height":160
 		}
 	]
 }
