@@ -16,8 +16,8 @@
                 "file": "main_canvas.canvas",
                 "viewState": {
                   "x": 40,
-                  "y": 850,
-                  "zoom": -1.9963411214451563
+                  "y": 880,
+                  "zoom": -1.9928116690304665
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -169,8 +169,7 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "webpage-html-export:Export as HTML": false,
-      "card-board:CardBoard": false
+      "webpage-html-export:Export as HTML": false
     }
   },
   "active": "5fced7c289e54e73",
