@@ -22,20 +22,41 @@
             }
           },
           {
-            "id": "837f69f3b9bd7736",
+            "id": "f9389c2cf9ca3b8d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "index.md",
-                "mode": "source",
-                "source": false
+                "file": "main_canvas.canvas",
+                "viewState": {
+                  "x": -300,
+                  "y": 740,
+                  "zoom": -2.11437364891138
+                }
               },
-              "icon": "lucide-file",
-              "title": "index"
+              "icon": "lucide-layout-dashboard",
+              "title": "main_canvas"
+            }
+          },
+          {
+            "id": "9408956923af2506",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "buildfarm_canvas.canvas",
+                "viewState": {
+                  "x": 1160,
+                  "y": 480,
+                  "zoom": -1.5535645740052981
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "buildfarm_canvas"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -183,7 +204,7 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "5fced7c289e54e73",
+  "active": "9408956923af2506",
   "lastOpenFiles": [
     "main_canvas.canvas",
     "index.md",
