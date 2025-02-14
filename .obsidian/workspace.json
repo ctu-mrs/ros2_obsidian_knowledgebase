@@ -32,9 +32,9 @@
               "state": {
                 "file": "buildfarm/buildfarm_canvas.canvas",
                 "viewState": {
-                  "x": 1280,
-                  "y": 480,
-                  "zoom": -1.6428319121023853
+                  "x": 2488.4039424221432,
+                  "y": -61.64709025524299,
+                  "zoom": -0.37115514728943705
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -190,7 +190,7 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "1dd497fb3d45d625",
+  "active": "837f69f3b9bd7736",
   "lastOpenFiles": [
     "main_canvas.canvas",
     "buildfarm/buildfarm_canvas.canvas",
