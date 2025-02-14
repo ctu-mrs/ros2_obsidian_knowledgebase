@@ -32,9 +32,9 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": -300,
-                  "y": 880,
-                  "zoom": -2.8107296488382607
+                  "x": -499.94720106845193,
+                  "y": 202.19108745683548,
+                  "zoom": -1.610729648838261
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -192,6 +192,9 @@
   },
   "active": "a796ad086ae3a1e4",
   "lastOpenFiles": [
+    "img/f4f.jpg",
+    "img/Fly4Future logo monogram blue.jpg",
+    "img",
     "buildfarm_canvas.canvas",
     "main_canvas.canvas",
     "index.md",
