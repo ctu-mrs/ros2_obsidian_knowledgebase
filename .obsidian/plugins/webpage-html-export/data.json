@@ -12,9 +12,9 @@
     "inlineHTML": false,
     "exportPath": "/home/klaxalk/mail/html/output",
     "filesToExport": [
-      "main_canvas.canvas",
       "index.md",
-      "buildfarm"
+      "main_canvas.canvas",
+      "buildfarm_canvas.canvas"
     ],
     "addBodyClasses": true,
     "addMathjaxStyles": true,

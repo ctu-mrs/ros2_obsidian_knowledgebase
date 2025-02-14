@@ -13,7 +13,7 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "buildfarm/buildfarm_canvas.canvas",
+                "file": "buildfarm_canvas.canvas",
                 "viewState": {
                   "x": 1189.379151002161,
                   "y": 807.541761722429,
@@ -28,21 +28,17 @@
             "id": "837f69f3b9bd7736",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "buildfarm/buildfarm_canvas.canvas",
-                "viewState": {
-                  "x": 2414.148789281137,
-                  "y": 481.2785770315164,
-                  "zoom": -1.534218914151767
-                }
+                "file": "index.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "buildfarm_canvas"
+              "icon": "lucide-file",
+              "title": "index"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -190,12 +186,12 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "837f69f3b9bd7736",
+  "active": "5fced7c289e54e73",
   "lastOpenFiles": [
-    "main_canvas.canvas",
-    "buildfarm/buildfarm_canvas.canvas",
-    "buildfarm/Buildfarm.md",
     "index.md",
+    "main_canvas.canvas",
+    "buildfarm_canvas.canvas",
+    "buildfarm/Buildfarm.md",
     "buildfarm",
     "Main.md",
     "general_notes.md",
