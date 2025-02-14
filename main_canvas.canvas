@@ -622,7 +622,7 @@
 			"width":260,
 			"height":150
 		},
-		{"id":"6128217b9c10a8a2","type":"text","text":"## Pressure from F4F:\n\n\n### 1. to have the feature ready 24/7\n### 2. to have the feature easy to use and easy to install","x":-2440,"y":-800,"width":520,"height":178},
+		{"id":"6128217b9c10a8a2","type":"text","text":"## Pressure from F4F:\n\n\n### 1. to have the feature ready 24/7\n### 2. to have the feature easy to use and easy to install","x":-2440,"y":-800,"width":520,"height":230},
 		{
 			"id":"29fdc67073be465c",
 			"styleAttributes":{},
@@ -1286,6 +1286,8 @@
 		{"id":"dd7dffb381f9d212","type":"text","text":"# F4F","x":-62,"y":2069,"width":113,"height":50},
 		{"id":"29dd36b93e8f66bd","type":"text","text":"# F4F","x":500,"y":2440,"width":113,"height":50},
 		{"id":"d2c20734dcdb9f97","type":"text","text":"# F4F","x":1514,"y":2606,"width":113,"height":50},
-		{"id":"d353eeaa0de663f3","type":"text","text":"# F4F","x":-1535,"y":2060,"width":113,"height":50}
+		{"id":"d353eeaa0de663f3","type":"text","text":"# F4F","x":-1535,"y":2060,"width":113,"height":50},
+		{"id":"13735936d4bf9968","type":"text","text":"# F4F","x":-1245,"y":2307,"width":113,"height":50},
+		{"id":"4895275b515dc531","type":"text","text":"# F4F","x":-1540,"y":2305,"width":113,"height":50}
 	]
 }
