@@ -11,17 +11,14 @@
             "id": "f9389c2cf9ca3b8d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "main_canvas.canvas",
-                "viewState": {
-                  "x": 119.41942641154844,
-                  "y": 613.3118646731256,
-                  "zoom": -1.8654689368223059
-                }
+                "file": "index.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "main_canvas"
+              "icon": "lucide-file",
+              "title": "index"
             }
           }
         ]
@@ -174,8 +171,9 @@
   },
   "active": "f9389c2cf9ca3b8d",
   "lastOpenFiles": [
-    "index.md",
     "main_canvas.canvas",
+    "index.md",
+    "link.md",
     "buildfarm_canvas.canvas",
     "buildfarm/Buildfarm.md",
     "buildfarm",
