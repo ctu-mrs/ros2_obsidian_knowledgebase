@@ -251,7 +251,259 @@
 		{"id":"5a4c1f87da49d010","fromNode":"e711ffc6949994de","fromSide":"left","toNode":"ec3550681db8eb58","toSide":"bottom"},
 		{"id":"7f143e97378216b7","fromNode":"e08798985a78c903","fromSide":"bottom","toNode":"862b49a3d9c80bca","toSide":"left"},
 		{"id":"7252c6d8a782eee9","fromNode":"73686b6e8d0b2939","fromSide":"bottom","toNode":"072d83bdd80947e8","toSide":"top"},
-		{"id":"7ce57aff69d78468","fromNode":"73686b6e8d0b2939","fromSide":"bottom","toNode":"fa9123b820850175","toSide":"left"}
+		{"id":"7ce57aff69d78468","fromNode":"73686b6e8d0b2939","fromSide":"bottom","toNode":"fa9123b820850175","toSide":"left"},
+		{
+			"id":"ca6dfcc586f3ce3f",
+			"styleAttributes":{},
+			"fromNode":"aaaab617f748c6a3",
+			"fromSide":"bottom",
+			"toNode":"bc4310d365a0e7e8",
+			"toSide":"top"
+		},
+		{
+			"id":"00458bb716f63e56",
+			"styleAttributes":{},
+			"fromNode":"aaaab617f748c6a3",
+			"fromSide":"bottom",
+			"toNode":"5ac9c59c060fecca",
+			"toSide":"top"
+		},
+		{
+			"id":"90ecab4104b62b5e",
+			"styleAttributes":{},
+			"fromNode":"aaaab617f748c6a3",
+			"fromSide":"right",
+			"toNode":"92ae3457221c6143",
+			"toSide":"left"
+		},
+		{
+			"id":"ac949f4b10d94403",
+			"styleAttributes":{},
+			"fromNode":"aaaab617f748c6a3",
+			"fromSide":"bottom",
+			"toNode":"84954f8506876902",
+			"toSide":"left"
+		},
+		{"id":"7916468341d79958","fromNode":"aaaab617f748c6a3","fromSide":"right","toNode":"1a72efb6732492c3","toSide":"left"},
+		{"id":"7248c41dea02b0b4","fromNode":"aaaab617f748c6a3","fromSide":"bottom","toNode":"e7a0b09a50f2a123","toSide":"right"},
+		{"id":"e0403a82a13ec5a4","fromNode":"aaaab617f748c6a3","fromSide":"bottom","toNode":"8a68d70c800e0b45","toSide":"top"},
+		{"id":"5919427c6a6e8e19","fromNode":"aaaab617f748c6a3","fromSide":"bottom","toNode":"7516d719c097ed75","toSide":"top"},
+		{"id":"a7eceb19835bdfc5","fromNode":"aaaab617f748c6a3","fromSide":"bottom","toNode":"b0046dc5c9114021","toSide":"left"},
+		{"id":"44af51bd5b434366","fromNode":"14d44491d4069ac6","fromSide":"left","toNode":"0cd825ba4227b51d","toSide":"right"},
+		{"id":"5c19acb34699539e","fromNode":"480a1e36902eaaf1","fromSide":"right","toNode":"14d44491d4069ac6","toSide":"left"},
+		{
+			"id":"7495a021c6b8b3ae",
+			"styleAttributes":{},
+			"fromNode":"3d60be475ef2b403",
+			"fromSide":"right",
+			"toNode":"3850114563bbed3b",
+			"toSide":"left"
+		},
+		{"id":"086a3dec1aa1ece4","fromNode":"3d60be475ef2b403","fromSide":"right","toNode":"fc8bdfcafef3b0dd","toSide":"left"},
+		{"id":"e22cc4ae182e60d9","fromNode":"3d60be475ef2b403","fromSide":"right","toNode":"8579dd0ad5140f49","toSide":"left"},
+		{
+			"id":"1e988c02d843d4ba",
+			"styleAttributes":{},
+			"fromNode":"bc4310d365a0e7e8",
+			"fromSide":"bottom",
+			"toNode":"3d60be475ef2b403",
+			"toSide":"top"
+		},
+		{"id":"d0eb3d249bb1a4d7","fromNode":"e7a0b09a50f2a123","fromSide":"left","toNode":"3d60be475ef2b403","toSide":"top"},
+		{
+			"id":"b686ae3c88bf5a77",
+			"styleAttributes":{},
+			"fromNode":"994b2062c749b9dd",
+			"fromSide":"right",
+			"toNode":"ea39ede754405e65",
+			"toSide":"left"
+		},
+		{
+			"id":"faa5c68350197309",
+			"styleAttributes":{},
+			"fromNode":"92ae3457221c6143",
+			"fromSide":"bottom",
+			"toNode":"ea39ede754405e65",
+			"toSide":"left"
+		},
+		{"id":"a73fb764c95d4c95","fromNode":"bc4310d365a0e7e8","fromSide":"right","toNode":"7772b170324f3477","toSide":"left"},
+		{"id":"905930b084c32184","fromNode":"bc4310d365a0e7e8","fromSide":"bottom","toNode":"a453563c8087912b","toSide":"left"},
+		{"id":"0d8a95b03fb9e393","fromNode":"6de96ab3b6f0a9d2","fromSide":"right","toNode":"20a3abdf491cbafa","toSide":"left"},
+		{
+			"id":"d464369027f93c9e",
+			"styleAttributes":{},
+			"fromNode":"9003f2155c39c260",
+			"fromSide":"right",
+			"toNode":"f08e8cee789eac43",
+			"toSide":"left"
+		},
+		{
+			"id":"56025641c22c08fa",
+			"styleAttributes":{},
+			"fromNode":"9003f2155c39c260",
+			"fromSide":"bottom",
+			"toNode":"be105eb805dce944",
+			"toSide":"top"
+		},
+		{
+			"id":"597d07c12eba2012",
+			"styleAttributes":{},
+			"fromNode":"46fa241e5887d853",
+			"fromSide":"right",
+			"toNode":"9003f2155c39c260",
+			"toSide":"left"
+		},
+		{"id":"7b93dc4d9d0261df","fromNode":"f08e8cee789eac43","fromSide":"right","toNode":"da15dedbce603233","toSide":"left"},
+		{
+			"id":"c9fce023f80cc57f",
+			"styleAttributes":{},
+			"fromNode":"f08e8cee789eac43",
+			"fromSide":"bottom",
+			"toNode":"be105eb805dce944",
+			"toSide":"top"
+		},
+		{
+			"id":"44911d05dd883038",
+			"styleAttributes":{},
+			"fromNode":"20a3abdf491cbafa",
+			"fromSide":"bottom",
+			"toNode":"0a1c0f43a677928b",
+			"toSide":"top"
+		},
+		{
+			"id":"e37889b4ecb4de63",
+			"styleAttributes":{},
+			"fromNode":"20a3abdf491cbafa",
+			"fromSide":"bottom",
+			"toNode":"d8ff5a04f61cda42",
+			"toSide":"top"
+		},
+		{
+			"id":"a7a0bd3e0e71ec5a",
+			"styleAttributes":{},
+			"fromNode":"20a3abdf491cbafa",
+			"fromSide":"bottom",
+			"toNode":"3e1f8ef2e374979c",
+			"toSide":"top"
+		},
+		{
+			"id":"6cbfb6a8a8c8c93c",
+			"styleAttributes":{},
+			"fromNode":"3215ccd33e8b0aec",
+			"fromSide":"bottom",
+			"toNode":"20a3abdf491cbafa",
+			"toSide":"top"
+		},
+		{
+			"id":"cebb211ffbe96f9c",
+			"styleAttributes":{},
+			"fromNode":"59abf61ac6697972",
+			"fromSide":"right",
+			"toNode":"3215ccd33e8b0aec",
+			"toSide":"left"
+		},
+		{
+			"id":"b54aa1781b7d00a2",
+			"styleAttributes":{},
+			"fromNode":"59abf61ac6697972",
+			"fromSide":"bottom",
+			"toNode":"da15dedbce603233",
+			"toSide":"bottom"
+		},
+		{
+			"id":"0ca9c73599478f8c",
+			"styleAttributes":{},
+			"fromNode":"da15dedbce603233",
+			"fromSide":"right",
+			"toNode":"59abf61ac6697972",
+			"toSide":"left"
+		},
+		{
+			"id":"79ff864044cd4974",
+			"styleAttributes":{},
+			"fromNode":"6ba70840b421177f",
+			"fromSide":"bottom",
+			"toNode":"46fa241e5887d853",
+			"toSide":"top"
+		},
+		{"id":"1717ef26e79dcdb3","fromNode":"61fce3c72d1b238d","fromSide":"right","toNode":"a0b97edabc006db0","toSide":"left"},
+		{"id":"18ae868eb82f4f26","fromNode":"fe692e744730eb96","fromSide":"left","toNode":"994b2062c749b9dd","toSide":"bottom"},
+		{
+			"id":"ae49e1c1ec0bb519",
+			"styleAttributes":{},
+			"fromNode":"994b2062c749b9dd",
+			"fromSide":"right",
+			"toNode":"ae1c7dc8e1aae209",
+			"toSide":"left"
+		},
+		{
+			"id":"0832489b4dab4c8e",
+			"styleAttributes":{},
+			"fromNode":"fd0957dd2fe435c9",
+			"fromSide":"right",
+			"toNode":"90d3b45cb75b5966",
+			"toSide":"left"
+		},
+		{"id":"1075370806ee2231","fromNode":"c379fd780704435b","fromSide":"left","toNode":"6dab2e5f499bf953","toSide":"right"},
+		{"id":"c65cc5bc6b4e8567","fromNode":"22e70674ffb4587b","fromSide":"left","toNode":"af352d2d46cfbfc4","toSide":"right"},
+		{"id":"90434593d89f6957","fromNode":"45c55612086e14fb","fromSide":"left","toNode":"be105eb805dce944","toSide":"bottom"},
+		{
+			"id":"0eb3f0a64f7e5962",
+			"styleAttributes":{},
+			"fromNode":"f490f9a0c6969672",
+			"fromSide":"bottom",
+			"toNode":"45c55612086e14fb",
+			"toSide":"top"
+		},
+		{"id":"13d6374d14f71cf1","fromNode":"b9c7536021bd414d","fromSide":"left","toNode":"d72fe694fd8a7d5a","toSide":"right"},
+		{
+			"id":"6f919b6dfcd99321",
+			"styleAttributes":{},
+			"fromNode":"d8ff5a04f61cda42",
+			"fromSide":"bottom",
+			"toNode":"d72fe694fd8a7d5a",
+			"toSide":"top"
+		},
+		{
+			"id":"d4f335b9e05d4392",
+			"styleAttributes":{},
+			"fromNode":"0a1c0f43a677928b",
+			"fromSide":"bottom",
+			"toNode":"d72fe694fd8a7d5a",
+			"toSide":"top"
+		},
+		{
+			"id":"b8f6c5a0d9776d37",
+			"styleAttributes":{},
+			"fromNode":"3e1f8ef2e374979c",
+			"fromSide":"bottom",
+			"toNode":"d72fe694fd8a7d5a",
+			"toSide":"top"
+		},
+		{
+			"id":"73e0a5a869cc9f0f",
+			"styleAttributes":{},
+			"fromNode":"3e1f8ef2e374979c",
+			"fromSide":"bottom",
+			"toNode":"f490f9a0c6969672",
+			"toSide":"top"
+		},
+		{
+			"id":"1e6361eea1eed619",
+			"styleAttributes":{},
+			"fromNode":"d8ff5a04f61cda42",
+			"fromSide":"bottom",
+			"toNode":"f490f9a0c6969672",
+			"toSide":"top"
+		},
+		{
+			"id":"fbb855fe7b4f7cb3",
+			"styleAttributes":{},
+			"fromNode":"0a1c0f43a677928b",
+			"fromSide":"bottom",
+			"toNode":"f490f9a0c6969672",
+			"toSide":"top"
+		}
 	],
 	"nodes":[
 		{
@@ -259,6 +511,16 @@
 			"styleAttributes":{},
 			"type":"group",
 			"x":-1800,
+			"y":-1240,
+			"width":3640,
+			"height":4240,
+			"label":"ROS2 transition - MRS UAV System diagram"
+		},
+		{
+			"id":"a2bd6480e9ae73c1",
+			"styleAttributes":{},
+			"type":"group",
+			"x":2240,
 			"y":-1240,
 			"width":3640,
 			"height":4240,
@@ -275,10 +537,31 @@
 			"label":"MRS UAV Core"
 		},
 		{
+			"id":"aaaab617f748c6a3",
+			"styleAttributes":{},
+			"type":"group",
+			"x":2320,
+			"y":-1160,
+			"width":2420,
+			"height":1670,
+			"label":"MRS UAV Core"
+		},
+		{
 			"id":"11f2a724f5716550",
 			"styleAttributes":{},
 			"type":"group",
 			"x":-1720,
+			"y":1720,
+			"width":1240,
+			"height":830,
+			"color":"1",
+			"label":"MRS UAV Modules"
+		},
+		{
+			"id":"5ac9c59c060fecca",
+			"styleAttributes":{},
+			"type":"group",
+			"x":2320,
 			"y":1720,
 			"width":1240,
 			"height":830,
@@ -297,10 +580,32 @@
 			"label":"Robofly"
 		},
 		{
+			"id":"14d44491d4069ac6",
+			"styleAttributes":{},
+			"type":"group",
+			"x":4850,
+			"y":1201,
+			"width":940,
+			"height":738,
+			"color":"6",
+			"label":"Robofly"
+		},
+		{
 			"id":"6f991b4128ffbe75",
 			"styleAttributes":{},
 			"type":"group",
 			"x":810,
+			"y":2018,
+			"width":930,
+			"height":723,
+			"color":"1",
+			"label":"Sensor drivers"
+		},
+		{
+			"id":"811b462e9b6e1dba",
+			"styleAttributes":{},
+			"type":"group",
+			"x":4850,
 			"y":2018,
 			"width":930,
 			"height":723,
@@ -318,12 +623,35 @@
 			"color":"1",
 			"label":"Gazebo + PX4 SITL"
 		},
+		{
+			"id":"3d60be475ef2b403",
+			"styleAttributes":{},
+			"type":"group",
+			"x":2320,
+			"y":1128,
+			"width":1140,
+			"height":527,
+			"color":"1",
+			"label":"Gazebo + PX4 SITL"
+		},
 		{"id":"072d83bdd80947e8","type":"group","x":-1720,"y":2640,"width":1309,"height":301,"color":"1","label":"MRS Course tasks"},
+		{"id":"7516d719c097ed75","type":"group","x":2320,"y":2640,"width":1309,"height":301,"color":"1","label":"MRS Course tasks"},
 		{
 			"id":"781513a7878cc14c",
 			"styleAttributes":{},
 			"type":"group",
 			"x":-252,
+			"y":1698,
+			"width":692,
+			"height":481,
+			"color":"1",
+			"label":"UVDAR"
+		},
+		{
+			"id":"0393c4697b3bb8e0",
+			"styleAttributes":{},
+			"type":"group",
+			"x":3788,
 			"y":1698,
 			"width":692,
 			"height":481,
@@ -342,10 +670,32 @@
 			"label":"Documentation"
 		},
 		{
+			"id":"545956ebf068dcf5",
+			"styleAttributes":{},
+			"type":"group",
+			"x":5360,
+			"y":-1150,
+			"width":400,
+			"height":825,
+			"color":"1",
+			"label":"Documentation"
+		},
+		{
 			"id":"10401c97066d19b4",
 			"styleAttributes":{},
 			"type":"group",
 			"x":810,
+			"y":-1150,
+			"width":400,
+			"height":815,
+			"color":"6",
+			"label":"Buildfarm"
+		},
+		{
+			"id":"bfeccb5b22824365",
+			"styleAttributes":{},
+			"type":"group",
+			"x":4850,
 			"y":-1150,
 			"width":400,
 			"height":815,
@@ -364,10 +714,32 @@
 			"label":"Octomap mapping & planning"
 		},
 		{
+			"id":"ea39ede754405e65",
+			"styleAttributes":{},
+			"type":"group",
+			"x":5020,
+			"y":669,
+			"width":680,
+			"height":428,
+			"color":"6",
+			"label":"Octomap mapping & planning"
+		},
+		{
 			"id":"7ae192d75567f47b",
 			"styleAttributes":{},
 			"type":"group",
 			"x":40,
+			"y":587,
+			"width":730,
+			"height":327,
+			"color":"6",
+			"label":"Core example packages"
+		},
+		{
+			"id":"84954f8506876902",
+			"styleAttributes":{},
+			"type":"group",
+			"x":4080,
 			"y":587,
 			"width":730,
 			"height":327,
@@ -386,6 +758,17 @@
 			"label":"PX4 + Mavros"
 		},
 		{
+			"id":"bc4310d365a0e7e8",
+			"styleAttributes":{},
+			"type":"group",
+			"x":2320,
+			"y":660,
+			"width":840,
+			"height":280,
+			"color":"6",
+			"label":"PX4 + Mavros"
+		},
+		{
 			"id":"2219ba27b4d116dc",
 			"styleAttributes":{},
 			"type":"group",
@@ -396,7 +779,19 @@
 			"color":"4",
 			"label":"Precise Landing"
 		},
+		{
+			"id":"8579dd0ad5140f49",
+			"styleAttributes":{},
+			"type":"group",
+			"x":3788,
+			"y":2320,
+			"width":901,
+			"height":255,
+			"color":"4",
+			"label":"Precise Landing"
+		},
 		{"id":"7c0574e53af29f11","type":"group","x":-580,"y":-650,"width":570,"height":370,"color":"6","label":"New features - not in ROS1 MRS yet"},
+		{"id":"6de96ab3b6f0a9d2","type":"group","x":3460,"y":-650,"width":570,"height":370,"color":"6","label":"New features - not in ROS1 MRS yet"},
 		{
 			"id":"a6ac2ebd9ec767c2",
 			"styleAttributes":{},
@@ -408,7 +803,19 @@
 			"color":"4",
 			"label":"Computer vision examples"
 		},
+		{
+			"id":"3850114563bbed3b",
+			"styleAttributes":{},
+			"type":"group",
+			"x":4080,
+			"y":1022,
+			"width":730,
+			"height":219,
+			"color":"4",
+			"label":"Computer vision examples"
+		},
 		{"id":"862b49a3d9c80bca","type":"group","x":-254,"y":2741,"width":662,"height":200,"color":"1","label":"Summer School task"},
+		{"id":"a453563c8087912b","type":"group","x":3786,"y":2741,"width":662,"height":200,"color":"1","label":"Summer School task"},
 		{
 			"id":"7cfbdb87a698472d",
 			"styleAttributes":{},
@@ -431,7 +838,30 @@
 			"color":"4",
 			"label":"MRS Docker"
 		},
+		{
+			"id":"09642a74031afe16",
+			"styleAttributes":{},
+			"type":"group",
+			"x":5360,
+			"y":-210,
+			"width":400,
+			"height":240,
+			"color":"4",
+			"label":"MRS Docker"
+		},
+		{
+			"id":"76f9d4469ef68333",
+			"styleAttributes":{},
+			"type":"group",
+			"x":4860,
+			"y":-210,
+			"width":400,
+			"height":240,
+			"color":"4",
+			"label":"MRS Apptainer"
+		},
 		{"id":"e7bbfaca6dc6ce3e","type":"group","x":246,"y":1392,"width":489,"height":190,"color":"4","label":"Portainer system"},
+		{"id":"480a1e36902eaaf1","type":"group","x":4286,"y":1392,"width":489,"height":190,"color":"4","label":"Portainer system"},
 		{
 			"id":"b4bb372844e3a9b5",
 			"styleAttributes":{},
@@ -443,9 +873,23 @@
 			"color":"4",
 			"label":"Flight Forge"
 		},
+		{
+			"id":"92ae3457221c6143",
+			"styleAttributes":{},
+			"type":"group",
+			"x":4860,
+			"y":340,
+			"width":400,
+			"height":200,
+			"color":"4",
+			"label":"Flight Forge"
+		},
 		{"id":"222e379d289072b3","type":"group","x":-1665,"y":2741,"width":360,"height":179,"color":"1","label":"Task 01 controller"},
 		{"id":"8c9a05731f55ade6","type":"group","x":-1245,"y":2741,"width":360,"height":179,"color":"1","label":"Task 02 formation"},
 		{"id":"88dd0f6173a42de6","type":"group","x":-825,"y":2741,"width":360,"height":179,"color":"1","label":"Task 03 swarm"},
+		{"id":"0ed355891556ae28","type":"group","x":3215,"y":2741,"width":360,"height":179,"color":"1","label":"Task 03 swarm"},
+		{"id":"316f35c5465cc60d","type":"group","x":2375,"y":2741,"width":360,"height":179,"color":"1","label":"Task 01 controller"},
+		{"id":"73fc265a11c1ed89","type":"group","x":2795,"y":2741,"width":360,"height":179,"color":"1","label":"Task 02 formation"},
 		{"id":"69b9142cc9d39aa1","type":"group","x":-2440,"y":-1240,"width":520,"height":80,"color":"4","label":"Days-worth of work (1 Tomas)"},
 		{"id":"c246d3d678787d0c","type":"group","x":-2440,"y":-1080,"width":520,"height":80,"color":"6","label":"Weeks-woth of work (1 Tomas)"},
 		{"id":"e3ce490957a9f710","type":"group","x":-2440,"y":-920,"width":520,"height":80,"color":"1","label":"Months-worth of work (1 Tomas)"},
@@ -1289,6 +1733,845 @@
 		{"id":"4f9bc6bb5df7027e","type":"text","text":"# F4F","x":-140,"y":-345,"width":113,"height":50},
 		{"id":"43c87423fe6969f6","type":"text","text":"# F4F","x":964,"y":-420,"width":113,"height":50},
 		{"id":"3b9bab7843413108","type":"text","text":"# F4F","x":1469,"y":-420,"width":113,"height":50},
-		{"id":"8c5abef1296ae794","type":"text","text":"# F4F","x":-1258,"y":2307,"width":113,"height":50}
+		{"id":"8c5abef1296ae794","type":"text","text":"# F4F","x":-1258,"y":2307,"width":113,"height":50},
+		{
+			"id":"ed19c4fd0b82eb7d",
+			"styleAttributes":{},
+			"text":"# MRS Docs\n\n- [ ] updating prerequisities about ROS\n- [ ] refactoring all example pages\n- [ ] refactoring pieces of ROS1-related code snippets\n\n# Cheatsheet\n\n- [ ] Update ROS-related stuff\n\n## Main github page\n\n* [ ] update when ready\n\n## MRS Internal wiki\n\n- [ ] update",
+			"type":"text",
+			"x":5400,
+			"y":-1090,
+			"width":320,
+			"height":570
+		},
+		{"id":"284870c108cacac0","type":"text","text":"## CI Scripts\n\n- set of common scripts used by the **buildfarm** and by separate repositories' actions\n- [ ] update and refactor","x":4890,"y":-730,"width":300,"height":210},
+		{"id":"61fce3c72d1b238d","type":"text","text":"MRS Errorgraph\n- [ ] refactor\n- [ ] incorporate","x":3480,"y":-625,"width":230,"height":145},
+		{"id":"a0b97edabc006db0","type":"text","text":"MRS Errorgraph viewer\n- [ ] refactor\n- [ ] incorporate","x":3765,"y":-622,"width":230,"height":140},
+		{
+			"id":"20a3abdf491cbafa",
+			"styleAttributes":{},
+			"text":"MRS UAV Managers\n\n- [ ] Estimation manager\n- [ ] Control manager\n- [ ] UAV manager\n\t- [ ] maybe try the behavioral trees?\n- [ ] Transform manager\n- [ ] Constraint manager\n- [ ] Gain manager\n- [ ] bulding of doxygen docs",
+			"type":"text",
+			"x":4120,
+			"y":-840,
+			"width":340,
+			"height":340,
+			"color":"6"
+		},
+		{
+			"id":"3215ccd33e8b0aec",
+			"styleAttributes":{},
+			"text":"MRS UAV testing\n\n- [ ] the abstraction library\n- [ ] tests\n\t- [ ] example tests using the lib",
+			"type":"text",
+			"x":4260,
+			"y":-1090,
+			"width":360,
+			"height":180,
+			"color":"4"
+		},
+		{
+			"id":"b0d06a94811ad403",
+			"styleAttributes":{},
+			"text":"Trajectory loader\n- [ ] refactor",
+			"type":"text",
+			"x":2370,
+			"y":2410,
+			"width":260,
+			"height":110,
+			"color":"4"
+		},
+		{
+			"id":"66326ec5acdf782b",
+			"styleAttributes":{},
+			"text":"Path loader\n- [ ] refactor",
+			"type":"text",
+			"x":2660,
+			"y":2415,
+			"width":260,
+			"height":110,
+			"color":"4"
+		},
+		{"id":"58621222d3fd09f8","type":"text","text":"Summer school simulation and wrappers\n- [ ] update and refactor","x":3826,"y":2781,"width":290,"height":119},
+		{"id":"824ed8d68a437fb0","type":"text","text":"Summer school real-world deployment\n\n- [ ] update and refactor","x":4148,"y":2781,"width":250,"height":119},
+		{
+			"id":"d9efdf48416f6634",
+			"styleAttributes":{},
+			"text":"Realsense driver\n\n* does it have a newer ROS2 branch?\n* [ ] refactor",
+			"type":"text",
+			"x":5185,
+			"y":2318,
+			"width":260,
+			"height":180
+		},
+		{
+			"id":"f70cf53d17a860e8",
+			"styleAttributes":{},
+			"text":"Landing estimator\n- [ ] refactor",
+			"type":"text",
+			"x":3818,
+			"y":2355,
+			"width":300,
+			"height":85
+		},
+		{
+			"id":"52fae0325ca43366",
+			"styleAttributes":{},
+			"text":"Landing controller\n- [ ] refactor",
+			"type":"text",
+			"x":4148,
+			"y":2355,
+			"width":300,
+			"height":85
+		},
+		{
+			"id":"c8e77b406c7936fd",
+			"styleAttributes":{},
+			"text":"April tag\n- [ ] find and adapt ROS2 version",
+			"type":"text",
+			"x":3818,
+			"y":2465,
+			"width":300,
+			"height":85
+		},
+		{
+			"id":"4f6d2b65f26213f3",
+			"styleAttributes":{},
+			"text":"Gazebo simulation package\n\n- [ ] refactor",
+			"type":"text",
+			"x":4148,
+			"y":2470,
+			"width":300,
+			"height":80
+		},
+		{"id":"4fe6b841905fac37","type":"text","text":"# F4F","x":4540,"y":2440,"width":113,"height":50},
+		{
+			"id":"ec0982c6be7a1fcf",
+			"styleAttributes":{},
+			"text":"Luxonis driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
+			"type":"text",
+			"x":4880,
+			"y":2318,
+			"width":260,
+			"height":180
+		},
+		{
+			"id":"2a0c6b5a5bd2ff46",
+			"styleAttributes":{},
+			"text":"Livox360 driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
+			"type":"text",
+			"x":4880,
+			"y":2058,
+			"width":260,
+			"height":230
+		},
+		{
+			"id":"16c9829312fa1f11",
+			"styleAttributes":{},
+			"text":"Bluefox driver\n\n* does it have a newer ROS2 branch?\n\n* [ ] refactor",
+			"type":"text",
+			"x":5180,
+			"y":2058,
+			"width":260,
+			"height":230
+		},
+		{
+			"id":"8fc477aa2585cd15",
+			"styleAttributes":{},
+			"text":"RPLidar driver\n\n- does it have a newer ROS2 branch?\n- are we using it?\n- [ ] refactor\n",
+			"type":"text",
+			"x":4880,
+			"y":2541,
+			"width":260,
+			"height":180
+		},
+		{
+			"id":"b7593ac1ebc3b672",
+			"styleAttributes":{},
+			"text":"Camera base\n\n* does it have an equivalent in ROS2\n* [ ] refactor",
+			"type":"text",
+			"x":5180,
+			"y":2541,
+			"width":260,
+			"height":180
+		},
+		{"id":"8b7b61f2e1c95efe","type":"file","file":"img/f4f.jpg","x":2782,"y":2307,"width":138,"height":69},
+		{"id":"63ed0657b6e4b9bd","type":"text","text":"# F4F","x":2795,"y":2307,"width":113,"height":50},
+		{"id":"59d09d7a242397a8","type":"text","text":"- remove Gazebo\n- [ ] update and refactor","x":2405,"y":2781,"width":290,"height":100},
+		{"id":"5d57de719c0ae1ec","type":"text","text":"- remove Gazebo\n- [ ] update and refactor","x":2835,"y":2781,"width":290,"height":100},
+		{
+			"id":"5605bfdd48f58abf",
+			"styleAttributes":{},
+			"text":"Basler driver\n\n* does it have a newer ROS2 branch?\n* beware the multithreading problem\n* [ ] refactor",
+			"type":"text",
+			"x":5480,
+			"y":2058,
+			"width":260,
+			"height":230
+		},
+		{"id":"19ed652f9ba07dae","type":"file","file":"img/f4f.jpg","x":2492,"y":2307,"width":138,"height":69},
+		{
+			"id":"fe692e744730eb96",
+			"styleAttributes":{},
+			"text":"Ouster driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor",
+			"type":"text",
+			"x":5480,
+			"y":2318,
+			"width":260,
+			"height":180
+		},
+		{"id":"f35f44fd765eea0f","type":"text","text":"# F4F","x":5554,"y":2606,"width":113,"height":50},
+		{
+			"id":"994b2062c749b9dd",
+			"styleAttributes":{},
+			"text":"MRS PCL Tools\n- [ ] refactor\n- depends on Ouster ROS, should we rethink this?",
+			"type":"text",
+			"x":2960,
+			"y":1760,
+			"width":260,
+			"height":150,
+			"color":"4"
+		},
+		{
+			"id":"ae1c7dc8e1aae209",
+			"styleAttributes":{},
+			"text":"MRS Bumper\n- [ ] refactor",
+			"type":"text",
+			"x":3260,
+			"y":1760,
+			"width":260,
+			"height":150,
+			"color":"4"
+		},
+		{
+			"id":"3dfb1b636aa74cd6",
+			"styleAttributes":{},
+			"text":"Hector + core\n* does it have a newer ROS2 branch?\n* **is anybody using it?**\n- [ ] refactor",
+			"type":"text",
+			"x":2960,
+			"y":1940,
+			"width":260,
+			"height":190,
+			"color":"4"
+		},
+		{
+			"id":"50400ec39bb63dff",
+			"styleAttributes":{},
+			"text":"MRS Serial\n- [ ] refactor\n- important for RTK",
+			"type":"text",
+			"x":3260,
+			"y":1940,
+			"width":260,
+			"height":189,
+			"color":"4"
+		},
+		{
+			"id":"05c18ab0f4db6fd6",
+			"styleAttributes":{},
+			"text":"MRS Utils\n- [ ] refactor",
+			"type":"text",
+			"x":2660,
+			"y":1760,
+			"width":260,
+			"height":150,
+			"color":"4"
+		},
+		{
+			"id":"5293214057646dab",
+			"styleAttributes":{},
+			"text":"OpenVins + Core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
+			"type":"text",
+			"x":2370,
+			"y":1940,
+			"width":260,
+			"height":190,
+			"color":"6"
+		},
+		{
+			"id":"4355ed1e71a55b1c",
+			"styleAttributes":{},
+			"text":"ALOAM + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
+			"type":"text",
+			"x":2370,
+			"y":2174,
+			"width":260,
+			"height":202,
+			"color":"6"
+		},
+		{
+			"id":"d9b05b3f42d8a7e3",
+			"styleAttributes":{},
+			"text":"POINT LIO + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
+			"type":"text",
+			"x":2660,
+			"y":2174,
+			"width":260,
+			"height":202,
+			"color":"6"
+		},
+		{
+			"id":"cf3569a9252b47d0",
+			"styleAttributes":{},
+			"text":"MRS Modulees msgs\n- [ ] refactor\n- [ ] building of doxygen docs",
+			"type":"text",
+			"x":2370,
+			"y":1760,
+			"width":260,
+			"height":150,
+			"color":"4"
+		},
+		{
+			"id":"0a440f40ba8e98c9",
+			"styleAttributes":{},
+			"text":"Optic flow\n* **do we want to keep it?**\n- [ ] refactor if yes\n\nsuper low priority",
+			"type":"text",
+			"x":2960,
+			"y":2174,
+			"width":260,
+			"height":202,
+			"color":"4"
+		},
+		{
+			"id":"dee187c992900746",
+			"styleAttributes":{},
+			"text":"MRS LLCP\n- [ ] refactor",
+			"type":"text",
+			"x":3260,
+			"y":2174,
+			"width":260,
+			"height":101,
+			"color":"4"
+		},
+		{"id":"fd484eed3cae4188","type":"text","text":"-  build from scratch without the MRS UAV System with just the Multirotor Sim lib","x":3255,"y":2781,"width":290,"height":100},
+		{
+			"id":"1a05c1dfba8ad71e",
+			"styleAttributes":{},
+			"text":"- Who is going to do it?\n- Are there any dependencies to real sensor drivers?",
+			"type":"text",
+			"x":3848,
+			"y":1731,
+			"width":580,
+			"height":100
+		},
+		{
+			"id":"704ce64400c8bfc4",
+			"styleAttributes":{},
+			"text":"UVDAR Core\n\n- [ ] Refactor",
+			"type":"text",
+			"x":3848,
+			"y":1858,
+			"width":260,
+			"height":110
+		},
+		{
+			"id":"fc8bdfcafef3b0dd",
+			"styleAttributes":{},
+			"text":"UVDAR Gazebo plugin\n\n- [ ] Refactor",
+			"type":"text",
+			"x":4168,
+			"y":1858,
+			"width":260,
+			"height":110
+		},
+		{
+			"id":"0dc75ee32ecb3ffb",
+			"styleAttributes":{},
+			"text":"LIOSAM + core\n* does it have a newer ROS2 branch?\n- [ ] refactor",
+			"type":"text",
+			"x":2660,
+			"y":1940,
+			"width":260,
+			"height":190,
+			"color":"6"
+		},
+		{
+			"id":"b058534d61cd6d3c",
+			"styleAttributes":{},
+			"text":"Gazebo custom drone example\n\n- [ ] refactore",
+			"type":"text",
+			"x":2720,
+			"y":1408,
+			"width":320,
+			"height":218
+		},
+		{"id":"0cd825ba4227b51d","type":"text","text":"Robofly's UVDAR\n\n- [ ] rafactor","x":3848,"y":2009,"width":260,"height":120},
+		{
+			"id":"28002e690871e7f8",
+			"styleAttributes":{},
+			"text":"UVDAR calibration routine\n\n- [ ] Refactor",
+			"type":"text",
+			"x":4168,
+			"y":2009,
+			"width":260,
+			"height":120
+		},
+		{"id":"e6ccaea1ac5f9145","type":"text","text":"# F4F","x":3978,"y":2069,"width":113,"height":50},
+		{"id":"b0046dc5c9114021","type":"text","text":"MRS Coppelia simulation\n- I would keep it as an example\n- [ ] refactor","x":3730,"y":774,"width":300,"height":126,"color":"4"},
+		{
+			"id":"d089cfb4afb89d3e",
+			"styleAttributes":{},
+			"text":"Gazebo\n* [ ] refactor the metapackage\n\t* [ ] launch files\n\t* [ ] configs",
+			"type":"text",
+			"x":2360,
+			"y":1168,
+			"width":300,
+			"height":180
+		},
+		{
+			"id":"1c9458a42ff44f1d",
+			"styleAttributes":{},
+			"text":"Drone spawner\n\n* [ ] keep the functionalities\n* [ ] dockerization?",
+			"type":"text",
+			"x":2720,
+			"y":1168,
+			"width":320,
+			"height":180
+		},
+		{
+			"id":"2982561775d09143",
+			"styleAttributes":{},
+			"text":"Sensor drivers (px4_sitl_gazebo)\n* [ ] our custom fixes to the maagnetometer (did not use inclination)\n* [ ] custom fixes to lidar\n* [ ] custom fixes to GPS plugin",
+			"type":"text",
+			"x":2360,
+			"y":1408,
+			"width":300,
+			"height":218
+		},
+		{
+			"id":"0bc3f0080e71cfac",
+			"styleAttributes":{},
+			"text":"ROS2 inter-robot communication\n\n- How to correctly configure remote access to remote ROS2 machine?\n- How to replace the old Nimbro setup with native ROS2 features",
+			"type":"text",
+			"x":5360,
+			"y":340,
+			"width":400,
+			"height":200,
+			"color":"6"
+		},
+		{
+			"id":"c379fd780704435b",
+			"styleAttributes":{},
+			"text":"MRS Octomap Tools\n\n- [ ] refactor\n- is it used?",
+			"type":"text",
+			"x":5380,
+			"y":709,
+			"width":280,
+			"height":160
+		},
+		{
+			"id":"af352d2d46cfbfc4",
+			"styleAttributes":{},
+			"text":"Octomap planner\n\n- [ ] refactor\n- [ ] merge changes from SPRIND",
+			"type":"text",
+			"x":5045,
+			"y":912,
+			"width":260,
+			"height":160
+		},
+		{
+			"id":"22e70674ffb4587b",
+			"styleAttributes":{},
+			"text":"SubT Planning lib\n\n- [ ] refactor\n- might not contain ROS",
+			"type":"text",
+			"x":5375,
+			"y":912,
+			"width":280,
+			"height":160
+		},
+		{
+			"id":"6dab2e5f499bf953",
+			"styleAttributes":{},
+			"text":"Octomap server\n\n- [ ] refactor\n- [ ] merge changes from SPRIND",
+			"type":"text",
+			"x":5040,
+			"y":709,
+			"width":265,
+			"height":160
+		},
+		{
+			"id":"9485fa4d6594c11e",
+			"styleAttributes":{},
+			"text":"Libcamera ROS driver\n\n- [ ] there should be official ROS2 branch\n- [ ] rafactor",
+			"type":"text",
+			"x":5190,
+			"y":1241,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"e06859bdf41a2c87",
+			"styleAttributes":{},
+			"text":"ICM IMU driver\n\n- [ ] refactor",
+			"type":"text",
+			"x":5490,
+			"y":1241,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"c94d671ab0ea0e07",
+			"styleAttributes":{},
+			"text":"Portainer stacks\n\n- [ ] refactor",
+			"type":"text",
+			"x":4880,
+			"y":1620,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"f25804b46a08d07c",
+			"styleAttributes":{},
+			"text":"Python\n\n- [ ] blob detector",
+			"type":"text",
+			"x":4465,
+			"y":1064,
+			"width":310,
+			"height":119
+		},
+		{"id":"0ee3da2abf946833","type":"text","text":"# F4F","x":4620,"y":1465,"width":113,"height":50},
+		{
+			"id":"c0098ba3e9ba13fc",
+			"styleAttributes":{},
+			"text":"Basic robofly example\n\n- [ ] basic example",
+			"type":"text",
+			"x":5190,
+			"y":1620,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"38078b9e12cdae4a",
+			"styleAttributes":{},
+			"text":"F4F software installation guide\n\n- [ ] update",
+			"type":"text",
+			"x":5490,
+			"y":1620,
+			"width":260,
+			"height":150
+		},
+		{"id":"8a68d70c800e0b45","type":"text","text":"MRS DJI Tello API\n\n- [ ] refactor","x":3680,"y":582,"width":300,"height":105,"color":"4"},
+		{
+			"id":"b89e3ce70de3b409",
+			"styleAttributes":{},
+			"text":"Object tracking example\n\n- [ ] refactor",
+			"type":"text",
+			"x":5190,
+			"y":1440,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"1b8abc0f2ab864e9",
+			"styleAttributes":{},
+			"text":"F4F documentation\n\n- [ ] update",
+			"type":"text",
+			"x":5490,
+			"y":1440,
+			"width":260,
+			"height":150
+		},
+		{"id":"fd2038017a9d3c5f","type":"text","text":"# F4F","x":5264,"y":1833,"width":113,"height":50},
+		{"id":"7772b170324f3477","type":"text","text":"MRS UAV Deployment\n\n* [ ] refactor config files\n* [ ] example tmux sessions","x":3260,"y":733,"width":369,"height":135,"color":"4"},
+		{"id":"e7a0b09a50f2a123","type":"text","text":"MRS UAV Gazebo testing\n\n- [ ] refactor","x":3380,"y":940,"width":300,"height":105,"color":"4"},
+		{"id":"d7434e8666fa3844","type":"text","text":"ROS Kalibr docker\n- does Kalibr have a ROS2 version (it needs rosbag as an input)\n- refafctor","x":3629,"y":1143,"width":295,"height":205,"color":"4"},
+		{"id":"31d66be07d3481d9","type":"text","text":"Stacks\n\n- [ ] refactor/create example stacks","x":4311,"y":1417,"width":270,"height":150},
+		{
+			"id":"90d3b45cb75b5966",
+			"styleAttributes":{},
+			"text":"PX4 Hw API\n\n- [ ] Refactor\n- [ ] Test with a real drone first (if the comunications work as expected)",
+			"type":"text",
+			"x":2760,
+			"y":700,
+			"width":332,
+			"height":200
+		},
+		{
+			"id":"4e643a5992056a49",
+			"styleAttributes":{},
+			"text":"CPP\n\n- [ ] edge detector",
+			"type":"text",
+			"x":4100,
+			"y":1064,
+			"width":310,
+			"height":119
+		},
+		{"id":"36630bed12877511","type":"text","text":"# F4F","x":2505,"y":2060,"width":113,"height":50},
+		{"id":"f2c30ed72a8659d4","type":"text","text":"# F4F","x":2500,"y":2305,"width":113,"height":50},
+		{
+			"id":"9c6f9e8170fb2966",
+			"styleAttributes":{},
+			"text":"Unreal sim package\n- [ ] Simulator node\n- [ ] HW APi",
+			"type":"text",
+			"x":4900,
+			"y":370,
+			"width":310,
+			"height":140
+		},
+		{
+			"id":"ac52783b508227da",
+			"styleAttributes":{},
+			"text":"CPP\n\n- [ ] waypoint flier\n- [ ] waypoint flier simple\n- [ ] tracker plugin\n- [ ] controller plugin\n- [ ] estimator plugin (**create**)\n- [ ] pluginlib example",
+			"type":"text",
+			"x":4100,
+			"y":634,
+			"width":310,
+			"height":240
+		},
+		{
+			"id":"fd0957dd2fe435c9",
+			"styleAttributes":{},
+			"text":"Mavros\n\n- does it exists in Jazzy?\n- or should we implement our own?",
+			"type":"text",
+			"x":2360,
+			"y":700,
+			"width":320,
+			"height":200
+		},
+		{"id":"e896362cc052f2b5","type":"text","text":"# F4F","x":5564,"y":1039,"width":113,"height":50},
+		{
+			"id":"da15dedbce603233",
+			"styleAttributes":{},
+			"text":"MRS Multirotor simulator\n\n- [ ] refactor\n\t- [ ] dynamic reconfigure\n\t- [ ] rviz integration\n- [ ] test simtime generation\n- [ ] test max simulation rate\n- [ ] HW Api plugin (needs HW API)\n- [ ] tests\n\t- [ ] standalone tests\n\t- [ ] MRS system wide tests\n",
+			"type":"text",
+			"x":3480,
+			"y":-1120,
+			"width":340,
+			"height":360,
+			"color":"4"
+		},
+		{
+			"id":"59abf61ac6697972",
+			"styleAttributes":{},
+			"text":"HW Api\n- [ ] plugin interface\n- [ ] example plugin\n- [ ] plugin manager",
+			"type":"text",
+			"x":3880,
+			"y":-1090,
+			"width":300,
+			"height":180,
+			"color":"4"
+		},
+		{"id":"3ec4f2147c0de385","type":"text","text":"## Buildfarm\n\n- [ ] creating of ROS2 PPAs\n- [ ] revisiting bloom\n- [ ] refactoring dockerized compilation pipeline\n- [ ] on-push builds\n- [ ] test pipeline\n- [ ] coverage pipeline","x":4890,"y":-1090,"width":300,"height":325},
+		{
+			"id":"9003f2155c39c260",
+			"styleAttributes":{},
+			"text":"mrs_msgs\n\n- [ ] done\n- [ ] building of doxygen docs",
+			"type":"text",
+			"x":2740,
+			"y":-840,
+			"width":276,
+			"height":150,
+			"color":"4"
+		},
+		{
+			"id":"1a72efb6732492c3",
+			"styleAttributes":{},
+			"text":"ROS2 bridge\n\n- Is it alive? Can it be used by people who want to run their ROS1 node agains the ROS2 system?\n- [ ] investigate",
+			"type":"text",
+			"x":5360,
+			"y":80,
+			"width":400,
+			"height":200,
+			"color":"4"
+		},
+		{
+			"id":"f490f9a0c6969672",
+			"styleAttributes":{},
+			"text":"MRS UAV Autostart\n- [ ] Refactor\n- [ ] Tests",
+			"type":"text",
+			"x":3390,
+			"y":121,
+			"width":360,
+			"height":140,
+			"color":"4"
+		},
+		{
+			"id":"d72fe694fd8a7d5a",
+			"styleAttributes":{},
+			"text":"Trajectory generation\n- [ ] Refactor\n- [ ] Tests",
+			"type":"text",
+			"x":3930,
+			"y":121,
+			"width":360,
+			"height":140,
+			"color":"4"
+		},
+		{"id":"ede39a887e1ee44c","type":"text","text":"Is FastRTSP good enough for images and pointclouds?\n- [ ] verify\n- [ ] try the Zenoh RMW, which should work like the ROS1 with roscore","x":2360,"y":140,"width":606,"height":140,"color":"4"},
+		{"id":"b9c7536021bd414d","type":"text","text":"NLOT solver ROS wrapper\n- [ ] refactor","x":4385,"y":140,"width":250,"height":103,"color":"4"},
+		{"id":"552597e217607c02","type":"text","text":"MRS UAV Shell Additions\n- will the `waitFor` macros gonna be needed in ROS2?\n- [ ] refactor","x":2360,"y":321,"width":600,"height":119,"color":"4"},
+		{
+			"id":"231e4e91cd412ae3",
+			"styleAttributes":{},
+			"text":"PX4 SITL\n* [ ] updgrade to the newest reasonable PX4 version",
+			"type":"text",
+			"x":3100,
+			"y":1168,
+			"width":320,
+			"height":180
+		},
+		{
+			"id":"6161ed0bc04ab99e",
+			"styleAttributes":{},
+			"text":"Gazebo common & extra resources\n* [ ] custom plugins\n* [ ] custom worlds",
+			"type":"text",
+			"x":3100,
+			"y":1408,
+			"width":320,
+			"height":218
+		},
+		{
+			"id":"45c55612086e14fb",
+			"styleAttributes":{},
+			"text":"MRS UAV Status\n- [ ] Acquisition node\n- [ ] Presentation node",
+			"type":"text",
+			"x":3390,
+			"y":321,
+			"width":360,
+			"height":140,
+			"color":"4"
+		},
+		{
+			"id":"dcf3674f4bbe7435",
+			"styleAttributes":{},
+			"text":"Python\n\n- [ ] sweeping generator",
+			"type":"text",
+			"x":4465,
+			"y":634,
+			"width":310,
+			"height":240
+		},
+		{
+			"id":"00fb3024e2a917dd",
+			"styleAttributes":{},
+			"text":"Libcamera driver library\n\n- [ ] refactor (probably stays the same)",
+			"type":"text",
+			"x":4880,
+			"y":1241,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"3d34bac56f73345e",
+			"styleAttributes":{},
+			"text":"Hailo AI adapter\n\n- [ ] refactor\n- [ ] update base image builder",
+			"type":"text",
+			"x":4880,
+			"y":1440,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"0a1c0f43a677928b",
+			"styleAttributes":{},
+			"text":"MRS UAV Trackers\n\n- [ ] Mpc tracker\n- [ ] Line tracker\n- [ ] Midair activation tracker\n- [ ] Landoff tracker\n- [ ] Joy tracker **(keep?)**\n- [ ] Speed tracker **(keep?)**\n- [ ] **Tests**",
+			"type":"text",
+			"x":3750,
+			"y":-219,
+			"width":340,
+			"height":260,
+			"color":"4"
+		},
+		{
+			"id":"d8ff5a04f61cda42",
+			"styleAttributes":{},
+			"text":"MRS UAV Controllers\n\n- [ ] MpcController\n- [ ] Se3Controller\n- [ ] Failsafe controller\n- [ ] Midaiir actiivation controller\n- [ ] **Tests**",
+			"type":"text",
+			"x":4150,
+			"y":-219,
+			"width":360,
+			"height":260,
+			"color":"4"
+		},
+		{
+			"id":"8148de86efab3d2c",
+			"styleAttributes":{},
+			"text":"- [ ] refactor ROS bindings and integration\n- [ ] udpate examples",
+			"type":"text",
+			"x":4900,
+			"y":-170,
+			"width":320,
+			"height":160
+		},
+		{
+			"id":"351aeb1b4c857f5b",
+			"styleAttributes":{},
+			"text":"- [ ] refactor ROS bindings and integration\n- [ ] udpate examples",
+			"type":"text",
+			"x":5400,
+			"y":-170,
+			"width":320,
+			"height":160
+		},
+		{
+			"id":"5f7f1e826c217235",
+			"styleAttributes":{},
+			"text":"MRS UAV Development\n\n - [x] colon alias for ease of use\n - [x] custom **roscd** alias\n - [x] pre-sourcing of a selected workspace for speedup of the process",
+			"type":"text",
+			"x":2360,
+			"y":-240,
+			"width":606,
+			"height":160,
+			"color":"4"
+		},
+		{
+			"id":"3e1f8ef2e374979c",
+			"styleAttributes":{},
+			"text":"MRS UAV Estimators\n\n- [ ] AGL estimators\n- [ ] Altitude estimators\n- [ ] Heading estimators\n- [ ] Lateral estimators\n- [ ] State estimators\n- [ ] **Tests**",
+			"type":"text",
+			"x":3330,
+			"y":-219,
+			"width":360,
+			"height":260,
+			"color":"4"
+		},
+		{"id":"ed1e83157ab3422b","type":"text","text":"Rosbag Record\n* how do our customisations from ROS1 apply?\n\t* rosbag record is killed when it cannot write to the disk anymore\n\t* it publishes and prints the datarate\n* [ ] investigate","x":2360,"y":-60,"width":600,"height":180,"color":"4"},
+		{"id":"8a69e088ae93bfba","type":"text","text":"# F4F","x":5607,"y":-60,"width":113,"height":50},
+		{
+			"id":"46fa241e5887d853",
+			"styleAttributes":{},
+			"text":"ROS2 examples (Jazzy)\n\n- [x] param loading\n- [x] Publisher\n- [x] Subscriber\n- [x] Timer\n- [x] Service client\n- [x] Service server\n- [x] library\n- [x] tests\n\t- [x] unit test\n\t- [x] integration test\n- [x]  Pluginlib\n- [x] tf broadcaster\n- [x] tf listener\n- [ ] image transport\n- [ ] point cloud transport",
+			"type":"text",
+			"x":2360,
+			"y":-840,
+			"width":320,
+			"height":540,
+			"color":"6"
+		},
+		{
+			"id":"be105eb805dce944",
+			"styleAttributes":{},
+			"text":"MRS Rviz plugins\n\n- **not essential, might be complex**\n- [ ] refactor",
+			"type":"text",
+			"x":2774,
+			"y":-482,
+			"width":372,
+			"height":140,
+			"color":"4"
+		},
+		{"id":"da1a0c817be836d1","type":"text","text":"Safety area manager\n\n- [ ] refactor\n- [ ] incorporate","x":3595,"y":-445,"width":275,"height":150},
+		{"id":"10d8b82011a279c9","type":"text","text":"# F4F","x":3900,"y":-345,"width":113,"height":50},
+		{
+			"id":"6ba70840b421177f",
+			"styleAttributes":{},
+			"text":"Tomas's Linux Setup (Ubuntu 24.04)\n- [x] nvim works\n\t- [x] coc.nvim replaced ycm\n\t- [x] ROS integration works\n- [x] i3 works\n- [x] tmux and other  tools ok\n- [x] automatic installation works",
+			"type":"text",
+			"x":2360,
+			"y":-1120,
+			"width":320,
+			"height":240,
+			"color":"4"
+		},
+		{
+			"id":"f08e8cee789eac43",
+			"styleAttributes":{},
+			"text":"MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkg\n - [ ] profiiler (needs mrs lib)\n - [ ] msg extractor (needs mrs lib)\n - [x] service client handler\n - [ ] transformer\n - [ ] transform publisher\n - [ ] batch visualizer\n - [ ] safety zone\n - [ ] .. the rest of the minor libs\n - [ ] building of doxygen docs\n - [ ] building a python lib for testing\n\t - [ ] how to export python libs?",
+			"type":"text",
+			"x":3080,
+			"y":-1120,
+			"width":320,
+			"height":560,
+			"color":"6"
+		},
+		{"id":"324ed3a181a40fc1","type":"text","text":"# F4F","x":5004,"y":-420,"width":113,"height":50},
+		{"id":"5e408725fb54d309","type":"text","text":"# F4F","x":5509,"y":-420,"width":113,"height":50},
+		{"id":"3f909a53b030c0ce","type":"text","text":"# F4F","x":2782,"y":2307,"width":113,"height":50}
 	]
 }
