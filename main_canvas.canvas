@@ -364,6 +364,17 @@
 			"label":"Octomap mapping & planning"
 		},
 		{
+			"id":"7ae192d75567f47b",
+			"styleAttributes":{},
+			"type":"group",
+			"x":40,
+			"y":587,
+			"width":730,
+			"height":327,
+			"color":"6",
+			"label":"Core example packages"
+		},
+		{
 			"id":"e08798985a78c903",
 			"styleAttributes":{},
 			"type":"group",
@@ -421,23 +432,6 @@
 			"label":"MRS Docker"
 		},
 		{"id":"e7bbfaca6dc6ce3e","type":"group","x":246,"y":1392,"width":489,"height":190,"color":"4","label":"Portainer system"},
-		{"id":"222e379d289072b3","type":"group","x":-1665,"y":2741,"width":360,"height":179,"color":"1","label":"Task 01 controller"},
-		{"id":"8c9a05731f55ade6","type":"group","x":-1245,"y":2741,"width":360,"height":179,"color":"1","label":"Task 02 formation"},
-		{"id":"88dd0f6173a42de6","type":"group","x":-825,"y":2741,"width":360,"height":179,"color":"1","label":"Task 03 swarm"},
-		{"id":"69b9142cc9d39aa1","type":"group","x":-2440,"y":-1240,"width":520,"height":80,"color":"4","label":"Days-worth of work (1 Tomas)"},
-		{"id":"c246d3d678787d0c","type":"group","x":-2440,"y":-1080,"width":520,"height":80,"color":"6","label":"Weeks-woth of work (1 Tomas)"},
-		{"id":"e3ce490957a9f710","type":"group","x":-2440,"y":-920,"width":520,"height":80,"color":"1","label":"Months-worth of work (1 Tomas)"},
-		{
-			"id":"7ae192d75567f47b",
-			"styleAttributes":{},
-			"type":"group",
-			"x":40,
-			"y":587,
-			"width":730,
-			"height":327,
-			"color":"6",
-			"label":"Core example packages"
-		},
 		{
 			"id":"b4bb372844e3a9b5",
 			"styleAttributes":{},
@@ -449,71 +443,12 @@
 			"color":"4",
 			"label":"Flight Forge"
 		},
-		{
-			"id":"00abcb0428f081e1",
-			"styleAttributes":{},
-			"text":"ROS2 bridge\n\n- Is it alive? Can it be used by people who want to run their ROS1 node agains the ROS2 system?\n- [ ] investigate",
-			"type":"text",
-			"x":1320,
-			"y":80,
-			"width":400,
-			"height":200,
-			"color":"4"
-		},
-		{
-			"id":"7f793a557a5ca152",
-			"styleAttributes":{},
-			"text":"ROS2 inter-robot communication\n\n- How to correctly configure remote access to remote ROS2 machine?\n- How to replace the old Nimbro setup with native ROS2 features",
-			"type":"text",
-			"x":1320,
-			"y":340,
-			"width":400,
-			"height":200,
-			"color":"6"
-		},
-		{
-			"id":"837972de6237beb0",
-			"styleAttributes":{},
-			"text":"Unreal sim package\n- [ ] Simulator node\n- [ ] HW APi",
-			"type":"text",
-			"x":860,
-			"y":370,
-			"width":310,
-			"height":140
-		},
-		{"id":"a3ea8958ad38ba4c","type":"text","text":"MRS DJI Tello API\n\n- [ ] refactor","x":-360,"y":582,"width":300,"height":105,"color":"4"},
-		{
-			"id":"e0400951764a4763",
-			"styleAttributes":{},
-			"text":"CPP\n\n- [ ] waypoint flier\n- [ ] waypoint flier simple\n- [ ] tracker plugin\n- [ ] controller plugin\n- [ ] estimator plugin (**create**)\n- [ ] pluginlib example",
-			"type":"text",
-			"x":60,
-			"y":634,
-			"width":310,
-			"height":240
-		},
-		{
-			"id":"2f8bca2c7ddcb57a",
-			"styleAttributes":{},
-			"text":"Python\n\n- [ ] sweeping generator",
-			"type":"text",
-			"x":425,
-			"y":634,
-			"width":310,
-			"height":240
-		},
-		{
-			"id":"dd0cfd16a5d267ca",
-			"styleAttributes":{},
-			"text":"Trajectory generation\n- [ ] Refactor\n- [ ] Tests",
-			"type":"text",
-			"x":-110,
-			"y":121,
-			"width":360,
-			"height":140,
-			"color":"4"
-		},
-		{"id":"fa9123b820850175","type":"text","text":"MRS Coppelia simulation\n- I would keep it as an example\n- [ ] refactor","x":-310,"y":774,"width":300,"height":126,"color":"4"},
+		{"id":"222e379d289072b3","type":"group","x":-1665,"y":2741,"width":360,"height":179,"color":"1","label":"Task 01 controller"},
+		{"id":"8c9a05731f55ade6","type":"group","x":-1245,"y":2741,"width":360,"height":179,"color":"1","label":"Task 02 formation"},
+		{"id":"88dd0f6173a42de6","type":"group","x":-825,"y":2741,"width":360,"height":179,"color":"1","label":"Task 03 swarm"},
+		{"id":"69b9142cc9d39aa1","type":"group","x":-2440,"y":-1240,"width":520,"height":80,"color":"4","label":"Days-worth of work (1 Tomas)"},
+		{"id":"c246d3d678787d0c","type":"group","x":-2440,"y":-1080,"width":520,"height":80,"color":"6","label":"Weeks-woth of work (1 Tomas)"},
+		{"id":"e3ce490957a9f710","type":"group","x":-2440,"y":-920,"width":520,"height":80,"color":"1","label":"Months-worth of work (1 Tomas)"},
 		{
 			"id":"97ed1d412efc528e",
 			"styleAttributes":{},
@@ -889,7 +824,7 @@
 			"x":1360,
 			"y":-1090,
 			"width":320,
-			"height":720
+			"height":570
 		},
 		{"id":"a7f40ca3a1ef6ccd","type":"text","text":"## CI Scripts\n\n- set of common scripts used by the **buildfarm** and by separate repositories' actions\n- [ ] update and refactor","x":850,"y":-730,"width":300,"height":210},
 		{"id":"8800362ab8e2db04","type":"text","text":"Summer school simulation and wrappers\n- [ ] update and refactor","x":-214,"y":2781,"width":290,"height":119},
@@ -903,7 +838,6 @@
 			"width":300,
 			"height":80
 		},
-		{"id":"8bd2216214133af8","type":"file","file":"img/f4f.jpg","x":1451,"y":-479,"width":138,"height":69},
 		{"id":"4fdf9d89686e3dc9","type":"file","file":"img/f4f.jpg","x":946,"y":-439,"width":138,"height":69},
 		{
 			"id":"5bee80f7149dac27",
@@ -1286,6 +1220,72 @@
 			"height":160
 		},
 		{"id":"878235b04e1405dc","type":"file","file":"img/f4f.jpg","x":1520,"y":1030,"width":138,"height":69},
-		{"id":"dd15f0a8828f6f64","type":"file","file":"img/f4f.jpg","x":580,"y":1458,"width":138,"height":69}
+		{"id":"dd15f0a8828f6f64","type":"file","file":"img/f4f.jpg","x":580,"y":1458,"width":138,"height":69},
+		{
+			"id":"00abcb0428f081e1",
+			"styleAttributes":{},
+			"text":"ROS2 bridge\n\n- Is it alive? Can it be used by people who want to run their ROS1 node agains the ROS2 system?\n- [ ] investigate",
+			"type":"text",
+			"x":1320,
+			"y":80,
+			"width":400,
+			"height":200,
+			"color":"4"
+		},
+		{
+			"id":"7f793a557a5ca152",
+			"styleAttributes":{},
+			"text":"ROS2 inter-robot communication\n\n- How to correctly configure remote access to remote ROS2 machine?\n- How to replace the old Nimbro setup with native ROS2 features",
+			"type":"text",
+			"x":1320,
+			"y":340,
+			"width":400,
+			"height":200,
+			"color":"6"
+		},
+		{
+			"id":"837972de6237beb0",
+			"styleAttributes":{},
+			"text":"Unreal sim package\n- [ ] Simulator node\n- [ ] HW APi",
+			"type":"text",
+			"x":860,
+			"y":370,
+			"width":310,
+			"height":140
+		},
+		{"id":"a3ea8958ad38ba4c","type":"text","text":"MRS DJI Tello API\n\n- [ ] refactor","x":-360,"y":582,"width":300,"height":105,"color":"4"},
+		{
+			"id":"e0400951764a4763",
+			"styleAttributes":{},
+			"text":"CPP\n\n- [ ] waypoint flier\n- [ ] waypoint flier simple\n- [ ] tracker plugin\n- [ ] controller plugin\n- [ ] estimator plugin (**create**)\n- [ ] pluginlib example",
+			"type":"text",
+			"x":60,
+			"y":634,
+			"width":310,
+			"height":240
+		},
+		{
+			"id":"2f8bca2c7ddcb57a",
+			"styleAttributes":{},
+			"text":"Python\n\n- [ ] sweeping generator",
+			"type":"text",
+			"x":425,
+			"y":634,
+			"width":310,
+			"height":240
+		},
+		{
+			"id":"dd0cfd16a5d267ca",
+			"styleAttributes":{},
+			"text":"Trajectory generation\n- [ ] Refactor\n- [ ] Tests",
+			"type":"text",
+			"x":-110,
+			"y":121,
+			"width":360,
+			"height":140,
+			"color":"4"
+		},
+		{"id":"fa9123b820850175","type":"text","text":"MRS Coppelia simulation\n- I would keep it as an example\n- [ ] refactor","x":-310,"y":774,"width":300,"height":126,"color":"4"},
+		{"id":"8bd2216214133af8","type":"file","file":"img/f4f.jpg","x":1451,"y":-439,"width":138,"height":69}
 	]
 }
