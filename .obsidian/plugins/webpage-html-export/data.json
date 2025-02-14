@@ -111,7 +111,7 @@
         "selector": "#right-sidebar-content",
         "type": "end"
       },
-      "startCollapsed": false,
+      "startCollapsed": true,
       "minCollapseDepth": 0
     },
     "themeToggleOptions": {
@@ -127,7 +127,7 @@
     },
     "graphViewOptions": {
       "featureId": "graph-view",
-      "enabled": false,
+      "enabled": true,
       "unavailable": false,
       "alwaysEnabled": false,
       "displayTitle": "Graph View",
