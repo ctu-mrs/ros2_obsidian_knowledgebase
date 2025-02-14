@@ -1,0 +1,29 @@
+{
+	"nodes":[
+		{"id":"d91a3379b3837742","type":"group","x":811,"y":-585,"width":489,"height":2165,"label":"Build artifacts - /tmp/artifacts"},
+		{"id":"2916ef03a40d7099","type":"group","x":-120,"y":500,"width":760,"height":760,"label":"Single build job"},
+		{"id":"a376f1a4b56a3963","type":"group","x":-120,"y":-40,"width":760,"height":387,"label":"Build matrix determination"},
+		{"id":"4a827e673361bbfe","type":"group","x":-120,"y":-480,"width":760,"height":260,"label":"Artifact ininitialisation"},
+		{"id":"48d73484d9ede889","x":-120,"y":1340,"width":760,"height":160,"type":"group","label":"Collect artifacts"},
+		{"id":"1d6954401ee230b6","x":-639,"y":-460,"width":359,"height":200,"type":"group","label":"Dockerhub"},
+		{"id":"4d239d8d9d4cff6d","type":"text","text":"Repository order determination\n\n* python script\n* does topological ordering of packages within the repositories\n* dependency cycle detection","x":-72,"y":0,"width":320,"height":273},
+		{"id":"06c4dcb89c5c26e2","type":"text","text":"## Repository list\n- yaml file in the [buildfarm]() repository\n## for each repository\n- name\n- address\n- CPU architectures\n- branches for\n\t- unstable\n\t- release candidate\n\t- relelase","x":-620,"y":-73,"width":300,"height":420},
+		{"id":"63ef44ad85ae5ca7","type":"text","text":"Base docker iamge\n- prebuiilt by hand\n- versioned by date","x":-620,"y":-428,"width":300,"height":140},
+		{"id":"bbac29b46a46227f","type":"text","text":"Docker builder priming\n- installation of neccesary build tools\n- calling `apt update`\n- dumped to `builder.tar`","x":-72,"y":-444,"width":332,"height":172},
+		{"id":"5ad0041658bfcb34","type":"text","text":"Folders for deb packages\n\n/tmp/artifacts","x":320,"y":-444,"width":250,"height":172},
+		{"id":"007d46bad7ab04a6","type":"text","text":"1. loads docker builder image from /tmp/artifacts/builder.tar\n2. under docker build:\n\t1. clones the repository\n\t2. [optional] install git and gitman submodules\n\t3. adds the passing `rosdep.yaml` from the artifacts\n\t4. installs dependencies via `rosdep`\n\t5. creates catkin workspace\n\t6. determines build order within the workspace\n\t7. for each ROS package:\n\t\t1. determines if the package needs to be built (if the commit changed **or** if the based image changed **or** if its dependency was compiled (is in `compiled.txt`))\n\t\t2. generates build using `bloom-generate` for each ROS package\n\t\t3. builds `.deb` package\n\t\t4. installs the `.deb` to satisfy dependencies later\n\t\t5. adds the package to the passing `rosdep.yaml`\n\t\t6. if compiled, ads the package name into `compiled.txt`\n3. installs the created `.deb` fiiles into the into the builder image and squashes the image\n4. outputs the following into the `/tmp/artifacts` folder for the later jobs\n\t1. updated docker builder as `builder.tar`\n\t2. the new `.deb` packages\n\t3. the passing `rosdep.yml`\n\t4. the passing `copiled.txt`","x":-72,"y":540,"width":672,"height":680},
+		{"id":"842594dfbdb4a30c","x":-72,"y":1380,"width":652,"height":80,"type":"text","text":"1. `.deb` packages are collected and **commited** to the PPA repository"}
+	],
+	"edges":[
+		{"id":"f2bf96ac85d50d28","fromNode":"06c4dcb89c5c26e2","fromSide":"right","toNode":"4d239d8d9d4cff6d","toSide":"left","label":"repository\nlist"},
+		{"id":"5a70c9e5d7e67221","fromNode":"63ef44ad85ae5ca7","fromSide":"right","toNode":"bbac29b46a46227f","toSide":"left","label":"docker\nimage"},
+		{"id":"b19674d2bee9e042","fromNode":"4a827e673361bbfe","fromSide":"right","toNode":"d91a3379b3837742","toSide":"left"},
+		{"id":"b782f305990494ed","fromNode":"bbac29b46a46227f","fromSide":"right","toNode":"5ad0041658bfcb34","toSide":"left"},
+		{"id":"3b8b69b694d6dc0e","fromNode":"a376f1a4b56a3963","fromSide":"bottom","toNode":"2916ef03a40d7099","toSide":"top","label":"Buiild job for each repository"},
+		{"id":"3ed492ea1302adab","fromNode":"4a827e673361bbfe","fromSide":"bottom","toNode":"a376f1a4b56a3963","toSide":"top"},
+		{"id":"160497a4cbac7525","fromNode":"d91a3379b3837742","fromSide":"left","toNode":"2916ef03a40d7099","toSide":"right"},
+		{"id":"1fd2b5800ef47bc4","fromNode":"2916ef03a40d7099","fromSide":"right","toNode":"d91a3379b3837742","toSide":"left"},
+		{"id":"74b23f45bd15ee63","fromNode":"d91a3379b3837742","fromSide":"left","toNode":"48d73484d9ede889","toSide":"right"},
+		{"id":"ffa76306f1811f13","fromNode":"2916ef03a40d7099","fromSide":"bottom","toNode":"48d73484d9ede889","toSide":"top"}
+	]
+}

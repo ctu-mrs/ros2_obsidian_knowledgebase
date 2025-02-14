@@ -13,18 +13,36 @@
             "state": {
               "type": "canvas",
               "state": {
+                "file": "buildfarm/buildfarm.canvas",
+                "viewState": {
+                  "x": 430.14000813996336,
+                  "y": 669.233969470087,
+                  "zoom": -1.1132828242804407
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "buildfarm"
+            }
+          },
+          {
+            "id": "837f69f3b9bd7736",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 40,
-                  "y": 880,
-                  "zoom": -1.9928116690304665
+                  "x": -207.07223170726382,
+                  "y": -261.73693499575626,
+                  "zoom": -0.8960569180724445
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -172,10 +190,13 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "5fced7c289e54e73",
+  "active": "837f69f3b9bd7736",
   "lastOpenFiles": [
-    "index.md",
+    "buildfarm/buildfarm.canvas",
     "main_canvas.canvas",
+    "buildfarm/Buildfarm.md",
+    "index.md",
+    "buildfarm",
     "Main.md",
     "general_notes.md",
     "README.md",

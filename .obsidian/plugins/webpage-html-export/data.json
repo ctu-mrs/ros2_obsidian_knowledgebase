@@ -13,7 +13,8 @@
     "exportPath": "/home/klaxalk/mail/html/output",
     "filesToExport": [
       "main_canvas.canvas",
-      "index.md"
+      "index.md",
+      "buildfarm/"
     ],
     "addBodyClasses": true,
     "addMathjaxStyles": true,
