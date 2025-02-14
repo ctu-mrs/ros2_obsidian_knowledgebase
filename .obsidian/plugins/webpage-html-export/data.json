@@ -1,5 +1,5 @@
 {
-  "settingsVersion": "1.8.1-2b",
+  "settingsVersion": "1.9.0",
   "exportOptions": {
     "createDocumentContainer": true,
     "keepModHeaderFooter": false,
@@ -23,7 +23,7 @@
       "featureId": "backlinks",
       "enabled": true,
       "unavailable": false,
-      "alwaysEnabled": false,
+      "alwaysEnabled": true,
       "displayTitle": "Backlinks",
       "featurePlacement": {
         "selector": ".footer",
