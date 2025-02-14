@@ -14,7 +14,7 @@
     "filesToExport": [
       "main_canvas.canvas",
       "index.md",
-      "buildfarm/"
+      "buildfarm"
     ],
     "addBodyClasses": true,
     "addMathjaxStyles": true,
