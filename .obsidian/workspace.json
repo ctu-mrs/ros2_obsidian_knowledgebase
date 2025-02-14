@@ -15,26 +15,9 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 737.2883574013854,
-                  "y": 5119.708100785928,
-                  "zoom": -3.7456929215632813
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "main_canvas"
-            }
-          },
-          {
-            "id": "a796ad086ae3a1e4",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "main_canvas.canvas",
-                "viewState": {
-                  "x": -300,
-                  "y": 880,
-                  "zoom": -2.1456929215632816
+                  "x": 608.3759069701778,
+                  "y": 1127.9497730315686,
+                  "zoom": -2.5456929215632815
                 }
               },
               "icon": "lucide-layout-dashboard",
