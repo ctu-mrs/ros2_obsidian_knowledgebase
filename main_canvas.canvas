@@ -327,6 +327,17 @@
 			"label":"UVDAR"
 		},
 		{
+			"id":"16d17aa29f1a60eb",
+			"styleAttributes":{},
+			"type":"group",
+			"x":1320,
+			"y":-1150,
+			"width":400,
+			"height":825,
+			"color":"1",
+			"label":"Documentation"
+		},
+		{
 			"id":"9b86b866afbb2c3b",
 			"styleAttributes":{},
 			"type":"group",
@@ -347,17 +358,6 @@
 			"height":620,
 			"color":"6",
 			"label":"Buildfarm"
-		},
-		{
-			"id":"16d17aa29f1a60eb",
-			"styleAttributes":{},
-			"type":"group",
-			"x":1320,
-			"y":-1150,
-			"width":400,
-			"height":620,
-			"color":"1",
-			"label":"Documentation"
 		},
 		{
 			"id":"7ae192d75567f47b",
@@ -1218,12 +1218,12 @@
 		{
 			"id":"b9590e396869d74d",
 			"styleAttributes":{},
-			"text":"# Docs\n\n- [ ] updating prerequisities about ROS\n- [ ] refactoring all example pages\n- [ ] refactoring pieces of ROS1-related code snippets\n\n# Cheatsheet\n\n- [ ] Update ROS-related stuff\n\n## Main github page\n\n* [ ] update when ready",
+			"text":"# MRS Docs\n\n- [ ] updating prerequisities about ROS\n- [ ] refactoring all example pages\n- [ ] refactoring pieces of ROS1-related code snippets\n\n# Cheatsheet\n\n- [ ] Update ROS-related stuff\n\n## Main github page\n\n* [ ] update when ready\n\n## MRS Internal wiki\n\n- [ ] update",
 			"type":"text",
 			"x":1360,
 			"y":-1090,
 			"width":320,
-			"height":500
+			"height":720
 		}
 	]
 }
