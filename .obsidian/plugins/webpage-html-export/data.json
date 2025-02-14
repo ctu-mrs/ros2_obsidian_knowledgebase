@@ -12,9 +12,7 @@
     "inlineHTML": false,
     "exportPath": "/home/klaxalk/mail/html/output",
     "filesToExport": [
-      "index.md",
-      "main_canvas.canvas",
-      "buildfarm_canvas.canvas"
+      "all"
     ],
     "addBodyClasses": true,
     "addMathjaxStyles": true,
@@ -92,8 +90,8 @@
     },
     "searchOptions": {
       "featureId": "search",
-      "enabled": true,
-      "unavailable": false,
+      "enabled": false,
+      "unavailable": true,
       "alwaysEnabled": false,
       "displayTitle": "Search...",
       "featurePlacement": {
@@ -181,8 +179,8 @@
     },
     "rssOptions": {
       "featureId": "obsidian-document",
-      "enabled": true,
-      "unavailable": false,
+      "enabled": false,
+      "unavailable": true,
       "alwaysEnabled": false,
       "siteUrl": "",
       "siteName": "MRS ROS2 Knowledgebase",
@@ -191,12 +189,12 @@
     "relativeHeaderLinks": false,
     "includeJS": true,
     "includeCSS": true,
-    "inlineMedia": false,
-    "inlineCSS": false,
-    "inlineJS": false,
-    "inlineFonts": false,
-    "inlineOther": false,
-    "combineAsSingleFile": false,
+    "inlineMedia": true,
+    "inlineCSS": true,
+    "inlineJS": true,
+    "inlineFonts": true,
+    "inlineOther": true,
+    "combineAsSingleFile": true,
     "offlineResources": false,
     "themeName": "",
     "slugifyPaths": true,
@@ -214,8 +212,8 @@
   "rssDateProperty": "date",
   "onlyExportModified": false,
   "deleteOldFiles": true,
-  "exportPreset": "online",
-  "openAfterExport": false,
+  "exportPreset": "local",
+  "openAfterExport": true,
   "filePickerBlacklist": [
     "(^|\\/)node_modules\\/",
     "(^|\\/)dist\\/",

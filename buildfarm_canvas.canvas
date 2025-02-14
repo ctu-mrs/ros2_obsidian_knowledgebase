@@ -11,9 +11,9 @@
 		{"id":"4a827e673361bbfe","type":"group","x":-120,"y":-480,"width":760,"height":260,"label":"Artifact ininitialisation"},
 		{"id":"48d73484d9ede889","type":"group","x":-120,"y":1380,"width":760,"height":160,"label":"Collect artifacts"},
 		{"id":"1d6954401ee230b6","type":"group","x":-639,"y":-460,"width":359,"height":200,"label":"Dockerhub"},
-		{"id":"63ef44ad85ae5ca7","type":"text","text":"Base docker iamge\n- prebuiilt by hand\n- versioned by date","x":-620,"y":-428,"width":300,"height":140},
 		{"id":"bbac29b46a46227f","type":"text","text":"Docker builder priming\n- installation of neccesary build tools\n- calling `apt update`\n- dumped to `builder.tar`","x":-72,"y":-444,"width":332,"height":184},
 		{"id":"5ad0041658bfcb34","type":"text","text":"Folders for deb packages\n\n/tmp/artifacts","x":320,"y":-444,"width":250,"height":184},
+		{"id":"63ef44ad85ae5ca7","type":"text","text":"Base docker iamge\n- prebuiilt by hand\n- versioned by date","x":-620,"y":-428,"width":300,"height":140},
 		{"id":"06c4dcb89c5c26e2","type":"text","text":"## Repository list\n- yaml file in the [buildfarm]() repository\n## for each repository\n- name\n- address\n- CPU architectures\n- branches for\n\t- unstable\n\t- release candidate\n\t- relelase","x":-620,"y":-73,"width":300,"height":420},
 		{"id":"4d239d8d9d4cff6d","type":"text","text":"Repository order determination\n\n* python script\n* does topological ordering of packages within the repositories\n* dependency cycle detection","x":-72,"y":0,"width":320,"height":273},
 		{"id":"007d46bad7ab04a6","type":"text","text":"1. loads docker builder image from /tmp/artifacts/builder.tar\n2. under docker build:\n\t1. clones the repository\n\t2. [optional] install git and gitman submodules\n\t3. adds the passing `rosdep.yaml` from the artifacts\n\t4. installs dependencies via `rosdep`\n\t5. creates catkin workspace\n\t6. determines build order within the workspace\n\t7. for each ROS package:\n\t\t1. determines if the package needs to be built (if the commit changed **or** if the based image changed **or** if its dependency was compiled (is in `compiled.txt`))\n\t\t2. generates build using `bloom-generate` for each ROS package\n\t\t3. builds `.deb` package\n\t\t4. installs the `.deb` to satisfy dependencies later\n\t\t5. adds the package to the passing `rosdep.yaml`\n\t\t6. if compiled, ads the package name into `compiled.txt`\n3. installs the created `.deb` fiiles into the into the builder image and squashes the image\n4. outputs the following into the `/tmp/artifacts` folder for the later jobs\n\t1. updated docker builder as `builder.tar`\n\t2. the new `.deb` packages\n\t3. the passing `rosdep.yml`\n\t4. the passing `copiled.txt`","x":-72,"y":540,"width":672,"height":680},
@@ -26,7 +26,11 @@
 		{"id":"46bc03b2237584ac","type":"text","text":"## unstable-PPA","x":1860,"y":-500,"width":250,"height":60},
 		{"id":"d9615405e73cc73d","type":"text","text":"## testing-PPA","x":1556,"y":1396,"width":250,"height":100},
 		{"id":"e72bc79f75809f91","type":"text","text":"## stable-PPA","x":1860,"y":1220,"width":250,"height":100},
-		{"id":"cad13d17f455a2b9","type":"text","text":"- runs nightly\n- only core MRS developers can merge to `release-candidate`\n- runs tests after the build\n- if tests succeed, then it merges `release-candidate` to `release`","x":1520,"y":160,"width":590,"height":150}
+		{"id":"cad13d17f455a2b9","type":"text","text":"- runs nightly\n- only core MRS developers can merge to `release-candidate`\n- runs tests after the build\n- if tests succeed, then it merges `release-candidate` to `release`","x":1520,"y":160,"width":590,"height":150},
+		{"id":"4ce5651db6cdca6c","x":840,"y":310,"width":250,"height":352,"type":"text","text":"## folder of build artifacts that is shared between all the jobs in the pipeline"},
+		{"id":"0b99cbb12041edf8","x":1520,"y":486,"width":225,"height":50,"type":"text","text":"Initialize artifacts"},
+		{"id":"0aae3635d71dffd5","x":1800,"y":481,"width":250,"height":60,"type":"text","text":"Generate build matrix"},
+		{"id":"9c81f9917865b271","x":2110,"y":481,"width":220,"height":420,"type":"text","text":"## build jobs\n\n1. mrs_msgs\n2. mrs_lib\n3. ..\n4. ..\n5. .."}
 	],
 	"edges":[
 		{"id":"f2bf96ac85d50d28","fromNode":"06c4dcb89c5c26e2","fromSide":"right","toNode":"4d239d8d9d4cff6d","toSide":"left","label":"repository\nlist"},
@@ -41,6 +45,8 @@
 		{"id":"ffa76306f1811f13","fromNode":"2916ef03a40d7099","fromSide":"bottom","toNode":"48d73484d9ede889","toSide":"top"},
 		{"id":"1d1b93439de6d197","fromNode":"19183b6072eae394","fromSide":"right","toNode":"c757bc4e76161bf4","toSide":"left"},
 		{"id":"18597172635be4a3","fromNode":"9ca36733212964f6","fromSide":"right","toNode":"46bc03b2237584ac","toSide":"left"},
-		{"id":"5323c6ce9dfd232c","fromNode":"61fe14b3d55106fe","fromSide":"right","toNode":"e72bc79f75809f91","toSide":"left"}
+		{"id":"5323c6ce9dfd232c","fromNode":"61fe14b3d55106fe","fromSide":"right","toNode":"e72bc79f75809f91","toSide":"left"},
+		{"id":"0e4caa7fd898ac31","fromNode":"0b99cbb12041edf8","fromSide":"right","toNode":"0aae3635d71dffd5","toSide":"left"},
+		{"id":"70eae5b13403c1b1","fromNode":"0aae3635d71dffd5","fromSide":"right","toNode":"9c81f9917865b271","toSide":"left"}
 	]
 }
