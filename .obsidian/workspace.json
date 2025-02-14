@@ -13,15 +13,15 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "buildfarm_canvas.canvas",
+                "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 1160,
-                  "y": 480,
-                  "zoom": -1.3057987402765818
+                  "x": -120.8205530054513,
+                  "y": 1247.4350252137417,
+                  "zoom": -2.1456929215632816
                 }
               },
               "icon": "lucide-layout-dashboard",
-              "title": "buildfarm_canvas"
+              "title": "main_canvas"
             }
           },
           {
@@ -191,8 +191,8 @@
   },
   "active": "f9389c2cf9ca3b8d",
   "lastOpenFiles": [
-    "main_canvas.canvas",
     "buildfarm_canvas.canvas",
+    "main_canvas.canvas",
     "img/f4f.jpg",
     "img/Fly4Future logo monogram blue.jpg",
     "img",
