@@ -12,7 +12,9 @@
     "inlineHTML": false,
     "exportPath": "/home/klaxalk/mail/html/output",
     "filesToExport": [
-      "all"
+      "index.md",
+      "main_canvas.canvas",
+      "buildfarm_canvas.canvas"
     ],
     "addBodyClasses": true,
     "addMathjaxStyles": true,
@@ -189,12 +191,12 @@
     "relativeHeaderLinks": false,
     "includeJS": true,
     "includeCSS": true,
-    "inlineMedia": true,
-    "inlineCSS": true,
-    "inlineJS": true,
-    "inlineFonts": true,
-    "inlineOther": true,
-    "combineAsSingleFile": true,
+    "inlineMedia": false,
+    "inlineCSS": false,
+    "inlineJS": false,
+    "inlineFonts": false,
+    "inlineOther": false,
+    "combineAsSingleFile": false,
     "offlineResources": false,
     "themeName": "",
     "slugifyPaths": true,
@@ -212,7 +214,7 @@
   "rssDateProperty": "date",
   "onlyExportModified": false,
   "deleteOldFiles": true,
-  "exportPreset": "local",
+  "exportPreset": "online",
   "openAfterExport": false,
   "filePickerBlacklist": [
     "(^|\\/)node_modules\\/",

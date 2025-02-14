@@ -23,8 +23,26 @@
               "icon": "lucide-layout-dashboard",
               "title": "buildfarm_canvas"
             }
+          },
+          {
+            "id": "a796ad086ae3a1e4",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "main_canvas.canvas",
+                "viewState": {
+                  "x": -300,
+                  "y": 880,
+                  "zoom": -2.8107296488382607
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "main_canvas"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -172,10 +190,10 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "f9389c2cf9ca3b8d",
+  "active": "a796ad086ae3a1e4",
   "lastOpenFiles": [
-    "main_canvas.canvas",
     "buildfarm_canvas.canvas",
+    "main_canvas.canvas",
     "index.md",
     "link.md",
     "buildfarm/Buildfarm.md",
