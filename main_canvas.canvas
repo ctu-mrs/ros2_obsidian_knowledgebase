@@ -947,11 +947,11 @@
     },
     {
       "color": "6",
-      "height": 720,
+      "height": 800,
       "id": "e4f4951aef61636f",
       "styleAttributes": {
       },
-      "text": "MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkf, nckf\n - [x] profiiler\n - [x] msg extractor\n - [x] service client handler\n - [x] subscriber handler\n - [x] transform broadcaster\n - [x] transformer\n - [x] safety zone\n - [ ] batch visualizer\n - [ ] aloamgarm + JLKF (**Vasek**\n\t - [ ] tests\n - [ ] dynamic publisher (**Matous**)[^1]\n\t - [ ] tests\n - [ ] IIR filter (**pull fresh master!!!**)\n - [ ] .. the rest of the minor libs\n - [ ] building of doxygen docs\n - [ ] building a python lib for testing\n\t - [ ] how to export python libs?\n\n[^1]: Probably rewrite from scratch\n",
+      "text": "MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkf, nckf\n - [x] profiiler\n - [x] msg extractor\n - [x] service client handler\n - [x] subscriber handler\n - [x] transform broadcaster\n - [x] transformer\n - [x] safety zone\n - [x] IIR filter\n - [ ] batch visualizer (**Afzal**)\n - [ ] aloamgarm + JLKF (**Vasek**)\n\t - [ ] tests\n - [ ] dynamic publisher (**Matous**)[^1]\n\t - [ ] tests\n - [ ] .. the rest of the minor libs\n - [ ] building of doxygen docs\n - [ ] building a python lib for testing\n\t - [ ] how to export python libs?\n\n[^1]: Probably rewrite from scratch\n",
       "type": "text",
       "width": 320,
       "x": -960,
