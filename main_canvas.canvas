@@ -632,15 +632,6 @@
       },
       "toNode": "b1523ee53bf98a03",
       "toSide": "top"
-    },
-    {
-      "fromNode": "cd89641e064507af",
-      "fromSide": "right",
-      "id": "b0e8b8d0d850a065",
-      "styleAttributes": {
-      },
-      "toNode": "73659b1ac78236ac",
-      "toSide": "left"
     }
   ],
   "nodes": [
@@ -2543,15 +2534,6 @@
       "width": 113,
       "x": -1540,
       "y": 2069
-    },
-    {
-      "height": 360,
-      "id": "73659b1ac78236ac",
-      "type": "link",
-      "url": "https://www.youtube.com/watch?v=fS0_rbQ6KKA",
-      "width": 640,
-      "x": 1900,
-      "y": 260
     }
   ]
 }
