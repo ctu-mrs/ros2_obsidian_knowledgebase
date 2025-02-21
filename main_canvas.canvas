@@ -1709,28 +1709,6 @@
       "y": 2318
     },
     {
-      "height": 50,
-      "id": "4895275b515dc531",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": -1535,
-      "y": 2305
-    },
-    {
-      "height": 50,
-      "id": "8c5abef1296ae794",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": -1250,
-      "y": 2305
-    },
-    {
       "color": "6",
       "height": 202,
       "id": "e75fc4bb88d1f7ef",
@@ -1777,28 +1755,6 @@
       "width": 260,
       "x": -1380,
       "y": 2410
-    },
-    {
-      "height": 50,
-      "id": "5054af305759ea05",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": -1250,
-      "y": 2305
-    },
-    {
-      "height": 50,
-      "id": "e41459f95ba3f64c",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": -1546,
-      "y": 2305
     },
     {
       "height": 230,
@@ -2011,17 +1967,6 @@
       "width": 300,
       "x": -586,
       "y": 4380
-    },
-    {
-      "height": 50,
-      "id": "67dbce0857601140",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": -1540,
-      "y": 2060
     },
     {
       "height": 180,
@@ -2556,6 +2501,39 @@
       "width": 320,
       "x": -1680,
       "y": 700
+    },
+    {
+      "height": 50,
+      "id": "4185928d7ec9f0b5",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": -1261,
+      "y": 2305
+    },
+    {
+      "height": 50,
+      "id": "0981a6bcec7dfd34",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": -1540,
+      "y": 2305
+    },
+    {
+      "height": 50,
+      "id": "407aa1b1213f0ec6",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": -1540,
+      "y": 2069
     }
   ]
 }
