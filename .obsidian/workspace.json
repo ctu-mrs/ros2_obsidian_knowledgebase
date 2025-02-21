@@ -11,10 +11,17 @@
             "id": "5a21cc300508e327",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "canvas",
+              "state": {
+                "file": "main_canvas.canvas",
+                "viewState": {
+                  "x": -300,
+                  "y": 2180,
+                  "zoom": -2.8688555114526144
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "main_canvas"
             }
           }
         ]
