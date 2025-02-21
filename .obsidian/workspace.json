@@ -4,24 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "e726f2805384e57a",
+        "id": "8ba7f23822038711",
         "type": "tabs",
         "children": [
           {
-            "id": "3d8925975d0b7a24",
+            "id": "5a21cc300508e327",
             "type": "leaf",
             "state": {
-              "type": "canvas",
-              "state": {
-                "file": "main_canvas.canvas",
-                "viewState": {
-                  "x": -113.10142085243342,
-                  "y": 2966.6221929126923,
-                  "zoom": -1.6
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "main_canvas"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -172,10 +165,10 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "3d8925975d0b7a24",
+  "active": "5a21cc300508e327",
   "lastOpenFiles": [
-    "ROS1_to_ROS2 patterns.md",
     "main_canvas.canvas",
+    "ROS1_to_ROS2 patterns.md",
     "buildfarm_canvas.canvas",
     "img/f4f.jpg",
     "img/Fly4Future logo monogram blue.jpg",
