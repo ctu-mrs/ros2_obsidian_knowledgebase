@@ -1,76 +1,704 @@
 {
-	"nodes":[
-		{"id":"19183b6072eae394","type":"group","x":-720,"y":-680,"width":1920,"height":2320,"label":"Single buildfarm pipeline"},
-		{"id":"c757bc4e76161bf4","type":"group","x":1400,"y":-680,"width":1640,"height":2320,"label":"Pipelines"},
-		{"id":"549d0ffe000a67dd","type":"group","x":1480,"y":10,"width":1520,"height":1001,"label":"Release-candidate (with testing)"},
-		{"id":"d91a3379b3837742","type":"group","x":811,"y":-585,"width":309,"height":2165,"label":"Build artifacts"},
-		{"id":"2916ef03a40d7099","type":"group","x":-120,"y":500,"width":760,"height":760,"label":"Single build job"},
-		{"id":"ccbba1302e4f962f","type":"group","x":1480,"y":-560,"width":680,"height":440,"label":"Unstable"},
-		{"id":"a376f1a4b56a3963","type":"group","x":-120,"y":-40,"width":760,"height":387,"label":"Build matrix determination"},
-		{"id":"7b5e019528c5227b","type":"group","x":1480,"y":1140,"width":680,"height":400,"label":"Release"},
-		{"id":"d900efa431fc7fc3","type":"group","x":2240,"y":-560,"width":580,"height":440,"label":"Test unstable"},
-		{"id":"564ce07e403b3a42","type":"group","x":2240,"y":1140,"width":600,"height":400,"label":"Test unstable"},
-		{"id":"4a827e673361bbfe","type":"group","x":-120,"y":-480,"width":760,"height":260,"label":"Artifact ininitialisation"},
-		{"id":"48d73484d9ede889","type":"group","x":-120,"y":1380,"width":760,"height":160,"label":"Collect artifacts"},
-		{"id":"1d6954401ee230b6","type":"group","x":-639,"y":-460,"width":359,"height":200,"label":"Dockerhub"},
-		{"id":"bbac29b46a46227f","type":"text","text":"Docker builder priming\n- installation of neccesary build tools\n- calling `apt update`\n- dumped to `builder.tar`","x":-72,"y":-444,"width":332,"height":184},
-		{"id":"5ad0041658bfcb34","type":"text","text":"Folders for deb packages\n\n/tmp/artifacts","x":320,"y":-444,"width":250,"height":184},
-		{"id":"4ce5651db6cdca6c","type":"text","text":"## folder of build artifacts that is shared between all the jobs in the pipeline","x":840,"y":310,"width":250,"height":352},
-		{"id":"9ca36733212964f6","type":"text","text":"## master branches\n","x":1520,"y":-500,"width":260,"height":60},
-		{"id":"63ef44ad85ae5ca7","type":"text","text":"Base docker iamge\n- prebuiilt by hand\n- versioned by date","x":-620,"y":-428,"width":300,"height":140},
-		{"id":"06c4dcb89c5c26e2","type":"text","text":"## Repository list\n- yaml file in the [buildfarm]() repository\n## for each repository\n- name\n- address\n- CPU architectures\n- branches for\n\t- unstable\n\t- release candidate\n\t- relelase","x":-620,"y":-73,"width":300,"height":420},
-		{"id":"520765411f7948d4","type":"text","text":"- runs nightly\n- all MRS developers can merge to `master`\n- also direct pushes are built into the `unstable-PPA`\n\t- therefore, can be broken at times","x":1520,"y":-390,"width":590,"height":150},
-		{"id":"4d239d8d9d4cff6d","type":"text","text":"Repository order determination\n\n* python script\n* clones all the repositories\n* does topological ordering of repositories containing ROS packages","x":-72,"y":0,"width":320,"height":273},
-		{"id":"007d46bad7ab04a6","type":"text","text":"1. loads docker builder image from /tmp/artifacts/builder.tar\n2. under docker build:\n\t1. clones the repository\n\t2. [optional] install git and gitman submodules\n\t3. adds the passing `rosdep.yaml` from the artifacts\n\t4. installs dependencies via `rosdep`\n\t5. creates catkin workspace\n\t6. determines build order within the workspace\n\t7. for each ROS package:\n\t\t1. determines if the package needs to be built (if the commit changed **or** if the based image changed **or** if its dependency was compiled (is in `compiled.txt`))\n\t\t2. generates build using `bloom-generate` for each ROS package\n\t\t3. builds `.deb` package\n\t\t4. installs the `.deb` to satisfy dependencies later\n\t\t5. adds the package to the passing `rosdep.yaml`\n\t\t6. if compiled, ads the package name into `compiled.txt`\n3. installs the created `.deb` fiiles into the into the builder image and squashes the image\n4. outputs the following into the `/tmp/artifacts` folder for the later jobs\n\t1. updated docker builder as `builder.tar`\n\t2. the new `.deb` packages\n\t3. the passing `rosdep.yml`\n\t4. the passing `copiled.txt`","x":-72,"y":540,"width":672,"height":680},
-		{"id":"4c012560b875dcaa","type":"text","text":"## Merge **release_candidate** to **release**","x":2700,"y":608,"width":280,"height":169},
-		{"id":"46bc03b2237584ac","type":"text","text":"## unstable-PPA","x":1860,"y":-500,"width":250,"height":60},
-		{"id":"45baf43948095eec","type":"text","text":"Build packages for testing","x":2560,"y":-520,"width":240,"height":50},
-		{"id":"400b42616c6122f9","type":"text","text":"## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..","x":2400,"y":-390,"width":240,"height":220},
-		{"id":"09dbba259b99b053","type":"text","text":"Generate test matrix","x":2260,"y":-520,"width":240,"height":50},
-		{"id":"842594dfbdb4a30c","type":"text","text":"1. `.deb` packages are collected and **commited** to the PPA repository","x":-72,"y":1420,"width":652,"height":80},
-		{"id":"b936012ea0817c81","type":"text","text":"## release-candidate branches","x":1520,"y":50,"width":295,"height":100},
-		{"id":"cad13d17f455a2b9","type":"text","text":"- runs nightly\n- only core MRS developers can merge to `release-candidate`\n- runs tests after the build\n- if tests succeed, then it merges `release-candidate` to `release`","x":1520,"y":190,"width":590,"height":150},
-		{"id":"0aae3635d71dffd5","type":"text","text":"Generate build matrix","x":1800,"y":407,"width":250,"height":60},
-		{"id":"0b99cbb12041edf8","type":"text","text":"Initialize artifacts","x":1520,"y":412,"width":225,"height":50},
-		{"id":"61fe14b3d55106fe","type":"text","text":"## release branches","x":1520,"y":1180,"width":295,"height":100},
-		{"id":"ff8b8f4a565e12c1","type":"text","text":"- runs nightly\n- only the `release-candidate` pipeline can merge to `release`","x":1520,"y":1340,"width":590,"height":150},
-		{"id":"9c81f9917865b271","type":"text","text":"## build jobs\n\n1. mrs_msgs\n2. mrs_lib\n3. ..\n4. ..\n5. ..","x":2110,"y":407,"width":220,"height":420},
-		{"id":"b22a02f19d1b6746","type":"text","text":"## testing-PPA","x":1860,"y":50,"width":250,"height":100},
-		{"id":"f5444aaad47cb004","type":"text","text":"Commit to PPA","x":2110,"y":886,"width":220,"height":50},
-		{"id":"c3d71ebc1d2506c2","type":"text","text":"Build packages for testing and coverage generation","x":2400,"y":516,"width":240,"height":92},
-		{"id":"a592a5f7eb5a6860","type":"text","text":"Generate test matrix","x":2400,"y":407,"width":240,"height":50},
-		{"id":"85f151e97d8ddad1","type":"text","text":"Publish test coverage","x":2700,"y":856,"width":250,"height":60},
-		{"id":"34d6b0cd77d4d1e7","type":"text","text":"## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..","x":2400,"y":668,"width":240,"height":319},
-		{"id":"e72bc79f75809f91","type":"text","text":"## stable-PPA","x":1860,"y":1180,"width":250,"height":100},
-		{"id":"c7be6b1ecf747ad1","type":"text","text":"Generate test matrix","x":2280,"y":1180,"width":240,"height":50},
-		{"id":"522d1cbf2aa7571d","type":"text","text":"## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..","x":2400,"y":1296,"width":240,"height":220},
-		{"id":"c9b09bddb4a61392","type":"text","text":"Build packages for testing","x":2560,"y":1180,"width":200,"height":50}
-	],
-	"edges":[
-		{"id":"f2bf96ac85d50d28","fromNode":"06c4dcb89c5c26e2","fromSide":"right","toNode":"4d239d8d9d4cff6d","toSide":"left","label":"repository\nlist"},
-		{"id":"5a70c9e5d7e67221","fromNode":"63ef44ad85ae5ca7","fromSide":"right","toNode":"bbac29b46a46227f","toSide":"left","label":"docker\nimage"},
-		{"id":"b19674d2bee9e042","fromNode":"4a827e673361bbfe","fromSide":"right","toNode":"d91a3379b3837742","toSide":"left"},
-		{"id":"b782f305990494ed","fromNode":"bbac29b46a46227f","fromSide":"right","toNode":"5ad0041658bfcb34","toSide":"left"},
-		{"id":"3b8b69b694d6dc0e","fromNode":"a376f1a4b56a3963","fromSide":"bottom","toNode":"2916ef03a40d7099","toSide":"top","label":"Buiild job for each repository"},
-		{"id":"3ed492ea1302adab","fromNode":"4a827e673361bbfe","fromSide":"bottom","toNode":"a376f1a4b56a3963","toSide":"top"},
-		{"id":"160497a4cbac7525","fromNode":"d91a3379b3837742","fromSide":"left","toNode":"2916ef03a40d7099","toSide":"right"},
-		{"id":"1fd2b5800ef47bc4","fromNode":"2916ef03a40d7099","fromSide":"right","toNode":"d91a3379b3837742","toSide":"left"},
-		{"id":"74b23f45bd15ee63","fromNode":"d91a3379b3837742","fromSide":"left","toNode":"48d73484d9ede889","toSide":"right"},
-		{"id":"ffa76306f1811f13","fromNode":"2916ef03a40d7099","fromSide":"bottom","toNode":"48d73484d9ede889","toSide":"top"},
-		{"id":"18597172635be4a3","fromNode":"9ca36733212964f6","fromSide":"right","toNode":"46bc03b2237584ac","toSide":"left"},
-		{"id":"5323c6ce9dfd232c","fromNode":"61fe14b3d55106fe","fromSide":"right","toNode":"e72bc79f75809f91","toSide":"left"},
-		{"id":"0e4caa7fd898ac31","fromNode":"0b99cbb12041edf8","fromSide":"right","toNode":"0aae3635d71dffd5","toSide":"left"},
-		{"id":"70eae5b13403c1b1","fromNode":"0aae3635d71dffd5","fromSide":"right","toNode":"9c81f9917865b271","toSide":"left"},
-		{"id":"251bd5ca504de85a","fromNode":"9c81f9917865b271","fromSide":"bottom","toNode":"f5444aaad47cb004","toSide":"top"},
-		{"id":"9dabbcdba3c7141d","fromNode":"f5444aaad47cb004","fromSide":"right","toNode":"a592a5f7eb5a6860","toSide":"left"},
-		{"id":"012d75adc0dd0dac","fromNode":"a592a5f7eb5a6860","fromSide":"bottom","toNode":"c3d71ebc1d2506c2","toSide":"top"},
-		{"id":"83debaf1d8ce36c8","fromNode":"c3d71ebc1d2506c2","fromSide":"bottom","toNode":"34d6b0cd77d4d1e7","toSide":"top"},
-		{"id":"311498631c52a343","fromNode":"34d6b0cd77d4d1e7","fromSide":"right","toNode":"4c012560b875dcaa","toSide":"left"},
-		{"id":"6b58fca6a7c09f6a","fromNode":"45baf43948095eec","fromSide":"bottom","toNode":"400b42616c6122f9","toSide":"top"},
-		{"id":"732b04ca945a1f3b","fromNode":"09dbba259b99b053","fromSide":"right","toNode":"45baf43948095eec","toSide":"left"},
-		{"id":"d082a51a035caa84","fromNode":"c9b09bddb4a61392","fromSide":"bottom","toNode":"522d1cbf2aa7571d","toSide":"top"},
-		{"id":"b3625012f31fe699","fromNode":"c7be6b1ecf747ad1","fromSide":"right","toNode":"c9b09bddb4a61392","toSide":"left"},
-		{"id":"603d8740b45c529d","fromNode":"b936012ea0817c81","fromSide":"right","toNode":"b22a02f19d1b6746","toSide":"left"},
-		{"id":"894a96f8058597c3","fromNode":"34d6b0cd77d4d1e7","fromSide":"right","toNode":"85f151e97d8ddad1","toSide":"left"}
-	]
+  "edges": [
+    {
+      "fromNode": "06c4dcb89c5c26e2",
+      "fromSide": "right",
+      "id": "f2bf96ac85d50d28",
+      "label": "repository\nlist",
+      "toNode": "4d239d8d9d4cff6d",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "63ef44ad85ae5ca7",
+      "fromSide": "right",
+      "id": "5a70c9e5d7e67221",
+      "label": "docker\nimage",
+      "toNode": "bbac29b46a46227f",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "4a827e673361bbfe",
+      "fromSide": "right",
+      "id": "b19674d2bee9e042",
+      "toNode": "d91a3379b3837742",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "a376f1a4b56a3963",
+      "fromSide": "bottom",
+      "id": "3b8b69b694d6dc0e",
+      "label": "Buiild job for each repository",
+      "toNode": "2916ef03a40d7099",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "4a827e673361bbfe",
+      "fromSide": "bottom",
+      "id": "3ed492ea1302adab",
+      "toNode": "a376f1a4b56a3963",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "d91a3379b3837742",
+      "fromSide": "left",
+      "id": "160497a4cbac7525",
+      "toNode": "2916ef03a40d7099",
+      "toSide": "right"
+    },
+    {
+      "fromNode": "2916ef03a40d7099",
+      "fromSide": "right",
+      "id": "1fd2b5800ef47bc4",
+      "toNode": "d91a3379b3837742",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "d91a3379b3837742",
+      "fromSide": "left",
+      "id": "74b23f45bd15ee63",
+      "toNode": "48d73484d9ede889",
+      "toSide": "right"
+    },
+    {
+      "fromNode": "2916ef03a40d7099",
+      "fromSide": "bottom",
+      "id": "ffa76306f1811f13",
+      "toNode": "48d73484d9ede889",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "9ca36733212964f6",
+      "fromSide": "right",
+      "id": "18597172635be4a3",
+      "toNode": "46bc03b2237584ac",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "61fe14b3d55106fe",
+      "fromSide": "right",
+      "id": "5323c6ce9dfd232c",
+      "toNode": "e72bc79f75809f91",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "0b99cbb12041edf8",
+      "fromSide": "right",
+      "id": "0e4caa7fd898ac31",
+      "toNode": "0aae3635d71dffd5",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "0aae3635d71dffd5",
+      "fromSide": "right",
+      "id": "70eae5b13403c1b1",
+      "toNode": "9c81f9917865b271",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "9c81f9917865b271",
+      "fromSide": "bottom",
+      "id": "251bd5ca504de85a",
+      "toNode": "f5444aaad47cb004",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "f5444aaad47cb004",
+      "fromSide": "right",
+      "id": "9dabbcdba3c7141d",
+      "toNode": "a592a5f7eb5a6860",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "a592a5f7eb5a6860",
+      "fromSide": "bottom",
+      "id": "012d75adc0dd0dac",
+      "toNode": "c3d71ebc1d2506c2",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "c3d71ebc1d2506c2",
+      "fromSide": "bottom",
+      "id": "83debaf1d8ce36c8",
+      "toNode": "34d6b0cd77d4d1e7",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "34d6b0cd77d4d1e7",
+      "fromSide": "right",
+      "id": "311498631c52a343",
+      "toNode": "4c012560b875dcaa",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "45baf43948095eec",
+      "fromSide": "bottom",
+      "id": "6b58fca6a7c09f6a",
+      "toNode": "400b42616c6122f9",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "09dbba259b99b053",
+      "fromSide": "right",
+      "id": "732b04ca945a1f3b",
+      "toNode": "45baf43948095eec",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "c9b09bddb4a61392",
+      "fromSide": "bottom",
+      "id": "d082a51a035caa84",
+      "toNode": "522d1cbf2aa7571d",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "c7be6b1ecf747ad1",
+      "fromSide": "right",
+      "id": "b3625012f31fe699",
+      "toNode": "c9b09bddb4a61392",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "b936012ea0817c81",
+      "fromSide": "right",
+      "id": "603d8740b45c529d",
+      "toNode": "b22a02f19d1b6746",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "34d6b0cd77d4d1e7",
+      "fromSide": "right",
+      "id": "894a96f8058597c3",
+      "toNode": "85f151e97d8ddad1",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "48d73484d9ede889",
+      "fromSide": "bottom",
+      "id": "899b627cd1062855",
+      "label": "run even when previous tasks fail",
+      "styleAttributes": {
+      },
+      "toNode": "0d9640dc2f4f77a9",
+      "toSide": "top"
+    }
+  ],
+  "nodes": [
+    {
+      "height": 2600,
+      "id": "19183b6072eae394",
+      "label": "Single buildfarm pipeline",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 1920,
+      "x": -720,
+      "y": -680
+    },
+    {
+      "height": 2560,
+      "id": "c757bc4e76161bf4",
+      "label": "Pipelines",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 1640,
+      "x": 1400,
+      "y": -680
+    },
+    {
+      "height": 1001,
+      "id": "549d0ffe000a67dd",
+      "label": "Release-candidate (with testing)",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 1520,
+      "x": 1480,
+      "y": 10
+    },
+    {
+      "height": 2165,
+      "id": "d91a3379b3837742",
+      "label": "Build artifacts",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 309,
+      "x": 811,
+      "y": -585
+    },
+    {
+      "height": 760,
+      "id": "2916ef03a40d7099",
+      "label": "Single build job",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 760,
+      "x": -120,
+      "y": 500
+    },
+    {
+      "height": 440,
+      "id": "ccbba1302e4f962f",
+      "label": "Unstable",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 680,
+      "x": 1480,
+      "y": -560
+    },
+    {
+      "height": 387,
+      "id": "a376f1a4b56a3963",
+      "label": "Build matrix determination",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 760,
+      "x": -120,
+      "y": -40
+    },
+    {
+      "height": 400,
+      "id": "7b5e019528c5227b",
+      "label": "Release",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 680,
+      "x": 1480,
+      "y": 1140
+    },
+    {
+      "height": 440,
+      "id": "d900efa431fc7fc3",
+      "label": "Test unstable",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 580,
+      "x": 2240,
+      "y": -560
+    },
+    {
+      "height": 400,
+      "id": "564ce07e403b3a42",
+      "label": "Test unstable",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 600,
+      "x": 2240,
+      "y": 1140
+    },
+    {
+      "height": 260,
+      "id": "4a827e673361bbfe",
+      "label": "Artifact ininitialisation",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 760,
+      "x": -120,
+      "y": -480
+    },
+    {
+      "height": 160,
+      "id": "48d73484d9ede889",
+      "label": "Collect artifacts",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 760,
+      "x": -120,
+      "y": 1380
+    },
+    {
+      "height": 160,
+      "id": "0d9640dc2f4f77a9",
+      "label": "Delete docker builder image",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 760,
+      "x": -120,
+      "y": 1720
+    },
+    {
+      "height": 200,
+      "id": "1d6954401ee230b6",
+      "label": "Dockerhub",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 359,
+      "x": -639,
+      "y": -460
+    },
+    {
+      "height": 60,
+      "id": "9ca36733212964f6",
+      "styleAttributes": {
+      },
+      "text": "## master branches\n",
+      "type": "text",
+      "width": 260,
+      "x": 1520,
+      "y": -500
+    },
+    {
+      "height": 184,
+      "id": "bbac29b46a46227f",
+      "styleAttributes": {
+      },
+      "text": "Docker builder priming\n- installation of neccesary build tools\n- calling `apt update`\n- saved to Github's registry",
+      "type": "text",
+      "width": 332,
+      "x": -72,
+      "y": -444
+    },
+    {
+      "height": 184,
+      "id": "5ad0041658bfcb34",
+      "styleAttributes": {
+      },
+      "text": "Folders for deb packages\n\n/tmp/artifacts",
+      "type": "text",
+      "width": 250,
+      "x": 320,
+      "y": -444
+    },
+    {
+      "height": 352,
+      "id": "4ce5651db6cdca6c",
+      "styleAttributes": {
+      },
+      "text": "## folder of build artifacts that is shared between all the jobs in the pipeline",
+      "type": "text",
+      "width": 250,
+      "x": 840,
+      "y": 310
+    },
+    {
+      "height": 150,
+      "id": "520765411f7948d4",
+      "styleAttributes": {
+      },
+      "text": "- runs nightly\n- all MRS developers can merge to `master`\n- also direct pushes are built into the `unstable-PPA`\n\t- therefore, can be broken at times",
+      "type": "text",
+      "width": 590,
+      "x": 1520,
+      "y": -390
+    },
+    {
+      "height": 680,
+      "id": "007d46bad7ab04a6",
+      "styleAttributes": {
+      },
+      "text": "1. loads docker builder image from /tmp/artifacts/builder.tar\n2. under docker build:\n\t1. clones the repository\n\t2. [optional] install git and gitman submodules\n\t3. adds the passing `rosdep.yaml` from the artifacts\n\t4. installs dependencies via `rosdep`\n\t5. creates catkin workspace\n\t6. determines build order within the workspace\n\t7. for each ROS package:\n\t\t1. determines if the package needs to be built (if the commit changed **or** if the based image changed **or** if its dependency was compiled (is in `compiled.txt`))\n\t\t2. generates build using `bloom-generate` for each ROS package\n\t\t3. builds `.deb` package\n\t\t4. installs the `.deb` to satisfy dependencies later\n\t\t5. adds the package to the passing `rosdep.yaml`\n\t\t6. if compiled, ads the package name into `compiled.txt`\n3. installs the created `.deb` fiiles into the into the builder image and squashes the image\n4. outputs the following into the `/tmp/artifacts` folder for the later jobs\n\t1. updated docker builder as `builder.tar`\n\t2. the new `.deb` packages\n\t3. the passing `rosdep.yml`\n\t4. the passing `copiled.txt`",
+      "type": "text",
+      "width": 672,
+      "x": -72,
+      "y": 540
+    },
+    {
+      "height": 60,
+      "id": "46bc03b2237584ac",
+      "styleAttributes": {
+      },
+      "text": "## unstable-PPA",
+      "type": "text",
+      "width": 250,
+      "x": 1860,
+      "y": -500
+    },
+    {
+      "height": 50,
+      "id": "45baf43948095eec",
+      "styleAttributes": {
+      },
+      "text": "Build packages for testing",
+      "type": "text",
+      "width": 240,
+      "x": 2560,
+      "y": -520
+    },
+    {
+      "height": 220,
+      "id": "400b42616c6122f9",
+      "styleAttributes": {
+      },
+      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
+      "type": "text",
+      "width": 240,
+      "x": 2400,
+      "y": -390
+    },
+    {
+      "height": 50,
+      "id": "09dbba259b99b053",
+      "styleAttributes": {
+      },
+      "text": "Generate test matrix",
+      "type": "text",
+      "width": 240,
+      "x": 2260,
+      "y": -520
+    },
+    {
+      "height": 80,
+      "id": "842594dfbdb4a30c",
+      "styleAttributes": {
+      },
+      "text": "1. `.deb` packages are collected and **commited** to the PPA repository",
+      "type": "text",
+      "width": 652,
+      "x": -72,
+      "y": 1420
+    },
+    {
+      "height": 100,
+      "id": "b936012ea0817c81",
+      "styleAttributes": {
+      },
+      "text": "## release-candidate branches",
+      "type": "text",
+      "width": 295,
+      "x": 1520,
+      "y": 50
+    },
+    {
+      "height": 150,
+      "id": "cad13d17f455a2b9",
+      "styleAttributes": {
+      },
+      "text": "- runs nightly\n- only core MRS developers can merge to `release-candidate`\n- runs tests after the build\n- if tests succeed, then it merges `release-candidate` to `release`",
+      "type": "text",
+      "width": 590,
+      "x": 1520,
+      "y": 190
+    },
+    {
+      "height": 60,
+      "id": "0aae3635d71dffd5",
+      "styleAttributes": {
+      },
+      "text": "Generate build matrix",
+      "type": "text",
+      "width": 250,
+      "x": 1800,
+      "y": 407
+    },
+    {
+      "height": 50,
+      "id": "0b99cbb12041edf8",
+      "styleAttributes": {
+      },
+      "text": "Initialize artifacts",
+      "type": "text",
+      "width": 225,
+      "x": 1520,
+      "y": 412
+    },
+    {
+      "height": 100,
+      "id": "61fe14b3d55106fe",
+      "styleAttributes": {
+      },
+      "text": "## release branches",
+      "type": "text",
+      "width": 295,
+      "x": 1520,
+      "y": 1180
+    },
+    {
+      "height": 100,
+      "id": "b22a02f19d1b6746",
+      "styleAttributes": {
+      },
+      "text": "## testing-PPA",
+      "type": "text",
+      "width": 250,
+      "x": 1860,
+      "y": 50
+    },
+    {
+      "height": 319,
+      "id": "34d6b0cd77d4d1e7",
+      "styleAttributes": {
+      },
+      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
+      "type": "text",
+      "width": 240,
+      "x": 2400,
+      "y": 668
+    },
+    {
+      "height": 169,
+      "id": "4c012560b875dcaa",
+      "styleAttributes": {
+      },
+      "text": "## Merge **release_candidate** to **release**",
+      "type": "text",
+      "width": 280,
+      "x": 2700,
+      "y": 608
+    },
+    {
+      "height": 150,
+      "id": "ff8b8f4a565e12c1",
+      "styleAttributes": {
+      },
+      "text": "- runs nightly\n- only the `release-candidate` pipeline can merge to `release`",
+      "type": "text",
+      "width": 590,
+      "x": 1520,
+      "y": 1340
+    },
+    {
+      "height": 420,
+      "id": "9c81f9917865b271",
+      "styleAttributes": {
+      },
+      "text": "## build jobs\n\n1. mrs_msgs\n2. mrs_lib\n3. ..\n4. ..\n5. ..",
+      "type": "text",
+      "width": 220,
+      "x": 2110,
+      "y": 407
+    },
+    {
+      "height": 50,
+      "id": "f5444aaad47cb004",
+      "styleAttributes": {
+      },
+      "text": "Commit to PPA",
+      "type": "text",
+      "width": 220,
+      "x": 2110,
+      "y": 886
+    },
+    {
+      "height": 92,
+      "id": "c3d71ebc1d2506c2",
+      "styleAttributes": {
+      },
+      "text": "Build packages for testing and coverage generation",
+      "type": "text",
+      "width": 240,
+      "x": 2400,
+      "y": 516
+    },
+    {
+      "height": 50,
+      "id": "a592a5f7eb5a6860",
+      "styleAttributes": {
+      },
+      "text": "Generate test matrix",
+      "type": "text",
+      "width": 240,
+      "x": 2400,
+      "y": 407
+    },
+    {
+      "height": 100,
+      "id": "e72bc79f75809f91",
+      "styleAttributes": {
+      },
+      "text": "## stable-PPA",
+      "type": "text",
+      "width": 250,
+      "x": 1860,
+      "y": 1180
+    },
+    {
+      "height": 50,
+      "id": "c7be6b1ecf747ad1",
+      "styleAttributes": {
+      },
+      "text": "Generate test matrix",
+      "type": "text",
+      "width": 240,
+      "x": 2280,
+      "y": 1180
+    },
+    {
+      "height": 220,
+      "id": "522d1cbf2aa7571d",
+      "styleAttributes": {
+      },
+      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
+      "type": "text",
+      "width": 240,
+      "x": 2400,
+      "y": 1296
+    },
+    {
+      "height": 50,
+      "id": "c9b09bddb4a61392",
+      "styleAttributes": {
+      },
+      "text": "Build packages for testing",
+      "type": "text",
+      "width": 200,
+      "x": 2560,
+      "y": 1180
+    },
+    {
+      "height": 273,
+      "id": "4d239d8d9d4cff6d",
+      "styleAttributes": {
+      },
+      "text": "Repository order determination\n\n* python script\n* clones all the repositories\n* does topological ordering of repositories containing ROS packages",
+      "type": "text",
+      "width": 320,
+      "x": -72,
+      "y": 0
+    },
+    {
+      "height": 60,
+      "id": "85f151e97d8ddad1",
+      "styleAttributes": {
+      },
+      "text": "Publish test coverage",
+      "type": "text",
+      "width": 250,
+      "x": 2700,
+      "y": 856
+    },
+    {
+      "height": 140,
+      "id": "63ef44ad85ae5ca7",
+      "styleAttributes": {
+      },
+      "text": "Base docker iamge\n- prebuiilt by hand\n- versioned by date",
+      "type": "text",
+      "width": 300,
+      "x": -620,
+      "y": -428
+    },
+    {
+      "height": 420,
+      "id": "06c4dcb89c5c26e2",
+      "styleAttributes": {
+      },
+      "text": "## Repository list\n- yaml file in the [buildfarm]() repository\n## for each repository\n- name\n- address\n- CPU architectures\n- branches for\n\t- unstable\n\t- release candidate\n\t- relelase",
+      "type": "text",
+      "width": 300,
+      "x": -620,
+      "y": -73
+    },
+    {
+      "height": 80,
+      "id": "0587a6f1d90f416f",
+      "styleAttributes": {
+      },
+      "text": "1.  delete the builder for this job\n2. delete older builders (7 days and older)",
+      "type": "text",
+      "width": 652,
+      "x": -72,
+      "y": 1760
+    }
+  ]
 }
