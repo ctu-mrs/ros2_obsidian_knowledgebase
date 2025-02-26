@@ -636,15 +636,15 @@
   ],
   "nodes": [
     {
-      "height": 4240,
+      "height": 4280,
       "id": "6e04c4b8f43d9b70",
       "label": "ROS2 transition - MRS UAV System diagram",
       "styleAttributes": {
       },
       "type": "group",
-      "width": 3640,
+      "width": 3600,
       "x": -1800,
-      "y": -1240
+      "y": -1280
     },
     {
       "height": 2280,
@@ -658,7 +658,7 @@
       "y": 3560
     },
     {
-      "height": 1670,
+      "height": 1710,
       "id": "73686b6e8d0b2939",
       "label": "MRS UAV Core",
       "styleAttributes": {
@@ -666,7 +666,7 @@
       "type": "group",
       "width": 2420,
       "x": -1720,
-      "y": -1160
+      "y": -1200
     },
     {
       "color": "1",
@@ -1409,11 +1409,11 @@
       "y": 1064
     },
     {
-      "height": 230,
+      "height": 160,
       "id": "6128217b9c10a8a2",
       "styleAttributes": {
       },
-      "text": "## Pressure from F4F:\n\n\n### 1. to have the feature ready 24/7\n### 2. to have the feature easy to use and easy to install",
+      "text": "## F4F utilizes and deploys these features in an industrial setting",
       "type": "text",
       "width": 520,
       "x": -2440,
@@ -1578,17 +1578,6 @@
       "width": 320,
       "x": -1680,
       "y": 700
-    },
-    {
-      "height": 50,
-      "id": "c7a76398bfcdb8f6",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": -2060,
-      "y": -790
     },
     {
       "color": "6",
@@ -2089,17 +2078,6 @@
     },
     {
       "height": 50,
-      "id": "dd7dffb381f9d212",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": -62,
-      "y": 2069
-    },
-    {
-      "height": 50,
       "id": "407aa1b1213f0ec6",
       "styleAttributes": {
       },
@@ -2567,6 +2545,17 @@
       "width": 416,
       "x": -624,
       "y": 5580
+    },
+    {
+      "height": 50,
+      "id": "c7a76398bfcdb8f6",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": -2060,
+      "y": -720
     }
   ]
 }
