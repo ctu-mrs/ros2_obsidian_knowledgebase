@@ -208,6 +208,15 @@
       },
       "toNode": "ee1497265a1ae967",
       "toSide": "top"
+    },
+    {
+      "fromNode": "e7e960232de2696b",
+      "fromSide": "right",
+      "id": "bb711c9659a35aaa",
+      "styleAttributes": {
+      },
+      "toNode": "19183b6072eae394",
+      "toSide": "left"
     }
   ],
   "nodes": [
@@ -276,6 +285,15 @@
       "width": 760,
       "x": -120,
       "y": 500
+    },
+    {
+      "height": 493,
+      "id": "e7e960232de2696b",
+      "label": "Repositories",
+      "type": "group",
+      "width": 760,
+      "x": -1680,
+      "y": 374
     },
     {
       "height": 445,
@@ -771,6 +789,28 @@
       "width": 240,
       "x": 2400,
       "y": 407
+    },
+    {
+      "height": 400,
+      "id": "66815ca5783c0f18",
+      "styleAttributes": {
+      },
+      "text": "# CI Scripts\n\nhttps://github.com/ctu-mrs/ci_scripts",
+      "type": "text",
+      "width": 320,
+      "x": -1280,
+      "y": 406
+    },
+    {
+      "height": 400,
+      "id": "a45d90834f3983cf",
+      "styleAttributes": {
+      },
+      "text": "# Buildfarm\n\nhttps://github.com/ctu-mrs/buildfarm",
+      "type": "text",
+      "width": 300,
+      "x": -1640,
+      "y": 406
     }
   ]
 }

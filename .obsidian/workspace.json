@@ -15,51 +15,16 @@
               "state": {
                 "file": "buildfarm_canvas.canvas",
                 "viewState": {
-                  "x": 986.2191658832273,
-                  "y": 2188.459116246974,
-                  "zoom": -1.6374808900450908
+                  "x": -850.7838478119058,
+                  "y": 385.33545142328984,
+                  "zoom": -0.8780991620573089
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "buildfarm_canvas"
             }
-          },
-          {
-            "id": "086cbfbef7a3fce6",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "main_canvas.canvas",
-                "viewState": {
-                  "x": -320,
-                  "y": 2280,
-                  "zoom": -3.3615178621103734
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "main_canvas"
-            }
-          },
-          {
-            "id": "89decd6feb51cab6",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "main_canvas.canvas",
-                "viewState": {
-                  "x": -320,
-                  "y": 2280,
-                  "zoom": -3.3615178621103734
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "main_canvas"
-            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -207,14 +172,14 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "89decd6feb51cab6",
+  "active": "970bf465d51a32ea",
   "lastOpenFiles": [
-    "main_canvas.canvas",
-    "buildfarm_canvas.canvas",
     "export.sh",
     "fig/pipelines.png",
     "fig/Selection_006.png",
     "fig",
+    "buildfarm_canvas.canvas",
+    "main_canvas.canvas",
     "ROS1_to_ROS2 patterns.md",
     "img/f4f.jpg",
     "img/Fly4Future logo monogram blue.jpg",
