@@ -4,27 +4,62 @@
     "type": "split",
     "children": [
       {
-        "id": "dccc7230da7ab095",
+        "id": "43233f06fcae986c",
         "type": "tabs",
         "children": [
           {
-            "id": "c33409353bd2536a",
+            "id": "970bf465d51a32ea",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "buildfarm_canvas.canvas",
+                "viewState": {
+                  "x": 986.2191658832273,
+                  "y": 2188.459116246974,
+                  "zoom": -1.6374808900450908
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "buildfarm_canvas"
+            }
+          },
+          {
+            "id": "086cbfbef7a3fce6",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": -1530.6722164965752,
-                  "y": -1094.5698997652496,
-                  "zoom": -0.9153285316095321
+                  "x": -320,
+                  "y": 2280,
+                  "zoom": -3.3615178621103734
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "main_canvas"
+            }
+          },
+          {
+            "id": "89decd6feb51cab6",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "main_canvas.canvas",
+                "viewState": {
+                  "x": -320,
+                  "y": 2280,
+                  "zoom": -3.3615178621103734
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -81,7 +116,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 310.49999618530273
+    "width": 200
   },
   "right": {
     "id": "d605f05cc0a271b4",
@@ -172,10 +207,14 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "c33409353bd2536a",
+  "active": "89decd6feb51cab6",
   "lastOpenFiles": [
-    "buildfarm_canvas.canvas",
     "main_canvas.canvas",
+    "buildfarm_canvas.canvas",
+    "export.sh",
+    "fig/pipelines.png",
+    "fig/Selection_006.png",
+    "fig",
     "ROS1_to_ROS2 patterns.md",
     "img/f4f.jpg",
     "img/Fly4Future logo monogram blue.jpg",
