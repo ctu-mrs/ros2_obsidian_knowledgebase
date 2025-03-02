@@ -15,9 +15,9 @@
               "state": {
                 "file": "buildfarm_canvas.canvas",
                 "viewState": {
-                  "x": -14.267950649968355,
-                  "y": -2134.121555473939,
-                  "zoom": -1.6112363187728391
+                  "x": 2489.5,
+                  "y": -280,
+                  "zoom": -2.7461688399460265
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -174,11 +174,13 @@
   },
   "active": "970bf465d51a32ea",
   "lastOpenFiles": [
+    "fig/test_pipeline.png",
+    "buildfarm_canvas.canvas",
+    "fig/release_pipeline.png",
     "export.sh",
     "fig/pipelines.png",
     "fig/Selection_006.png",
     "fig",
-    "buildfarm_canvas.canvas",
     "main_canvas.canvas",
     "ROS1_to_ROS2 patterns.md",
     "img/f4f.jpg",
