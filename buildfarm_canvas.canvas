@@ -198,15 +198,6 @@
       "toSide": "left"
     },
     {
-      "fromNode": "a45d90834f3983cf",
-      "fromSide": "bottom",
-      "id": "001fd331038a7929",
-      "styleAttributes": {
-      },
-      "toNode": "1d8a6c26cdfd2378",
-      "toSide": "top"
-    },
-    {
       "fromNode": "dae3a012b417ecfd",
       "fromSide": "right",
       "id": "6df070d2ff96ce5a",
@@ -395,10 +386,20 @@
       "fromNode": "0155840710bd8895",
       "fromSide": "right",
       "id": "efed13eb052e6041",
+      "label": "coverage report",
       "styleAttributes": {
       },
       "toNode": "823b4deccdbaa8c6",
       "toSide": "left"
+    },
+    {
+      "fromNode": "66815ca5783c0f18",
+      "fromSide": "bottom",
+      "id": "346fe7439d0dc483",
+      "styleAttributes": {
+      },
+      "toNode": "ed9d3a32cebcea70",
+      "toSide": "top"
     }
   ],
   "nodes": [
@@ -482,7 +483,7 @@
     {
       "height": 493,
       "id": "e7e960232de2696b",
-      "label": "Backend repositories",
+      "label": "Origin repositories",
       "styleAttributes": {
       },
       "type": "group",
@@ -642,7 +643,7 @@
       "type": "group",
       "width": 359,
       "x": -1960,
-      "y": -239
+      "y": -260
     },
     {
       "height": 260,
@@ -887,17 +888,6 @@
       "y": 413
     },
     {
-      "file": "fig/release_pipeline.png",
-      "height": 1271,
-      "id": "8391f9ad163e67e1",
-      "styleAttributes": {
-      },
-      "type": "file",
-      "width": 3800,
-      "x": 3200,
-      "y": -113
-    },
-    {
       "height": 92,
       "id": "c3d71ebc1d2506c2",
       "styleAttributes": {
@@ -1118,17 +1108,6 @@
       "y": 862
     },
     {
-      "height": 208,
-      "id": "c0f3a0b3d7672899",
-      "styleAttributes": {
-      },
-      "text": "Base docker image\n- contains `ros-noetic-desktop-full`\n- prebuiilt by hand\n- versioned by date",
-      "type": "text",
-      "width": 300,
-      "x": -1941,
-      "y": -207
-    },
-    {
       "height": 60,
       "id": "754047051d1dcd88",
       "styleAttributes": {
@@ -1182,17 +1161,6 @@
       "width": 652,
       "x": -1641,
       "y": 791
-    },
-    {
-      "height": 170,
-      "id": "1d8a6c26cdfd2378",
-      "styleAttributes": {
-      },
-      "text": "Generic Github action [link](https://github.com/ctu-mrs/mrs_uav_system/blob/master/.github/workflows/ros_package_build.yml) for the build is triggered\n- includes action from the CI Scripts repo [link](https://github.com/ctu-mrs/ci_scripts/blob/master/.github/workflows/ros_package_build_amd64.yml)",
-      "type": "text",
-      "width": 310,
-      "x": -1470,
-      "y": -509
     },
     {
       "height": 320,
@@ -1283,6 +1251,17 @@
       "y": -1149
     },
     {
+      "file": "fig/release_pipeline.png",
+      "height": 844,
+      "id": "8391f9ad163e67e1",
+      "styleAttributes": {
+      },
+      "type": "file",
+      "width": 2523,
+      "x": 3000,
+      "y": 98
+    },
+    {
       "file": "fig/single_paackage_pipeline.png",
       "height": 706,
       "id": "4fec0fc3254ba7c1",
@@ -1290,19 +1269,8 @@
       },
       "type": "file",
       "width": 2118,
-      "x": -3278,
-      "y": 1220
-    },
-    {
-      "file": "fig/test_pipeline.png",
-      "height": 1230,
-      "id": "b102f80aa3b9dca0",
-      "styleAttributes": {
-      },
-      "type": "file",
-      "width": 3673,
-      "x": 1250,
-      "y": -2711
+      "x": -3160,
+      "y": 1186
     },
     {
       "height": 1340,
@@ -1312,8 +1280,41 @@
       "type": "link",
       "url": "https://ctu-mrs.github.io/buildfarm/",
       "width": 1760,
-      "x": 1400,
-      "y": -4264
+      "x": 1491,
+      "y": -3800
+    },
+    {
+      "height": 213,
+      "id": "1d8a6c26cdfd2378",
+      "styleAttributes": {
+      },
+      "text": "Generic Github action [link](https://github.com/ctu-mrs/mrs_uav_system/blob/master/.github/workflows/ros_package_build.yml) for the build is triggered\n- includes action from the CI Scripts repo [link](https://github.com/ctu-mrs/ci_scripts/blob/master/.github/workflows/ros_package_build_amd64.yml)\n- Triggering Arm64 and Amd64 builds",
+      "type": "text",
+      "width": 319,
+      "x": -1475,
+      "y": -533
+    },
+    {
+      "height": 208,
+      "id": "c0f3a0b3d7672899",
+      "styleAttributes": {
+      },
+      "text": "Base docker image\n- contains `ros-noetic-desktop-full`\n- prebuiilt by hand\n- versioned by date",
+      "type": "text",
+      "width": 300,
+      "x": -1941,
+      "y": -228
+    },
+    {
+      "file": "fig/test_pipeline.png",
+      "height": 778,
+      "id": "b102f80aa3b9dca0",
+      "styleAttributes": {
+      },
+      "type": "file",
+      "width": 2323,
+      "x": 1210,
+      "y": -2246
     }
   ]
 }
