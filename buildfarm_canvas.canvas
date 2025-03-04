@@ -289,6 +289,7 @@
       "fromNode": "c1470a3aa06cc874",
       "fromSide": "bottom",
       "id": "b158e830a42bc547",
+      "label": "docker image",
       "styleAttributes": {
       },
       "toNode": "8cba438f2d19d203",
@@ -298,6 +299,7 @@
       "fromNode": "8cba438f2d19d203",
       "fromSide": "bottom",
       "id": "c6e99703abee299c",
+      "label": "catkin workspace",
       "styleAttributes": {
       },
       "toNode": "6928de716981293f",
@@ -316,6 +318,7 @@
       "fromNode": "6928de716981293f",
       "fromSide": "bottom",
       "id": "8ead9f743665d5a8",
+      "label": "catkin workspace",
       "styleAttributes": {
       },
       "toNode": "51b2d35fd55aff9b",
@@ -334,6 +337,7 @@
       "fromNode": "8cba438f2d19d203",
       "fromSide": "right",
       "id": "e69d1998703b82e9",
+      "label": "catkin workspace",
       "styleAttributes": {
       },
       "toNode": "d04c826b8e0b5e01",
@@ -367,6 +371,34 @@
       },
       "toNode": "b102f80aa3b9dca0",
       "toSide": "left"
+    },
+    {
+      "fromNode": "ed9d3a32cebcea70",
+      "fromSide": "bottom",
+      "id": "7df6d107737b2862",
+      "styleAttributes": {
+      },
+      "toNode": "4fec0fc3254ba7c1",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "51b2d35fd55aff9b",
+      "fromSide": "bottom",
+      "id": "f19974e6637d3885",
+      "label": "coverage reports",
+      "styleAttributes": {
+      },
+      "toNode": "d04c826b8e0b5e01",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "0155840710bd8895",
+      "fromSide": "right",
+      "id": "efed13eb052e6041",
+      "styleAttributes": {
+      },
+      "toNode": "823b4deccdbaa8c6",
+      "toSide": "left"
     }
   ],
   "nodes": [
@@ -393,7 +425,7 @@
       "y": -680
     },
     {
-      "height": 2427,
+      "height": 2200,
       "id": "0155840710bd8895",
       "label": "Full test pipeline with coverage reporting - dense view",
       "styleAttributes": {
@@ -401,17 +433,17 @@
       "type": "group",
       "width": 1600,
       "x": -720,
-      "y": -3280
+      "y": -3080
     },
     {
-      "height": 1655,
+      "height": 1691,
       "id": "ed9d3a32cebcea70",
       "label": "Single-repository build action - dense view",
       "styleAttributes": {
       },
       "type": "group",
       "width": 1120,
-      "x": -1941,
+      "x": -2000,
       "y": -674
     },
     {
@@ -477,19 +509,19 @@
       },
       "type": "group",
       "width": 760,
-      "x": -140,
-      "y": -3160
+      "x": -120,
+      "y": -2949
     },
     {
       "height": 400,
       "id": "8cba438f2d19d203",
-      "label": "Pre-building dependencies for coverage report",
+      "label": "Pre-building dependencies for coverage report [optional]",
       "styleAttributes": {
       },
       "type": "group",
       "width": 760,
-      "x": -140,
-      "y": -2600
+      "x": -120,
+      "y": -2389
     },
     {
       "height": 440,
@@ -512,17 +544,6 @@
       "width": 760,
       "x": -120,
       "y": -40
-    },
-    {
-      "height": 387,
-      "id": "6928de716981293f",
-      "label": "Test matrix determination",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 760,
-      "x": -140,
-      "y": -2062
     },
     {
       "height": 400,
@@ -565,8 +586,8 @@
       },
       "type": "group",
       "width": 760,
-      "x": -140,
-      "y": -1560
+      "x": -120,
+      "y": -1529
     },
     {
       "height": 247,
@@ -576,8 +597,19 @@
       },
       "type": "group",
       "width": 760,
-      "x": -140,
-      "y": -1173
+      "x": -120,
+      "y": -1189
+    },
+    {
+      "height": 242,
+      "id": "6928de716981293f",
+      "label": "Test matrix determination",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 760,
+      "x": -120,
+      "y": -1851
     },
     {
       "height": 160,
@@ -603,6 +635,17 @@
     },
     {
       "height": 260,
+      "id": "dae3a012b417ecfd",
+      "label": "Dockerhub",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 359,
+      "x": -1960,
+      "y": -239
+    },
+    {
+      "height": 260,
       "id": "1d6954401ee230b6",
       "label": "Dockerhub",
       "styleAttributes": {
@@ -614,80 +657,14 @@
     },
     {
       "height": 260,
-      "id": "dae3a012b417ecfd",
-      "label": "Dockerhub",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 359,
-      "x": -1901,
-      "y": -239
-    },
-    {
-      "height": 260,
       "id": "5071271f267c6c6c",
       "label": "Dockerhub",
       "styleAttributes": {
       },
       "type": "group",
       "width": 359,
-      "x": -660,
-      "y": -3055
-    },
-    {
-      "height": 310,
-      "id": "4d239d8d9d4cff6d",
-      "styleAttributes": {
-      },
-      "text": "Repository order determination\n\n* python script\n* clones all the repositories\n* does topological ordering of repositories containing ROS packages\n* for simplicity and minimizing edge cases treats all dependency types equally",
-      "type": "text",
-      "width": 320,
-      "x": -72,
-      "y": 0
-    },
-    {
-      "height": 680,
-      "id": "007d46bad7ab04a6",
-      "styleAttributes": {
-      },
-      "text": "1. loads the Docker builder image from Github's Docker registry\n2. clones the repository\n3. [optional] install git and gitman submodules\n4. Runs the Docker builder image:\n\t2. adds the passing `rosdep.yaml` from the artifacts\n\t3. installs dependencies via `rosdep`\n\t4. determines build order of ROS packages within the repository\n\t5. for each ROS package:\n\t\t1. **determines if the package needs to be built (if the commit changed or if the based image changed or if its dependency was compiled (is in `compiled.txt`))**\n\t\t2. **generates build using `bloom-generate` for each ROS package**\n\t\t3. **builds `.deb` package**\n\t\t4. **installs the `.deb` to satisfy dependencies later**\n\t\t5. **adds the package to the passing `rosdep.yaml`**\n\t\t6. **if compiled, ads the package name into `compiled.txt`**\n5. installs the created `.deb` fiiles into the into the builder image and squashes the image\n6. Pushes the updated Docker buiilder image into the Github's docker registry\n7. outputs the following into the `/tmp/artifacts` folder for the later jobs\n\t1. the new `.deb` packages\n\t2. the passing `rosdep.yml`\n\t3. the passing `copiled.txt`",
-      "type": "text",
-      "width": 672,
-      "x": -72,
-      "y": 540
-    },
-    {
-      "height": 380,
-      "id": "5ad0041658bfcb34",
-      "styleAttributes": {
-      },
-      "text": "/tmp/artifacts\n- rosdep.yaml\n\t- on-the-go updated list of built ROS packages\n\t- later commited to the PPA\n- compiled.txt\n\t- keeps track of what was buiilt, used to determine if a package should be rebuild due to its dependencies being updated",
-      "type": "text",
-      "width": 290,
-      "x": 300,
-      "y": -560
-    },
-    {
-      "height": 380,
-      "id": "bbac29b46a46227f",
-      "styleAttributes": {
-      },
-      "text": "Docker builder priming\n- Adds MRS PPA depending on the \"variant\" of the build (unstable, stable, testing)\n- installation of neccesary build tools\n- calling `apt update`\n- saved to Github's registry",
-      "type": "text",
-      "width": 344,
-      "x": -84,
-      "y": -560
-    },
-    {
-      "height": 80,
-      "id": "842594dfbdb4a30c",
-      "styleAttributes": {
-      },
-      "text": "1. `.deb` packages are collected and **commited** to the PPA repository\n2. `rosdep.yml` is commited to the PPA",
-      "type": "text",
-      "width": 652,
-      "x": -72,
-      "y": 1420
+      "x": -640,
+      "y": -2844
     },
     {
       "height": 533,
@@ -701,61 +678,6 @@
       "y": -73
     },
     {
-      "height": 80,
-      "id": "0587a6f1d90f416f",
-      "styleAttributes": {
-      },
-      "text": "1. delete builder images older than 7 days",
-      "type": "text",
-      "width": 652,
-      "x": -72,
-      "y": 1760
-    },
-    {
-      "height": 380,
-      "id": "70dd0d62c77040e1",
-      "styleAttributes": {
-      },
-      "text": "Docker builder priming\n- Adds MRS PPA depending on the \"variant\" of the build (unstable, stable, testing)\n-  calling `apt update`\n- installation `mrs-uav-system-full`\n- saved to Github's registry",
-      "type": "text",
-      "width": 344,
-      "x": -104,
-      "y": -3135
-    },
-    {
-      "height": 380,
-      "id": "52e7d43afbe2250e",
-      "styleAttributes": {
-      },
-      "text": "/tmp/artifacts\n",
-      "type": "text",
-      "width": 290,
-      "x": 280,
-      "y": -3135
-    },
-    {
-      "height": 280,
-      "id": "ee11ffa61cce37dc",
-      "styleAttributes": {
-      },
-      "text": "",
-      "type": "text",
-      "width": 662,
-      "x": -92,
-      "y": -2533
-    },
-    {
-      "height": 310,
-      "id": "33e10874ab1485db",
-      "styleAttributes": {
-      },
-      "text": "Repository list determination\n\n* python script\n* order does not matter",
-      "type": "text",
-      "width": 320,
-      "x": -92,
-      "y": -2022
-    },
-    {
       "height": 208,
       "id": "63ef44ad85ae5ca7",
       "styleAttributes": {
@@ -767,81 +689,15 @@
       "y": -448
     },
     {
-      "height": 100,
-      "id": "fb42c6c95133ec23",
+      "height": 80,
+      "id": "0587a6f1d90f416f",
       "styleAttributes": {
       },
-      "text": "- We have 3 pipeline types, two ROS and one non-ROS, each producing `*.deb` packages into our PPAs.\n- Each pipeline is executed for AMD and ARM architectures .\n- Each pipeline is executed for each PPA variant (Stable, Unstable, Testing)",
+      "text": "1. delete builder images older than 7 days",
       "type": "text",
-      "width": 1260,
-      "x": -890,
-      "y": 2120
-    },
-    {
-      "file": "fig/pipelines.png",
-      "height": 578,
-      "id": "08830cc8db2e3223",
-      "styleAttributes": {
-      },
-      "type": "file",
-      "width": 685,
-      "x": 410,
-      "y": 2122
-    },
-    {
-      "height": 440,
-      "id": "daf1962fe8167513",
-      "styleAttributes": {
-      },
-      "text": "# MRS (ROS)\n\n- [link to the repository list](https://github.com/ctu-mrs/buildfarm/blob/master/mrs.yaml)\n- Packages are either MRS-developed or are in some way dependent on packages from this pipeline (e.g., on mrs_lib or mrs_msgs)",
-      "type": "text",
-      "width": 360,
-      "x": -890,
-      "y": 2240
-    },
-    {
-      "height": 440,
-      "id": "bef8dfbdcd9f37b3",
-      "styleAttributes": {
-      },
-      "text": "# Thirdparty (ROS)\n\n- [link to the repository list](https://github.com/ctu-mrs/buildfarm/blob/master/thirdparty.yaml)\n- Packages are not ours but we need to build them for some reason.",
-      "type": "text",
-      "width": 360,
-      "x": -470,
-      "y": 2240
-    },
-    {
-      "height": 440,
-      "id": "ea52c7ad9d81442c",
-      "styleAttributes": {
-      },
-      "text": "# Nonbloom (non-ROS)\n\n- [link to the repository list](https://github.com/ctu-mrs/buildfarm/blob/master/nonbloom.yaml)\n- Packages that can not be built using bloom-generate.\n- The pipeline for these is different: the docker build executes a script from each repository (`.ci/build_package.sh`) that is supposed to build the deb package. This procedure is different for each repository, so it is implemented within each package.\n- Specialities: PX4 is not compatible with bloom-generate, so the ROS package is build by `catkin` and the build artifacts are extracted from a `catkin workspace`",
-      "type": "text",
-      "width": 420,
-      "x": -50,
-      "y": 2240
-    },
-    {
-      "height": 208,
-      "id": "9247bb396baa2a43",
-      "styleAttributes": {
-      },
-      "text": "Base docker image\n- contains `ros-noetic-desktop-full`\n- prebuiilt by hand\n- versioned by date",
-      "type": "text",
-      "width": 300,
-      "x": -641,
-      "y": -3023
-    },
-    {
-      "height": 533,
-      "id": "b84d8d94330be216",
-      "styleAttributes": {
-      },
-      "text": "## Repository list\n- yaml file in the [buildfarm]() repository\n## Cotains for each repository\n- name\n- address\n- CPU architectures\n- branches for\n\t- unstable\n\t- release candidate\n\t- relelase\n- If it should be tested\n- If it should be built for test coverage",
-      "type": "text",
-      "width": 300,
-      "x": -640,
-      "y": -2513
+      "width": 652,
+      "x": -72,
+      "y": 1760
     },
     {
       "height": 300,
@@ -878,105 +734,6 @@
     },
     {
       "height": 60,
-      "id": "754047051d1dcd88",
-      "styleAttributes": {
-      },
-      "text": "New commit pushed to **master**",
-      "type": "text",
-      "width": 300,
-      "x": -1641,
-      "y": -639
-    },
-    {
-      "height": 170,
-      "id": "1d8a6c26cdfd2378",
-      "styleAttributes": {
-      },
-      "text": "Generic Github action [link](https://github.com/ctu-mrs/mrs_uav_system/blob/master/.github/workflows/ros_package_build.yml) for the build is triggered\n- includes action from the CI Scripts repo [link](https://github.com/ctu-mrs/ci_scripts/blob/master/.github/workflows/ros_package_build_amd64.yml)",
-      "type": "text",
-      "width": 310,
-      "x": -1411,
-      "y": -509
-    },
-    {
-      "height": 277,
-      "id": "d5feed97af8bfa3d",
-      "styleAttributes": {
-      },
-      "text": "Docker builder priming\n- Adds MRS PPA depending on the \"variant\" of the build (unstable, stable, testing)\n- installation of neccesary build tools\n- calling `apt update`\n- saved to Github's registry",
-      "type": "text",
-      "width": 329,
-      "x": -1421,
-      "y": -266
-    },
-    {
-      "height": 208,
-      "id": "c0f3a0b3d7672899",
-      "styleAttributes": {
-      },
-      "text": "Base docker image\n- contains `ros-noetic-desktop-full`\n- prebuiilt by hand\n- versioned by date",
-      "type": "text",
-      "width": 300,
-      "x": -1882,
-      "y": -207
-    },
-    {
-      "height": 440,
-      "id": "4d248e1d97e29f00",
-      "styleAttributes": {
-      },
-      "text": "# Build job\n1. loads the Docker builder image from Github's Docker registry\n2. accesses the repository from the commit\n3. [optional] install git and gitman submodules\n4. Runs the Docker builder image:\n\t1. installs dependencies via `rosdep`\n\t2. determines build order of ROS packages within the repository\n\t3. for each ROS package:\n\t\t1. **generates build using `bloom-generate` for each ROS package**\n\t\t2. **builds `.deb` package**\n\t\t3. **installs the `.deb` to satisfy dependencies later**\n5. outputs the following into the `/tmp/artifacts` folder for the later jobs\n\t1. the new `.deb` packages",
-      "type": "text",
-      "width": 672,
-      "x": -1592,
-      "y": 91
-    },
-    {
-      "height": 120,
-      "id": "20259609eae206af",
-      "styleAttributes": {
-      },
-      "text": "# Collect the artifacts\n\n1. `.deb` packages are collected and **commited** to the PPA repository",
-      "type": "text",
-      "width": 652,
-      "x": -1582,
-      "y": 611
-    },
-    {
-      "height": 120,
-      "id": "e4d123ce50713144",
-      "styleAttributes": {
-      },
-      "text": "# Clean build images\n1. delete builder images older than 7 days",
-      "type": "text",
-      "width": 652,
-      "x": -1582,
-      "y": 791
-    },
-    {
-      "height": 50,
-      "id": "09dbba259b99b053",
-      "styleAttributes": {
-      },
-      "text": "Generate test matrix",
-      "type": "text",
-      "width": 240,
-      "x": 1990,
-      "y": -289
-    },
-    {
-      "height": 60,
-      "id": "4a7c84983a8b1f17",
-      "styleAttributes": {
-      },
-      "text": "Runs more than 1 hour of simulation BDD integration tests",
-      "type": "text",
-      "width": 510,
-      "x": 2000,
-      "y": -524
-    },
-    {
-      "height": 60,
       "id": "0aae3635d71dffd5",
       "styleAttributes": {
       },
@@ -995,94 +752,6 @@
       "type": "text",
       "width": 220,
       "x": 1840,
-      "y": 413
-    },
-    {
-      "height": 50,
-      "id": "f5444aaad47cb004",
-      "styleAttributes": {
-      },
-      "text": "Commit to PPA",
-      "type": "text",
-      "width": 220,
-      "x": 1840,
-      "y": 892
-    },
-    {
-      "height": 319,
-      "id": "34d6b0cd77d4d1e7",
-      "styleAttributes": {
-      },
-      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
-      "type": "text",
-      "width": 240,
-      "x": 2130,
-      "y": 674
-    },
-    {
-      "height": 220,
-      "id": "400b42616c6122f9",
-      "styleAttributes": {
-      },
-      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
-      "type": "text",
-      "width": 240,
-      "x": 2270,
-      "y": -374
-    },
-    {
-      "height": 60,
-      "id": "d7fb43a391e613e0",
-      "styleAttributes": {
-      },
-      "text": "Runs more than 1 hour of simulation BDD integration tests",
-      "type": "text",
-      "width": 510,
-      "x": 1995,
-      "y": 1176
-    },
-    {
-      "height": 220,
-      "id": "522d1cbf2aa7571d",
-      "styleAttributes": {
-      },
-      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
-      "type": "text",
-      "width": 240,
-      "x": 2310,
-      "y": 1261
-    },
-    {
-      "height": 50,
-      "id": "c7be6b1ecf747ad1",
-      "styleAttributes": {
-      },
-      "text": "Generate test matrix",
-      "type": "text",
-      "width": 240,
-      "x": 2010,
-      "y": 1346
-    },
-    {
-      "height": 92,
-      "id": "c3d71ebc1d2506c2",
-      "styleAttributes": {
-      },
-      "text": "Build packages for testing and coverage generation",
-      "type": "text",
-      "width": 240,
-      "x": 2130,
-      "y": 522
-    },
-    {
-      "height": 50,
-      "id": "a592a5f7eb5a6860",
-      "styleAttributes": {
-      },
-      "text": "Generate test matrix",
-      "type": "text",
-      "width": 240,
-      "x": 2130,
       "y": 413
     },
     {
@@ -1142,14 +811,80 @@
     },
     {
       "height": 100,
-      "id": "61fe14b3d55106fe",
+      "id": "fb42c6c95133ec23",
       "styleAttributes": {
       },
-      "text": "## release branches",
+      "text": "- We have 3 pipeline types, two ROS and one non-ROS, each producing `*.deb` packages into our PPAs.\n- Each pipeline is executed for AMD and ARM architectures .\n- Each pipeline is executed for each PPA variant (Stable, Unstable, Testing)",
       "type": "text",
-      "width": 295,
-      "x": 1250,
-      "y": 1186
+      "width": 1260,
+      "x": -890,
+      "y": 2120
+    },
+    {
+      "file": "fig/pipelines.png",
+      "height": 578,
+      "id": "08830cc8db2e3223",
+      "styleAttributes": {
+      },
+      "type": "file",
+      "width": 685,
+      "x": 410,
+      "y": 2122
+    },
+    {
+      "height": 440,
+      "id": "daf1962fe8167513",
+      "styleAttributes": {
+      },
+      "text": "# MRS (ROS)\n\n- [link to the repository list](https://github.com/ctu-mrs/buildfarm/blob/master/mrs.yaml)\n- Packages are either MRS-developed or are in some way dependent on packages from this pipeline (e.g., on mrs_lib or mrs_msgs)",
+      "type": "text",
+      "width": 360,
+      "x": -890,
+      "y": 2240
+    },
+    {
+      "height": 440,
+      "id": "bef8dfbdcd9f37b3",
+      "styleAttributes": {
+      },
+      "text": "# Thirdparty (ROS)\n\n- [link to the repository list](https://github.com/ctu-mrs/buildfarm/blob/master/thirdparty.yaml)\n- Packages are not ours but we need to build them for some reason.",
+      "type": "text",
+      "width": 360,
+      "x": -470,
+      "y": 2240
+    },
+    {
+      "height": 440,
+      "id": "ea52c7ad9d81442c",
+      "styleAttributes": {
+      },
+      "text": "# Nonbloom (non-ROS)\n\n- [link to the repository list](https://github.com/ctu-mrs/buildfarm/blob/master/nonbloom.yaml)\n- Packages that can not be built using bloom-generate.\n- The pipeline for these is different: the docker build executes a script from each repository (`.ci/build_package.sh`) that is supposed to build the deb package. This procedure is different for each repository, so it is implemented within each package.\n- Specialities: PX4 is not compatible with bloom-generate, so the ROS package is build by `catkin` and the build artifacts are extracted from a `catkin workspace`",
+      "type": "text",
+      "width": 420,
+      "x": -50,
+      "y": 2240
+    },
+    {
+      "height": 50,
+      "id": "f5444aaad47cb004",
+      "styleAttributes": {
+      },
+      "text": "Commit to PPA",
+      "type": "text",
+      "width": 220,
+      "x": 1840,
+      "y": 892
+    },
+    {
+      "height": 50,
+      "id": "a592a5f7eb5a6860",
+      "styleAttributes": {
+      },
+      "text": "Generate test matrix",
+      "type": "text",
+      "width": 240,
+      "x": 2130,
+      "y": 413
     },
     {
       "file": "fig/release_pipeline.png",
@@ -1163,15 +898,81 @@
       "y": -113
     },
     {
-      "height": 60,
-      "id": "9ca36733212964f6",
+      "height": 92,
+      "id": "c3d71ebc1d2506c2",
       "styleAttributes": {
       },
-      "text": "## master branches\n",
+      "text": "Build packages for testing and coverage generation",
       "type": "text",
-      "width": 260,
+      "width": 240,
+      "x": 2130,
+      "y": 522
+    },
+    {
+      "height": 50,
+      "id": "09dbba259b99b053",
+      "styleAttributes": {
+      },
+      "text": "Generate test matrix",
+      "type": "text",
+      "width": 240,
+      "x": 1990,
+      "y": -289
+    },
+    {
+      "height": 60,
+      "id": "4a7c84983a8b1f17",
+      "styleAttributes": {
+      },
+      "text": "Runs more than 1 hour of simulation BDD integration tests",
+      "type": "text",
+      "width": 510,
+      "x": 2000,
+      "y": -524
+    },
+    {
+      "height": 60,
+      "id": "d7fb43a391e613e0",
+      "styleAttributes": {
+      },
+      "text": "Runs more than 1 hour of simulation BDD integration tests",
+      "type": "text",
+      "width": 510,
+      "x": 1995,
+      "y": 1176
+    },
+    {
+      "height": 220,
+      "id": "522d1cbf2aa7571d",
+      "styleAttributes": {
+      },
+      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
+      "type": "text",
+      "width": 240,
+      "x": 2310,
+      "y": 1261
+    },
+    {
+      "height": 50,
+      "id": "c7be6b1ecf747ad1",
+      "styleAttributes": {
+      },
+      "text": "Generate test matrix",
+      "type": "text",
+      "width": 240,
+      "x": 2010,
+      "y": 1346
+    },
+    {
+      "height": 100,
+      "id": "61fe14b3d55106fe",
+      "styleAttributes": {
+      },
+      "text": "## release branches",
+      "type": "text",
+      "width": 295,
       "x": 1250,
-      "y": -494
+      "y": 1186
     },
     {
       "height": 150,
@@ -1194,6 +995,94 @@
       "width": 250,
       "x": 1590,
       "y": 1186
+    },
+    {
+      "height": 310,
+      "id": "4d239d8d9d4cff6d",
+      "styleAttributes": {
+      },
+      "text": "Repository order determination\n\n* python script\n* clones all the repositories\n* does topological ordering of repositories containing ROS packages\n* for simplicity and minimizing edge cases treats all dependency types equally",
+      "type": "text",
+      "width": 320,
+      "x": -72,
+      "y": 0
+    },
+    {
+      "height": 680,
+      "id": "007d46bad7ab04a6",
+      "styleAttributes": {
+      },
+      "text": "1. loads the Docker builder image from Github's Docker registry\n2. clones the repository\n3. [optional] install git and gitman submodules\n4. Runs the Docker builder image:\n\t2. adds the passing `rosdep.yaml` from the artifacts\n\t3. installs dependencies via `rosdep`\n\t4. determines build order of ROS packages within the repository\n\t5. for each ROS package:\n\t\t1. **determines if the package needs to be built (if the commit changed or if the based image changed or if its dependency was compiled (is in `compiled.txt`))**\n\t\t2. **generates build using `bloom-generate` for each ROS package**\n\t\t3. **builds `.deb` package**\n\t\t4. **installs the `.deb` to satisfy dependencies later**\n\t\t5. **adds the package to the passing `rosdep.yaml`**\n\t\t6. **if compiled, ads the package name into `compiled.txt`**\n5. installs the created `.deb` fiiles into the into the builder image and squashes the image\n6. Pushes the updated Docker buiilder image into the Github's docker registry\n7. outputs the following into the `/tmp/artifacts` folder for the later jobs\n\t1. the new `.deb` packages\n\t2. the passing `rosdep.yml`\n\t3. the passing `copiled.txt`",
+      "type": "text",
+      "width": 672,
+      "x": -72,
+      "y": 540
+    },
+    {
+      "height": 380,
+      "id": "5ad0041658bfcb34",
+      "styleAttributes": {
+      },
+      "text": "/tmp/artifacts\n- rosdep.yaml\n\t- on-the-go updated list of built ROS packages\n\t- later commited to the PPA\n- compiled.txt\n\t- keeps track of what was buiilt, used to determine if a package should be rebuild due to its dependencies being updated",
+      "type": "text",
+      "width": 290,
+      "x": 300,
+      "y": -560
+    },
+    {
+      "height": 319,
+      "id": "34d6b0cd77d4d1e7",
+      "styleAttributes": {
+      },
+      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
+      "type": "text",
+      "width": 240,
+      "x": 2130,
+      "y": 674
+    },
+    {
+      "height": 220,
+      "id": "400b42616c6122f9",
+      "styleAttributes": {
+      },
+      "text": "## test jobs\n\n1. mrs_lib\n2. mrs_uav_managers\n3. ..\n4. ..",
+      "type": "text",
+      "width": 240,
+      "x": 2270,
+      "y": -374
+    },
+    {
+      "height": 380,
+      "id": "bbac29b46a46227f",
+      "styleAttributes": {
+      },
+      "text": "Docker builder priming\n- Adds MRS PPA depending on the \"variant\" of the build (unstable, stable, testing)\n- installation of neccesary build tools\n- calling `apt update`\n- saved to Github's registry",
+      "type": "text",
+      "width": 344,
+      "x": -84,
+      "y": -560
+    },
+    {
+      "height": 80,
+      "id": "842594dfbdb4a30c",
+      "styleAttributes": {
+      },
+      "text": "1. `.deb` packages are collected and **commited** to the PPA repository\n2. `rosdep.yml` is commited to the PPA",
+      "type": "text",
+      "width": 652,
+      "x": -72,
+      "y": 1420
+    },
+    {
+      "height": 60,
+      "id": "9ca36733212964f6",
+      "styleAttributes": {
+      },
+      "text": "## master branches\n",
+      "type": "text",
+      "width": 260,
+      "x": 1250,
+      "y": -494
     },
     {
       "height": 50,
@@ -1229,15 +1118,202 @@
       "y": 862
     },
     {
+      "height": 208,
+      "id": "c0f3a0b3d7672899",
+      "styleAttributes": {
+      },
+      "text": "Base docker image\n- contains `ros-noetic-desktop-full`\n- prebuiilt by hand\n- versioned by date",
+      "type": "text",
+      "width": 300,
+      "x": -1941,
+      "y": -207
+    },
+    {
+      "height": 60,
+      "id": "754047051d1dcd88",
+      "styleAttributes": {
+      },
+      "text": "New commit pushed to **master**",
+      "type": "text",
+      "width": 300,
+      "x": -1700,
+      "y": -639
+    },
+    {
+      "height": 440,
+      "id": "4d248e1d97e29f00",
+      "styleAttributes": {
+      },
+      "text": "# Build job\n1. loads the Docker builder image from Github's Docker registry\n2. accesses the repository from the commit\n3. [optional] install git and gitman submodules\n4. Runs the Docker builder image:\n\t1. installs dependencies via `rosdep`\n\t2. determines build order of ROS packages within the repository\n\t3. for each ROS package:\n\t\t1. **generates build using `bloom-generate` for each ROS package**\n\t\t2. **builds `.deb` package**\n\t\t3. **installs the `.deb` to satisfy dependencies later**\n5. outputs the following into the `/tmp/artifacts` folder for the later jobs\n\t1. the new `.deb` packages",
+      "type": "text",
+      "width": 672,
+      "x": -1651,
+      "y": 91
+    },
+    {
+      "height": 277,
+      "id": "d5feed97af8bfa3d",
+      "styleAttributes": {
+      },
+      "text": "Docker builder priming\n- Adds MRS PPA depending on the \"variant\" of the build (unstable, stable, testing)\n- installation of neccesary build tools\n- calling `apt update`\n- saved to Github's registry",
+      "type": "text",
+      "width": 329,
+      "x": -1480,
+      "y": -266
+    },
+    {
+      "height": 120,
+      "id": "20259609eae206af",
+      "styleAttributes": {
+      },
+      "text": "# Collect the artifacts\n\n1. `.deb` packages are collected and **commited** to the PPA repository",
+      "type": "text",
+      "width": 652,
+      "x": -1641,
+      "y": 611
+    },
+    {
+      "height": 120,
+      "id": "e4d123ce50713144",
+      "styleAttributes": {
+      },
+      "text": "# Clean build images\n1. delete builder images older than 7 days",
+      "type": "text",
+      "width": 652,
+      "x": -1641,
+      "y": 791
+    },
+    {
+      "height": 170,
+      "id": "1d8a6c26cdfd2378",
+      "styleAttributes": {
+      },
+      "text": "Generic Github action [link](https://github.com/ctu-mrs/mrs_uav_system/blob/master/.github/workflows/ros_package_build.yml) for the build is triggered\n- includes action from the CI Scripts repo [link](https://github.com/ctu-mrs/ci_scripts/blob/master/.github/workflows/ros_package_build_amd64.yml)",
+      "type": "text",
+      "width": 310,
+      "x": -1470,
+      "y": -509
+    },
+    {
+      "height": 320,
+      "id": "ee11ffa61cce37dc",
+      "styleAttributes": {
+      },
+      "text": "- package that have `coverage: true` in the yaml\n- software is built with flags to export code coverage reports while running\n- pre-building packages before testing allows recording coverage in package `A` despite not directly testing package `A`\n- the whole workspace is built, tared and passed further to each of the testing jobs\n\t- it is also passed to the final job that generates the coverage webpage (that needs source codes, therefore, passing the workspace)",
+      "type": "text",
+      "width": 670,
+      "x": -80,
+      "y": -2349
+    },
+    {
+      "height": 380,
+      "id": "70dd0d62c77040e1",
+      "styleAttributes": {
+      },
+      "text": "Docker builder priming\n- Adds MRS PPA depending on the \"variant\" of the build (unstable, stable, testing)\n-  calling `apt update`\n- installation `mrs-uav-system-full`\n- saved to Github's registry",
+      "type": "text",
+      "width": 344,
+      "x": -84,
+      "y": -2924
+    },
+    {
+      "height": 380,
+      "id": "52e7d43afbe2250e",
+      "styleAttributes": {
+      },
+      "text": "/tmp/artifacts\n",
+      "type": "text",
+      "width": 290,
+      "x": 300,
+      "y": -2924
+    },
+    {
+      "height": 154,
+      "id": "33e10874ab1485db",
+      "styleAttributes": {
+      },
+      "text": "Repository list determination\n\n* packages that have `test: true` in the yaml\n* order of testing does not matter",
+      "type": "text",
+      "width": 662,
+      "x": -72,
+      "y": -1811
+    },
+    {
+      "height": 208,
+      "id": "9247bb396baa2a43",
+      "styleAttributes": {
+      },
+      "text": "Base docker image\n- contains `ros-noetic-desktop-full`\n- prebuiilt by hand\n- versioned by date",
+      "type": "text",
+      "width": 300,
+      "x": -621,
+      "y": -2812
+    },
+    {
+      "height": 533,
+      "id": "b84d8d94330be216",
+      "styleAttributes": {
+      },
+      "text": "## Repository list\n- yaml file in the [buildfarm]() repository\n## Cotains for each repository\n- name\n- address\n- CPU architectures\n- branches for\n\t- unstable\n\t- release candidate\n\t- relelase\n- If it should be tested\n- If it should be built for test coverage",
+      "type": "text",
+      "width": 300,
+      "x": -620,
+      "y": -2302
+    },
+    {
+      "height": 180,
+      "id": "4784bd00a64211cd",
+      "styleAttributes": {
+      },
+      "text": "- [optional] clones the package into the pre-compiled workspace\n- creates a new `catkin workspace` when no is passed from the previous jobs\n- compiles the tests\n- runs the tests using `rostest`",
+      "type": "text",
+      "width": 670,
+      "x": -80,
+      "y": -1489
+    },
+    {
+      "height": 180,
+      "id": "314f7f1328159b3f",
+      "styleAttributes": {
+      },
+      "text": "- gathers and postprocesses the individual coverage reports\n- creates the webpage https://ctu-mrs.github.io/buildfarm/\n- creates the badge (https://ctu-mrs.github.io/buildfarm/badge.svg) for the main page",
+      "type": "text",
+      "width": 670,
+      "x": -76,
+      "y": -1149
+    },
+    {
+      "file": "fig/single_paackage_pipeline.png",
+      "height": 706,
+      "id": "4fec0fc3254ba7c1",
+      "styleAttributes": {
+      },
+      "type": "file",
+      "width": 2118,
+      "x": -3278,
+      "y": 1220
+    },
+    {
       "file": "fig/test_pipeline.png",
-      "height": 1231,
+      "height": 1230,
       "id": "b102f80aa3b9dca0",
       "styleAttributes": {
       },
       "type": "file",
-      "width": 3674,
+      "width": 3673,
       "x": 1250,
       "y": -2711
+    },
+    {
+      "height": 1340,
+      "id": "823b4deccdbaa8c6",
+      "styleAttributes": {
+      },
+      "type": "link",
+      "url": "https://ctu-mrs.github.io/buildfarm/",
+      "width": 1760,
+      "x": 1400,
+      "y": -4264
     }
   ]
 }
