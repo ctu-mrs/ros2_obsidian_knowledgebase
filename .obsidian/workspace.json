@@ -4,24 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "43233f06fcae986c",
+        "id": "1eaa08c23e948a58",
         "type": "tabs",
         "children": [
           {
-            "id": "970bf465d51a32ea",
+            "id": "8429262ee56bee72",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "release-notes",
               "state": {
-                "file": "buildfarm_canvas.canvas",
-                "viewState": {
-                  "x": -93.51617010357707,
-                  "y": -2262.1061557881367,
-                  "zoom": -1.1305513030799144
-                }
+                "currentVersion": "1.8.9"
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "buildfarm_canvas"
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.8.9"
             }
           }
         ]
@@ -172,12 +167,12 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "970bf465d51a32ea",
+  "active": "8429262ee56bee72",
   "lastOpenFiles": [
-    "fig/single_paackage_pipeline.png",
-    "fig/release_pipeline.png",
     "main_canvas.canvas",
     "buildfarm_canvas.canvas",
+    "fig/single_paackage_pipeline.png",
+    "fig/release_pipeline.png",
     "fig/test_pipeline.png",
     "export.sh",
     "fig/pipelines.png",
