@@ -656,17 +656,6 @@
       "y": -1280
     },
     {
-      "height": 2280,
-      "id": "b1523ee53bf98a03",
-      "label": "Third-party package refactoring decision making tree",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 3240,
-      "x": -1600,
-      "y": 3560
-    },
-    {
       "height": 1710,
       "id": "73686b6e8d0b2939",
       "label": "MRS UAV Core",
@@ -676,6 +665,113 @@
       "width": 2420,
       "x": -1720,
       "y": -1200
+    },
+    {
+      "color": "6",
+      "height": 640,
+      "id": "7c0574e53af29f11",
+      "label": "New features - not in ROS1 MRS yet",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 860,
+      "x": -600,
+      "y": -680
+    },
+    {
+      "color": "6",
+      "height": 815,
+      "id": "10401c97066d19b4",
+      "label": "Buildfarm",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 400,
+      "x": 810,
+      "y": -1150
+    },
+    {
+      "color": "6",
+      "height": 327,
+      "id": "7ae192d75567f47b",
+      "label": "Core example packages",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 730,
+      "x": 40,
+      "y": 587
+    },
+    {
+      "color": "6",
+      "height": 280,
+      "id": "e08798985a78c903",
+      "label": "PX4 + Mavros",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 840,
+      "x": -1720,
+      "y": 660
+    },
+    {
+      "color": "4",
+      "height": 240,
+      "id": "7cfbdb87a698472d",
+      "label": "MRS Apptainer",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 400,
+      "x": 820,
+      "y": -210
+    },
+    {
+      "color": "4",
+      "height": 200,
+      "id": "b4bb372844e3a9b5",
+      "label": "Flight Forge",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 400,
+      "x": 820,
+      "y": 100
+    },
+    {
+      "color": "1",
+      "height": 80,
+      "id": "e3ce490957a9f710",
+      "label": "Months-worth of work (1 Tomas)",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 520,
+      "x": -2440,
+      "y": -920
+    },
+    {
+      "color": "6",
+      "height": 80,
+      "id": "c246d3d678787d0c",
+      "label": "Weeks-woth of work (1 Tomas)",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 520,
+      "x": -2440,
+      "y": -1080
+    },
+    {
+      "height": 2280,
+      "id": "b1523ee53bf98a03",
+      "label": "Third-party package refactoring decision making tree",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 3240,
+      "x": -1600,
+      "y": 3560
     },
     {
       "color": "1",
@@ -726,18 +822,6 @@
       "y": 1088
     },
     {
-      "color": "6",
-      "height": 610,
-      "id": "7c0574e53af29f11",
-      "label": "New features - not in ROS1 MRS yet",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 860,
-      "x": -600,
-      "y": -680
-    },
-    {
       "color": "1",
       "height": 301,
       "id": "072d83bdd80947e8",
@@ -786,42 +870,6 @@
       "y": -1150
     },
     {
-      "color": "6",
-      "height": 815,
-      "id": "10401c97066d19b4",
-      "label": "Buildfarm",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 400,
-      "x": 810,
-      "y": -1150
-    },
-    {
-      "color": "6",
-      "height": 327,
-      "id": "7ae192d75567f47b",
-      "label": "Core example packages",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 730,
-      "x": 40,
-      "y": 587
-    },
-    {
-      "color": "6",
-      "height": 280,
-      "id": "e08798985a78c903",
-      "label": "PX4 + Mavros",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 840,
-      "x": -1720,
-      "y": 660
-    },
-    {
       "color": "4",
       "height": 255,
       "id": "2219ba27b4d116dc",
@@ -860,18 +908,6 @@
     {
       "color": "4",
       "height": 240,
-      "id": "7cfbdb87a698472d",
-      "label": "MRS Apptainer",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 400,
-      "x": 820,
-      "y": -210
-    },
-    {
-      "color": "4",
-      "height": 240,
       "id": "75a3b44c1aa5bc5d",
       "label": "MRS Docker",
       "styleAttributes": {
@@ -892,18 +928,6 @@
       "width": 489,
       "x": 211,
       "y": 1380
-    },
-    {
-      "color": "4",
-      "height": 200,
-      "id": "b4bb372844e3a9b5",
-      "label": "Flight Forge",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 400,
-      "x": 820,
-      "y": 100
     },
     {
       "color": "1",
@@ -942,18 +966,6 @@
       "y": 2741
     },
     {
-      "color": "1",
-      "height": 80,
-      "id": "e3ce490957a9f710",
-      "label": "Months-worth of work (1 Tomas)",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 520,
-      "x": -2440,
-      "y": -920
-    },
-    {
       "color": "4",
       "height": 80,
       "id": "69b9142cc9d39aa1",
@@ -964,18 +976,6 @@
       "width": 520,
       "x": -2440,
       "y": -1240
-    },
-    {
-      "color": "6",
-      "height": 80,
-      "id": "c246d3d678787d0c",
-      "label": "Weeks-woth of work (1 Tomas)",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 520,
-      "x": -2440,
-      "y": -1080
     },
     {
       "height": 180,
@@ -1112,410 +1112,6 @@
       "y": 5340
     },
     {
-      "height": 180,
-      "id": "245361ed4ece21aa",
-      "styleAttributes": {
-      },
-      "text": "Use behavioral trees\n- [ ] check how does it work, if it is useful",
-      "type": "text",
-      "width": 275,
-      "x": -295,
-      "y": -290
-    },
-    {
-      "height": 140,
-      "id": "7a5df689ca0fd012",
-      "styleAttributes": {
-      },
-      "text": "MRS Errorgraph viewer\n- [ ] refactor\n- [ ] incorporate",
-      "type": "text",
-      "width": 275,
-      "x": -295,
-      "y": -652
-    },
-    {
-      "height": 140,
-      "id": "32f0b64f526b4bca",
-      "styleAttributes": {
-      },
-      "text": "Disarmin\n\n- [ ] imlement disarming key exchange",
-      "type": "text",
-      "width": 200,
-      "x": 20,
-      "y": -652
-    },
-    {
-      "height": 145,
-      "id": "1f95f880d2933014",
-      "styleAttributes": {
-      },
-      "text": "MRS Errorgraph\n- [ ] refactor\n- [ ] incorporate",
-      "type": "text",
-      "width": 230,
-      "x": -580,
-      "y": -655
-    },
-    {
-      "color": "4",
-      "height": 260,
-      "id": "2d25addcb4de54ed",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Estimators\n\n- [x] AGL estimators\n- [x] Altitude estimators\n- [x] Heading estimators\n- [x] Lateral estimators\n- [x] State estimators\n- [ ] TODO unify healthcheck timers\n- [ ] **Tests**",
-      "type": "text",
-      "width": 360,
-      "x": -635,
-      "y": 0
-    },
-    {
-      "color": "4",
-      "height": 260,
-      "id": "5a01cb84218ab505",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Trackers\n\n- [x] Mpc tracker\n- [x] Line tracker\n- [ ] Midair activation tracker\n- [x] Landoff tracker\n- [ ] Joy tracker **(keep?)**\n- [ ] Speed tracker **(keep?)**\n- [ ] **Tests**",
-      "type": "text",
-      "width": 340,
-      "x": -215,
-      "y": 0
-    },
-    {
-      "color": "4",
-      "height": 260,
-      "id": "61b4ea56b7f515a7",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Controllers\n\n- [x] MpcController\n- [ ] Se3Controller\n- [x] Failsafe controller\n- [ ] Midair activation controller\n- [ ] **Tests**",
-      "type": "text",
-      "width": 360,
-      "x": 185,
-      "y": 0
-    },
-    {
-      "height": 180,
-      "id": "d6360e76dcda03bb",
-      "styleAttributes": {
-      },
-      "text": "Minor points:\n- [ ] proper handling of UTM zones\n",
-      "type": "text",
-      "width": 230,
-      "x": -580,
-      "y": -290
-    },
-    {
-      "height": 180,
-      "id": "047ee043080dce51",
-      "styleAttributes": {
-      },
-      "text": "Diagnostics manager?\n- [ ] talk to Vojta and get an idea how it works\n- [ ] Maybe Matous should do it?",
-      "type": "text",
-      "width": 275,
-      "x": -295,
-      "y": -490
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "dd0cfd16a5d267ca",
-      "styleAttributes": {
-      },
-      "text": "Trajectory generation\n- [ ] Refactor\n- [ ] Tests",
-      "type": "text",
-      "width": 360,
-      "x": -45,
-      "y": 322
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "e5a28be95a0f22b0",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Autostart\n- [ ] Refactor\n- [ ] Tests",
-      "type": "text",
-      "width": 350,
-      "x": -445,
-      "y": 321
-    },
-    {
-      "height": 150,
-      "id": "df229b074d37dbdf",
-      "styleAttributes": {
-      },
-      "text": "Safety area manager\n\n- [ ] refactor\n- [ ] incorporate",
-      "type": "text",
-      "width": 230,
-      "x": -580,
-      "y": -490
-    },
-    {
-      "color": "4",
-      "height": 360,
-      "id": "3a54f9fc106ba176",
-      "styleAttributes": {
-      },
-      "text": "MRS Multirotor simulator\n\n- [x] refactor\n\t- [x] dynamic reconfigure\n\t- [x] rviz integration\n- [ ] add sensor noise (Michal Reiser)\n- [x] test simtime generation\n- [x] test max simulation rate\n- [x] HW Api plugin (needs HW API)\n- [ ] tests\n\t- [ ] standalone tests\n\t- [ ] MRS system wide tests\n",
-      "type": "text",
-      "width": 340,
-      "x": -560,
-      "y": -1120
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "e711ffc6949994de",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Status\n- [ ] Acquisition node\n- [ ] Presentation node",
-      "type": "text",
-      "width": 360,
-      "x": -890,
-      "y": 321
-    },
-    {
-      "color": "6",
-      "height": 800,
-      "id": "e4f4951aef61636f",
-      "styleAttributes": {
-      },
-      "text": "MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkf, nckf\n - [x] profiiler\n - [x] msg extractor\n - [x] service client handler\n - [x] subscriber handler\n - [x] transform broadcaster\n - [x] transformer\n - [x] safety zone\n - [x] IIR filter\n - [x] batch visualizer (**Afzal**)\n - [ ] aloamgarm + JLKF (**Vasek**)\n\t - [ ] tests\n - [ ] dynamic publisher (**Matous**)[^1]\n\t - [ ] tests\n - [ ] .. the rest of the minor libs\n - [ ] building of doxygen docs\n - [ ] building a python lib for testing\n\t - [ ] how to export python libs?\n\n[^1]: Probably rewrite from scratch\n",
-      "type": "text",
-      "width": 320,
-      "x": -960,
-      "y": -1120
-    },
-    {
-      "height": 160,
-      "id": "4cc7a9bd8086ea35",
-      "styleAttributes": {
-      },
-      "text": "- [ ] refactor ROS bindings and integration\n- [ ] udpate examples",
-      "type": "text",
-      "width": 320,
-      "x": 860,
-      "y": -170
-    },
-    {
-      "height": 140,
-      "id": "837972de6237beb0",
-      "styleAttributes": {
-      },
-      "text": "Unreal sim package\n- [ ] Simulator node\n- [ ] HW APi",
-      "type": "text",
-      "width": 310,
-      "x": 860,
-      "y": 130
-    },
-    {
-      "height": 210,
-      "id": "a7f40ca3a1ef6ccd",
-      "styleAttributes": {
-      },
-      "text": "## CI Scripts\n\n- set of common scripts used by the **buildfarm** and by separate repositories' actions\n- [x] update and refactor",
-      "type": "text",
-      "width": 300,
-      "x": 850,
-      "y": -730
-    },
-    {
-      "height": 325,
-      "id": "abf7290cf303b0b2",
-      "styleAttributes": {
-      },
-      "text": "## Buildfarm\n\n- [x] creating of ROS2 PPAs\n- [x] revisiting bloom\n- [x] refactoring dockerized compilation pipeline\n- [x] on-push builds\n- [x] test pipeline\n- [x] coverage pipeline",
-      "type": "text",
-      "width": 300,
-      "x": 850,
-      "y": -1090
-    },
-    {
-      "color": "4",
-      "height": 150,
-      "id": "fdf4dc18d83be7fc",
-      "styleAttributes": {
-      },
-      "text": "mrs_msgs\n\n- [x] refactor\n- [ ] building of doxygen docs",
-      "type": "text",
-      "width": 276,
-      "x": -1300,
-      "y": -840
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "ec3550681db8eb58",
-      "styleAttributes": {
-      },
-      "text": "MRS Rviz plugins\n\n- not essential, should be simple\n- [ ] refactor",
-      "type": "text",
-      "width": 312,
-      "x": -1318,
-      "y": -470
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "145032fbfc2b10d0",
-      "styleAttributes": {
-      },
-      "text": "Colcon workspace\n- [ ] how does the `mixin` feature work",
-      "type": "text",
-      "width": 326,
-      "x": -1006,
-      "y": -200
-    },
-    {
-      "color": "6",
-      "height": 440,
-      "id": "f411a473cfddfefc",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Managers\n\n- [x] Estimation manager (4 days)\n- [x] Control manager\n- [ ] UAV manager\n\t- [ ] maybe try the behavioral trees?\n- [ ] Transform manager (1 day)\n- [ ] Constraint manager\n- [ ] Gain manager\n- [ ] bulding of doxygen docs",
-      "type": "text",
-      "width": 340,
-      "x": 320,
-      "y": -840
-    },
-    {
-      "height": 50,
-      "id": "72d77d1c5070a9b0",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": 180,
-      "y": 366
-    },
-    {
-      "color": "4",
-      "height": 103,
-      "id": "7f1dd496a270a97b",
-      "styleAttributes": {
-      },
-      "text": "NLOT solver ROS wrapper\n- [x] refactor",
-      "type": "text",
-      "width": 250,
-      "x": 425,
-      "y": 342
-    },
-    {
-      "color": "6",
-      "height": 200,
-      "id": "7f793a557a5ca152",
-      "styleAttributes": {
-      },
-      "text": "ROS2 inter-robot communication\n\n- How to correctly configure remote access to remote ROS2 machine?\n- How to replace the old Nimbro setup with native ROS2 features",
-      "type": "text",
-      "width": 400,
-      "x": 821,
-      "y": 340
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "1e19d8dd1cff6cf0",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV testing\n\n- [ ] the abstraction library\n- [ ] tests\n\t- [ ] example tests using the lib",
-      "type": "text",
-      "width": 360,
-      "x": 220,
-      "y": -1090
-    },
-    {
-      "color": "4",
-      "height": 210,
-      "id": "717b2d89e56666a4",
-      "styleAttributes": {
-      },
-      "text": "HW Api\n- [x] plugin interface\n- [x] example plugin\n- [x] plugin manager\n- [ ] doxygen\n\n- took me 1 day",
-      "type": "text",
-      "width": 300,
-      "x": -160,
-      "y": -1090
-    },
-    {
-      "height": 240,
-      "id": "7ecbe7df75d5ef33",
-      "styleAttributes": {
-      },
-      "text": "External dependencies\n- ROS\n- Eigen\n- PCL (neccessary?)\n- OpenCV (neccessary?)",
-      "type": "text",
-      "width": 260,
-      "x": -1284,
-      "y": -1120
-    },
-    {
-      "height": 240,
-      "id": "e0400951764a4763",
-      "styleAttributes": {
-      },
-      "text": "CPP\n\n- [ ] waypoint flier\n- [ ] waypoint flier simple\n- [ ] tracker plugin\n- [ ] controller plugin\n- [ ] estimator plugin (**create**)\n- [ ] pluginlib example",
-      "type": "text",
-      "width": 310,
-      "x": 60,
-      "y": 634
-    },
-    {
-      "height": 200,
-      "id": "6ebb466899965363",
-      "styleAttributes": {
-      },
-      "text": "PX4 Hw API\n\n- [ ] Refactor\n- [ ] Test with a real drone first (if the comunications work as expected)",
-      "type": "text",
-      "width": 332,
-      "x": -1280,
-      "y": 700
-    },
-    {
-      "color": "4",
-      "height": 105,
-      "id": "a3ea8958ad38ba4c",
-      "styleAttributes": {
-      },
-      "text": "MRS DJI Tello API\n\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": -360,
-      "y": 582
-    },
-    {
-      "height": 240,
-      "id": "2f8bca2c7ddcb57a",
-      "styleAttributes": {
-      },
-      "text": "Python\n\n- [ ] sweeping generator",
-      "type": "text",
-      "width": 310,
-      "x": 425,
-      "y": 634
-    },
-    {
-      "color": "4",
-      "height": 135,
-      "id": "916453ea96973390",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Deployment\n\n* [ ] refactor config files\n* [ ] example tmux sessions",
-      "type": "text",
-      "width": 369,
-      "x": -780,
-      "y": 765
-    },
-    {
-      "color": "4",
-      "height": 126,
-      "id": "fa9123b820850175",
-      "styleAttributes": {
-      },
-      "text": "MRS Coppelia simulation\n- I would keep it as an example\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": -310,
-      "y": 774
-    },
-    {
       "height": 119,
       "id": "5f4051d7df922f17",
       "styleAttributes": {
@@ -1572,77 +1168,6 @@
       "y": 1128
     },
     {
-      "color": "4",
-      "height": 180,
-      "id": "9f777653548f674e",
-      "styleAttributes": {
-      },
-      "text": "Rosbag Record (deleg. Tsoy Artyom)\n* how do our customisations from ROS1 apply?\n\t* rosbag record is killed when it cannot write to the disk anymore\n\t* it publishes and prints the datarate\n* [ ] investigate",
-      "type": "text",
-      "width": 640,
-      "x": -1680,
-      "y": 141
-    },
-    {
-      "color": "4",
-      "height": 119,
-      "id": "e763b929841e10c9",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Shell Additions\n- will the `waitFor` macros gonna be needed in ROS2?\n- [ ] refactor",
-      "type": "text",
-      "width": 640,
-      "x": -1680,
-      "y": 342
-    },
-    {
-      "color": "4",
-      "height": 160,
-      "id": "f7e145f6c2716bb7",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV Development\n\n - [x] colon alias for ease of use\n - [x] custom **roscd** alias\n - [x] pre-sourcing of a selected workspace for speedup of the process",
-      "type": "text",
-      "width": 640,
-      "x": -1680,
-      "y": -200
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "5466ddc02933ed11",
-      "styleAttributes": {
-      },
-      "text": "Is FastRTSP good enough for images and pointclouds? (deleg. Tsoy Artyom)\n- [ ] verify\n- [ ] try the Zenoh RMW, which should work like the ROS1 with roscore",
-      "type": "text",
-      "width": 640,
-      "x": -1680,
-      "y": -19
-    },
-    {
-      "height": 50,
-      "id": "43c87423fe6969f6",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": 964,
-      "y": -420
-    },
-    {
-      "color": "6",
-      "height": 560,
-      "id": "e2f9c83d377e8936",
-      "styleAttributes": {
-      },
-      "text": "[ROS2 examples](https://github.com/ctu-mrs/ros2_examples) (Jazzy)\n\n- [x] param loading\n- [x] Publisher\n- [x] Subscriber\n- [x] Timer\n- [x] Service client\n- [x] Service server\n- [x] library\n- [x] tests\n\t- [x] unit test\n\t- [x] integration test\n- [x]  Pluginlib\n- [x] tf broadcaster\n- [x] tf listener\n- [ ] clock managament\n- [ ] image transport\n- [ ] point cloud transport\n- [ ] actionlib\n- [ ] lifecycle nodes",
-      "type": "text",
-      "width": 320,
-      "x": -1680,
-      "y": -779
-    },
-    {
       "height": 160,
       "id": "e300f42b6e595cb2",
       "styleAttributes": {
@@ -1678,18 +1203,6 @@
     },
     {
       "color": "4",
-      "height": 240,
-      "id": "922e0a74504d0abf",
-      "styleAttributes": {
-      },
-      "text": "Linux Setup ([Ubuntu 24.04](https://github.com/klaxalk/linux-setup/tree/tomas_24.04))\n- [x] nvim works\n\t- [x] coc.nvim replaced ycm\n\t- [x] ROS integration works\n- [x] i3 works\n- [x] tmux and other  tools ok\n- [x] automatic installation works",
-      "type": "text",
-      "width": 320,
-      "x": -1680,
-      "y": -1060
-    },
-    {
-      "color": "4",
       "height": 200,
       "id": "00abcb0428f081e1",
       "styleAttributes": {
@@ -1710,29 +1223,6 @@
       "width": 113,
       "x": 1469,
       "y": -420
-    },
-    {
-      "height": 60,
-      "id": "19d79edc2763f36e",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "## START",
-      "type": "text",
-      "width": 260,
-      "x": -1650,
-      "y": -1150
-    },
-    {
-      "height": 200,
-      "id": "47b4058165fa7380",
-      "styleAttributes": {
-      },
-      "text": "Mavros\n\n- does it exists in Jazzy?\n- or should we implement our own?",
-      "type": "text",
-      "width": 320,
-      "x": -1680,
-      "y": 700
     },
     {
       "height": 160,
@@ -1777,28 +1267,6 @@
       "width": 260,
       "x": 935,
       "y": 903
-    },
-    {
-      "height": 160,
-      "id": "6128217b9c10a8a2",
-      "styleAttributes": {
-      },
-      "text": "## F4F utilizes and deploys these features in an industrial setting",
-      "type": "text",
-      "width": 520,
-      "x": -2440,
-      "y": -800
-    },
-    {
-      "height": 50,
-      "id": "c7a76398bfcdb8f6",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": -2060,
-      "y": -720
     },
     {
       "height": 160,
@@ -2588,6 +2056,549 @@
       "width": 300,
       "x": 398,
       "y": 4620
+    },
+    {
+      "height": 210,
+      "id": "245361ed4ece21aa",
+      "styleAttributes": {
+      },
+      "text": "Use behavioral trees\n- [x] check how does it work, if it is useful\n- [x] Dan3 from F4F reimplemented automatic start using it",
+      "type": "text",
+      "width": 275,
+      "x": -295,
+      "y": -290
+    },
+    {
+      "height": 140,
+      "id": "7a5df689ca0fd012",
+      "styleAttributes": {
+      },
+      "text": "MRS Errorgraph viewer\n- [ ] refactor\n- [ ] incorporate",
+      "type": "text",
+      "width": 275,
+      "x": -295,
+      "y": -652
+    },
+    {
+      "height": 140,
+      "id": "32f0b64f526b4bca",
+      "styleAttributes": {
+      },
+      "text": "Disarmin\n\n- [ ] imlement disarming key exchange",
+      "type": "text",
+      "width": 200,
+      "x": 20,
+      "y": -652
+    },
+    {
+      "height": 145,
+      "id": "1f95f880d2933014",
+      "styleAttributes": {
+      },
+      "text": "MRS Errorgraph\n- [ ] refactor\n- [ ] incorporate",
+      "type": "text",
+      "width": 230,
+      "x": -580,
+      "y": -655
+    },
+    {
+      "height": 180,
+      "id": "d6360e76dcda03bb",
+      "styleAttributes": {
+      },
+      "text": "Minor points:\n- [ ] proper handling of UTM zones\n",
+      "type": "text",
+      "width": 230,
+      "x": -580,
+      "y": -290
+    },
+    {
+      "height": 180,
+      "id": "047ee043080dce51",
+      "styleAttributes": {
+      },
+      "text": "Diagnostics manager?\n- [ ] talk to Vojta and get an idea how it works\n- [ ] Maybe Matous should do it?",
+      "type": "text",
+      "width": 275,
+      "x": -295,
+      "y": -490
+    },
+    {
+      "height": 180,
+      "id": "23e6a1d150dbcb72",
+      "styleAttributes": {
+      },
+      "text": "Controller timeouting",
+      "type": "text",
+      "width": 200,
+      "x": 20,
+      "y": -490
+    },
+    {
+      "height": 150,
+      "id": "df229b074d37dbdf",
+      "styleAttributes": {
+      },
+      "text": "Safety area manager\n\n- [ ] refactor\n- [ ] incorporate",
+      "type": "text",
+      "width": 230,
+      "x": -580,
+      "y": -490
+    },
+    {
+      "color": "4",
+      "height": 360,
+      "id": "3a54f9fc106ba176",
+      "styleAttributes": {
+      },
+      "text": "MRS Multirotor simulator\n\n- [x] refactor\n\t- [x] dynamic reconfigure\n\t- [x] rviz integration\n- [ ] add sensor noise (Michal Reiser)\n- [x] test simtime generation\n- [x] test max simulation rate\n- [x] HW Api plugin (needs HW API)\n- [ ] tests\n\t- [ ] standalone tests\n\t- [ ] MRS system wide tests\n",
+      "type": "text",
+      "width": 340,
+      "x": -560,
+      "y": -1120
+    },
+    {
+      "color": "6",
+      "height": 800,
+      "id": "e4f4951aef61636f",
+      "styleAttributes": {
+      },
+      "text": "MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkf, nckf\n - [x] profiiler\n - [x] msg extractor\n - [x] service client handler\n - [x] subscriber handler\n - [x] transform broadcaster\n - [x] transformer\n - [x] safety zone\n - [x] IIR filter\n - [x] batch visualizer (**Afzal**)\n - [ ] service server handler (matous)\n - [ ] aloamgarm + JLKF (**Vasek**)\n\t - [ ] tests\n - [ ] dynamic publisher (**Matous**)[^1]\n\t - [ ] tests\n - [ ] .. the rest of the minor libs\n - [ ] building of doxygen docs\n - [ ] building a python lib for testing\n\t - [ ] how to export python libs?\n\n[^1]: Probably rewrite from scratch\n",
+      "type": "text",
+      "width": 320,
+      "x": -960,
+      "y": -1120
+    },
+    {
+      "color": "4",
+      "height": 150,
+      "id": "fdf4dc18d83be7fc",
+      "styleAttributes": {
+      },
+      "text": "mrs_msgs\n\n- [x] refactor\n- [ ] building of doxygen docs",
+      "type": "text",
+      "width": 276,
+      "x": -1300,
+      "y": -840
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "ec3550681db8eb58",
+      "styleAttributes": {
+      },
+      "text": "MRS Rviz plugins\n\n- not essential, should be simple\n- [ ] refactor",
+      "type": "text",
+      "width": 312,
+      "x": -1318,
+      "y": -470
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "145032fbfc2b10d0",
+      "styleAttributes": {
+      },
+      "text": "Colcon workspace\n- [x] how does the `mixin` feature work",
+      "type": "text",
+      "width": 326,
+      "x": -1006,
+      "y": -200
+    },
+    {
+      "color": "6",
+      "height": 440,
+      "id": "f411a473cfddfefc",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Managers\n\n- [x] Estimation manager (4 days)\n- [x] Control manager\n- [x] UAV manager\n\t- [ ] maybe try the behavioral trees?\n- [x] Transform manager (1 day)\n- [x] Constraint manager\n- [ ] Gain manager\n- [ ] bulding of doxygen docs",
+      "type": "text",
+      "width": 340,
+      "x": 320,
+      "y": -840
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "1e19d8dd1cff6cf0",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV testing\n\n- [ ] the abstraction library\n- [ ] tests\n\t- [ ] example tests using the lib",
+      "type": "text",
+      "width": 360,
+      "x": 220,
+      "y": -1090
+    },
+    {
+      "color": "4",
+      "height": 210,
+      "id": "717b2d89e56666a4",
+      "styleAttributes": {
+      },
+      "text": "HW Api\n- [x] plugin interface\n- [x] example plugin\n- [x] plugin manager\n- [ ] doxygen\n\n- took me 1 day",
+      "type": "text",
+      "width": 300,
+      "x": -160,
+      "y": -1090
+    },
+    {
+      "height": 240,
+      "id": "7ecbe7df75d5ef33",
+      "styleAttributes": {
+      },
+      "text": "External dependencies\n- ROS\n- Eigen\n- PCL (neccessary?)\n- OpenCV (neccessary?)",
+      "type": "text",
+      "width": 260,
+      "x": -1284,
+      "y": -1120
+    },
+    {
+      "color": "4",
+      "height": 260,
+      "id": "2d25addcb4de54ed",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Estimators\n\n- [x] AGL estimators\n- [x] Altitude estimators\n- [x] Heading estimators\n- [x] Lateral estimators\n- [x] State estimators\n- [ ] TODO unify healthcheck timers\n- [ ] **Tests**",
+      "type": "text",
+      "width": 360,
+      "x": -635,
+      "y": 0
+    },
+    {
+      "color": "4",
+      "height": 260,
+      "id": "5a01cb84218ab505",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Trackers\n\n- [x] Mpc tracker\n- [x] Line tracker\n- [ ] Midair activation tracker\n- [x] Landoff tracker\n- [ ] Joy tracker **(keep?)**\n- [ ] Speed tracker **(keep?)**\n- [ ] **Tests**",
+      "type": "text",
+      "width": 340,
+      "x": -215,
+      "y": 0
+    },
+    {
+      "color": "4",
+      "height": 260,
+      "id": "61b4ea56b7f515a7",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Controllers\n\n- [x] MpcController\n- [ ] Se3Controller\n- [x] Failsafe controller\n- [ ] Midair activation controller\n- [ ] **Tests**",
+      "type": "text",
+      "width": 360,
+      "x": 185,
+      "y": 0
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "dd0cfd16a5d267ca",
+      "styleAttributes": {
+      },
+      "text": "Trajectory generation\n- [ ] Refactor\n- [ ] Tests",
+      "type": "text",
+      "width": 360,
+      "x": -45,
+      "y": 322
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "e5a28be95a0f22b0",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Autostart\n- [x] Refactor\n- [ ] Tests",
+      "type": "text",
+      "width": 350,
+      "x": -445,
+      "y": 321
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "e711ffc6949994de",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Status\n- [ ] Acquisition node\n- [ ] Presentation node",
+      "type": "text",
+      "width": 360,
+      "x": -890,
+      "y": 321
+    },
+    {
+      "color": "4",
+      "height": 103,
+      "id": "7f1dd496a270a97b",
+      "styleAttributes": {
+      },
+      "text": "NLOPT solver ROS wrapper\n- [x] refactor",
+      "type": "text",
+      "width": 270,
+      "x": 405,
+      "y": 342
+    },
+    {
+      "height": 50,
+      "id": "72d77d1c5070a9b0",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": 180,
+      "y": 366
+    },
+    {
+      "color": "4",
+      "height": 105,
+      "id": "a3ea8958ad38ba4c",
+      "styleAttributes": {
+      },
+      "text": "MRS DJI Tello API\n\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": -360,
+      "y": 582
+    },
+    {
+      "height": 240,
+      "id": "e0400951764a4763",
+      "styleAttributes": {
+      },
+      "text": "CPP\n\n- [ ] waypoint flier\n- [ ] waypoint flier simple\n- [ ] tracker plugin\n- [ ] controller plugin\n- [ ] estimator plugin (**create**)\n- [ ] pluginlib example",
+      "type": "text",
+      "width": 310,
+      "x": 60,
+      "y": 634
+    },
+    {
+      "height": 240,
+      "id": "2f8bca2c7ddcb57a",
+      "styleAttributes": {
+      },
+      "text": "Python\n\n- [ ] sweeping generator",
+      "type": "text",
+      "width": 310,
+      "x": 425,
+      "y": 634
+    },
+    {
+      "height": 200,
+      "id": "6ebb466899965363",
+      "styleAttributes": {
+      },
+      "text": "PX4 Hw API\n\n- [ ] Refactor\n- [ ] Test with a real drone first (if the comunications work as expected)",
+      "type": "text",
+      "width": 332,
+      "x": -1280,
+      "y": 700
+    },
+    {
+      "color": "6",
+      "height": 200,
+      "id": "7f793a557a5ca152",
+      "styleAttributes": {
+      },
+      "text": "ROS2 inter-robot communication\n\n- How to correctly configure remote access to remote ROS2 machine?\n- How to replace the old Nimbro setup with native ROS2 features",
+      "type": "text",
+      "width": 400,
+      "x": 821,
+      "y": 340
+    },
+    {
+      "height": 160,
+      "id": "4cc7a9bd8086ea35",
+      "styleAttributes": {
+      },
+      "text": "- [ ] refactor ROS bindings and integration\n- [ ] udpate examples",
+      "type": "text",
+      "width": 320,
+      "x": 860,
+      "y": -170
+    },
+    {
+      "height": 140,
+      "id": "837972de6237beb0",
+      "styleAttributes": {
+      },
+      "text": "Unreal sim package\n- [ ] Simulator node\n- [ ] HW APi",
+      "type": "text",
+      "width": 310,
+      "x": 860,
+      "y": 130
+    },
+    {
+      "height": 210,
+      "id": "a7f40ca3a1ef6ccd",
+      "styleAttributes": {
+      },
+      "text": "## CI Scripts\n\n- set of common scripts used by the **buildfarm** and by separate repositories' actions\n- [x] update and refactor",
+      "type": "text",
+      "width": 300,
+      "x": 850,
+      "y": -730
+    },
+    {
+      "height": 325,
+      "id": "abf7290cf303b0b2",
+      "styleAttributes": {
+      },
+      "text": "## Buildfarm\n\n- [x] creating of ROS2 PPAs\n- [x] revisiting bloom\n- [x] refactoring dockerized compilation pipeline\n- [x] on-push builds\n- [x] test pipeline\n- [x] coverage pipeline",
+      "type": "text",
+      "width": 300,
+      "x": 850,
+      "y": -1090
+    },
+    {
+      "height": 50,
+      "id": "43c87423fe6969f6",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": 964,
+      "y": -420
+    },
+    {
+      "color": "4",
+      "height": 160,
+      "id": "f7e145f6c2716bb7",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Development\n\n - [x] colon alias for ease of use\n - [x] custom **roscd** alias\n - [x] pre-sourcing of a selected workspace for speedup of the process",
+      "type": "text",
+      "width": 640,
+      "x": -1680,
+      "y": -200
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "5466ddc02933ed11",
+      "styleAttributes": {
+      },
+      "text": "Is FastRTSP good enough for images and pointclouds? (deleg. Tsoy Artyom)\n- [ ] verify\n- [ ] try the Zenoh RMW, which should work like the ROS1 with roscore",
+      "type": "text",
+      "width": 640,
+      "x": -1680,
+      "y": -19
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "9f777653548f674e",
+      "styleAttributes": {
+      },
+      "text": "Rosbag Record (deleg. Tsoy Artyom)\n* how do our customisations from ROS1 apply?\n\t* rosbag record is killed when it cannot write to the disk anymore\n\t* it publishes and prints the datarate\n* [ ] investigate",
+      "type": "text",
+      "width": 640,
+      "x": -1680,
+      "y": 141
+    },
+    {
+      "color": "6",
+      "height": 560,
+      "id": "e2f9c83d377e8936",
+      "styleAttributes": {
+      },
+      "text": "[ROS2 examples](https://github.com/ctu-mrs/ros2_examples) (Jazzy)\n\n- [x] param loading\n- [x] Publisher\n- [x] Subscriber\n- [x] Timer\n- [x] Service client\n- [x] Service server\n- [x] library\n- [x] tests\n\t- [x] unit test\n\t- [x] integration test\n- [x]  Pluginlib\n- [x] tf broadcaster\n- [x] tf listener\n- [ ] clock managament\n- [ ] image transport\n- [ ] point cloud transport\n- [ ] actionlib\n- [ ] lifecycle nodes",
+      "type": "text",
+      "width": 320,
+      "x": -1680,
+      "y": -779
+    },
+    {
+      "color": "4",
+      "height": 240,
+      "id": "922e0a74504d0abf",
+      "styleAttributes": {
+      },
+      "text": "Linux Setup ([Ubuntu 24.04](https://github.com/klaxalk/linux-setup/tree/tomas_24.04))\n- [x] nvim works\n\t- [x] coc.nvim replaced ycm\n\t- [x] ROS integration works\n- [x] i3 works\n- [x] tmux and other  tools ok\n- [x] automatic installation works",
+      "type": "text",
+      "width": 320,
+      "x": -1680,
+      "y": -1060
+    },
+    {
+      "color": "4",
+      "height": 119,
+      "id": "e763b929841e10c9",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Shell Additions\n- will the `waitFor` macros gonna be needed in ROS2?\n- [ ] refactor",
+      "type": "text",
+      "width": 640,
+      "x": -1680,
+      "y": 342
+    },
+    {
+      "height": 200,
+      "id": "47b4058165fa7380",
+      "styleAttributes": {
+      },
+      "text": "Mavros\n\n- does it exists in Jazzy?\n- or should we implement our own?",
+      "type": "text",
+      "width": 320,
+      "x": -1680,
+      "y": 700
+    },
+    {
+      "color": "4",
+      "height": 135,
+      "id": "916453ea96973390",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV Deployment\n\n* [ ] refactor config files\n* [ ] example tmux sessions",
+      "type": "text",
+      "width": 369,
+      "x": -780,
+      "y": 765
+    },
+    {
+      "color": "4",
+      "height": 126,
+      "id": "fa9123b820850175",
+      "styleAttributes": {
+      },
+      "text": "MRS Coppelia simulation\n- I would keep it as an example\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": -310,
+      "y": 774
+    },
+    {
+      "height": 160,
+      "id": "6128217b9c10a8a2",
+      "styleAttributes": {
+      },
+      "text": "## F4F utilizes and deploys these features in an industrial setting",
+      "type": "text",
+      "width": 520,
+      "x": -2440,
+      "y": -800
+    },
+    {
+      "height": 50,
+      "id": "c7a76398bfcdb8f6",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": -2060,
+      "y": -720
+    },
+    {
+      "height": 60,
+      "id": "19d79edc2763f36e",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "## START",
+      "type": "text",
+      "width": 260,
+      "x": -1650,
+      "y": -1150
     }
   ]
 }
