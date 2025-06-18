@@ -1171,28 +1171,6 @@
       "y": 853
     },
     {
-      "height": 1780,
-      "id": "41d6f574638487dd",
-      "styleAttributes": {
-      },
-      "text": "## ROS2 problems and regressions\n\n## TUI\n- no `roscd`\n- calling services got complicated (nobody wants to write json dictionaries by hand)\n- no colors without exporting a variable\n## colcon\n- no colors\n- no build-in profiles (I know, mixins exist, but they need to be setup, are stored externally in a file)\n- `colcon build` makes new workspace if not called in the root of the workspace\n- including headers does not prioritize the ones in the workspace (https://colcon.readthedocs.io/en/released/user/overriding-packages.html#sort-include-directories-according-to-the-workspace-order)\n- no direct control of the number of build threads without exporting a variable\n### Launch\n- respawning does not work\n- not crashing in the launch file will not cause the launch file to crash\n- launch files need to be \"grouped\" while being included, otherwise the arguments are going to be overlapping\n## Containers\n- The container some times exists\n## FastRTPS\n- Causes the node to freeze when service being called from another computer\n## Zenoh\n- When the router dies before other nodes (e.g., when stopping an integration test), the other nodes crash\n## Parameters\n- All parameters are shown in rqt_reconfigure and can not be removed, only \"greyed out\"\n- All components are getting the callback for changing parameters, even for other component's parameters\n- Missing parameter grouping from rqt_reconfigure\n## rclcpp\n- the generic topic subscriber now needs to know the topic type in runtime\n- the official Timer implementation is very CPU heavy (5x over ROS1, 4x over custom threaded implementation)\n- comparing incompatible times will throw an exception! this is easy to miss or cause during runtime. Why is C++ library for realtime robotics throwing so many exceptions?\n- service call is by default async, the sync one needs to be implemented manually; the boiler plate code for both is pretty large\n\n## rosbag\n- rosbag play does not show the progress anymore",
-      "type": "text",
-      "width": 820,
-      "x": 1860,
-      "y": -620
-    },
-    {
-      "height": 600,
-      "id": "19624fa5944dcf29",
-      "styleAttributes": {
-      },
-      "text": "## TODO\n\n- [ ] Although the estimation manager checks for data on the \"control input\" topic, the particular estimator might be subscribing a wrong topic, therefore, you might miss the error of bad remapping\n- [ ] Mavros config needs different configs for Garmin with old (id 33) and new fw (id 0, pitch_270)\n- [ ] Batch visualizered topic are not shown in rviz",
-      "type": "text",
-      "width": 820,
-      "x": 1880,
-      "y": -1280
-    },
-    {
       "height": 160,
       "id": "4cc7a9bd8086ea35",
       "styleAttributes": {
@@ -1580,17 +1558,6 @@
       "width": 310,
       "x": 60,
       "y": 1064
-    },
-    {
-      "height": 180,
-      "id": "23e6a1d150dbcb72",
-      "styleAttributes": {
-      },
-      "text": "Timeouting\n\n- [ ] controller timeouting\n- [ ] tracking timeouting",
-      "type": "text",
-      "width": 200,
-      "x": 20,
-      "y": -490
     },
     {
       "color": "4",
@@ -2176,17 +2143,6 @@
       "y": -490
     },
     {
-      "height": 180,
-      "id": "eba2657fe9c1949b",
-      "styleAttributes": {
-      },
-      "text": "",
-      "type": "text",
-      "width": 275,
-      "x": -295,
-      "y": -290
-    },
-    {
       "height": 140,
       "id": "7a5df689ca0fd012",
       "styleAttributes": {
@@ -2282,11 +2238,12 @@
       "y": -200
     },
     {
-      "height": 140,
+      "color": "4",
+      "height": 60,
       "id": "32f0b64f526b4bca",
       "styleAttributes": {
       },
-      "text": "Disarming\n\n- [ ] imlement disarming key exchange",
+      "text": "Signed disarming",
       "type": "text",
       "width": 200,
       "x": 20,
@@ -2315,17 +2272,6 @@
       "width": 360,
       "x": 220,
       "y": -1090
-    },
-    {
-      "height": 180,
-      "id": "d6360e76dcda03bb",
-      "styleAttributes": {
-      },
-      "text": "Minor points:\n- [ ] proper handling of UTM zones\n",
-      "type": "text",
-      "width": 230,
-      "x": -580,
-      "y": -290
     },
     {
       "color": "4",
@@ -2402,7 +2348,7 @@
       "id": "df229b074d37dbdf",
       "styleAttributes": {
       },
-      "text": "Safety area manager\n\n- [ ] refactor\n- [ ] incorporate",
+      "text": "Safety area manager\n\n- [ ] refactor\n- [ ] incorporate\n- [ ] tests",
       "type": "text",
       "width": 230,
       "x": -580,
@@ -2623,6 +2569,52 @@
       "width": 360,
       "x": -982,
       "y": 4400
+    },
+    {
+      "height": 1780,
+      "id": "41d6f574638487dd",
+      "styleAttributes": {
+      },
+      "text": "## ROS2 problems and regressions\n\n## TUI\n- no `roscd`\n- calling services got complicated (nobody wants to write json dictionaries by hand)\n- no colors without exporting a variable\n## colcon\n- no colors\n- no build-in profiles (I know, mixins exist, but they need to be setup, are stored externally in a file)\n- `colcon build` makes new workspace if not called in the root of the workspace\n- including headers does not prioritize the ones in the workspace (https://colcon.readthedocs.io/en/released/user/overriding-packages.html#sort-include-directories-according-to-the-workspace-order)\n- no direct control of the number of build threads without exporting a variable\n### Launch\n- respawning does not work\n- not crashing in the launch file will not cause the launch file to crash\n- launch files need to be \"grouped\" while being included, otherwise the arguments are going to be overlapping\n## Containers\n- The container some times exists\n## FastRTPS\n- Causes the node to freeze when service being called from another computer\n## Zenoh\n- When the router dies before other nodes (e.g., when stopping an integration test), the other nodes crash\n## Parameters\n- All parameters are shown in rqt_reconfigure and can not be removed, only \"greyed out\"\n- All components are getting the callback for changing parameters, even for other component's parameters\n- Missing parameter grouping from rqt_reconfigure\n## rclcpp\n- the generic topic subscriber now needs to know the topic type in runtime\n- the official Timer implementation is very CPU heavy (5x over ROS1, 4x over custom threaded implementation)\n- comparing incompatible times will throw an exception! this is easy to miss or cause during runtime. Why is C++ library for realtime robotics throwing so many exceptions?\n- service call is by default async, the sync one needs to be implemented manually; the boiler plate code for both is pretty large\n\n## rosbag\n- rosbag play does not show the progress anymore",
+      "type": "text",
+      "width": 820,
+      "x": -2740,
+      "y": -490
+    },
+    {
+      "height": 1672,
+      "id": "19624fa5944dcf29",
+      "styleAttributes": {
+      },
+      "text": "## Minor TODO\n\n- [ ] Although the estimation manager checks for data on the \"control input\" topic, the particular estimator might be subscribing a wrong topic, therefore, you might miss the error of bad remapping\n- [ ] Mavros config needs different configs for Garmin with old (id 33) and new fw (id 0, pitch_270)\n- [ ] Batch visualizerer topics are not shown in rviz\n- [ ] tf for rtk antenna currently hardcoded in transform manager's launch file\n\n## Incorporate dynmanager wrapper\n\n- [ ] Se3Controller\n- [ ] Trajectory Generation\n- [ ] Multirotor Simulator\n- [ ] MpcTracker\n- [ ] MpcController\n## Signed disarming\n- implement key exchange mechanism for the disarmin service: the caller should first get a random key from the hw api that will allow him to disarm. This will prevent a random caller from disarming the drone in mid air.\n\n- [ ] implementation\n- [ ] tests\n\n## Controller and Tracker timeouting\n\n- [ ] implementation\n- [ ] tests\n\n## Proper handling of UTM zones\n\n- [ ] implementation\n- [ ] tests\n\n## Landing detection for all output modalities\n\nThink of a way how to detect that we landed for all output modalities...\n\n- [ ] implementation\n- [ ] tests",
+      "type": "text",
+      "width": 820,
+      "x": 1840,
+      "y": -1281
+    },
+    {
+      "color": "4",
+      "height": 60,
+      "id": "23e6a1d150dbcb72",
+      "styleAttributes": {
+      },
+      "text": "Controller and Tracker Timeouting",
+      "type": "text",
+      "width": 200,
+      "x": 20,
+      "y": -550
+    },
+    {
+      "color": "4",
+      "height": 60,
+      "id": "d6360e76dcda03bb",
+      "styleAttributes": {
+      },
+      "text": "UTM zone handling\n",
+      "type": "text",
+      "width": 200,
+      "x": 20,
+      "y": -445
     }
   ]
 }
