@@ -978,164 +978,6 @@
       "y": -1240
     },
     {
-      "height": 180,
-      "id": "8cdba6a1307abb95",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Well then?",
-      "type": "text",
-      "width": 340,
-      "x": -964,
-      "y": 5340
-    },
-    {
-      "color": "4",
-      "height": 220,
-      "id": "6e5f3093c2fa75d5",
-      "styleAttributes": {
-        "shape": "circle",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 version and update it with our changes",
-      "type": "text",
-      "width": 420,
-      "x": 1158,
-      "y": 5410
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "d4b15a90f22a2253",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
-      "type": "text",
-      "width": 416,
-      "x": 398,
-      "y": 5430
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "6c90745b62b56025",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
-      "type": "text",
-      "width": 416,
-      "x": -1380,
-      "y": 5580
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "7f628f7260bb68d7",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 branch and fix it's problems",
-      "type": "text",
-      "width": 416,
-      "x": -624,
-      "y": 5580
-    },
-    {
-      "height": 140,
-      "id": "e80f49b028e708e5",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "#  Check if the ROS2 branch needs the changes as well",
-      "type": "text",
-      "width": 300,
-      "x": 398,
-      "y": 4620
-    },
-    {
-      "height": 180,
-      "id": "fd8cc69889125c22",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Do we need the changes?",
-      "type": "text",
-      "width": 340,
-      "x": 378,
-      "y": 4860
-    },
-    {
-      "height": 180,
-      "id": "904293b8b0e2577d",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Does it perform well?",
-      "type": "text",
-      "width": 340,
-      "x": -606,
-      "y": 4860
-    },
-    {
-      "height": 180,
-      "id": "8801743a1f524f51",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "# Decide if we should fix the ROS2 branch or to port the ROS1 (that worked) to ROS2",
-      "type": "text",
-      "width": 376,
-      "x": -982,
-      "y": 5100
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "3d423bad28d03996",
-      "styleAttributes": {
-        "shape": "circle",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 branch",
-      "type": "text",
-      "width": 416,
-      "x": -164,
-      "y": 5230
-    },
-    {
-      "height": 280,
-      "id": "01260bb672856725",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Is it better to merge them into the ROS2 version?",
-      "type": "text",
-      "width": 360,
-      "x": 798,
-      "y": 5090
-    },
-    {
-      "height": 140,
-      "id": "c5ea0b7efa5bd84e",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "# Test the ROS2 branch as it is",
-      "type": "text",
-      "width": 300,
-      "x": -586,
-      "y": 4620
-    },
-    {
       "color": "4",
       "height": 200,
       "id": "cd89641e064507af",
@@ -2586,7 +2428,7 @@
       "id": "19624fa5944dcf29",
       "styleAttributes": {
       },
-      "text": "## Minor TODO\n\n- [ ] Although the estimation manager checks for data on the \"control input\" topic, the particular estimator might be subscribing a wrong topic, therefore, you might miss the error of bad remapping\n- [ ] Mavros config needs different configs for Garmin with old (id 33) and new fw (id 0, pitch_270)\n- [ ] Batch visualizerer topics are not shown in rviz\n- [ ] tf for rtk antenna currently hardcoded in transform manager's launch file\n\n## Incorporate dynmanager wrapper\n\n- [ ] Se3Controller\n- [ ] Trajectory Generation\n- [ ] Multirotor Simulator\n- [ ] MpcTracker\n- [ ] MpcController\n## Signed disarming\n- implement key exchange mechanism for the disarmin service: the caller should first get a random key from the hw api that will allow him to disarm. This will prevent a random caller from disarming the drone in mid air.\n\n- [ ] implementation\n- [ ] tests\n\n## Controller and Tracker timeouting\n\n- [ ] implementation\n- [ ] tests\n\n## Proper handling of UTM zones\n\n- [ ] implementation\n- [ ] tests\n\n## Landing detection for all output modalities\n\nThink of a way how to detect that we landed for all output modalities...\n\n- [ ] implementation\n- [ ] tests",
+      "text": "## Minor TODO\n\n- [ ] Although the estimation manager checks for data on the \"control input\" topic, the particular estimator might be subscribing a wrong topic, therefore, you might miss the error of bad remapping\n- [ ] Mavros config needs different configs for Garmin with old (id 33) and new fw (id 0, pitch_270)\n- [ ] Batch visualizerer topics are not shown in rviz\n- [ ] tf for rtk antenna currently hardcoded in transform manager's launch file\n\n## Merge https://github.com/ctu-mrs/mrs_uav_state_estimators/pull/3\n\n- [ ] maybe add some test for the rate of tracker_cmd?\n## Incorporate dynmanager wrapper\n\n- [ ] Se3Controller\n- [ ] Trajectory Generation\n- [ ] Multirotor Simulator\n- [ ] MpcTracker\n- [ ] MpcController\n## Signed disarming\n- implement key exchange mechanism for the disarmin service: the caller should first get a random key from the hw api that will allow him to disarm. This will prevent a random caller from disarming the drone in mid air.\n\n- [ ] implementation\n- [ ] tests\n\n## Controller and Tracker timeouting\n\n- [ ] implementation\n- [ ] tests\n\n## Proper handling of UTM zones\n\n- [ ] implementation\n- [ ] tests\n\n## Landing detection for all output modalities\n\nThink of a way how to detect that we landed for all output modalities...\n\n- [ ] implementation\n- [ ] tests",
       "type": "text",
       "width": 820,
       "x": 1840,
@@ -2615,6 +2457,164 @@
       "width": 200,
       "x": 20,
       "y": -445
+    },
+    {
+      "height": 140,
+      "id": "e80f49b028e708e5",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "#  Check if the ROS2 branch needs the changes as well",
+      "type": "text",
+      "width": 300,
+      "x": 398,
+      "y": 4620
+    },
+    {
+      "height": 140,
+      "id": "c5ea0b7efa5bd84e",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "# Test the ROS2 branch as it is",
+      "type": "text",
+      "width": 300,
+      "x": -586,
+      "y": 4620
+    },
+    {
+      "height": 180,
+      "id": "fd8cc69889125c22",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Do we need the changes?",
+      "type": "text",
+      "width": 340,
+      "x": 378,
+      "y": 4860
+    },
+    {
+      "height": 180,
+      "id": "904293b8b0e2577d",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Does it perform well?",
+      "type": "text",
+      "width": 340,
+      "x": -606,
+      "y": 4860
+    },
+    {
+      "height": 180,
+      "id": "8801743a1f524f51",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "# Decide if we should fix the ROS2 branch or to port the ROS1 (that worked) to ROS2",
+      "type": "text",
+      "width": 376,
+      "x": -982,
+      "y": 5100
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "3d423bad28d03996",
+      "styleAttributes": {
+        "shape": "circle",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 branch",
+      "type": "text",
+      "width": 416,
+      "x": -164,
+      "y": 5230
+    },
+    {
+      "height": 280,
+      "id": "01260bb672856725",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Is it better to merge them into the ROS2 version?",
+      "type": "text",
+      "width": 360,
+      "x": 798,
+      "y": 5090
+    },
+    {
+      "height": 180,
+      "id": "8cdba6a1307abb95",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Well then?",
+      "type": "text",
+      "width": 340,
+      "x": -964,
+      "y": 5340
+    },
+    {
+      "color": "4",
+      "height": 220,
+      "id": "6e5f3093c2fa75d5",
+      "styleAttributes": {
+        "shape": "circle",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 version and update it with our changes",
+      "type": "text",
+      "width": 420,
+      "x": 1158,
+      "y": 5410
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "d4b15a90f22a2253",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
+      "type": "text",
+      "width": 416,
+      "x": 398,
+      "y": 5430
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "6c90745b62b56025",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
+      "type": "text",
+      "width": 416,
+      "x": -1380,
+      "y": 5580
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "7f628f7260bb68d7",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 branch and fix it's problems",
+      "type": "text",
+      "width": 416,
+      "x": -624,
+      "y": 5580
     }
   ]
 }
