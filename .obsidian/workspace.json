@@ -11,20 +11,35 @@
             "id": "0d9bdcfe7be1ef76",
             "type": "leaf",
             "state": {
+              "type": "markdown",
+              "state": {
+                "file": "index.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
+          },
+          {
+            "id": "aa655e5d04964a4d",
+            "type": "leaf",
+            "state": {
               "type": "canvas",
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 213.22782021775598,
-                  "y": -364.2601284969471,
-                  "zoom": -0.909270957491558
+                  "x": 455.86233739351496,
+                  "y": 731.2737044322471,
+                  "zoom": -1.0241355943447608
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -81,8 +96,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 255.5,
-    "collapsed": true
+    "width": 255.5
   },
   "right": {
     "id": "d605f05cc0a271b4",
@@ -173,12 +187,14 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "0d9bdcfe7be1ef76",
+  "active": "aa655e5d04964a4d",
   "lastOpenFiles": [
-    "buildfarm_canvas.canvas",
+    "index.md",
+    "Untitled Diagram.svg",
     "ROS1_to_ROS2 patterns.md",
     "main_canvas.canvas",
-    "index.md",
+    "buildfarm_canvas.canvas",
+    "Untitled.md",
     "fig/single_test_pipeline.png",
     "fig/single_package_pipeline.png",
     "fig/release_pipeline.png",
