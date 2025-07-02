@@ -683,6 +683,17 @@
       "y": -1280
     },
     {
+      "height": 2280,
+      "id": "b1523ee53bf98a03",
+      "label": "Third-party package refactoring decision making tree",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 3240,
+      "x": -1600,
+      "y": 3560
+    },
+    {
       "height": 1710,
       "id": "73686b6e8d0b2939",
       "label": "MRS UAV Core",
@@ -851,15 +862,15 @@
     },
     {
       "color": "4",
-      "height": 219,
+      "height": 188,
       "id": "a6ac2ebd9ec767c2",
       "label": "Computer vision examples",
       "styleAttributes": {
       },
       "type": "group",
       "width": 730,
-      "x": 40,
-      "y": 1022
+      "x": 0,
+      "y": 1035
     },
     {
       "color": "1",
@@ -994,254 +1005,6 @@
       "y": -1240
     },
     {
-      "height": 2280,
-      "id": "b1523ee53bf98a03",
-      "label": "Third-party package refactoring decision making tree",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 3240,
-      "x": -1600,
-      "y": 3560
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "31b36d888ec8d58d",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Replace it with something better",
-      "type": "text",
-      "width": 360,
-      "x": -1520,
-      "y": 4080
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "42e82ecf7ab8caae",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Refactor to ROS2 ourselves",
-      "type": "text",
-      "width": 360,
-      "x": -982,
-      "y": 4400
-    },
-    {
-      "height": 180,
-      "id": "4729b3bf2276abc6",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Is there a ROS2 branch?",
-      "type": "text",
-      "width": 420,
-      "x": -566,
-      "y": 4160
-    },
-    {
-      "height": 280,
-      "id": "a07c7174202ee644",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Do we have our own changes to the ROS1 branch",
-      "type": "text",
-      "width": 320,
-      "x": -42,
-      "y": 4340
-    },
-    {
-      "height": 140,
-      "id": "e80f49b028e708e5",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "#  Check if the ROS2 branch needs the changes as well",
-      "type": "text",
-      "width": 300,
-      "x": 398,
-      "y": 4620
-    },
-    {
-      "height": 140,
-      "id": "c5ea0b7efa5bd84e",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "# Test the ROS2 branch as it is",
-      "type": "text",
-      "width": 300,
-      "x": -586,
-      "y": 4620
-    },
-    {
-      "height": 180,
-      "id": "fd8cc69889125c22",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Do we need the changes?",
-      "type": "text",
-      "width": 340,
-      "x": 378,
-      "y": 4860
-    },
-    {
-      "height": 180,
-      "id": "904293b8b0e2577d",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Does it perform well?",
-      "type": "text",
-      "width": 340,
-      "x": -606,
-      "y": 4860
-    },
-    {
-      "height": 180,
-      "id": "8801743a1f524f51",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "# Decide if we should fix the ROS2 branch or to port the ROS1 (that worked) to ROS2",
-      "type": "text",
-      "width": 376,
-      "x": -982,
-      "y": 5100
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "3d423bad28d03996",
-      "styleAttributes": {
-        "shape": "circle",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 branch",
-      "type": "text",
-      "width": 416,
-      "x": -164,
-      "y": 5230
-    },
-    {
-      "height": 280,
-      "id": "01260bb672856725",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Is it better to merge them into the ROS2 version?",
-      "type": "text",
-      "width": 360,
-      "x": 798,
-      "y": 5090
-    },
-    {
-      "height": 180,
-      "id": "8cdba6a1307abb95",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Well then?",
-      "type": "text",
-      "width": 340,
-      "x": -964,
-      "y": 5340
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "d4b15a90f22a2253",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
-      "type": "text",
-      "width": 416,
-      "x": 398,
-      "y": 5430
-    },
-    {
-      "color": "4",
-      "height": 220,
-      "id": "6e5f3093c2fa75d5",
-      "styleAttributes": {
-        "shape": "circle",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 version and update it with our changes",
-      "type": "text",
-      "width": 420,
-      "x": 1158,
-      "y": 5410
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "6c90745b62b56025",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
-      "type": "text",
-      "width": 416,
-      "x": -1380,
-      "y": 5580
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "7f628f7260bb68d7",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 branch and fix it's problems",
-      "type": "text",
-      "width": 416,
-      "x": -624,
-      "y": 5580
-    },
-    {
-      "height": 60,
-      "id": "2b137c1b463f7a19",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "## START",
-      "type": "text",
-      "width": 260,
-      "x": -955,
-      "y": 3640
-    },
-    {
-      "height": 280,
-      "id": "6135cf9148894c80",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Do we want to keep the software?",
-      "type": "text",
-      "width": 402,
-      "x": -1026,
-      "y": 3800
-    },
-    {
       "color": "4",
       "height": 150,
       "id": "84a2304cec18d2c7",
@@ -1264,17 +1027,6 @@
       "width": 260,
       "x": -1670,
       "y": 1760
-    },
-    {
-      "height": 119,
-      "id": "5f4051d7df922f17",
-      "styleAttributes": {
-      },
-      "text": "CPP\n\n- [ ] edge detector",
-      "type": "text",
-      "width": 310,
-      "x": 60,
-      "y": 1064
     },
     {
       "height": 110,
@@ -1413,18 +1165,6 @@
       "width": 260,
       "x": -1080,
       "y": 2174
-    },
-    {
-      "color": "4",
-      "height": 390,
-      "id": "35e35b126641e33d",
-      "styleAttributes": {
-      },
-      "text": "ROS Kalibr docker\n- Question: does Kalibr have a ROS2 version (it needs rosbag as an input)\n- Answer: No, it is not developed anymore. There might be activities related to disentangling it from ROS completely.\n- [ ] refactor\n- [ ] or make sure rosbags can be converted from ROS2 to ROS1",
-      "type": "text",
-      "width": 295,
-      "x": -435,
-      "y": 978
     },
     {
       "color": "4",
@@ -1702,17 +1442,6 @@
       "y": 780
     },
     {
-      "height": 240,
-      "id": "e0400951764a4763",
-      "styleAttributes": {
-      },
-      "text": "CPP\n\n- [ ] waypoint flier\n- [ ] waypoint flier simple\n- [ ] tracker plugin\n- [ ] controller plugin\n- [ ] estimator plugin (**TODO create**)\n- [ ] pluginlib example",
-      "type": "text",
-      "width": 310,
-      "x": 80,
-      "y": 646
-    },
-    {
       "color": "4",
       "height": 105,
       "id": "a3ea8958ad38ba4c",
@@ -1730,7 +1459,7 @@
       "id": "e711ffc6949994de",
       "styleAttributes": {
       },
-      "text": "MRS UAV Status\n- [x] Acquisition node\n- [ ] Presentation node",
+      "text": "MRS UAV Status\n- [x] Acquisition node\n- [x] Presentation node",
       "type": "text",
       "width": 360,
       "x": -890,
@@ -1774,15 +1503,15 @@
     },
     {
       "color": "4",
-      "height": 138,
+      "height": 88,
       "id": "e763b929841e10c9",
       "styleAttributes": {
       },
-      "text": "MRS UAV Shell Additions\n- will the `waitFor` macros gonna be needed in ROS2?\n\t- Looks like no!\n- [ ] refactor",
+      "text": "MRS UAV Shell Additions\n- [ ] refactor",
       "type": "text",
       "width": 640,
       "x": -1680,
-      "y": 342
+      "y": 392
     },
     {
       "color": "6",
@@ -1822,11 +1551,11 @@
     },
     {
       "color": "4",
-      "height": 180,
+      "height": 239,
       "id": "9f777653548f674e",
       "styleAttributes": {
       },
-      "text": "Rosbag Record (deleg. Tsoy Artyom)\n* how do our customisations from ROS1 apply?\n\t* rosbag record is killed when it cannot write to the disk anymore\n\t* it publishes and prints the datarate\n* [ ] investigate",
+      "text": "Rosbag Record\n* how do our customizations from ROS1 apply?\n\t* rosbag record is killed when it cannot write to the disk anymore\n\t* it publishes and prints the data rate\n\t* [ ] investigate and implement\n* [ ] converting bags from ROS2 to ROS1 (for kalibr)\n* [ ] converting bags from ROS2 to ROS1 (for datasets)",
       "type": "text",
       "width": 640,
       "x": -1680,
@@ -1940,12 +1669,13 @@
       "y": -1120
     },
     {
-      "color": "4",
+      "color": "6",
       "height": 140,
       "id": "ec3550681db8eb58",
       "styleAttributes": {
+        "border": null
       },
-      "text": "MRS Rviz plugins\n\n- not essential, should be possible\n- [ ] refactor",
+      "text": "**MRS Rviz plugins**\n\n- not essential, should be possible\n- [ ] refactor",
       "type": "text",
       "width": 312,
       "x": -1318,
@@ -1998,17 +1728,6 @@
       "width": 230,
       "x": -580,
       "y": -655
-    },
-    {
-      "height": 240,
-      "id": "2f8bca2c7ddcb57a",
-      "styleAttributes": {
-      },
-      "text": "Python\n\n- [ ] sweeping generator",
-      "type": "text",
-      "width": 310,
-      "x": 425,
-      "y": 647
     },
     {
       "color": "4",
@@ -2114,17 +1833,6 @@
       "y": 340
     },
     {
-      "height": 119,
-      "id": "bf7515e702de9825",
-      "styleAttributes": {
-      },
-      "text": "Python\n\n- [ ] blob detector",
-      "type": "text",
-      "width": 310,
-      "x": 425,
-      "y": 1064
-    },
-    {
       "height": 160,
       "id": "7db52771e751365b",
       "styleAttributes": {
@@ -2179,30 +1887,6 @@
       "width": 260,
       "x": 935,
       "y": 889
-    },
-    {
-      "color": "4",
-      "height": 210,
-      "id": "717b2d89e56666a4",
-      "styleAttributes": {
-      },
-      "text": "HW Api\n- [x] plugin interface\n- [x] example plugin\n- [x] plugin manager\n- [ ] doxygen\n\n- took me 1 day",
-      "type": "text",
-      "width": 300,
-      "x": -160,
-      "y": -1090
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "1e19d8dd1cff6cf0",
-      "styleAttributes": {
-      },
-      "text": "MRS UAV testing\n\n- [x] the abstraction library\n- [x] tests\n\t- [x] example tests using the lib",
-      "type": "text",
-      "width": 360,
-      "x": 220,
-      "y": -1090
     },
     {
       "height": 160,
@@ -2260,7 +1944,7 @@
       "y": 1263
     },
     {
-      "color": "4",
+      "color": "6",
       "height": 200,
       "id": "00abcb0428f081e1",
       "styleAttributes": {
@@ -2451,11 +2135,11 @@
     },
     {
       "color": "4",
-      "height": 140,
+      "height": 160,
       "id": "a9c3aa02d9e0d2d5",
       "styleAttributes": {
       },
-      "text": "mrs_uav_core package\n- [x] get_public_params.py\n- [x] core lauch",
+      "text": "mrs_uav_core package\n- [x] get_public_params.py\n- [x] core lauch\n- [ ] rviz refactor script",
       "type": "text",
       "width": 326,
       "x": -1006,
@@ -2683,6 +2367,323 @@
       "width": 820,
       "x": 1900,
       "y": -1280
+    },
+    {
+      "color": "4",
+      "height": 210,
+      "id": "717b2d89e56666a4",
+      "styleAttributes": {
+      },
+      "text": "HW Api\n- [x] plugin interface\n- [x] example plugin\n- [x] plugin manager\n- [ ] doxygen\n\n- took me 1 day",
+      "type": "text",
+      "width": 300,
+      "x": -157,
+      "y": -1045
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "1e19d8dd1cff6cf0",
+      "styleAttributes": {
+      },
+      "text": "MRS UAV testing\n\n- [x] the abstraction library\n- [x] tests\n\t- [x] example tests using the lib",
+      "type": "text",
+      "width": 360,
+      "x": 245,
+      "y": -1090
+    },
+    {
+      "color": "1",
+      "height": 427,
+      "id": "35e35b126641e33d",
+      "styleAttributes": {
+      },
+      "text": "ROS Kalibr docker\n- Question: does Kalibr have a ROS2 version (it needs rosbag as an input)\n- Answer: No, it is not developed anymore. There might be activities related to disentangling it from ROS completely (https://github.com/ethz-asl/kalibr/issues/725).\n- [ ] refactor\n- [ ] or make sure rosbags can be converted from ROS2 to ROS1",
+      "type": "text",
+      "width": 295,
+      "x": -411,
+      "y": 970
+    },
+    {
+      "height": 60,
+      "id": "2b137c1b463f7a19",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "## START",
+      "type": "text",
+      "width": 260,
+      "x": -955,
+      "y": 3640
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "31b36d888ec8d58d",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Replace it with something better",
+      "type": "text",
+      "width": 360,
+      "x": -1520,
+      "y": 4080
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "42e82ecf7ab8caae",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Refactor to ROS2 ourselves",
+      "type": "text",
+      "width": 360,
+      "x": -982,
+      "y": 4400
+    },
+    {
+      "height": 180,
+      "id": "4729b3bf2276abc6",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Is there a ROS2 branch?",
+      "type": "text",
+      "width": 420,
+      "x": -566,
+      "y": 4160
+    },
+    {
+      "height": 280,
+      "id": "a07c7174202ee644",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Do we have our own changes to the ROS1 branch",
+      "type": "text",
+      "width": 320,
+      "x": -42,
+      "y": 4340
+    },
+    {
+      "height": 140,
+      "id": "e80f49b028e708e5",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "#  Check if the ROS2 branch needs the changes as well",
+      "type": "text",
+      "width": 300,
+      "x": 398,
+      "y": 4620
+    },
+    {
+      "height": 140,
+      "id": "c5ea0b7efa5bd84e",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "# Test the ROS2 branch as it is",
+      "type": "text",
+      "width": 300,
+      "x": -586,
+      "y": 4620
+    },
+    {
+      "height": 280,
+      "id": "6135cf9148894c80",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Do we want to keep the software?",
+      "type": "text",
+      "width": 402,
+      "x": -1026,
+      "y": 3800
+    },
+    {
+      "height": 180,
+      "id": "fd8cc69889125c22",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Do we need the changes?",
+      "type": "text",
+      "width": 340,
+      "x": 378,
+      "y": 4860
+    },
+    {
+      "height": 180,
+      "id": "904293b8b0e2577d",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Does it perform well?",
+      "type": "text",
+      "width": 340,
+      "x": -606,
+      "y": 4860
+    },
+    {
+      "height": 180,
+      "id": "8801743a1f524f51",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "# Decide if we should fix the ROS2 branch or to port the ROS1 (that worked) to ROS2",
+      "type": "text",
+      "width": 376,
+      "x": -982,
+      "y": 5100
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "3d423bad28d03996",
+      "styleAttributes": {
+        "shape": "circle",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 branch",
+      "type": "text",
+      "width": 416,
+      "x": -164,
+      "y": 5230
+    },
+    {
+      "height": 280,
+      "id": "01260bb672856725",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Is it better to merge them into the ROS2 version?",
+      "type": "text",
+      "width": 360,
+      "x": 798,
+      "y": 5090
+    },
+    {
+      "height": 180,
+      "id": "8cdba6a1307abb95",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Well then?",
+      "type": "text",
+      "width": 340,
+      "x": -964,
+      "y": 5340
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "d4b15a90f22a2253",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
+      "type": "text",
+      "width": 416,
+      "x": 398,
+      "y": 5430
+    },
+    {
+      "color": "4",
+      "height": 220,
+      "id": "6e5f3093c2fa75d5",
+      "styleAttributes": {
+        "shape": "circle",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 version and update it with our changes",
+      "type": "text",
+      "width": 420,
+      "x": 1158,
+      "y": 5410
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "6c90745b62b56025",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
+      "type": "text",
+      "width": 416,
+      "x": -1380,
+      "y": 5580
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "7f628f7260bb68d7",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 branch and fix it's problems",
+      "type": "text",
+      "width": 416,
+      "x": -624,
+      "y": 5580
+    },
+    {
+      "height": 263,
+      "id": "e0400951764a4763",
+      "styleAttributes": {
+      },
+      "text": "CPP\n\n- [ ] waypoint flier\n- [ ] waypoint flier simple\n- [ ] tracker plugin\n- [ ] controller plugin\n- [ ] estimator plugin (**TODO create**)\n- [ ] pluginlib example",
+      "type": "text",
+      "width": 310,
+      "x": 70,
+      "y": 624
+    },
+    {
+      "height": 263,
+      "id": "2f8bca2c7ddcb57a",
+      "styleAttributes": {
+      },
+      "text": "Python\n\n- [ ] sweeping generator",
+      "type": "text",
+      "width": 310,
+      "x": 425,
+      "y": 624
+    },
+    {
+      "height": 119,
+      "id": "bf7515e702de9825",
+      "styleAttributes": {
+      },
+      "text": "Python\n\n- [ ] blob detector",
+      "type": "text",
+      "width": 310,
+      "x": 385,
+      "y": 1062
+    },
+    {
+      "height": 119,
+      "id": "5f4051d7df922f17",
+      "styleAttributes": {
+      },
+      "text": "CPP\n\n- [ ] edge detector",
+      "type": "text",
+      "width": 310,
+      "x": 30,
+      "y": 1062
     }
   ]
 }
