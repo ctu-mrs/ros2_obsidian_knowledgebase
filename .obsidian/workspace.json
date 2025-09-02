@@ -32,13 +32,25 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": -1911.2620502180955,
-                  "y": 436.3147095997078,
-                  "zoom": -0.3866576851188958
+                  "x": 33.427830756690355,
+                  "y": 675.0709924445671,
+                  "zoom": -1.4
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
+            }
+          },
+          {
+            "id": "d0dd6db41beb3ee5",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.10"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.9.10"
             }
           }
         ],
@@ -95,11 +107,12 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 282.49999618530273
+    "width": 335.49999618530273
   },
   "right": {
     "id": "d605f05cc0a271b4",
@@ -181,6 +194,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
