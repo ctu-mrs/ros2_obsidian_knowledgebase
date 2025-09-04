@@ -803,6 +803,15 @@
       },
       "toNode": "3ccd0d1eadd96507",
       "toSide": "left"
+    },
+    {
+      "fromNode": "d329322c9ac315e9",
+      "fromSide": "bottom",
+      "id": "26b4d00672dfda28",
+      "styleAttributes": {
+      },
+      "toNode": "bb0d43fd1b1e2f85",
+      "toSide": "right"
     }
   ],
   "nodes": [
@@ -818,15 +827,15 @@
       "y": -1280
     },
     {
-      "height": 2280,
+      "height": 2260,
       "id": "b1523ee53bf98a03",
       "label": "Third-party package refactoring decision making tree",
       "styleAttributes": {
       },
       "type": "group",
       "width": 3240,
-      "x": -1620,
-      "y": 3480
+      "x": -1644,
+      "y": 3560
     },
     {
       "height": 1710,
@@ -961,6 +970,16 @@
     },
     {
       "color": "6",
+      "height": 340,
+      "id": "1d6f4e66fc89f8bb",
+      "label": "OpenVINS Core",
+      "type": "group",
+      "width": 935,
+      "x": -1720,
+      "y": 2620
+    },
+    {
+      "color": "6",
       "height": 327,
       "id": "7ae192d75567f47b",
       "label": "Core example packages",
@@ -996,22 +1015,12 @@
     {
       "color": "6",
       "height": 340,
-      "id": "1d6f4e66fc89f8bb",
-      "label": "OpenVINS Core",
-      "type": "group",
-      "width": 640,
-      "x": -1720,
-      "y": 2620
-    },
-    {
-      "color": "6",
-      "height": 340,
       "id": "42ff55d928f89c9e",
       "label": "ALOAM Core",
       "type": "group",
       "width": 640,
-      "x": -1000,
-      "y": 2620
+      "x": 37,
+      "y": 2812
     },
     {
       "color": "6",
@@ -1020,7 +1029,7 @@
       "label": "LIOSAM Core",
       "type": "group",
       "width": 640,
-      "x": -309,
+      "x": -731,
       "y": 2620
     },
     {
@@ -1066,8 +1075,8 @@
       },
       "type": "group",
       "width": 662,
-      "x": -331,
-      "y": 3141
+      "x": 1049,
+      "y": 2420
     },
     {
       "color": "4",
@@ -1337,7 +1346,7 @@
       "id": "a3d341dcadc5a396",
       "styleAttributes": {
       },
-      "text": "MRS Modules msgs\n- [x] refactor\n- [ ] building of doxygen docs",
+      "text": "MRS Modules msgs\n- [x] refactor\n- [x] building of doxygen docs",
       "type": "text",
       "width": 260,
       "x": -1670,
@@ -2122,7 +2131,7 @@
       "id": "e4f4951aef61636f",
       "styleAttributes": {
       },
-      "text": "MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkf, nckf\n - [x] profiiler\n - [x] msg extractor\n - [x] service client handler\n - [x] subscriber handler\n - [x] transform broadcaster\n - [x] transformer\n - [x] safety zone\n - [x] IIR filter\n - [x] batch visualizer (**Afzal**)\n - [x] dynparam mgr\n - [x] service server handler\n - [ ] aloamgarm + JLKF (**Vasek**)\n\t - [ ] tests\n - [ ] dynamic publisher (**Matous**)[^1]\n\t - [ ] tests\n - [ ] .. the rest of the minor libs\n - [ ] building of doxygen docs\n - [ ] building a python lib for testing\n\t - [ ] how to export python libs?\n\n[^1]: Probably rewrite from scratch\n",
+      "text": "MRS Lib\n\n - [x] param loader\n - [x] publisher handler\n - [x] service client handler\n - [x] timer handler\n - [x] timeout manager\n - [x] lkf, ukf, dkf, nckf\n - [x] profiiler\n - [x] msg extractor\n - [x] service client handler\n - [x] subscriber handler\n - [x] transform broadcaster\n - [x] transformer\n - [x] safety zone\n - [x] IIR filter\n - [x] batch visualizer (**Afzal**)\n - [x] dynparam mgr\n - [x] service server handler\n - [ ] aloamgarm + JLKF (**Vasek**)\n\t - [ ] tests\n - [ ] dynamic publisher (**Matous**)[^1]\n\t - [ ] tests\n - [ ] .. the rest of the minor libs\n - [x] building of doxygen docs\n - [ ] building a python lib for testing\n\t - [ ] how to export python libs?\n\n[^1]: Probably rewrite from scratch\n",
       "type": "text",
       "width": 325,
       "x": -960,
@@ -2194,265 +2203,6 @@
       "width": 290,
       "x": -785,
       "y": 3181
-    },
-    {
-      "height": 119,
-      "id": "8800362ab8e2db04",
-      "styleAttributes": {
-      },
-      "text": "Summer school simulation and wrappers\n- [ ] update and refactor",
-      "type": "text",
-      "width": 290,
-      "x": -291,
-      "y": 3181
-    },
-    {
-      "height": 119,
-      "id": "8ef396882770e7aa",
-      "styleAttributes": {
-      },
-      "text": "Summer school real-world deployment\n\n- [ ] update and refactor",
-      "type": "text",
-      "width": 250,
-      "x": 31,
-      "y": 3181
-    },
-    {
-      "height": 180,
-      "id": "8801743a1f524f51",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "# Decide if we should fix the ROS2 branch or to port the ROS1 (that worked) to ROS2",
-      "type": "text",
-      "width": 376,
-      "x": -1002,
-      "y": 5020
-    },
-    {
-      "height": 180,
-      "id": "8cdba6a1307abb95",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Well then?",
-      "type": "text",
-      "width": 340,
-      "x": -984,
-      "y": 5260
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "6c90745b62b56025",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
-      "type": "text",
-      "width": 416,
-      "x": -1400,
-      "y": 5500
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "7f628f7260bb68d7",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 branch and fix it's problems",
-      "type": "text",
-      "width": 416,
-      "x": -644,
-      "y": 5500
-    },
-    {
-      "height": 140,
-      "id": "c5ea0b7efa5bd84e",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "# Test the ROS2 branch as it is",
-      "type": "text",
-      "width": 300,
-      "x": -606,
-      "y": 4540
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "3d423bad28d03996",
-      "styleAttributes": {
-        "shape": "circle",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 branch",
-      "type": "text",
-      "width": 416,
-      "x": -184,
-      "y": 5150
-    },
-    {
-      "height": 280,
-      "id": "01260bb672856725",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Is it better to merge them into the ROS2 version?",
-      "type": "text",
-      "width": 360,
-      "x": 778,
-      "y": 5010
-    },
-    {
-      "color": "4",
-      "height": 220,
-      "id": "6e5f3093c2fa75d5",
-      "styleAttributes": {
-        "shape": "circle",
-        "textAlign": "center"
-      },
-      "text": "# Let's adopt the ROS2 version and update it with our changes",
-      "type": "text",
-      "width": 420,
-      "x": 1138,
-      "y": 5330
-    },
-    {
-      "height": 280,
-      "id": "a07c7174202ee644",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Do we have our own changes to the ROS1 branch",
-      "type": "text",
-      "width": 320,
-      "x": -62,
-      "y": 4260
-    },
-    {
-      "height": 180,
-      "id": "fd8cc69889125c22",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Do we need the changes?",
-      "type": "text",
-      "width": 340,
-      "x": 358,
-      "y": 4780
-    },
-    {
-      "height": 140,
-      "id": "e80f49b028e708e5",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "#  Check if the ROS2 branch needs the changes as well",
-      "type": "text",
-      "width": 300,
-      "x": 378,
-      "y": 4540
-    },
-    {
-      "color": "4",
-      "height": 180,
-      "id": "d4b15a90f22a2253",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
-      "type": "text",
-      "width": 416,
-      "x": 378,
-      "y": 5350
-    },
-    {
-      "height": 60,
-      "id": "2b137c1b463f7a19",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "text": "## START",
-      "type": "text",
-      "width": 260,
-      "x": -975,
-      "y": 3560
-    },
-    {
-      "height": 280,
-      "id": "6135cf9148894c80",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Do we want to keep the software?",
-      "type": "text",
-      "width": 402,
-      "x": -1046,
-      "y": 3720
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "31b36d888ec8d58d",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Replace it with something better",
-      "type": "text",
-      "width": 360,
-      "x": -1540,
-      "y": 4000
-    },
-    {
-      "height": 180,
-      "id": "4729b3bf2276abc6",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Is there a ROS2 branch?",
-      "type": "text",
-      "width": 420,
-      "x": -586,
-      "y": 4080
-    },
-    {
-      "height": 180,
-      "id": "904293b8b0e2577d",
-      "styleAttributes": {
-        "shape": "diamond",
-        "textAlign": "center"
-      },
-      "text": "# Does it perform well?",
-      "type": "text",
-      "width": 340,
-      "x": -626,
-      "y": 4780
-    },
-    {
-      "color": "4",
-      "height": 140,
-      "id": "42e82ecf7ab8caae",
-      "styleAttributes": {
-        "shape": "pill",
-        "textAlign": "center"
-      },
-      "text": "# Refactor to ROS2 ourselves",
-      "type": "text",
-      "width": 360,
-      "x": -1002,
-      "y": 4320
     },
     {
       "color": "4",
@@ -2615,42 +2365,6 @@
       "y": 1965
     },
     {
-      "color": "6",
-      "height": 110,
-      "id": "2319d62d5f8c6282",
-      "styleAttributes": {
-      },
-      "text": "aloam_slam\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": -650,
-      "y": 2660
-    },
-    {
-      "color": "4",
-      "height": 110,
-      "id": "3b70310640cff7d8",
-      "styleAttributes": {
-      },
-      "text": "mrs_aloam_core\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": -650,
-      "y": 2821
-    },
-    {
-      "color": "4",
-      "height": 110,
-      "id": "fec799515070f5ba",
-      "styleAttributes": {
-      },
-      "text": "mrs_aloam_estimator_plugin\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": -970,
-      "y": 2660
-    },
-    {
       "color": "4",
       "height": 110,
       "id": "cb9a6c75440c1b36",
@@ -2736,7 +2450,7 @@
       "id": "fdf4dc18d83be7fc",
       "styleAttributes": {
       },
-      "text": "mrs_msgs\n\n- [x] refactor\n- [ ] building of doxygen docs",
+      "text": "mrs_msgs\n\n- [x] refactor\n- [x] building of doxygen docs",
       "type": "text",
       "width": 276,
       "x": -1300,
@@ -2811,42 +2525,6 @@
       "width": 260,
       "x": -1650,
       "y": -1150
-    },
-    {
-      "color": "4",
-      "height": 110,
-      "id": "34e55fa625d771c3",
-      "styleAttributes": {
-      },
-      "text": "mrs_liosam_core\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": 38,
-      "y": 2821
-    },
-    {
-      "color": "4",
-      "height": 110,
-      "id": "5ffce845f59c5153",
-      "styleAttributes": {
-      },
-      "text": "mrs_liosam_estimator_plugin\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": -284,
-      "y": 2660
-    },
-    {
-      "color": "6",
-      "height": 110,
-      "id": "e4f22ae4ef9756df",
-      "styleAttributes": {
-      },
-      "text": "liosam\n- [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": 38,
-      "y": 2660
     },
     {
       "color": "4",
@@ -3100,6 +2778,349 @@
       "width": 260,
       "x": 414,
       "y": 2233
+    },
+    {
+      "color": "4",
+      "height": 200,
+      "id": "d329322c9ac315e9",
+      "styleAttributes": {
+      },
+      "text": "mrs_open_vins_estimator_plugin\n- Jakub probably refactored it, might not be tested yet\n- [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": -1080,
+      "y": 2660
+    },
+    {
+      "height": 119,
+      "id": "8800362ab8e2db04",
+      "styleAttributes": {
+      },
+      "text": "Summer school simulation and wrappers\n- [ ] update and refactor",
+      "type": "text",
+      "width": 290,
+      "x": 1089,
+      "y": 2460
+    },
+    {
+      "height": 119,
+      "id": "8ef396882770e7aa",
+      "styleAttributes": {
+      },
+      "text": "Summer school real-world deployment\n\n- [ ] update and refactor",
+      "type": "text",
+      "width": 250,
+      "x": 1411,
+      "y": 2460
+    },
+    {
+      "color": "4",
+      "height": 110,
+      "id": "34e55fa625d771c3",
+      "styleAttributes": {
+      },
+      "text": "mrs_liosam_core\n- [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": -384,
+      "y": 2821
+    },
+    {
+      "color": "4",
+      "height": 110,
+      "id": "5ffce845f59c5153",
+      "styleAttributes": {
+      },
+      "text": "mrs_liosam_estimator_plugin\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": -706,
+      "y": 2660
+    },
+    {
+      "color": "6",
+      "height": 110,
+      "id": "e4f22ae4ef9756df",
+      "styleAttributes": {
+      },
+      "text": "liosam\n- [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": -384,
+      "y": 2660
+    },
+    {
+      "color": "6",
+      "height": 110,
+      "id": "2319d62d5f8c6282",
+      "styleAttributes": {
+      },
+      "text": "aloam_slam\n- [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": 387,
+      "y": 2852
+    },
+    {
+      "color": "4",
+      "height": 110,
+      "id": "3b70310640cff7d8",
+      "styleAttributes": {
+      },
+      "text": "mrs_aloam_core\n- [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": 387,
+      "y": 3013
+    },
+    {
+      "color": "4",
+      "height": 110,
+      "id": "fec799515070f5ba",
+      "styleAttributes": {
+      },
+      "text": "mrs_aloam_estimator_plugin\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": 67,
+      "y": 2852
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "3d423bad28d03996",
+      "styleAttributes": {
+        "shape": "circle",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 branch",
+      "type": "text",
+      "width": 416,
+      "x": -208,
+      "y": 5210
+    },
+    {
+      "height": 180,
+      "id": "8cdba6a1307abb95",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Well then?",
+      "type": "text",
+      "width": 340,
+      "x": -1008,
+      "y": 5320
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "6c90745b62b56025",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
+      "type": "text",
+      "width": 416,
+      "x": -1424,
+      "y": 5560
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "7f628f7260bb68d7",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 branch and fix it's problems",
+      "type": "text",
+      "width": 416,
+      "x": -668,
+      "y": 5560
+    },
+    {
+      "height": 140,
+      "id": "e80f49b028e708e5",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "#  Check if the ROS2 branch needs the changes as well",
+      "type": "text",
+      "width": 300,
+      "x": 354,
+      "y": 4600
+    },
+    {
+      "color": "4",
+      "height": 180,
+      "id": "d4b15a90f22a2253",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Let's refactor the ROS1 version into ROS2 ourselves",
+      "type": "text",
+      "width": 416,
+      "x": 354,
+      "y": 5410
+    },
+    {
+      "height": 280,
+      "id": "01260bb672856725",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Is it better to merge them into the ROS2 version?",
+      "type": "text",
+      "width": 360,
+      "x": 754,
+      "y": 5070
+    },
+    {
+      "color": "4",
+      "height": 220,
+      "id": "6e5f3093c2fa75d5",
+      "styleAttributes": {
+        "shape": "circle",
+        "textAlign": "center"
+      },
+      "text": "# Let's adopt the ROS2 version and update it with our changes",
+      "type": "text",
+      "width": 420,
+      "x": 1114,
+      "y": 5390
+    },
+    {
+      "height": 140,
+      "id": "c5ea0b7efa5bd84e",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "# Test the ROS2 branch as it is",
+      "type": "text",
+      "width": 300,
+      "x": -630,
+      "y": 4600
+    },
+    {
+      "height": 180,
+      "id": "4729b3bf2276abc6",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Is there a ROS2 branch?",
+      "type": "text",
+      "width": 420,
+      "x": -610,
+      "y": 4140
+    },
+    {
+      "height": 280,
+      "id": "a07c7174202ee644",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Do we have our own changes to the ROS1 branch",
+      "type": "text",
+      "width": 320,
+      "x": -86,
+      "y": 4320
+    },
+    {
+      "height": 180,
+      "id": "fd8cc69889125c22",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Do we need the changes?",
+      "type": "text",
+      "width": 340,
+      "x": 334,
+      "y": 4840
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "31b36d888ec8d58d",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Replace it with something better",
+      "type": "text",
+      "width": 360,
+      "x": -1564,
+      "y": 4060
+    },
+    {
+      "color": "4",
+      "height": 140,
+      "id": "42e82ecf7ab8caae",
+      "styleAttributes": {
+        "shape": "pill",
+        "textAlign": "center"
+      },
+      "text": "# Refactor to ROS2 ourselves",
+      "type": "text",
+      "width": 360,
+      "x": -1026,
+      "y": 4380
+    },
+    {
+      "height": 180,
+      "id": "8801743a1f524f51",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "# Decide if we should fix the ROS2 branch or to port the ROS1 (that worked) to ROS2",
+      "type": "text",
+      "width": 376,
+      "x": -1026,
+      "y": 5080
+    },
+    {
+      "height": 60,
+      "id": "2b137c1b463f7a19",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "text": "## START",
+      "type": "text",
+      "width": 260,
+      "x": -999,
+      "y": 3620
+    },
+    {
+      "height": 180,
+      "id": "904293b8b0e2577d",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Does it perform well?",
+      "type": "text",
+      "width": 340,
+      "x": -650,
+      "y": 4840
+    },
+    {
+      "height": 280,
+      "id": "6135cf9148894c80",
+      "styleAttributes": {
+        "shape": "diamond",
+        "textAlign": "center"
+      },
+      "text": "# Do we want to keep the software?",
+      "type": "text",
+      "width": 402,
+      "x": -1070,
+      "y": 3780
     }
   ]
 }
