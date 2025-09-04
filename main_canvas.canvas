@@ -794,6 +794,15 @@
       },
       "toNode": "ce70c033cabbe7a6",
       "toSide": "top"
+    },
+    {
+      "fromNode": "70e272b583ecc14a",
+      "fromSide": "bottom",
+      "id": "57a2707fbb6b8396",
+      "styleAttributes": {
+      },
+      "toNode": "3ccd0d1eadd96507",
+      "toSide": "left"
     }
   ],
   "nodes": [
@@ -864,7 +873,7 @@
       "type": "group",
       "width": 940,
       "x": 790,
-      "y": 2118
+      "y": 2620
     },
     {
       "color": "1",
@@ -951,18 +960,6 @@
       "y": -1150
     },
     {
-      "color": "4",
-      "height": 281,
-      "id": "2219ba27b4d116dc",
-      "label": "Precise Landing",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 901,
-      "x": 420,
-      "y": 3050
-    },
-    {
       "color": "6",
       "height": 327,
       "id": "7ae192d75567f47b",
@@ -1025,6 +1022,28 @@
       "width": 640,
       "x": -309,
       "y": 2620
+    },
+    {
+      "color": "4",
+      "height": 281,
+      "id": "2219ba27b4d116dc",
+      "label": "Precise Landing",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 700,
+      "x": 1030,
+      "y": 2040
+    },
+    {
+      "color": "6",
+      "height": 505,
+      "id": "3ccd0d1eadd96507",
+      "label": "Hector Core",
+      "type": "group",
+      "width": 374,
+      "x": 380,
+      "y": 2200
     },
     {
       "color": "4",
@@ -1253,98 +1272,6 @@
       "y": 2305
     },
     {
-      "color": "6",
-      "height": 230,
-      "id": "b682e28cf8c2d7ec",
-      "styleAttributes": {
-      },
-      "text": "Bluefox driver (2 weeks)\n\n* does it have a newer ROS2 branch?\n\n* [x] refactor",
-      "type": "text",
-      "width": 260,
-      "x": 1120,
-      "y": 2158
-    },
-    {
-      "height": 230,
-      "id": "00d956a0813df503",
-      "styleAttributes": {
-      },
-      "text": "Basler driver\n\n* does it have a newer ROS2 branch?\n* beware the multithreading problem\n* [ ] refactor",
-      "type": "text",
-      "width": 260,
-      "x": 1420,
-      "y": 2158
-    },
-    {
-      "color": "6",
-      "height": 180,
-      "id": "013739671e741bdc",
-      "styleAttributes": {
-      },
-      "text": "Realsense driver (1 week)\n\n* does it have a newer ROS2 branch?\n* [x] refactor",
-      "type": "text",
-      "width": 260,
-      "x": 1120,
-      "y": 2418
-    },
-    {
-      "color": "6",
-      "height": 180,
-      "id": "d13488d2d74e6afd",
-      "styleAttributes": {
-      },
-      "text": "Ouster driver\n\n- does it have a newer ROS2 branch?\n- [x] refactor\n- [ ] TODOs after the camp",
-      "type": "text",
-      "width": 260,
-      "x": 1420,
-      "y": 2418
-    },
-    {
-      "color": "6",
-      "height": 180,
-      "id": "c647640304ca624e",
-      "styleAttributes": {
-      },
-      "text": "Camera base\n\n* does it have an equivalent in ROS2\n* [x] refactor (incoroporated into Bluefox2)",
-      "type": "text",
-      "width": 260,
-      "x": 1120,
-      "y": 2641
-    },
-    {
-      "height": 230,
-      "id": "97ed1d412efc528e",
-      "styleAttributes": {
-      },
-      "text": "Livox360 driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
-      "type": "text",
-      "width": 260,
-      "x": 820,
-      "y": 2158
-    },
-    {
-      "height": 180,
-      "id": "94aae341f9456076",
-      "styleAttributes": {
-      },
-      "text": "Luxonis driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
-      "type": "text",
-      "width": 260,
-      "x": 820,
-      "y": 2418
-    },
-    {
-      "height": 50,
-      "id": "d2c20734dcdb9f97",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": 1494,
-      "y": 2706
-    },
-    {
       "color": "4",
       "height": 110,
       "id": "4a4d70d4bf3e922b",
@@ -1355,17 +1282,6 @@
       "width": 260,
       "x": -1380,
       "y": 2410
-    },
-    {
-      "height": 180,
-      "id": "5f27448b78369cdf",
-      "styleAttributes": {
-      },
-      "text": "RPLidar driver\n\n- does it have a newer ROS2 branch?\n- are we using it?\n- [ ] refactor\n",
-      "type": "text",
-      "width": 260,
-      "x": 820,
-      "y": 2641
     },
     {
       "color": "4",
@@ -1392,7 +1308,7 @@
       "y": 1940
     },
     {
-      "color": "4",
+      "color": "6",
       "height": 190,
       "id": "70e272b583ecc14a",
       "styleAttributes": {
@@ -1404,7 +1320,7 @@
       "y": 1940
     },
     {
-      "color": "4",
+      "color": "6",
       "height": 150,
       "id": "ce7b80ff4e267b8d",
       "styleAttributes": {
@@ -1563,17 +1479,6 @@
       "width": 260,
       "x": 1130,
       "y": 1642
-    },
-    {
-      "height": 50,
-      "id": "c10c446cc2e3a4a7",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": 1204,
-      "y": 1855
     },
     {
       "color": "4",
@@ -2313,61 +2218,6 @@
       "y": 3181
     },
     {
-      "height": 85,
-      "id": "cc0db0e55e819beb",
-      "styleAttributes": {
-      },
-      "text": "Landing controller\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": 780,
-      "y": 3085
-    },
-    {
-      "height": 80,
-      "id": "3dc9af2383a1ef5f",
-      "styleAttributes": {
-      },
-      "text": "Gazebo simulation package\n\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": 780,
-      "y": 3200
-    },
-    {
-      "height": 50,
-      "id": "29dd36b93e8f66bd",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": 1173,
-      "y": 3170
-    },
-    {
-      "height": 85,
-      "id": "f33f3af1ef6a7612",
-      "styleAttributes": {
-      },
-      "text": "Landing estimator\n- [ ] refactor",
-      "type": "text",
-      "width": 300,
-      "x": 450,
-      "y": 3085
-    },
-    {
-      "height": 116,
-      "id": "245ff2530108fbfa",
-      "styleAttributes": {
-      },
-      "text": "April tag detector\n- [ ] find and adapt ROS2 version",
-      "type": "text",
-      "width": 300,
-      "x": 450,
-      "y": 3195
-    },
-    {
       "height": 180,
       "id": "8801743a1f524f51",
       "styleAttributes": {
@@ -2765,28 +2615,6 @@
       "y": 1965
     },
     {
-      "height": 120,
-      "id": "0276d69a3d8e3afb",
-      "styleAttributes": {
-      },
-      "text": "UVDAR calibration routine\n\n- [ ] Refactor",
-      "type": "text",
-      "width": 260,
-      "x": 365,
-      "y": 1965
-    },
-    {
-      "height": 50,
-      "id": "8d79c521d96bfcf4",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": 183,
-      "y": 2025
-    },
-    {
       "color": "6",
       "height": 110,
       "id": "2319d62d5f8c6282",
@@ -3067,6 +2895,211 @@
       "width": 300,
       "x": 1,
       "y": 2380
+    },
+    {
+      "height": 180,
+      "id": "94aae341f9456076",
+      "styleAttributes": {
+      },
+      "text": "Luxonis driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
+      "type": "text",
+      "width": 260,
+      "x": 820,
+      "y": 2920
+    },
+    {
+      "height": 180,
+      "id": "5f27448b78369cdf",
+      "styleAttributes": {
+      },
+      "text": "RPLidar driver\n\n- does it have a newer ROS2 branch?\n- are we using it?\n- [ ] refactor\n",
+      "type": "text",
+      "width": 260,
+      "x": 820,
+      "y": 3143
+    },
+    {
+      "color": "6",
+      "height": 180,
+      "id": "013739671e741bdc",
+      "styleAttributes": {
+      },
+      "text": "Realsense driver (1 week)\n\n* does it have a newer ROS2 branch?\n* [x] refactor",
+      "type": "text",
+      "width": 260,
+      "x": 1120,
+      "y": 2920
+    },
+    {
+      "color": "6",
+      "height": 180,
+      "id": "c647640304ca624e",
+      "styleAttributes": {
+      },
+      "text": "Camera base\n\n* does it have an equivalent in ROS2\n* [x] refactor (incoroporated into Bluefox2)",
+      "type": "text",
+      "width": 260,
+      "x": 1120,
+      "y": 3143
+    },
+    {
+      "height": 50,
+      "id": "d2c20734dcdb9f97",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": 1494,
+      "y": 3208
+    },
+    {
+      "height": 230,
+      "id": "97ed1d412efc528e",
+      "styleAttributes": {
+      },
+      "text": "Livox360 driver\n\n- does it have a newer ROS2 branch?\n- [ ] refactor\n",
+      "type": "text",
+      "width": 260,
+      "x": 820,
+      "y": 2660
+    },
+    {
+      "color": "6",
+      "height": 230,
+      "id": "b682e28cf8c2d7ec",
+      "styleAttributes": {
+      },
+      "text": "Bluefox driver (2 weeks)\n\n* does it have a newer ROS2 branch?\n\n* [x] refactor",
+      "type": "text",
+      "width": 260,
+      "x": 1120,
+      "y": 2660
+    },
+    {
+      "height": 230,
+      "id": "00d956a0813df503",
+      "styleAttributes": {
+      },
+      "text": "Basler driver\n\n* does it have a newer ROS2 branch?\n* beware the multithreading problem\n* [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": 1420,
+      "y": 2660
+    },
+    {
+      "color": "6",
+      "height": 180,
+      "id": "d13488d2d74e6afd",
+      "styleAttributes": {
+      },
+      "text": "Ouster driver\n\n- does it have a newer ROS2 branch?\n- [x] refactor\n- [ ] TODOs after the camp",
+      "type": "text",
+      "width": 260,
+      "x": 1420,
+      "y": 2920
+    },
+    {
+      "height": 85,
+      "id": "f33f3af1ef6a7612",
+      "styleAttributes": {
+      },
+      "text": "Landing estimator\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": 1060,
+      "y": 2075
+    },
+    {
+      "height": 116,
+      "id": "245ff2530108fbfa",
+      "styleAttributes": {
+      },
+      "text": "April tag detector\n- [ ] find and adapt ROS2 version",
+      "type": "text",
+      "width": 300,
+      "x": 1060,
+      "y": 2185
+    },
+    {
+      "height": 85,
+      "id": "cc0db0e55e819beb",
+      "styleAttributes": {
+      },
+      "text": "Landing controller\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": 1390,
+      "y": 2075
+    },
+    {
+      "height": 80,
+      "id": "3dc9af2383a1ef5f",
+      "styleAttributes": {
+      },
+      "text": "Gazebo simulation package\n\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": 1390,
+      "y": 2190
+    },
+    {
+      "height": 50,
+      "id": "29dd36b93e8f66bd",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": 1577,
+      "y": 2261
+    },
+    {
+      "height": 120,
+      "id": "0276d69a3d8e3afb",
+      "styleAttributes": {
+      },
+      "text": "UVDAR calibration routine\n\n- [ ] Refactor",
+      "type": "text",
+      "width": 260,
+      "x": 365,
+      "y": 1965
+    },
+    {
+      "color": "4",
+      "height": 110,
+      "id": "ae4f70f31e5869fc",
+      "styleAttributes": {
+      },
+      "text": "mrs_hector_core\n- [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": 414,
+      "y": 2570
+    },
+    {
+      "color": "4",
+      "height": 110,
+      "id": "4b83e1d404139bb0",
+      "styleAttributes": {
+      },
+      "text": "mrs_hector_estimator_plugin\n- [ ] refactor",
+      "type": "text",
+      "width": 300,
+      "x": 414,
+      "y": 2400
+    },
+    {
+      "color": "6",
+      "height": 110,
+      "id": "cd8793bced1b843a",
+      "styleAttributes": {
+      },
+      "text": "hector_slam\n- [ ] refactor",
+      "type": "text",
+      "width": 260,
+      "x": 414,
+      "y": 2233
     }
   ]
 }
