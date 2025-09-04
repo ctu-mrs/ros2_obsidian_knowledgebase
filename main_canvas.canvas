@@ -1022,6 +1022,18 @@
       "y": 2200
     },
     {
+      "color": "4",
+      "height": 316,
+      "id": "2219ba27b4d116dc",
+      "label": "Precise Landing",
+      "styleAttributes": {
+      },
+      "type": "group",
+      "width": 700,
+      "x": 910,
+      "y": 2084
+    },
+    {
       "color": "6",
       "height": 340,
       "id": "42ff55d928f89c9e",
@@ -1040,18 +1052,6 @@
       "width": 640,
       "x": -731,
       "y": 2620
-    },
-    {
-      "color": "4",
-      "height": 281,
-      "id": "2219ba27b4d116dc",
-      "label": "Precise Landing",
-      "styleAttributes": {
-      },
-      "type": "group",
-      "width": 700,
-      "x": 910,
-      "y": 2084
     },
     {
       "color": "6",
@@ -1715,7 +1715,7 @@
       "id": "19624fa5944dcf29",
       "styleAttributes": {
       },
-      "text": "# TODOs\n## Minor TODO\n\n- [ ] Although the estimation manager checks for data on the \"control input\" topic, the particular estimator might be subscribing a wrong topic, therefore, you might miss the error of bad remapping\n- [ ] Mavros config needs different configs for Garmin with old (id 33) and new fw (id 0, pitch_270)\n- [ ] Batch visualizerer topics are not shown in rviz (**MrsLib**)\n- [ ] tf for rtk antenna currently hardcoded in transform manager's launch file (**TransformManager**)\n- [ ] Test for \"Transform Reference List\" (**ControllManager**)\n## makeprg compilation of a package in neovim\n\n- `:make` in vim should trigger `colcon buiild` of the current packaage\n\t- we need to be able to detect which package does the currently opened file originates from\n## Key-signed disarming\n- implement key exchange mechanism for the disarming service: the caller should first get a random key from the hw api that will allow him to disarm. This will prevent a random caller from disarming the drone in mid air.\n\n- [ ] implementation\n- [ ] tests\n\n## Controller and Tracker timeouting\n\n- [ ] implementation\n- [ ] tests\n\n## Proper handling of UTM zones\n\n- [ ] implementation\n- [ ] tests\n\n## Landing detection for all output modalities\n\nThink of a way how to detect that we landed for all output modalities...\n\n- [ ] implementation\n- [ ] tests\n\n## PCL specialization of mrs_lib (Transformer)\n- [ ] implementation\n- [ ] tests\n\n## Speed tracker (Rethink and refactor?)\n\n- I would rethink it as \"Passthrough tracker\" using the TrackerCommand\n\n## MRS UAV Status\n\n- the remote mode should use desired velocity instead of relative position command\n\n## MRS Multirotor simulator plugin API\n\n- allow loading UAV-plugins and WORLD-plugins\n- [ ] implementation\n- [ ] tests\n\n## MidAir activation\n\n- parametrize the sleep after arming by the rate if incoming odometry\n\n## Launch file\n\n- make debug_roslaunch conditional in the launch files\n\n## Remote controller abstraction\n- from HW API -> Control manager\n\n## Ouster driver\n- [ ] TF frames should be prefixed by \"$UAV_NAME/\"\n- [ ] The parameters should not use the \"/$UAV_NAME/ouster\" prefix\n- [ ] Set as default: timestamp_mode: 'TIME_FROM_ROS_TIME'\n\n## PX4 API\n- [ ] replicate the UTM fix https://github.com/ctu-mrs/mrs_uav_px4_api/pull/3",
+      "text": "# TODOs\n## Minor TODO\n\n- [ ] Although the estimation manager checks for data on the \"control input\" topic, the particular estimator might be subscribing a wrong topic, therefore, you might miss the error of bad remapping\n- [x] Mavros config needs different configs for Garmin with old (id 33) and new fw (id 0, pitch_270)\n- [ ] Batch visualizerer topics are not shown in rviz (**MrsLib**)\n- [ ] tf for rtk antenna currently hardcoded in transform manager's launch file (**TransformManager**)\n- [ ] Test for \"Transform Reference List\" (**ControllManager**)\n## makeprg compilation of a package in neovim\n\n- `:make` in vim should trigger `colcon buiild` of the current packaage\n\t- we need to be able to detect which package does the currently opened file originates from\n## Key-signed disarming\n- implement key exchange mechanism for the disarming service: the caller should first get a random key from the hw api that will allow him to disarm. This will prevent a random caller from disarming the drone in mid air.\n\n- [ ] implementation\n- [ ] tests\n\n## Controller and Tracker timeouting\n\n- [ ] implementation\n- [ ] tests\n\n## Proper handling of UTM zones\n\n- [ ] implementation\n- [ ] tests\n\n## Landing detection for all output modalities\n\nThink of a way how to detect that we landed for all output modalities...\n\n- [ ] implementation\n- [ ] tests\n\n## PCL specialization of mrs_lib (Transformer)\n- [ ] implementation\n- [ ] tests\n\n## Speed tracker (Rethink and refactor?)\n\n- I would rethink it as \"Passthrough tracker\" using the TrackerCommand\n\n## MRS UAV Status\n\n- the remote mode should use desired velocity instead of relative position command\n\n## MRS Multirotor simulator plugin API\n\n- allow loading UAV-plugins and WORLD-plugins\n- [ ] implementation\n- [ ] tests\n\n## MidAir activation\n\n- parametrize the sleep after arming by the rate if incoming odometry\n\n## Launch file\n\n- make debug_roslaunch conditional in the launch files\n\n## Remote controller abstraction\n- from HW API -> Control manager\n\n## Ouster driver\n- [ ] TF frames should be prefixed by \"$UAV_NAME/\"\n- [ ] The parameters should not use the \"/$UAV_NAME/ouster\" prefix\n- [ ] Set as default: timestamp_mode: 'TIME_FROM_ROS_TIME'\n\n## PX4 API\n- [ ] replicate the UTM fix https://github.com/ctu-mrs/mrs_uav_px4_api/pull/3",
       "type": "text",
       "width": 820,
       "x": 1900,
@@ -3085,17 +3085,6 @@
       "y": 2234
     },
     {
-      "height": 50,
-      "id": "29dd36b93e8f66bd",
-      "styleAttributes": {
-      },
-      "text": "# F4F",
-      "type": "text",
-      "width": 113,
-      "x": 1457,
-      "y": 2305
-    },
-    {
       "color": "6",
       "height": 190,
       "id": "c647640304ca624e",
@@ -3142,6 +3131,28 @@
       "width": 260,
       "x": -1080,
       "y": 2820
+    },
+    {
+      "height": 50,
+      "id": "8502a885f2620ff4",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": 1209,
+      "y": 1860
+    },
+    {
+      "height": 50,
+      "id": "29dd36b93e8f66bd",
+      "styleAttributes": {
+      },
+      "text": "# F4F",
+      "type": "text",
+      "width": 113,
+      "x": 1437,
+      "y": 2326
     }
   ]
 }
