@@ -4,57 +4,27 @@
     "type": "split",
     "children": [
       {
-        "id": "c61d384822d90f73",
+        "id": "9ac1458248ddc661",
         "type": "tabs",
         "children": [
           {
-            "id": "0d9bdcfe7be1ef76",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "buildfarm_canvas.canvas",
-                "viewState": {
-                  "x": -1135.4731226967465,
-                  "y": -1437.9109306578484,
-                  "zoom": -1.0983847685414383
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "buildfarm_canvas"
-            }
-          },
-          {
-            "id": "aa655e5d04964a4d",
+            "id": "3021d3c0625056f6",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 282.784677968275,
-                  "y": 1662.185904554443,
-                  "zoom": -1.5983919862965443
+                  "x": 140.64336721723816,
+                  "y": 230.27205347606477,
+                  "zoom": -0.6954732383740864
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
             }
-          },
-          {
-            "id": "d0dd6db41beb3ee5",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.9.10"
-              },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.9.10"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -107,12 +77,11 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 335.49999618530273
+    "width": 303.49999618530273
   },
   "right": {
     "id": "d605f05cc0a271b4",
@@ -204,11 +173,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "aa655e5d04964a4d",
+  "active": "3021d3c0625056f6",
   "lastOpenFiles": [
+    "Untitled.base",
+    "main_canvas.canvas",
     "buildfarm_canvas.canvas",
     "ROS1_to_ROS2 patterns.md",
-    "main_canvas.canvas",
     "index.md",
     "Untitled Diagram.svg",
     "Untitled.md",
