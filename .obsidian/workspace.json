@@ -15,16 +15,34 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": -1712.4721825540942,
-                  "y": 1141.2544568884152,
-                  "zoom": -2.1464192783109173
+                  "x": 159.88103662369002,
+                  "y": 1205.4917477719307,
+                  "zoom": -1.7934271713434153
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "main_canvas"
+            }
+          },
+          {
+            "id": "fc02c4f92c6b76f7",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "main_canvas.canvas",
+                "viewState": {
+                  "x": 408.88891672721724,
+                  "y": 888.4521859988886,
+                  "zoom": -0.06619101998643584
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -173,7 +191,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3021d3c0625056f6",
+  "active": "fc02c4f92c6b76f7",
   "lastOpenFiles": [
     "Untitled.base",
     "main_canvas.canvas",
