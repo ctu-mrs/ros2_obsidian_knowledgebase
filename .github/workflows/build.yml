@@ -18,7 +18,7 @@ jobs:
 
       - name: Build page
         run: |
-          set +e
+          set -e
           mkdir -p ./.output
 
           docker run --rm -v .:/vault -v ./.output:/output klaxalk/obsidian_html_export:latest >> ./.log.txt
