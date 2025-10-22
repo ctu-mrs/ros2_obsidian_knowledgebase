@@ -2819,7 +2819,7 @@
 		{
 			"id":"5f239afab965e993",
 			"type":"text",
-			"text":"## Pages to fact-check\n\n### ROS2 Gazebo\n\nhttps://ctu-mrs.github.io/docs/simulations/gazebo/custom_world (don't know if the `mrs_gazebo_static_transform_republisher` plugin is still needed\n\nhttps://ctu-mrs.github.io/docs/simulations/gazebo/drone_spawner (PX4 firmware and mavros details for the current ros2 setup)\n\nhttps://ctu-mrs.github.io/docs/simulations/gazebo/gazebo_video (where to get the static_camera from, are the commands best practices)\n\nhttps://ctu-mrs.github.io/docs/simulations/gazebo/real_world_elevation (new .glb file format)",
+			"text":"## Pages to fact-check\n\n### ROS2 Gazebo\n\nhttps://ctu-mrs.github.io/docs/simulations/gazebo/custom_world (don't know if the `mrs_gazebo_static_transform_republisher` plugin is still needed\n\nhttps://ctu-mrs.github.io/docs/simulations/gazebo/drone_spawner (PX4 firmware and mavros details for the current ros2 setup)\n\nhttps://ctu-mrs.github.io/docs/simulations/gazebo/gazebo_video (where to get the static_camera from, are the commands best practices)\n\nhttps://ctu-mrs.github.io/docs/simulations/gazebo/real_world_elevation (where to get sun model from? and new .glb file format)",
 			"styleAttributes":{},
 			"x":2800,
 			"y":-1280,
