@@ -15,9 +15,9 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": -885.3769889562528,
-                  "y": 2182.745991519731,
-                  "zoom": -0.7570785008773862
+                  "x": 2659.7512227272737,
+                  "y": -698.2455793921417,
+                  "zoom": -1.2888765417371673
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -169,15 +169,15 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "webpage-html-export:Export as HTML": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "webpage-html-export:Export as HTML": false
     }
   },
   "active": "3021d3c0625056f6",
   "lastOpenFiles": [
-    "Untitled.base",
-    "main_canvas.canvas",
     "buildfarm_canvas.canvas",
+    "main_canvas.canvas",
+    "Untitled.base",
     "ROS1_to_ROS2 patterns.md",
     "index.md",
     "Untitled Diagram.svg",

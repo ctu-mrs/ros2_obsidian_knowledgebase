@@ -48,3705 +48,6 @@ var __toBinary = /* @__PURE__ */ (() => {
   };
 })();
 
-// node_modules/moment/moment.js
-var require_moment = __commonJS({
-  "node_modules/moment/moment.js"(exports, module2) {
-    (function(global2, factory) {
-      typeof exports === "object" && typeof module2 !== "undefined" ? module2.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global2.moment = factory();
-    })(exports, function() {
-      "use strict";
-      var hookCallback;
-      function hooks() {
-        return hookCallback.apply(null, arguments);
-      }
-      function setHookCallback(callback) {
-        hookCallback = callback;
-      }
-      function isArray(input) {
-        return input instanceof Array || Object.prototype.toString.call(input) === "[object Array]";
-      }
-      function isObject(input) {
-        return input != null && Object.prototype.toString.call(input) === "[object Object]";
-      }
-      function hasOwnProp(a, b) {
-        return Object.prototype.hasOwnProperty.call(a, b);
-      }
-      function isObjectEmpty(obj) {
-        if (Object.getOwnPropertyNames) {
-          return Object.getOwnPropertyNames(obj).length === 0;
-        } else {
-          var k;
-          for (k in obj) {
-            if (hasOwnProp(obj, k)) {
-              return false;
-            }
-          }
-          return true;
-        }
-      }
-      function isUndefined(input) {
-        return input === void 0;
-      }
-      function isNumber(input) {
-        return typeof input === "number" || Object.prototype.toString.call(input) === "[object Number]";
-      }
-      function isDate(input) {
-        return input instanceof Date || Object.prototype.toString.call(input) === "[object Date]";
-      }
-      function map(arr, fn) {
-        var res = [], i, arrLen = arr.length;
-        for (i = 0; i < arrLen; ++i) {
-          res.push(fn(arr[i], i));
-        }
-        return res;
-      }
-      function extend(a, b) {
-        for (var i in b) {
-          if (hasOwnProp(b, i)) {
-            a[i] = b[i];
-          }
-        }
-        if (hasOwnProp(b, "toString")) {
-          a.toString = b.toString;
-        }
-        if (hasOwnProp(b, "valueOf")) {
-          a.valueOf = b.valueOf;
-        }
-        return a;
-      }
-      function createUTC(input, format2, locale2, strict) {
-        return createLocalOrUTC(input, format2, locale2, strict, true).utc();
-      }
-      function defaultParsingFlags() {
-        return {
-          empty: false,
-          unusedTokens: [],
-          unusedInput: [],
-          overflow: -2,
-          charsLeftOver: 0,
-          nullInput: false,
-          invalidEra: null,
-          invalidMonth: null,
-          invalidFormat: false,
-          userInvalidated: false,
-          iso: false,
-          parsedDateParts: [],
-          era: null,
-          meridiem: null,
-          rfc2822: false,
-          weekdayMismatch: false
-        };
-      }
-      function getParsingFlags(m) {
-        if (m._pf == null) {
-          m._pf = defaultParsingFlags();
-        }
-        return m._pf;
-      }
-      var some;
-      if (Array.prototype.some) {
-        some = Array.prototype.some;
-      } else {
-        some = function(fun) {
-          var t = Object(this), len = t.length >>> 0, i;
-          for (i = 0; i < len; i++) {
-            if (i in t && fun.call(this, t[i], i, t)) {
-              return true;
-            }
-          }
-          return false;
-        };
-      }
-      function isValid(m) {
-        if (m._isValid == null) {
-          var flags = getParsingFlags(m), parsedParts = some.call(flags.parsedDateParts, function(i) {
-            return i != null;
-          }), isNowValid = !isNaN(m._d.getTime()) && flags.overflow < 0 && !flags.empty && !flags.invalidEra && !flags.invalidMonth && !flags.invalidWeekday && !flags.weekdayMismatch && !flags.nullInput && !flags.invalidFormat && !flags.userInvalidated && (!flags.meridiem || flags.meridiem && parsedParts);
-          if (m._strict) {
-            isNowValid = isNowValid && flags.charsLeftOver === 0 && flags.unusedTokens.length === 0 && flags.bigHour === void 0;
-          }
-          if (Object.isFrozen == null || !Object.isFrozen(m)) {
-            m._isValid = isNowValid;
-          } else {
-            return isNowValid;
-          }
-        }
-        return m._isValid;
-      }
-      function createInvalid(flags) {
-        var m = createUTC(NaN);
-        if (flags != null) {
-          extend(getParsingFlags(m), flags);
-        } else {
-          getParsingFlags(m).userInvalidated = true;
-        }
-        return m;
-      }
-      var momentProperties = hooks.momentProperties = [], updateInProgress = false;
-      function copyConfig(to2, from2) {
-        var i, prop, val, momentPropertiesLen = momentProperties.length;
-        if (!isUndefined(from2._isAMomentObject)) {
-          to2._isAMomentObject = from2._isAMomentObject;
-        }
-        if (!isUndefined(from2._i)) {
-          to2._i = from2._i;
-        }
-        if (!isUndefined(from2._f)) {
-          to2._f = from2._f;
-        }
-        if (!isUndefined(from2._l)) {
-          to2._l = from2._l;
-        }
-        if (!isUndefined(from2._strict)) {
-          to2._strict = from2._strict;
-        }
-        if (!isUndefined(from2._tzm)) {
-          to2._tzm = from2._tzm;
-        }
-        if (!isUndefined(from2._isUTC)) {
-          to2._isUTC = from2._isUTC;
-        }
-        if (!isUndefined(from2._offset)) {
-          to2._offset = from2._offset;
-        }
-        if (!isUndefined(from2._pf)) {
-          to2._pf = getParsingFlags(from2);
-        }
-        if (!isUndefined(from2._locale)) {
-          to2._locale = from2._locale;
-        }
-        if (momentPropertiesLen > 0) {
-          for (i = 0; i < momentPropertiesLen; i++) {
-            prop = momentProperties[i];
-            val = from2[prop];
-            if (!isUndefined(val)) {
-              to2[prop] = val;
-            }
-          }
-        }
-        return to2;
-      }
-      function Moment(config) {
-        copyConfig(this, config);
-        this._d = new Date(config._d != null ? config._d.getTime() : NaN);
-        if (!this.isValid()) {
-          this._d = new Date(NaN);
-        }
-        if (updateInProgress === false) {
-          updateInProgress = true;
-          hooks.updateOffset(this);
-          updateInProgress = false;
-        }
-      }
-      function isMoment(obj) {
-        return obj instanceof Moment || obj != null && obj._isAMomentObject != null;
-      }
-      function warn(msg) {
-        if (hooks.suppressDeprecationWarnings === false && typeof console !== "undefined" && console.warn) {
-          console.warn("Deprecation warning: " + msg);
-        }
-      }
-      function deprecate(msg, fn) {
-        var firstTime = true;
-        return extend(function() {
-          if (hooks.deprecationHandler != null) {
-            hooks.deprecationHandler(null, msg);
-          }
-          if (firstTime) {
-            var args = [], arg, i, key, argLen = arguments.length;
-            for (i = 0; i < argLen; i++) {
-              arg = "";
-              if (typeof arguments[i] === "object") {
-                arg += "\n[" + i + "] ";
-                for (key in arguments[0]) {
-                  if (hasOwnProp(arguments[0], key)) {
-                    arg += key + ": " + arguments[0][key] + ", ";
-                  }
-                }
-                arg = arg.slice(0, -2);
-              } else {
-                arg = arguments[i];
-              }
-              args.push(arg);
-            }
-            warn(msg + "\nArguments: " + Array.prototype.slice.call(args).join("") + "\n" + new Error().stack);
-            firstTime = false;
-          }
-          return fn.apply(this, arguments);
-        }, fn);
-      }
-      var deprecations = {};
-      function deprecateSimple(name, msg) {
-        if (hooks.deprecationHandler != null) {
-          hooks.deprecationHandler(name, msg);
-        }
-        if (!deprecations[name]) {
-          warn(msg);
-          deprecations[name] = true;
-        }
-      }
-      hooks.suppressDeprecationWarnings = false;
-      hooks.deprecationHandler = null;
-      function isFunction(input) {
-        return typeof Function !== "undefined" && input instanceof Function || Object.prototype.toString.call(input) === "[object Function]";
-      }
-      function set(config) {
-        var prop, i;
-        for (i in config) {
-          if (hasOwnProp(config, i)) {
-            prop = config[i];
-            if (isFunction(prop)) {
-              this[i] = prop;
-            } else {
-              this["_" + i] = prop;
-            }
-          }
-        }
-        this._config = config;
-        this._dayOfMonthOrdinalParseLenient = new RegExp((this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) + "|" + /\d{1,2}/.source);
-      }
-      function mergeConfigs(parentConfig, childConfig) {
-        var res = extend({}, parentConfig), prop;
-        for (prop in childConfig) {
-          if (hasOwnProp(childConfig, prop)) {
-            if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
-              res[prop] = {};
-              extend(res[prop], parentConfig[prop]);
-              extend(res[prop], childConfig[prop]);
-            } else if (childConfig[prop] != null) {
-              res[prop] = childConfig[prop];
-            } else {
-              delete res[prop];
-            }
-          }
-        }
-        for (prop in parentConfig) {
-          if (hasOwnProp(parentConfig, prop) && !hasOwnProp(childConfig, prop) && isObject(parentConfig[prop])) {
-            res[prop] = extend({}, res[prop]);
-          }
-        }
-        return res;
-      }
-      function Locale(config) {
-        if (config != null) {
-          this.set(config);
-        }
-      }
-      var keys;
-      if (Object.keys) {
-        keys = Object.keys;
-      } else {
-        keys = function(obj) {
-          var i, res = [];
-          for (i in obj) {
-            if (hasOwnProp(obj, i)) {
-              res.push(i);
-            }
-          }
-          return res;
-        };
-      }
-      var defaultCalendar = {
-        sameDay: "[Today at] LT",
-        nextDay: "[Tomorrow at] LT",
-        nextWeek: "dddd [at] LT",
-        lastDay: "[Yesterday at] LT",
-        lastWeek: "[Last] dddd [at] LT",
-        sameElse: "L"
-      };
-      function calendar(key, mom, now2) {
-        var output = this._calendar[key] || this._calendar["sameElse"];
-        return isFunction(output) ? output.call(mom, now2) : output;
-      }
-      function zeroFill(number, targetLength, forceSign) {
-        var absNumber = "" + Math.abs(number), zerosToFill = targetLength - absNumber.length, sign2 = number >= 0;
-        return (sign2 ? forceSign ? "+" : "" : "-") + Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
-      }
-      var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g, localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g, formatFunctions = {}, formatTokenFunctions = {};
-      function addFormatToken(token2, padded, ordinal2, callback) {
-        var func = callback;
-        if (typeof callback === "string") {
-          func = function() {
-            return this[callback]();
-          };
-        }
-        if (token2) {
-          formatTokenFunctions[token2] = func;
-        }
-        if (padded) {
-          formatTokenFunctions[padded[0]] = function() {
-            return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
-          };
-        }
-        if (ordinal2) {
-          formatTokenFunctions[ordinal2] = function() {
-            return this.localeData().ordinal(func.apply(this, arguments), token2);
-          };
-        }
-      }
-      function removeFormattingTokens(input) {
-        if (input.match(/\[[\s\S]/)) {
-          return input.replace(/^\[|\]$/g, "");
-        }
-        return input.replace(/\\/g, "");
-      }
-      function makeFormatFunction(format2) {
-        var array = format2.match(formattingTokens), i, length;
-        for (i = 0, length = array.length; i < length; i++) {
-          if (formatTokenFunctions[array[i]]) {
-            array[i] = formatTokenFunctions[array[i]];
-          } else {
-            array[i] = removeFormattingTokens(array[i]);
-          }
-        }
-        return function(mom) {
-          var output = "", i2;
-          for (i2 = 0; i2 < length; i2++) {
-            output += isFunction(array[i2]) ? array[i2].call(mom, format2) : array[i2];
-          }
-          return output;
-        };
-      }
-      function formatMoment(m, format2) {
-        if (!m.isValid()) {
-          return m.localeData().invalidDate();
-        }
-        format2 = expandFormat(format2, m.localeData());
-        formatFunctions[format2] = formatFunctions[format2] || makeFormatFunction(format2);
-        return formatFunctions[format2](m);
-      }
-      function expandFormat(format2, locale2) {
-        var i = 5;
-        function replaceLongDateFormatTokens(input) {
-          return locale2.longDateFormat(input) || input;
-        }
-        localFormattingTokens.lastIndex = 0;
-        while (i >= 0 && localFormattingTokens.test(format2)) {
-          format2 = format2.replace(localFormattingTokens, replaceLongDateFormatTokens);
-          localFormattingTokens.lastIndex = 0;
-          i -= 1;
-        }
-        return format2;
-      }
-      var defaultLongDateFormat = {
-        LTS: "h:mm:ss A",
-        LT: "h:mm A",
-        L: "MM/DD/YYYY",
-        LL: "MMMM D, YYYY",
-        LLL: "MMMM D, YYYY h:mm A",
-        LLLL: "dddd, MMMM D, YYYY h:mm A"
-      };
-      function longDateFormat(key) {
-        var format2 = this._longDateFormat[key], formatUpper = this._longDateFormat[key.toUpperCase()];
-        if (format2 || !formatUpper) {
-          return format2;
-        }
-        this._longDateFormat[key] = formatUpper.match(formattingTokens).map(function(tok) {
-          if (tok === "MMMM" || tok === "MM" || tok === "DD" || tok === "dddd") {
-            return tok.slice(1);
-          }
-          return tok;
-        }).join("");
-        return this._longDateFormat[key];
-      }
-      var defaultInvalidDate = "Invalid date";
-      function invalidDate() {
-        return this._invalidDate;
-      }
-      var defaultOrdinal = "%d", defaultDayOfMonthOrdinalParse = /\d{1,2}/;
-      function ordinal(number) {
-        return this._ordinal.replace("%d", number);
-      }
-      var defaultRelativeTime = {
-        future: "in %s",
-        past: "%s ago",
-        s: "a few seconds",
-        ss: "%d seconds",
-        m: "a minute",
-        mm: "%d minutes",
-        h: "an hour",
-        hh: "%d hours",
-        d: "a day",
-        dd: "%d days",
-        w: "a week",
-        ww: "%d weeks",
-        M: "a month",
-        MM: "%d months",
-        y: "a year",
-        yy: "%d years"
-      };
-      function relativeTime(number, withoutSuffix, string, isFuture) {
-        var output = this._relativeTime[string];
-        return isFunction(output) ? output(number, withoutSuffix, string, isFuture) : output.replace(/%d/i, number);
-      }
-      function pastFuture(diff2, output) {
-        var format2 = this._relativeTime[diff2 > 0 ? "future" : "past"];
-        return isFunction(format2) ? format2(output) : format2.replace(/%s/i, output);
-      }
-      var aliases = {};
-      function addUnitAlias(unit, shorthand) {
-        var lowerCase = unit.toLowerCase();
-        aliases[lowerCase] = aliases[lowerCase + "s"] = aliases[shorthand] = unit;
-      }
-      function normalizeUnits(units) {
-        return typeof units === "string" ? aliases[units] || aliases[units.toLowerCase()] : void 0;
-      }
-      function normalizeObjectUnits(inputObject) {
-        var normalizedInput = {}, normalizedProp, prop;
-        for (prop in inputObject) {
-          if (hasOwnProp(inputObject, prop)) {
-            normalizedProp = normalizeUnits(prop);
-            if (normalizedProp) {
-              normalizedInput[normalizedProp] = inputObject[prop];
-            }
-          }
-        }
-        return normalizedInput;
-      }
-      var priorities = {};
-      function addUnitPriority(unit, priority) {
-        priorities[unit] = priority;
-      }
-      function getPrioritizedUnits(unitsObj) {
-        var units = [], u;
-        for (u in unitsObj) {
-          if (hasOwnProp(unitsObj, u)) {
-            units.push({ unit: u, priority: priorities[u] });
-          }
-        }
-        units.sort(function(a, b) {
-          return a.priority - b.priority;
-        });
-        return units;
-      }
-      function isLeapYear(year) {
-        return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-      }
-      function absFloor(number) {
-        if (number < 0) {
-          return Math.ceil(number) || 0;
-        } else {
-          return Math.floor(number);
-        }
-      }
-      function toInt(argumentForCoercion) {
-        var coercedNumber = +argumentForCoercion, value = 0;
-        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
-          value = absFloor(coercedNumber);
-        }
-        return value;
-      }
-      function makeGetSet(unit, keepTime) {
-        return function(value) {
-          if (value != null) {
-            set$1(this, unit, value);
-            hooks.updateOffset(this, keepTime);
-            return this;
-          } else {
-            return get(this, unit);
-          }
-        };
-      }
-      function get(mom, unit) {
-        return mom.isValid() ? mom._d["get" + (mom._isUTC ? "UTC" : "") + unit]() : NaN;
-      }
-      function set$1(mom, unit, value) {
-        if (mom.isValid() && !isNaN(value)) {
-          if (unit === "FullYear" && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
-            value = toInt(value);
-            mom._d["set" + (mom._isUTC ? "UTC" : "") + unit](value, mom.month(), daysInMonth(value, mom.month()));
-          } else {
-            mom._d["set" + (mom._isUTC ? "UTC" : "") + unit](value);
-          }
-        }
-      }
-      function stringGet(units) {
-        units = normalizeUnits(units);
-        if (isFunction(this[units])) {
-          return this[units]();
-        }
-        return this;
-      }
-      function stringSet(units, value) {
-        if (typeof units === "object") {
-          units = normalizeObjectUnits(units);
-          var prioritized = getPrioritizedUnits(units), i, prioritizedLen = prioritized.length;
-          for (i = 0; i < prioritizedLen; i++) {
-            this[prioritized[i].unit](units[prioritized[i].unit]);
-          }
-        } else {
-          units = normalizeUnits(units);
-          if (isFunction(this[units])) {
-            return this[units](value);
-          }
-        }
-        return this;
-      }
-      var match1 = /\d/, match2 = /\d\d/, match3 = /\d{3}/, match4 = /\d{4}/, match6 = /[+-]?\d{6}/, match1to2 = /\d\d?/, match3to4 = /\d\d\d\d?/, match5to6 = /\d\d\d\d\d\d?/, match1to3 = /\d{1,3}/, match1to4 = /\d{1,4}/, match1to6 = /[+-]?\d{1,6}/, matchUnsigned = /\d+/, matchSigned = /[+-]?\d+/, matchOffset = /Z|[+-]\d\d:?\d\d/gi, matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi, matchTimestamp = /[+-]?\d+(\.\d{1,3})?/, matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i, regexes;
-      regexes = {};
-      function addRegexToken(token2, regex, strictRegex) {
-        regexes[token2] = isFunction(regex) ? regex : function(isStrict, localeData2) {
-          return isStrict && strictRegex ? strictRegex : regex;
-        };
-      }
-      function getParseRegexForToken(token2, config) {
-        if (!hasOwnProp(regexes, token2)) {
-          return new RegExp(unescapeFormat(token2));
-        }
-        return regexes[token2](config._strict, config._locale);
-      }
-      function unescapeFormat(s) {
-        return regexEscape(s.replace("\\", "").replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function(matched, p1, p2, p3, p4) {
-          return p1 || p2 || p3 || p4;
-        }));
-      }
-      function regexEscape(s) {
-        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-      }
-      var tokens = {};
-      function addParseToken(token2, callback) {
-        var i, func = callback, tokenLen;
-        if (typeof token2 === "string") {
-          token2 = [token2];
-        }
-        if (isNumber(callback)) {
-          func = function(input, array) {
-            array[callback] = toInt(input);
-          };
-        }
-        tokenLen = token2.length;
-        for (i = 0; i < tokenLen; i++) {
-          tokens[token2[i]] = func;
-        }
-      }
-      function addWeekParseToken(token2, callback) {
-        addParseToken(token2, function(input, array, config, token3) {
-          config._w = config._w || {};
-          callback(input, config._w, config, token3);
-        });
-      }
-      function addTimeToArrayFromToken(token2, input, config) {
-        if (input != null && hasOwnProp(tokens, token2)) {
-          tokens[token2](input, config._a, config, token2);
-        }
-      }
-      var YEAR = 0, MONTH = 1, DATE = 2, HOUR = 3, MINUTE = 4, SECOND = 5, MILLISECOND = 6, WEEK = 7, WEEKDAY = 8;
-      function mod(n, x) {
-        return (n % x + x) % x;
-      }
-      var indexOf;
-      if (Array.prototype.indexOf) {
-        indexOf = Array.prototype.indexOf;
-      } else {
-        indexOf = function(o) {
-          var i;
-          for (i = 0; i < this.length; ++i) {
-            if (this[i] === o) {
-              return i;
-            }
-          }
-          return -1;
-        };
-      }
-      function daysInMonth(year, month) {
-        if (isNaN(year) || isNaN(month)) {
-          return NaN;
-        }
-        var modMonth = mod(month, 12);
-        year += (month - modMonth) / 12;
-        return modMonth === 1 ? isLeapYear(year) ? 29 : 28 : 31 - modMonth % 7 % 2;
-      }
-      addFormatToken("M", ["MM", 2], "Mo", function() {
-        return this.month() + 1;
-      });
-      addFormatToken("MMM", 0, 0, function(format2) {
-        return this.localeData().monthsShort(this, format2);
-      });
-      addFormatToken("MMMM", 0, 0, function(format2) {
-        return this.localeData().months(this, format2);
-      });
-      addUnitAlias("month", "M");
-      addUnitPriority("month", 8);
-      addRegexToken("M", match1to2);
-      addRegexToken("MM", match1to2, match2);
-      addRegexToken("MMM", function(isStrict, locale2) {
-        return locale2.monthsShortRegex(isStrict);
-      });
-      addRegexToken("MMMM", function(isStrict, locale2) {
-        return locale2.monthsRegex(isStrict);
-      });
-      addParseToken(["M", "MM"], function(input, array) {
-        array[MONTH] = toInt(input) - 1;
-      });
-      addParseToken(["MMM", "MMMM"], function(input, array, config, token2) {
-        var month = config._locale.monthsParse(input, token2, config._strict);
-        if (month != null) {
-          array[MONTH] = month;
-        } else {
-          getParsingFlags(config).invalidMonth = input;
-        }
-      });
-      var defaultLocaleMonths = "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), defaultLocaleMonthsShort = "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"), MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/, defaultMonthsShortRegex = matchWord, defaultMonthsRegex = matchWord;
-      function localeMonths(m, format2) {
-        if (!m) {
-          return isArray(this._months) ? this._months : this._months["standalone"];
-        }
-        return isArray(this._months) ? this._months[m.month()] : this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format2) ? "format" : "standalone"][m.month()];
-      }
-      function localeMonthsShort(m, format2) {
-        if (!m) {
-          return isArray(this._monthsShort) ? this._monthsShort : this._monthsShort["standalone"];
-        }
-        return isArray(this._monthsShort) ? this._monthsShort[m.month()] : this._monthsShort[MONTHS_IN_FORMAT.test(format2) ? "format" : "standalone"][m.month()];
-      }
-      function handleStrictParse(monthName, format2, strict) {
-        var i, ii, mom, llc = monthName.toLocaleLowerCase();
-        if (!this._monthsParse) {
-          this._monthsParse = [];
-          this._longMonthsParse = [];
-          this._shortMonthsParse = [];
-          for (i = 0; i < 12; ++i) {
-            mom = createUTC([2e3, i]);
-            this._shortMonthsParse[i] = this.monthsShort(mom, "").toLocaleLowerCase();
-            this._longMonthsParse[i] = this.months(mom, "").toLocaleLowerCase();
-          }
-        }
-        if (strict) {
-          if (format2 === "MMM") {
-            ii = indexOf.call(this._shortMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-          } else {
-            ii = indexOf.call(this._longMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-          }
-        } else {
-          if (format2 === "MMM") {
-            ii = indexOf.call(this._shortMonthsParse, llc);
-            if (ii !== -1) {
-              return ii;
-            }
-            ii = indexOf.call(this._longMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-          } else {
-            ii = indexOf.call(this._longMonthsParse, llc);
-            if (ii !== -1) {
-              return ii;
-            }
-            ii = indexOf.call(this._shortMonthsParse, llc);
-            return ii !== -1 ? ii : null;
-          }
-        }
-      }
-      function localeMonthsParse(monthName, format2, strict) {
-        var i, mom, regex;
-        if (this._monthsParseExact) {
-          return handleStrictParse.call(this, monthName, format2, strict);
-        }
-        if (!this._monthsParse) {
-          this._monthsParse = [];
-          this._longMonthsParse = [];
-          this._shortMonthsParse = [];
-        }
-        for (i = 0; i < 12; i++) {
-          mom = createUTC([2e3, i]);
-          if (strict && !this._longMonthsParse[i]) {
-            this._longMonthsParse[i] = new RegExp("^" + this.months(mom, "").replace(".", "") + "$", "i");
-            this._shortMonthsParse[i] = new RegExp("^" + this.monthsShort(mom, "").replace(".", "") + "$", "i");
-          }
-          if (!strict && !this._monthsParse[i]) {
-            regex = "^" + this.months(mom, "") + "|^" + this.monthsShort(mom, "");
-            this._monthsParse[i] = new RegExp(regex.replace(".", ""), "i");
-          }
-          if (strict && format2 === "MMMM" && this._longMonthsParse[i].test(monthName)) {
-            return i;
-          } else if (strict && format2 === "MMM" && this._shortMonthsParse[i].test(monthName)) {
-            return i;
-          } else if (!strict && this._monthsParse[i].test(monthName)) {
-            return i;
-          }
-        }
-      }
-      function setMonth(mom, value) {
-        var dayOfMonth;
-        if (!mom.isValid()) {
-          return mom;
-        }
-        if (typeof value === "string") {
-          if (/^\d+$/.test(value)) {
-            value = toInt(value);
-          } else {
-            value = mom.localeData().monthsParse(value);
-            if (!isNumber(value)) {
-              return mom;
-            }
-          }
-        }
-        dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
-        mom._d["set" + (mom._isUTC ? "UTC" : "") + "Month"](value, dayOfMonth);
-        return mom;
-      }
-      function getSetMonth(value) {
-        if (value != null) {
-          setMonth(this, value);
-          hooks.updateOffset(this, true);
-          return this;
-        } else {
-          return get(this, "Month");
-        }
-      }
-      function getDaysInMonth() {
-        return daysInMonth(this.year(), this.month());
-      }
-      function monthsShortRegex(isStrict) {
-        if (this._monthsParseExact) {
-          if (!hasOwnProp(this, "_monthsRegex")) {
-            computeMonthsParse.call(this);
-          }
-          if (isStrict) {
-            return this._monthsShortStrictRegex;
-          } else {
-            return this._monthsShortRegex;
-          }
-        } else {
-          if (!hasOwnProp(this, "_monthsShortRegex")) {
-            this._monthsShortRegex = defaultMonthsShortRegex;
-          }
-          return this._monthsShortStrictRegex && isStrict ? this._monthsShortStrictRegex : this._monthsShortRegex;
-        }
-      }
-      function monthsRegex(isStrict) {
-        if (this._monthsParseExact) {
-          if (!hasOwnProp(this, "_monthsRegex")) {
-            computeMonthsParse.call(this);
-          }
-          if (isStrict) {
-            return this._monthsStrictRegex;
-          } else {
-            return this._monthsRegex;
-          }
-        } else {
-          if (!hasOwnProp(this, "_monthsRegex")) {
-            this._monthsRegex = defaultMonthsRegex;
-          }
-          return this._monthsStrictRegex && isStrict ? this._monthsStrictRegex : this._monthsRegex;
-        }
-      }
-      function computeMonthsParse() {
-        function cmpLenRev(a, b) {
-          return b.length - a.length;
-        }
-        var shortPieces = [], longPieces = [], mixedPieces = [], i, mom;
-        for (i = 0; i < 12; i++) {
-          mom = createUTC([2e3, i]);
-          shortPieces.push(this.monthsShort(mom, ""));
-          longPieces.push(this.months(mom, ""));
-          mixedPieces.push(this.months(mom, ""));
-          mixedPieces.push(this.monthsShort(mom, ""));
-        }
-        shortPieces.sort(cmpLenRev);
-        longPieces.sort(cmpLenRev);
-        mixedPieces.sort(cmpLenRev);
-        for (i = 0; i < 12; i++) {
-          shortPieces[i] = regexEscape(shortPieces[i]);
-          longPieces[i] = regexEscape(longPieces[i]);
-        }
-        for (i = 0; i < 24; i++) {
-          mixedPieces[i] = regexEscape(mixedPieces[i]);
-        }
-        this._monthsRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
-        this._monthsShortRegex = this._monthsRegex;
-        this._monthsStrictRegex = new RegExp("^(" + longPieces.join("|") + ")", "i");
-        this._monthsShortStrictRegex = new RegExp("^(" + shortPieces.join("|") + ")", "i");
-      }
-      addFormatToken("Y", 0, 0, function() {
-        var y = this.year();
-        return y <= 9999 ? zeroFill(y, 4) : "+" + y;
-      });
-      addFormatToken(0, ["YY", 2], 0, function() {
-        return this.year() % 100;
-      });
-      addFormatToken(0, ["YYYY", 4], 0, "year");
-      addFormatToken(0, ["YYYYY", 5], 0, "year");
-      addFormatToken(0, ["YYYYYY", 6, true], 0, "year");
-      addUnitAlias("year", "y");
-      addUnitPriority("year", 1);
-      addRegexToken("Y", matchSigned);
-      addRegexToken("YY", match1to2, match2);
-      addRegexToken("YYYY", match1to4, match4);
-      addRegexToken("YYYYY", match1to6, match6);
-      addRegexToken("YYYYYY", match1to6, match6);
-      addParseToken(["YYYYY", "YYYYYY"], YEAR);
-      addParseToken("YYYY", function(input, array) {
-        array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
-      });
-      addParseToken("YY", function(input, array) {
-        array[YEAR] = hooks.parseTwoDigitYear(input);
-      });
-      addParseToken("Y", function(input, array) {
-        array[YEAR] = parseInt(input, 10);
-      });
-      function daysInYear(year) {
-        return isLeapYear(year) ? 366 : 365;
-      }
-      hooks.parseTwoDigitYear = function(input) {
-        return toInt(input) + (toInt(input) > 68 ? 1900 : 2e3);
-      };
-      var getSetYear = makeGetSet("FullYear", true);
-      function getIsLeapYear() {
-        return isLeapYear(this.year());
-      }
-      function createDate(y, m, d, h, M, s, ms) {
-        var date;
-        if (y < 100 && y >= 0) {
-          date = new Date(y + 400, m, d, h, M, s, ms);
-          if (isFinite(date.getFullYear())) {
-            date.setFullYear(y);
-          }
-        } else {
-          date = new Date(y, m, d, h, M, s, ms);
-        }
-        return date;
-      }
-      function createUTCDate(y) {
-        var date, args;
-        if (y < 100 && y >= 0) {
-          args = Array.prototype.slice.call(arguments);
-          args[0] = y + 400;
-          date = new Date(Date.UTC.apply(null, args));
-          if (isFinite(date.getUTCFullYear())) {
-            date.setUTCFullYear(y);
-          }
-        } else {
-          date = new Date(Date.UTC.apply(null, arguments));
-        }
-        return date;
-      }
-      function firstWeekOffset(year, dow, doy) {
-        var fwd = 7 + dow - doy, fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
-        return -fwdlw + fwd - 1;
-      }
-      function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
-        var localWeekday = (7 + weekday - dow) % 7, weekOffset = firstWeekOffset(year, dow, doy), dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset, resYear, resDayOfYear;
-        if (dayOfYear <= 0) {
-          resYear = year - 1;
-          resDayOfYear = daysInYear(resYear) + dayOfYear;
-        } else if (dayOfYear > daysInYear(year)) {
-          resYear = year + 1;
-          resDayOfYear = dayOfYear - daysInYear(year);
-        } else {
-          resYear = year;
-          resDayOfYear = dayOfYear;
-        }
-        return {
-          year: resYear,
-          dayOfYear: resDayOfYear
-        };
-      }
-      function weekOfYear(mom, dow, doy) {
-        var weekOffset = firstWeekOffset(mom.year(), dow, doy), week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1, resWeek, resYear;
-        if (week < 1) {
-          resYear = mom.year() - 1;
-          resWeek = week + weeksInYear(resYear, dow, doy);
-        } else if (week > weeksInYear(mom.year(), dow, doy)) {
-          resWeek = week - weeksInYear(mom.year(), dow, doy);
-          resYear = mom.year() + 1;
-        } else {
-          resYear = mom.year();
-          resWeek = week;
-        }
-        return {
-          week: resWeek,
-          year: resYear
-        };
-      }
-      function weeksInYear(year, dow, doy) {
-        var weekOffset = firstWeekOffset(year, dow, doy), weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
-        return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
-      }
-      addFormatToken("w", ["ww", 2], "wo", "week");
-      addFormatToken("W", ["WW", 2], "Wo", "isoWeek");
-      addUnitAlias("week", "w");
-      addUnitAlias("isoWeek", "W");
-      addUnitPriority("week", 5);
-      addUnitPriority("isoWeek", 5);
-      addRegexToken("w", match1to2);
-      addRegexToken("ww", match1to2, match2);
-      addRegexToken("W", match1to2);
-      addRegexToken("WW", match1to2, match2);
-      addWeekParseToken(["w", "ww", "W", "WW"], function(input, week, config, token2) {
-        week[token2.substr(0, 1)] = toInt(input);
-      });
-      function localeWeek(mom) {
-        return weekOfYear(mom, this._week.dow, this._week.doy).week;
-      }
-      var defaultLocaleWeek = {
-        dow: 0,
-        doy: 6
-      };
-      function localeFirstDayOfWeek() {
-        return this._week.dow;
-      }
-      function localeFirstDayOfYear() {
-        return this._week.doy;
-      }
-      function getSetWeek(input) {
-        var week = this.localeData().week(this);
-        return input == null ? week : this.add((input - week) * 7, "d");
-      }
-      function getSetISOWeek(input) {
-        var week = weekOfYear(this, 1, 4).week;
-        return input == null ? week : this.add((input - week) * 7, "d");
-      }
-      addFormatToken("d", 0, "do", "day");
-      addFormatToken("dd", 0, 0, function(format2) {
-        return this.localeData().weekdaysMin(this, format2);
-      });
-      addFormatToken("ddd", 0, 0, function(format2) {
-        return this.localeData().weekdaysShort(this, format2);
-      });
-      addFormatToken("dddd", 0, 0, function(format2) {
-        return this.localeData().weekdays(this, format2);
-      });
-      addFormatToken("e", 0, 0, "weekday");
-      addFormatToken("E", 0, 0, "isoWeekday");
-      addUnitAlias("day", "d");
-      addUnitAlias("weekday", "e");
-      addUnitAlias("isoWeekday", "E");
-      addUnitPriority("day", 11);
-      addUnitPriority("weekday", 11);
-      addUnitPriority("isoWeekday", 11);
-      addRegexToken("d", match1to2);
-      addRegexToken("e", match1to2);
-      addRegexToken("E", match1to2);
-      addRegexToken("dd", function(isStrict, locale2) {
-        return locale2.weekdaysMinRegex(isStrict);
-      });
-      addRegexToken("ddd", function(isStrict, locale2) {
-        return locale2.weekdaysShortRegex(isStrict);
-      });
-      addRegexToken("dddd", function(isStrict, locale2) {
-        return locale2.weekdaysRegex(isStrict);
-      });
-      addWeekParseToken(["dd", "ddd", "dddd"], function(input, week, config, token2) {
-        var weekday = config._locale.weekdaysParse(input, token2, config._strict);
-        if (weekday != null) {
-          week.d = weekday;
-        } else {
-          getParsingFlags(config).invalidWeekday = input;
-        }
-      });
-      addWeekParseToken(["d", "e", "E"], function(input, week, config, token2) {
-        week[token2] = toInt(input);
-      });
-      function parseWeekday(input, locale2) {
-        if (typeof input !== "string") {
-          return input;
-        }
-        if (!isNaN(input)) {
-          return parseInt(input, 10);
-        }
-        input = locale2.weekdaysParse(input);
-        if (typeof input === "number") {
-          return input;
-        }
-        return null;
-      }
-      function parseIsoWeekday(input, locale2) {
-        if (typeof input === "string") {
-          return locale2.weekdaysParse(input) % 7 || 7;
-        }
-        return isNaN(input) ? null : input;
-      }
-      function shiftWeekdays(ws, n) {
-        return ws.slice(n, 7).concat(ws.slice(0, n));
-      }
-      var defaultLocaleWeekdays = "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), defaultLocaleWeekdaysShort = "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"), defaultLocaleWeekdaysMin = "Su_Mo_Tu_We_Th_Fr_Sa".split("_"), defaultWeekdaysRegex = matchWord, defaultWeekdaysShortRegex = matchWord, defaultWeekdaysMinRegex = matchWord;
-      function localeWeekdays(m, format2) {
-        var weekdays = isArray(this._weekdays) ? this._weekdays : this._weekdays[m && m !== true && this._weekdays.isFormat.test(format2) ? "format" : "standalone"];
-        return m === true ? shiftWeekdays(weekdays, this._week.dow) : m ? weekdays[m.day()] : weekdays;
-      }
-      function localeWeekdaysShort(m) {
-        return m === true ? shiftWeekdays(this._weekdaysShort, this._week.dow) : m ? this._weekdaysShort[m.day()] : this._weekdaysShort;
-      }
-      function localeWeekdaysMin(m) {
-        return m === true ? shiftWeekdays(this._weekdaysMin, this._week.dow) : m ? this._weekdaysMin[m.day()] : this._weekdaysMin;
-      }
-      function handleStrictParse$1(weekdayName, format2, strict) {
-        var i, ii, mom, llc = weekdayName.toLocaleLowerCase();
-        if (!this._weekdaysParse) {
-          this._weekdaysParse = [];
-          this._shortWeekdaysParse = [];
-          this._minWeekdaysParse = [];
-          for (i = 0; i < 7; ++i) {
-            mom = createUTC([2e3, 1]).day(i);
-            this._minWeekdaysParse[i] = this.weekdaysMin(mom, "").toLocaleLowerCase();
-            this._shortWeekdaysParse[i] = this.weekdaysShort(mom, "").toLocaleLowerCase();
-            this._weekdaysParse[i] = this.weekdays(mom, "").toLocaleLowerCase();
-          }
-        }
-        if (strict) {
-          if (format2 === "dddd") {
-            ii = indexOf.call(this._weekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-          } else if (format2 === "ddd") {
-            ii = indexOf.call(this._shortWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-          } else {
-            ii = indexOf.call(this._minWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-          }
-        } else {
-          if (format2 === "dddd") {
-            ii = indexOf.call(this._weekdaysParse, llc);
-            if (ii !== -1) {
-              return ii;
-            }
-            ii = indexOf.call(this._shortWeekdaysParse, llc);
-            if (ii !== -1) {
-              return ii;
-            }
-            ii = indexOf.call(this._minWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-          } else if (format2 === "ddd") {
-            ii = indexOf.call(this._shortWeekdaysParse, llc);
-            if (ii !== -1) {
-              return ii;
-            }
-            ii = indexOf.call(this._weekdaysParse, llc);
-            if (ii !== -1) {
-              return ii;
-            }
-            ii = indexOf.call(this._minWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-          } else {
-            ii = indexOf.call(this._minWeekdaysParse, llc);
-            if (ii !== -1) {
-              return ii;
-            }
-            ii = indexOf.call(this._weekdaysParse, llc);
-            if (ii !== -1) {
-              return ii;
-            }
-            ii = indexOf.call(this._shortWeekdaysParse, llc);
-            return ii !== -1 ? ii : null;
-          }
-        }
-      }
-      function localeWeekdaysParse(weekdayName, format2, strict) {
-        var i, mom, regex;
-        if (this._weekdaysParseExact) {
-          return handleStrictParse$1.call(this, weekdayName, format2, strict);
-        }
-        if (!this._weekdaysParse) {
-          this._weekdaysParse = [];
-          this._minWeekdaysParse = [];
-          this._shortWeekdaysParse = [];
-          this._fullWeekdaysParse = [];
-        }
-        for (i = 0; i < 7; i++) {
-          mom = createUTC([2e3, 1]).day(i);
-          if (strict && !this._fullWeekdaysParse[i]) {
-            this._fullWeekdaysParse[i] = new RegExp("^" + this.weekdays(mom, "").replace(".", "\\.?") + "$", "i");
-            this._shortWeekdaysParse[i] = new RegExp("^" + this.weekdaysShort(mom, "").replace(".", "\\.?") + "$", "i");
-            this._minWeekdaysParse[i] = new RegExp("^" + this.weekdaysMin(mom, "").replace(".", "\\.?") + "$", "i");
-          }
-          if (!this._weekdaysParse[i]) {
-            regex = "^" + this.weekdays(mom, "") + "|^" + this.weekdaysShort(mom, "") + "|^" + this.weekdaysMin(mom, "");
-            this._weekdaysParse[i] = new RegExp(regex.replace(".", ""), "i");
-          }
-          if (strict && format2 === "dddd" && this._fullWeekdaysParse[i].test(weekdayName)) {
-            return i;
-          } else if (strict && format2 === "ddd" && this._shortWeekdaysParse[i].test(weekdayName)) {
-            return i;
-          } else if (strict && format2 === "dd" && this._minWeekdaysParse[i].test(weekdayName)) {
-            return i;
-          } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
-            return i;
-          }
-        }
-      }
-      function getSetDayOfWeek(input) {
-        if (!this.isValid()) {
-          return input != null ? this : NaN;
-        }
-        var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
-        if (input != null) {
-          input = parseWeekday(input, this.localeData());
-          return this.add(input - day, "d");
-        } else {
-          return day;
-        }
-      }
-      function getSetLocaleDayOfWeek(input) {
-        if (!this.isValid()) {
-          return input != null ? this : NaN;
-        }
-        var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
-        return input == null ? weekday : this.add(input - weekday, "d");
-      }
-      function getSetISODayOfWeek(input) {
-        if (!this.isValid()) {
-          return input != null ? this : NaN;
-        }
-        if (input != null) {
-          var weekday = parseIsoWeekday(input, this.localeData());
-          return this.day(this.day() % 7 ? weekday : weekday - 7);
-        } else {
-          return this.day() || 7;
-        }
-      }
-      function weekdaysRegex(isStrict) {
-        if (this._weekdaysParseExact) {
-          if (!hasOwnProp(this, "_weekdaysRegex")) {
-            computeWeekdaysParse.call(this);
-          }
-          if (isStrict) {
-            return this._weekdaysStrictRegex;
-          } else {
-            return this._weekdaysRegex;
-          }
-        } else {
-          if (!hasOwnProp(this, "_weekdaysRegex")) {
-            this._weekdaysRegex = defaultWeekdaysRegex;
-          }
-          return this._weekdaysStrictRegex && isStrict ? this._weekdaysStrictRegex : this._weekdaysRegex;
-        }
-      }
-      function weekdaysShortRegex(isStrict) {
-        if (this._weekdaysParseExact) {
-          if (!hasOwnProp(this, "_weekdaysRegex")) {
-            computeWeekdaysParse.call(this);
-          }
-          if (isStrict) {
-            return this._weekdaysShortStrictRegex;
-          } else {
-            return this._weekdaysShortRegex;
-          }
-        } else {
-          if (!hasOwnProp(this, "_weekdaysShortRegex")) {
-            this._weekdaysShortRegex = defaultWeekdaysShortRegex;
-          }
-          return this._weekdaysShortStrictRegex && isStrict ? this._weekdaysShortStrictRegex : this._weekdaysShortRegex;
-        }
-      }
-      function weekdaysMinRegex(isStrict) {
-        if (this._weekdaysParseExact) {
-          if (!hasOwnProp(this, "_weekdaysRegex")) {
-            computeWeekdaysParse.call(this);
-          }
-          if (isStrict) {
-            return this._weekdaysMinStrictRegex;
-          } else {
-            return this._weekdaysMinRegex;
-          }
-        } else {
-          if (!hasOwnProp(this, "_weekdaysMinRegex")) {
-            this._weekdaysMinRegex = defaultWeekdaysMinRegex;
-          }
-          return this._weekdaysMinStrictRegex && isStrict ? this._weekdaysMinStrictRegex : this._weekdaysMinRegex;
-        }
-      }
-      function computeWeekdaysParse() {
-        function cmpLenRev(a, b) {
-          return b.length - a.length;
-        }
-        var minPieces = [], shortPieces = [], longPieces = [], mixedPieces = [], i, mom, minp, shortp, longp;
-        for (i = 0; i < 7; i++) {
-          mom = createUTC([2e3, 1]).day(i);
-          minp = regexEscape(this.weekdaysMin(mom, ""));
-          shortp = regexEscape(this.weekdaysShort(mom, ""));
-          longp = regexEscape(this.weekdays(mom, ""));
-          minPieces.push(minp);
-          shortPieces.push(shortp);
-          longPieces.push(longp);
-          mixedPieces.push(minp);
-          mixedPieces.push(shortp);
-          mixedPieces.push(longp);
-        }
-        minPieces.sort(cmpLenRev);
-        shortPieces.sort(cmpLenRev);
-        longPieces.sort(cmpLenRev);
-        mixedPieces.sort(cmpLenRev);
-        this._weekdaysRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
-        this._weekdaysShortRegex = this._weekdaysRegex;
-        this._weekdaysMinRegex = this._weekdaysRegex;
-        this._weekdaysStrictRegex = new RegExp("^(" + longPieces.join("|") + ")", "i");
-        this._weekdaysShortStrictRegex = new RegExp("^(" + shortPieces.join("|") + ")", "i");
-        this._weekdaysMinStrictRegex = new RegExp("^(" + minPieces.join("|") + ")", "i");
-      }
-      function hFormat() {
-        return this.hours() % 12 || 12;
-      }
-      function kFormat() {
-        return this.hours() || 24;
-      }
-      addFormatToken("H", ["HH", 2], 0, "hour");
-      addFormatToken("h", ["hh", 2], 0, hFormat);
-      addFormatToken("k", ["kk", 2], 0, kFormat);
-      addFormatToken("hmm", 0, 0, function() {
-        return "" + hFormat.apply(this) + zeroFill(this.minutes(), 2);
-      });
-      addFormatToken("hmmss", 0, 0, function() {
-        return "" + hFormat.apply(this) + zeroFill(this.minutes(), 2) + zeroFill(this.seconds(), 2);
-      });
-      addFormatToken("Hmm", 0, 0, function() {
-        return "" + this.hours() + zeroFill(this.minutes(), 2);
-      });
-      addFormatToken("Hmmss", 0, 0, function() {
-        return "" + this.hours() + zeroFill(this.minutes(), 2) + zeroFill(this.seconds(), 2);
-      });
-      function meridiem(token2, lowercase) {
-        addFormatToken(token2, 0, 0, function() {
-          return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
-        });
-      }
-      meridiem("a", true);
-      meridiem("A", false);
-      addUnitAlias("hour", "h");
-      addUnitPriority("hour", 13);
-      function matchMeridiem(isStrict, locale2) {
-        return locale2._meridiemParse;
-      }
-      addRegexToken("a", matchMeridiem);
-      addRegexToken("A", matchMeridiem);
-      addRegexToken("H", match1to2);
-      addRegexToken("h", match1to2);
-      addRegexToken("k", match1to2);
-      addRegexToken("HH", match1to2, match2);
-      addRegexToken("hh", match1to2, match2);
-      addRegexToken("kk", match1to2, match2);
-      addRegexToken("hmm", match3to4);
-      addRegexToken("hmmss", match5to6);
-      addRegexToken("Hmm", match3to4);
-      addRegexToken("Hmmss", match5to6);
-      addParseToken(["H", "HH"], HOUR);
-      addParseToken(["k", "kk"], function(input, array, config) {
-        var kInput = toInt(input);
-        array[HOUR] = kInput === 24 ? 0 : kInput;
-      });
-      addParseToken(["a", "A"], function(input, array, config) {
-        config._isPm = config._locale.isPM(input);
-        config._meridiem = input;
-      });
-      addParseToken(["h", "hh"], function(input, array, config) {
-        array[HOUR] = toInt(input);
-        getParsingFlags(config).bigHour = true;
-      });
-      addParseToken("hmm", function(input, array, config) {
-        var pos = input.length - 2;
-        array[HOUR] = toInt(input.substr(0, pos));
-        array[MINUTE] = toInt(input.substr(pos));
-        getParsingFlags(config).bigHour = true;
-      });
-      addParseToken("hmmss", function(input, array, config) {
-        var pos1 = input.length - 4, pos2 = input.length - 2;
-        array[HOUR] = toInt(input.substr(0, pos1));
-        array[MINUTE] = toInt(input.substr(pos1, 2));
-        array[SECOND] = toInt(input.substr(pos2));
-        getParsingFlags(config).bigHour = true;
-      });
-      addParseToken("Hmm", function(input, array, config) {
-        var pos = input.length - 2;
-        array[HOUR] = toInt(input.substr(0, pos));
-        array[MINUTE] = toInt(input.substr(pos));
-      });
-      addParseToken("Hmmss", function(input, array, config) {
-        var pos1 = input.length - 4, pos2 = input.length - 2;
-        array[HOUR] = toInt(input.substr(0, pos1));
-        array[MINUTE] = toInt(input.substr(pos1, 2));
-        array[SECOND] = toInt(input.substr(pos2));
-      });
-      function localeIsPM(input) {
-        return (input + "").toLowerCase().charAt(0) === "p";
-      }
-      var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i, getSetHour = makeGetSet("Hours", true);
-      function localeMeridiem(hours2, minutes2, isLower) {
-        if (hours2 > 11) {
-          return isLower ? "pm" : "PM";
-        } else {
-          return isLower ? "am" : "AM";
-        }
-      }
-      var baseConfig = {
-        calendar: defaultCalendar,
-        longDateFormat: defaultLongDateFormat,
-        invalidDate: defaultInvalidDate,
-        ordinal: defaultOrdinal,
-        dayOfMonthOrdinalParse: defaultDayOfMonthOrdinalParse,
-        relativeTime: defaultRelativeTime,
-        months: defaultLocaleMonths,
-        monthsShort: defaultLocaleMonthsShort,
-        week: defaultLocaleWeek,
-        weekdays: defaultLocaleWeekdays,
-        weekdaysMin: defaultLocaleWeekdaysMin,
-        weekdaysShort: defaultLocaleWeekdaysShort,
-        meridiemParse: defaultLocaleMeridiemParse
-      };
-      var locales = {}, localeFamilies = {}, globalLocale;
-      function commonPrefix(arr1, arr2) {
-        var i, minl = Math.min(arr1.length, arr2.length);
-        for (i = 0; i < minl; i += 1) {
-          if (arr1[i] !== arr2[i]) {
-            return i;
-          }
-        }
-        return minl;
-      }
-      function normalizeLocale(key) {
-        return key ? key.toLowerCase().replace("_", "-") : key;
-      }
-      function chooseLocale(names) {
-        var i = 0, j, next, locale2, split;
-        while (i < names.length) {
-          split = normalizeLocale(names[i]).split("-");
-          j = split.length;
-          next = normalizeLocale(names[i + 1]);
-          next = next ? next.split("-") : null;
-          while (j > 0) {
-            locale2 = loadLocale(split.slice(0, j).join("-"));
-            if (locale2) {
-              return locale2;
-            }
-            if (next && next.length >= j && commonPrefix(split, next) >= j - 1) {
-              break;
-            }
-            j--;
-          }
-          i++;
-        }
-        return globalLocale;
-      }
-      function isLocaleNameSane(name) {
-        return name.match("^[^/\\\\]*$") != null;
-      }
-      function loadLocale(name) {
-        var oldLocale = null, aliasedRequire;
-        if (locales[name] === void 0 && typeof module2 !== "undefined" && module2 && module2.exports && isLocaleNameSane(name)) {
-          try {
-            oldLocale = globalLocale._abbr;
-            aliasedRequire = require;
-            aliasedRequire("./locale/" + name);
-            getSetGlobalLocale(oldLocale);
-          } catch (e) {
-            locales[name] = null;
-          }
-        }
-        return locales[name];
-      }
-      function getSetGlobalLocale(key, values) {
-        var data;
-        if (key) {
-          if (isUndefined(values)) {
-            data = getLocale(key);
-          } else {
-            data = defineLocale(key, values);
-          }
-          if (data) {
-            globalLocale = data;
-          } else {
-            if (typeof console !== "undefined" && console.warn) {
-              console.warn("Locale " + key + " not found. Did you forget to load it?");
-            }
-          }
-        }
-        return globalLocale._abbr;
-      }
-      function defineLocale(name, config) {
-        if (config !== null) {
-          var locale2, parentConfig = baseConfig;
-          config.abbr = name;
-          if (locales[name] != null) {
-            deprecateSimple("defineLocaleOverride", "use moment.updateLocale(localeName, config) to change an existing locale. moment.defineLocale(localeName, config) should only be used for creating a new locale See http://momentjs.com/guides/#/warnings/define-locale/ for more info.");
-            parentConfig = locales[name]._config;
-          } else if (config.parentLocale != null) {
-            if (locales[config.parentLocale] != null) {
-              parentConfig = locales[config.parentLocale]._config;
-            } else {
-              locale2 = loadLocale(config.parentLocale);
-              if (locale2 != null) {
-                parentConfig = locale2._config;
-              } else {
-                if (!localeFamilies[config.parentLocale]) {
-                  localeFamilies[config.parentLocale] = [];
-                }
-                localeFamilies[config.parentLocale].push({
-                  name,
-                  config
-                });
-                return null;
-              }
-            }
-          }
-          locales[name] = new Locale(mergeConfigs(parentConfig, config));
-          if (localeFamilies[name]) {
-            localeFamilies[name].forEach(function(x) {
-              defineLocale(x.name, x.config);
-            });
-          }
-          getSetGlobalLocale(name);
-          return locales[name];
-        } else {
-          delete locales[name];
-          return null;
-        }
-      }
-      function updateLocale(name, config) {
-        if (config != null) {
-          var locale2, tmpLocale, parentConfig = baseConfig;
-          if (locales[name] != null && locales[name].parentLocale != null) {
-            locales[name].set(mergeConfigs(locales[name]._config, config));
-          } else {
-            tmpLocale = loadLocale(name);
-            if (tmpLocale != null) {
-              parentConfig = tmpLocale._config;
-            }
-            config = mergeConfigs(parentConfig, config);
-            if (tmpLocale == null) {
-              config.abbr = name;
-            }
-            locale2 = new Locale(config);
-            locale2.parentLocale = locales[name];
-            locales[name] = locale2;
-          }
-          getSetGlobalLocale(name);
-        } else {
-          if (locales[name] != null) {
-            if (locales[name].parentLocale != null) {
-              locales[name] = locales[name].parentLocale;
-              if (name === getSetGlobalLocale()) {
-                getSetGlobalLocale(name);
-              }
-            } else if (locales[name] != null) {
-              delete locales[name];
-            }
-          }
-        }
-        return locales[name];
-      }
-      function getLocale(key) {
-        var locale2;
-        if (key && key._locale && key._locale._abbr) {
-          key = key._locale._abbr;
-        }
-        if (!key) {
-          return globalLocale;
-        }
-        if (!isArray(key)) {
-          locale2 = loadLocale(key);
-          if (locale2) {
-            return locale2;
-          }
-          key = [key];
-        }
-        return chooseLocale(key);
-      }
-      function listLocales() {
-        return keys(locales);
-      }
-      function checkOverflow(m) {
-        var overflow, a = m._a;
-        if (a && getParsingFlags(m).overflow === -2) {
-          overflow = a[MONTH] < 0 || a[MONTH] > 11 ? MONTH : a[DATE] < 1 || a[DATE] > daysInMonth(a[YEAR], a[MONTH]) ? DATE : a[HOUR] < 0 || a[HOUR] > 24 || a[HOUR] === 24 && (a[MINUTE] !== 0 || a[SECOND] !== 0 || a[MILLISECOND] !== 0) ? HOUR : a[MINUTE] < 0 || a[MINUTE] > 59 ? MINUTE : a[SECOND] < 0 || a[SECOND] > 59 ? SECOND : a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND : -1;
-          if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
-            overflow = DATE;
-          }
-          if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
-            overflow = WEEK;
-          }
-          if (getParsingFlags(m)._overflowWeekday && overflow === -1) {
-            overflow = WEEKDAY;
-          }
-          getParsingFlags(m).overflow = overflow;
-        }
-        return m;
-      }
-      var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/, basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/, tzRegex = /Z|[+-]\d\d(?::?\d\d)?/, isoDates = [
-        ["YYYYYY-MM-DD", /[+-]\d{6}-\d\d-\d\d/],
-        ["YYYY-MM-DD", /\d{4}-\d\d-\d\d/],
-        ["GGGG-[W]WW-E", /\d{4}-W\d\d-\d/],
-        ["GGGG-[W]WW", /\d{4}-W\d\d/, false],
-        ["YYYY-DDD", /\d{4}-\d{3}/],
-        ["YYYY-MM", /\d{4}-\d\d/, false],
-        ["YYYYYYMMDD", /[+-]\d{10}/],
-        ["YYYYMMDD", /\d{8}/],
-        ["GGGG[W]WWE", /\d{4}W\d{3}/],
-        ["GGGG[W]WW", /\d{4}W\d{2}/, false],
-        ["YYYYDDD", /\d{7}/],
-        ["YYYYMM", /\d{6}/, false],
-        ["YYYY", /\d{4}/, false]
-      ], isoTimes = [
-        ["HH:mm:ss.SSSS", /\d\d:\d\d:\d\d\.\d+/],
-        ["HH:mm:ss,SSSS", /\d\d:\d\d:\d\d,\d+/],
-        ["HH:mm:ss", /\d\d:\d\d:\d\d/],
-        ["HH:mm", /\d\d:\d\d/],
-        ["HHmmss.SSSS", /\d\d\d\d\d\d\.\d+/],
-        ["HHmmss,SSSS", /\d\d\d\d\d\d,\d+/],
-        ["HHmmss", /\d\d\d\d\d\d/],
-        ["HHmm", /\d\d\d\d/],
-        ["HH", /\d\d/]
-      ], aspNetJsonRegex = /^\/?Date\((-?\d+)/i, rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/, obsOffsets = {
-        UT: 0,
-        GMT: 0,
-        EDT: -4 * 60,
-        EST: -5 * 60,
-        CDT: -5 * 60,
-        CST: -6 * 60,
-        MDT: -6 * 60,
-        MST: -7 * 60,
-        PDT: -7 * 60,
-        PST: -8 * 60
-      };
-      function configFromISO(config) {
-        var i, l, string = config._i, match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string), allowTime, dateFormat, timeFormat, tzFormat, isoDatesLen = isoDates.length, isoTimesLen = isoTimes.length;
-        if (match) {
-          getParsingFlags(config).iso = true;
-          for (i = 0, l = isoDatesLen; i < l; i++) {
-            if (isoDates[i][1].exec(match[1])) {
-              dateFormat = isoDates[i][0];
-              allowTime = isoDates[i][2] !== false;
-              break;
-            }
-          }
-          if (dateFormat == null) {
-            config._isValid = false;
-            return;
-          }
-          if (match[3]) {
-            for (i = 0, l = isoTimesLen; i < l; i++) {
-              if (isoTimes[i][1].exec(match[3])) {
-                timeFormat = (match[2] || " ") + isoTimes[i][0];
-                break;
-              }
-            }
-            if (timeFormat == null) {
-              config._isValid = false;
-              return;
-            }
-          }
-          if (!allowTime && timeFormat != null) {
-            config._isValid = false;
-            return;
-          }
-          if (match[4]) {
-            if (tzRegex.exec(match[4])) {
-              tzFormat = "Z";
-            } else {
-              config._isValid = false;
-              return;
-            }
-          }
-          config._f = dateFormat + (timeFormat || "") + (tzFormat || "");
-          configFromStringAndFormat(config);
-        } else {
-          config._isValid = false;
-        }
-      }
-      function extractFromRFC2822Strings(yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr) {
-        var result = [
-          untruncateYear(yearStr),
-          defaultLocaleMonthsShort.indexOf(monthStr),
-          parseInt(dayStr, 10),
-          parseInt(hourStr, 10),
-          parseInt(minuteStr, 10)
-        ];
-        if (secondStr) {
-          result.push(parseInt(secondStr, 10));
-        }
-        return result;
-      }
-      function untruncateYear(yearStr) {
-        var year = parseInt(yearStr, 10);
-        if (year <= 49) {
-          return 2e3 + year;
-        } else if (year <= 999) {
-          return 1900 + year;
-        }
-        return year;
-      }
-      function preprocessRFC2822(s) {
-        return s.replace(/\([^()]*\)|[\n\t]/g, " ").replace(/(\s\s+)/g, " ").replace(/^\s\s*/, "").replace(/\s\s*$/, "");
-      }
-      function checkWeekday(weekdayStr, parsedInput, config) {
-        if (weekdayStr) {
-          var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr), weekdayActual = new Date(parsedInput[0], parsedInput[1], parsedInput[2]).getDay();
-          if (weekdayProvided !== weekdayActual) {
-            getParsingFlags(config).weekdayMismatch = true;
-            config._isValid = false;
-            return false;
-          }
-        }
-        return true;
-      }
-      function calculateOffset(obsOffset, militaryOffset, numOffset) {
-        if (obsOffset) {
-          return obsOffsets[obsOffset];
-        } else if (militaryOffset) {
-          return 0;
-        } else {
-          var hm = parseInt(numOffset, 10), m = hm % 100, h = (hm - m) / 100;
-          return h * 60 + m;
-        }
-      }
-      function configFromRFC2822(config) {
-        var match = rfc2822.exec(preprocessRFC2822(config._i)), parsedArray;
-        if (match) {
-          parsedArray = extractFromRFC2822Strings(match[4], match[3], match[2], match[5], match[6], match[7]);
-          if (!checkWeekday(match[1], parsedArray, config)) {
-            return;
-          }
-          config._a = parsedArray;
-          config._tzm = calculateOffset(match[8], match[9], match[10]);
-          config._d = createUTCDate.apply(null, config._a);
-          config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
-          getParsingFlags(config).rfc2822 = true;
-        } else {
-          config._isValid = false;
-        }
-      }
-      function configFromString(config) {
-        var matched = aspNetJsonRegex.exec(config._i);
-        if (matched !== null) {
-          config._d = new Date(+matched[1]);
-          return;
-        }
-        configFromISO(config);
-        if (config._isValid === false) {
-          delete config._isValid;
-        } else {
-          return;
-        }
-        configFromRFC2822(config);
-        if (config._isValid === false) {
-          delete config._isValid;
-        } else {
-          return;
-        }
-        if (config._strict) {
-          config._isValid = false;
-        } else {
-          hooks.createFromInputFallback(config);
-        }
-      }
-      hooks.createFromInputFallback = deprecate("value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.", function(config) {
-        config._d = new Date(config._i + (config._useUTC ? " UTC" : ""));
-      });
-      function defaults(a, b, c) {
-        if (a != null) {
-          return a;
-        }
-        if (b != null) {
-          return b;
-        }
-        return c;
-      }
-      function currentDateArray(config) {
-        var nowValue = new Date(hooks.now());
-        if (config._useUTC) {
-          return [
-            nowValue.getUTCFullYear(),
-            nowValue.getUTCMonth(),
-            nowValue.getUTCDate()
-          ];
-        }
-        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
-      }
-      function configFromArray(config) {
-        var i, date, input = [], currentDate, expectedWeekday, yearToUse;
-        if (config._d) {
-          return;
-        }
-        currentDate = currentDateArray(config);
-        if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
-          dayOfYearFromWeekInfo(config);
-        }
-        if (config._dayOfYear != null) {
-          yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
-          if (config._dayOfYear > daysInYear(yearToUse) || config._dayOfYear === 0) {
-            getParsingFlags(config)._overflowDayOfYear = true;
-          }
-          date = createUTCDate(yearToUse, 0, config._dayOfYear);
-          config._a[MONTH] = date.getUTCMonth();
-          config._a[DATE] = date.getUTCDate();
-        }
-        for (i = 0; i < 3 && config._a[i] == null; ++i) {
-          config._a[i] = input[i] = currentDate[i];
-        }
-        for (; i < 7; i++) {
-          config._a[i] = input[i] = config._a[i] == null ? i === 2 ? 1 : 0 : config._a[i];
-        }
-        if (config._a[HOUR] === 24 && config._a[MINUTE] === 0 && config._a[SECOND] === 0 && config._a[MILLISECOND] === 0) {
-          config._nextDay = true;
-          config._a[HOUR] = 0;
-        }
-        config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
-        expectedWeekday = config._useUTC ? config._d.getUTCDay() : config._d.getDay();
-        if (config._tzm != null) {
-          config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
-        }
-        if (config._nextDay) {
-          config._a[HOUR] = 24;
-        }
-        if (config._w && typeof config._w.d !== "undefined" && config._w.d !== expectedWeekday) {
-          getParsingFlags(config).weekdayMismatch = true;
-        }
-      }
-      function dayOfYearFromWeekInfo(config) {
-        var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
-        w = config._w;
-        if (w.GG != null || w.W != null || w.E != null) {
-          dow = 1;
-          doy = 4;
-          weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
-          week = defaults(w.W, 1);
-          weekday = defaults(w.E, 1);
-          if (weekday < 1 || weekday > 7) {
-            weekdayOverflow = true;
-          }
-        } else {
-          dow = config._locale._week.dow;
-          doy = config._locale._week.doy;
-          curWeek = weekOfYear(createLocal(), dow, doy);
-          weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
-          week = defaults(w.w, curWeek.week);
-          if (w.d != null) {
-            weekday = w.d;
-            if (weekday < 0 || weekday > 6) {
-              weekdayOverflow = true;
-            }
-          } else if (w.e != null) {
-            weekday = w.e + dow;
-            if (w.e < 0 || w.e > 6) {
-              weekdayOverflow = true;
-            }
-          } else {
-            weekday = dow;
-          }
-        }
-        if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
-          getParsingFlags(config)._overflowWeeks = true;
-        } else if (weekdayOverflow != null) {
-          getParsingFlags(config)._overflowWeekday = true;
-        } else {
-          temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
-          config._a[YEAR] = temp.year;
-          config._dayOfYear = temp.dayOfYear;
-        }
-      }
-      hooks.ISO_8601 = function() {
-      };
-      hooks.RFC_2822 = function() {
-      };
-      function configFromStringAndFormat(config) {
-        if (config._f === hooks.ISO_8601) {
-          configFromISO(config);
-          return;
-        }
-        if (config._f === hooks.RFC_2822) {
-          configFromRFC2822(config);
-          return;
-        }
-        config._a = [];
-        getParsingFlags(config).empty = true;
-        var string = "" + config._i, i, parsedInput, tokens2, token2, skipped, stringLength = string.length, totalParsedInputLength = 0, era, tokenLen;
-        tokens2 = expandFormat(config._f, config._locale).match(formattingTokens) || [];
-        tokenLen = tokens2.length;
-        for (i = 0; i < tokenLen; i++) {
-          token2 = tokens2[i];
-          parsedInput = (string.match(getParseRegexForToken(token2, config)) || [])[0];
-          if (parsedInput) {
-            skipped = string.substr(0, string.indexOf(parsedInput));
-            if (skipped.length > 0) {
-              getParsingFlags(config).unusedInput.push(skipped);
-            }
-            string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
-            totalParsedInputLength += parsedInput.length;
-          }
-          if (formatTokenFunctions[token2]) {
-            if (parsedInput) {
-              getParsingFlags(config).empty = false;
-            } else {
-              getParsingFlags(config).unusedTokens.push(token2);
-            }
-            addTimeToArrayFromToken(token2, parsedInput, config);
-          } else if (config._strict && !parsedInput) {
-            getParsingFlags(config).unusedTokens.push(token2);
-          }
-        }
-        getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
-        if (string.length > 0) {
-          getParsingFlags(config).unusedInput.push(string);
-        }
-        if (config._a[HOUR] <= 12 && getParsingFlags(config).bigHour === true && config._a[HOUR] > 0) {
-          getParsingFlags(config).bigHour = void 0;
-        }
-        getParsingFlags(config).parsedDateParts = config._a.slice(0);
-        getParsingFlags(config).meridiem = config._meridiem;
-        config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
-        era = getParsingFlags(config).era;
-        if (era !== null) {
-          config._a[YEAR] = config._locale.erasConvertYear(era, config._a[YEAR]);
-        }
-        configFromArray(config);
-        checkOverflow(config);
-      }
-      function meridiemFixWrap(locale2, hour, meridiem2) {
-        var isPm;
-        if (meridiem2 == null) {
-          return hour;
-        }
-        if (locale2.meridiemHour != null) {
-          return locale2.meridiemHour(hour, meridiem2);
-        } else if (locale2.isPM != null) {
-          isPm = locale2.isPM(meridiem2);
-          if (isPm && hour < 12) {
-            hour += 12;
-          }
-          if (!isPm && hour === 12) {
-            hour = 0;
-          }
-          return hour;
-        } else {
-          return hour;
-        }
-      }
-      function configFromStringAndArray(config) {
-        var tempConfig, bestMoment, scoreToBeat, i, currentScore, validFormatFound, bestFormatIsValid = false, configfLen = config._f.length;
-        if (configfLen === 0) {
-          getParsingFlags(config).invalidFormat = true;
-          config._d = new Date(NaN);
-          return;
-        }
-        for (i = 0; i < configfLen; i++) {
-          currentScore = 0;
-          validFormatFound = false;
-          tempConfig = copyConfig({}, config);
-          if (config._useUTC != null) {
-            tempConfig._useUTC = config._useUTC;
-          }
-          tempConfig._f = config._f[i];
-          configFromStringAndFormat(tempConfig);
-          if (isValid(tempConfig)) {
-            validFormatFound = true;
-          }
-          currentScore += getParsingFlags(tempConfig).charsLeftOver;
-          currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
-          getParsingFlags(tempConfig).score = currentScore;
-          if (!bestFormatIsValid) {
-            if (scoreToBeat == null || currentScore < scoreToBeat || validFormatFound) {
-              scoreToBeat = currentScore;
-              bestMoment = tempConfig;
-              if (validFormatFound) {
-                bestFormatIsValid = true;
-              }
-            }
-          } else {
-            if (currentScore < scoreToBeat) {
-              scoreToBeat = currentScore;
-              bestMoment = tempConfig;
-            }
-          }
-        }
-        extend(config, bestMoment || tempConfig);
-      }
-      function configFromObject(config) {
-        if (config._d) {
-          return;
-        }
-        var i = normalizeObjectUnits(config._i), dayOrDate = i.day === void 0 ? i.date : i.day;
-        config._a = map([i.year, i.month, dayOrDate, i.hour, i.minute, i.second, i.millisecond], function(obj) {
-          return obj && parseInt(obj, 10);
-        });
-        configFromArray(config);
-      }
-      function createFromConfig(config) {
-        var res = new Moment(checkOverflow(prepareConfig(config)));
-        if (res._nextDay) {
-          res.add(1, "d");
-          res._nextDay = void 0;
-        }
-        return res;
-      }
-      function prepareConfig(config) {
-        var input = config._i, format2 = config._f;
-        config._locale = config._locale || getLocale(config._l);
-        if (input === null || format2 === void 0 && input === "") {
-          return createInvalid({ nullInput: true });
-        }
-        if (typeof input === "string") {
-          config._i = input = config._locale.preparse(input);
-        }
-        if (isMoment(input)) {
-          return new Moment(checkOverflow(input));
-        } else if (isDate(input)) {
-          config._d = input;
-        } else if (isArray(format2)) {
-          configFromStringAndArray(config);
-        } else if (format2) {
-          configFromStringAndFormat(config);
-        } else {
-          configFromInput(config);
-        }
-        if (!isValid(config)) {
-          config._d = null;
-        }
-        return config;
-      }
-      function configFromInput(config) {
-        var input = config._i;
-        if (isUndefined(input)) {
-          config._d = new Date(hooks.now());
-        } else if (isDate(input)) {
-          config._d = new Date(input.valueOf());
-        } else if (typeof input === "string") {
-          configFromString(config);
-        } else if (isArray(input)) {
-          config._a = map(input.slice(0), function(obj) {
-            return parseInt(obj, 10);
-          });
-          configFromArray(config);
-        } else if (isObject(input)) {
-          configFromObject(config);
-        } else if (isNumber(input)) {
-          config._d = new Date(input);
-        } else {
-          hooks.createFromInputFallback(config);
-        }
-      }
-      function createLocalOrUTC(input, format2, locale2, strict, isUTC) {
-        var c = {};
-        if (format2 === true || format2 === false) {
-          strict = format2;
-          format2 = void 0;
-        }
-        if (locale2 === true || locale2 === false) {
-          strict = locale2;
-          locale2 = void 0;
-        }
-        if (isObject(input) && isObjectEmpty(input) || isArray(input) && input.length === 0) {
-          input = void 0;
-        }
-        c._isAMomentObject = true;
-        c._useUTC = c._isUTC = isUTC;
-        c._l = locale2;
-        c._i = input;
-        c._f = format2;
-        c._strict = strict;
-        return createFromConfig(c);
-      }
-      function createLocal(input, format2, locale2, strict) {
-        return createLocalOrUTC(input, format2, locale2, strict, false);
-      }
-      var prototypeMin = deprecate("moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/", function() {
-        var other = createLocal.apply(null, arguments);
-        if (this.isValid() && other.isValid()) {
-          return other < this ? this : other;
-        } else {
-          return createInvalid();
-        }
-      }), prototypeMax = deprecate("moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/", function() {
-        var other = createLocal.apply(null, arguments);
-        if (this.isValid() && other.isValid()) {
-          return other > this ? this : other;
-        } else {
-          return createInvalid();
-        }
-      });
-      function pickBy(fn, moments) {
-        var res, i;
-        if (moments.length === 1 && isArray(moments[0])) {
-          moments = moments[0];
-        }
-        if (!moments.length) {
-          return createLocal();
-        }
-        res = moments[0];
-        for (i = 1; i < moments.length; ++i) {
-          if (!moments[i].isValid() || moments[i][fn](res)) {
-            res = moments[i];
-          }
-        }
-        return res;
-      }
-      function min() {
-        var args = [].slice.call(arguments, 0);
-        return pickBy("isBefore", args);
-      }
-      function max() {
-        var args = [].slice.call(arguments, 0);
-        return pickBy("isAfter", args);
-      }
-      var now = function() {
-        return Date.now ? Date.now() : +new Date();
-      };
-      var ordering = [
-        "year",
-        "quarter",
-        "month",
-        "week",
-        "day",
-        "hour",
-        "minute",
-        "second",
-        "millisecond"
-      ];
-      function isDurationValid(m) {
-        var key, unitHasDecimal = false, i, orderLen = ordering.length;
-        for (key in m) {
-          if (hasOwnProp(m, key) && !(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
-            return false;
-          }
-        }
-        for (i = 0; i < orderLen; ++i) {
-          if (m[ordering[i]]) {
-            if (unitHasDecimal) {
-              return false;
-            }
-            if (parseFloat(m[ordering[i]]) !== toInt(m[ordering[i]])) {
-              unitHasDecimal = true;
-            }
-          }
-        }
-        return true;
-      }
-      function isValid$1() {
-        return this._isValid;
-      }
-      function createInvalid$1() {
-        return createDuration(NaN);
-      }
-      function Duration(duration) {
-        var normalizedInput = normalizeObjectUnits(duration), years2 = normalizedInput.year || 0, quarters = normalizedInput.quarter || 0, months2 = normalizedInput.month || 0, weeks2 = normalizedInput.week || normalizedInput.isoWeek || 0, days2 = normalizedInput.day || 0, hours2 = normalizedInput.hour || 0, minutes2 = normalizedInput.minute || 0, seconds2 = normalizedInput.second || 0, milliseconds2 = normalizedInput.millisecond || 0;
-        this._isValid = isDurationValid(normalizedInput);
-        this._milliseconds = +milliseconds2 + seconds2 * 1e3 + minutes2 * 6e4 + hours2 * 1e3 * 60 * 60;
-        this._days = +days2 + weeks2 * 7;
-        this._months = +months2 + quarters * 3 + years2 * 12;
-        this._data = {};
-        this._locale = getLocale();
-        this._bubble();
-      }
-      function isDuration(obj) {
-        return obj instanceof Duration;
-      }
-      function absRound(number) {
-        if (number < 0) {
-          return Math.round(-1 * number) * -1;
-        } else {
-          return Math.round(number);
-        }
-      }
-      function compareArrays(array1, array2, dontConvert) {
-        var len = Math.min(array1.length, array2.length), lengthDiff = Math.abs(array1.length - array2.length), diffs = 0, i;
-        for (i = 0; i < len; i++) {
-          if (dontConvert && array1[i] !== array2[i] || !dontConvert && toInt(array1[i]) !== toInt(array2[i])) {
-            diffs++;
-          }
-        }
-        return diffs + lengthDiff;
-      }
-      function offset(token2, separator) {
-        addFormatToken(token2, 0, 0, function() {
-          var offset2 = this.utcOffset(), sign2 = "+";
-          if (offset2 < 0) {
-            offset2 = -offset2;
-            sign2 = "-";
-          }
-          return sign2 + zeroFill(~~(offset2 / 60), 2) + separator + zeroFill(~~offset2 % 60, 2);
-        });
-      }
-      offset("Z", ":");
-      offset("ZZ", "");
-      addRegexToken("Z", matchShortOffset);
-      addRegexToken("ZZ", matchShortOffset);
-      addParseToken(["Z", "ZZ"], function(input, array, config) {
-        config._useUTC = true;
-        config._tzm = offsetFromString(matchShortOffset, input);
-      });
-      var chunkOffset = /([\+\-]|\d\d)/gi;
-      function offsetFromString(matcher, string) {
-        var matches = (string || "").match(matcher), chunk, parts, minutes2;
-        if (matches === null) {
-          return null;
-        }
-        chunk = matches[matches.length - 1] || [];
-        parts = (chunk + "").match(chunkOffset) || ["-", 0, 0];
-        minutes2 = +(parts[1] * 60) + toInt(parts[2]);
-        return minutes2 === 0 ? 0 : parts[0] === "+" ? minutes2 : -minutes2;
-      }
-      function cloneWithOffset(input, model) {
-        var res, diff2;
-        if (model._isUTC) {
-          res = model.clone();
-          diff2 = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
-          res._d.setTime(res._d.valueOf() + diff2);
-          hooks.updateOffset(res, false);
-          return res;
-        } else {
-          return createLocal(input).local();
-        }
-      }
-      function getDateOffset(m) {
-        return -Math.round(m._d.getTimezoneOffset());
-      }
-      hooks.updateOffset = function() {
-      };
-      function getSetOffset(input, keepLocalTime, keepMinutes) {
-        var offset2 = this._offset || 0, localAdjust;
-        if (!this.isValid()) {
-          return input != null ? this : NaN;
-        }
-        if (input != null) {
-          if (typeof input === "string") {
-            input = offsetFromString(matchShortOffset, input);
-            if (input === null) {
-              return this;
-            }
-          } else if (Math.abs(input) < 16 && !keepMinutes) {
-            input = input * 60;
-          }
-          if (!this._isUTC && keepLocalTime) {
-            localAdjust = getDateOffset(this);
-          }
-          this._offset = input;
-          this._isUTC = true;
-          if (localAdjust != null) {
-            this.add(localAdjust, "m");
-          }
-          if (offset2 !== input) {
-            if (!keepLocalTime || this._changeInProgress) {
-              addSubtract(this, createDuration(input - offset2, "m"), 1, false);
-            } else if (!this._changeInProgress) {
-              this._changeInProgress = true;
-              hooks.updateOffset(this, true);
-              this._changeInProgress = null;
-            }
-          }
-          return this;
-        } else {
-          return this._isUTC ? offset2 : getDateOffset(this);
-        }
-      }
-      function getSetZone(input, keepLocalTime) {
-        if (input != null) {
-          if (typeof input !== "string") {
-            input = -input;
-          }
-          this.utcOffset(input, keepLocalTime);
-          return this;
-        } else {
-          return -this.utcOffset();
-        }
-      }
-      function setOffsetToUTC(keepLocalTime) {
-        return this.utcOffset(0, keepLocalTime);
-      }
-      function setOffsetToLocal(keepLocalTime) {
-        if (this._isUTC) {
-          this.utcOffset(0, keepLocalTime);
-          this._isUTC = false;
-          if (keepLocalTime) {
-            this.subtract(getDateOffset(this), "m");
-          }
-        }
-        return this;
-      }
-      function setOffsetToParsedOffset() {
-        if (this._tzm != null) {
-          this.utcOffset(this._tzm, false, true);
-        } else if (typeof this._i === "string") {
-          var tZone = offsetFromString(matchOffset, this._i);
-          if (tZone != null) {
-            this.utcOffset(tZone);
-          } else {
-            this.utcOffset(0, true);
-          }
-        }
-        return this;
-      }
-      function hasAlignedHourOffset(input) {
-        if (!this.isValid()) {
-          return false;
-        }
-        input = input ? createLocal(input).utcOffset() : 0;
-        return (this.utcOffset() - input) % 60 === 0;
-      }
-      function isDaylightSavingTime() {
-        return this.utcOffset() > this.clone().month(0).utcOffset() || this.utcOffset() > this.clone().month(5).utcOffset();
-      }
-      function isDaylightSavingTimeShifted() {
-        if (!isUndefined(this._isDSTShifted)) {
-          return this._isDSTShifted;
-        }
-        var c = {}, other;
-        copyConfig(c, this);
-        c = prepareConfig(c);
-        if (c._a) {
-          other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
-          this._isDSTShifted = this.isValid() && compareArrays(c._a, other.toArray()) > 0;
-        } else {
-          this._isDSTShifted = false;
-        }
-        return this._isDSTShifted;
-      }
-      function isLocal() {
-        return this.isValid() ? !this._isUTC : false;
-      }
-      function isUtcOffset() {
-        return this.isValid() ? this._isUTC : false;
-      }
-      function isUtc() {
-        return this.isValid() ? this._isUTC && this._offset === 0 : false;
-      }
-      var aspNetRegex = /^(-|\+)?(?:(\d*)[. ])?(\d+):(\d+)(?::(\d+)(\.\d*)?)?$/, isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
-      function createDuration(input, key) {
-        var duration = input, match = null, sign2, ret, diffRes;
-        if (isDuration(input)) {
-          duration = {
-            ms: input._milliseconds,
-            d: input._days,
-            M: input._months
-          };
-        } else if (isNumber(input) || !isNaN(+input)) {
-          duration = {};
-          if (key) {
-            duration[key] = +input;
-          } else {
-            duration.milliseconds = +input;
-          }
-        } else if (match = aspNetRegex.exec(input)) {
-          sign2 = match[1] === "-" ? -1 : 1;
-          duration = {
-            y: 0,
-            d: toInt(match[DATE]) * sign2,
-            h: toInt(match[HOUR]) * sign2,
-            m: toInt(match[MINUTE]) * sign2,
-            s: toInt(match[SECOND]) * sign2,
-            ms: toInt(absRound(match[MILLISECOND] * 1e3)) * sign2
-          };
-        } else if (match = isoRegex.exec(input)) {
-          sign2 = match[1] === "-" ? -1 : 1;
-          duration = {
-            y: parseIso(match[2], sign2),
-            M: parseIso(match[3], sign2),
-            w: parseIso(match[4], sign2),
-            d: parseIso(match[5], sign2),
-            h: parseIso(match[6], sign2),
-            m: parseIso(match[7], sign2),
-            s: parseIso(match[8], sign2)
-          };
-        } else if (duration == null) {
-          duration = {};
-        } else if (typeof duration === "object" && ("from" in duration || "to" in duration)) {
-          diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
-          duration = {};
-          duration.ms = diffRes.milliseconds;
-          duration.M = diffRes.months;
-        }
-        ret = new Duration(duration);
-        if (isDuration(input) && hasOwnProp(input, "_locale")) {
-          ret._locale = input._locale;
-        }
-        if (isDuration(input) && hasOwnProp(input, "_isValid")) {
-          ret._isValid = input._isValid;
-        }
-        return ret;
-      }
-      createDuration.fn = Duration.prototype;
-      createDuration.invalid = createInvalid$1;
-      function parseIso(inp, sign2) {
-        var res = inp && parseFloat(inp.replace(",", "."));
-        return (isNaN(res) ? 0 : res) * sign2;
-      }
-      function positiveMomentsDifference(base, other) {
-        var res = {};
-        res.months = other.month() - base.month() + (other.year() - base.year()) * 12;
-        if (base.clone().add(res.months, "M").isAfter(other)) {
-          --res.months;
-        }
-        res.milliseconds = +other - +base.clone().add(res.months, "M");
-        return res;
-      }
-      function momentsDifference(base, other) {
-        var res;
-        if (!(base.isValid() && other.isValid())) {
-          return { milliseconds: 0, months: 0 };
-        }
-        other = cloneWithOffset(other, base);
-        if (base.isBefore(other)) {
-          res = positiveMomentsDifference(base, other);
-        } else {
-          res = positiveMomentsDifference(other, base);
-          res.milliseconds = -res.milliseconds;
-          res.months = -res.months;
-        }
-        return res;
-      }
-      function createAdder(direction, name) {
-        return function(val, period) {
-          var dur, tmp;
-          if (period !== null && !isNaN(+period)) {
-            deprecateSimple(name, "moment()." + name + "(period, number) is deprecated. Please use moment()." + name + "(number, period). See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.");
-            tmp = val;
-            val = period;
-            period = tmp;
-          }
-          dur = createDuration(val, period);
-          addSubtract(this, dur, direction);
-          return this;
-        };
-      }
-      function addSubtract(mom, duration, isAdding, updateOffset) {
-        var milliseconds2 = duration._milliseconds, days2 = absRound(duration._days), months2 = absRound(duration._months);
-        if (!mom.isValid()) {
-          return;
-        }
-        updateOffset = updateOffset == null ? true : updateOffset;
-        if (months2) {
-          setMonth(mom, get(mom, "Month") + months2 * isAdding);
-        }
-        if (days2) {
-          set$1(mom, "Date", get(mom, "Date") + days2 * isAdding);
-        }
-        if (milliseconds2) {
-          mom._d.setTime(mom._d.valueOf() + milliseconds2 * isAdding);
-        }
-        if (updateOffset) {
-          hooks.updateOffset(mom, days2 || months2);
-        }
-      }
-      var add = createAdder(1, "add"), subtract = createAdder(-1, "subtract");
-      function isString(input) {
-        return typeof input === "string" || input instanceof String;
-      }
-      function isMomentInput(input) {
-        return isMoment(input) || isDate(input) || isString(input) || isNumber(input) || isNumberOrStringArray(input) || isMomentInputObject(input) || input === null || input === void 0;
-      }
-      function isMomentInputObject(input) {
-        var objectTest = isObject(input) && !isObjectEmpty(input), propertyTest = false, properties = [
-          "years",
-          "year",
-          "y",
-          "months",
-          "month",
-          "M",
-          "days",
-          "day",
-          "d",
-          "dates",
-          "date",
-          "D",
-          "hours",
-          "hour",
-          "h",
-          "minutes",
-          "minute",
-          "m",
-          "seconds",
-          "second",
-          "s",
-          "milliseconds",
-          "millisecond",
-          "ms"
-        ], i, property, propertyLen = properties.length;
-        for (i = 0; i < propertyLen; i += 1) {
-          property = properties[i];
-          propertyTest = propertyTest || hasOwnProp(input, property);
-        }
-        return objectTest && propertyTest;
-      }
-      function isNumberOrStringArray(input) {
-        var arrayTest = isArray(input), dataTypeTest = false;
-        if (arrayTest) {
-          dataTypeTest = input.filter(function(item) {
-            return !isNumber(item) && isString(input);
-          }).length === 0;
-        }
-        return arrayTest && dataTypeTest;
-      }
-      function isCalendarSpec(input) {
-        var objectTest = isObject(input) && !isObjectEmpty(input), propertyTest = false, properties = [
-          "sameDay",
-          "nextDay",
-          "lastDay",
-          "nextWeek",
-          "lastWeek",
-          "sameElse"
-        ], i, property;
-        for (i = 0; i < properties.length; i += 1) {
-          property = properties[i];
-          propertyTest = propertyTest || hasOwnProp(input, property);
-        }
-        return objectTest && propertyTest;
-      }
-      function getCalendarFormat(myMoment, now2) {
-        var diff2 = myMoment.diff(now2, "days", true);
-        return diff2 < -6 ? "sameElse" : diff2 < -1 ? "lastWeek" : diff2 < 0 ? "lastDay" : diff2 < 1 ? "sameDay" : diff2 < 2 ? "nextDay" : diff2 < 7 ? "nextWeek" : "sameElse";
-      }
-      function calendar$1(time, formats) {
-        if (arguments.length === 1) {
-          if (!arguments[0]) {
-            time = void 0;
-            formats = void 0;
-          } else if (isMomentInput(arguments[0])) {
-            time = arguments[0];
-            formats = void 0;
-          } else if (isCalendarSpec(arguments[0])) {
-            formats = arguments[0];
-            time = void 0;
-          }
-        }
-        var now2 = time || createLocal(), sod = cloneWithOffset(now2, this).startOf("day"), format2 = hooks.calendarFormat(this, sod) || "sameElse", output = formats && (isFunction(formats[format2]) ? formats[format2].call(this, now2) : formats[format2]);
-        return this.format(output || this.localeData().calendar(format2, this, createLocal(now2)));
-      }
-      function clone() {
-        return new Moment(this);
-      }
-      function isAfter(input, units) {
-        var localInput = isMoment(input) ? input : createLocal(input);
-        if (!(this.isValid() && localInput.isValid())) {
-          return false;
-        }
-        units = normalizeUnits(units) || "millisecond";
-        if (units === "millisecond") {
-          return this.valueOf() > localInput.valueOf();
-        } else {
-          return localInput.valueOf() < this.clone().startOf(units).valueOf();
-        }
-      }
-      function isBefore(input, units) {
-        var localInput = isMoment(input) ? input : createLocal(input);
-        if (!(this.isValid() && localInput.isValid())) {
-          return false;
-        }
-        units = normalizeUnits(units) || "millisecond";
-        if (units === "millisecond") {
-          return this.valueOf() < localInput.valueOf();
-        } else {
-          return this.clone().endOf(units).valueOf() < localInput.valueOf();
-        }
-      }
-      function isBetween(from2, to2, units, inclusivity) {
-        var localFrom = isMoment(from2) ? from2 : createLocal(from2), localTo = isMoment(to2) ? to2 : createLocal(to2);
-        if (!(this.isValid() && localFrom.isValid() && localTo.isValid())) {
-          return false;
-        }
-        inclusivity = inclusivity || "()";
-        return (inclusivity[0] === "(" ? this.isAfter(localFrom, units) : !this.isBefore(localFrom, units)) && (inclusivity[1] === ")" ? this.isBefore(localTo, units) : !this.isAfter(localTo, units));
-      }
-      function isSame(input, units) {
-        var localInput = isMoment(input) ? input : createLocal(input), inputMs;
-        if (!(this.isValid() && localInput.isValid())) {
-          return false;
-        }
-        units = normalizeUnits(units) || "millisecond";
-        if (units === "millisecond") {
-          return this.valueOf() === localInput.valueOf();
-        } else {
-          inputMs = localInput.valueOf();
-          return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
-        }
-      }
-      function isSameOrAfter(input, units) {
-        return this.isSame(input, units) || this.isAfter(input, units);
-      }
-      function isSameOrBefore(input, units) {
-        return this.isSame(input, units) || this.isBefore(input, units);
-      }
-      function diff(input, units, asFloat) {
-        var that, zoneDelta, output;
-        if (!this.isValid()) {
-          return NaN;
-        }
-        that = cloneWithOffset(input, this);
-        if (!that.isValid()) {
-          return NaN;
-        }
-        zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
-        units = normalizeUnits(units);
-        switch (units) {
-          case "year":
-            output = monthDiff(this, that) / 12;
-            break;
-          case "month":
-            output = monthDiff(this, that);
-            break;
-          case "quarter":
-            output = monthDiff(this, that) / 3;
-            break;
-          case "second":
-            output = (this - that) / 1e3;
-            break;
-          case "minute":
-            output = (this - that) / 6e4;
-            break;
-          case "hour":
-            output = (this - that) / 36e5;
-            break;
-          case "day":
-            output = (this - that - zoneDelta) / 864e5;
-            break;
-          case "week":
-            output = (this - that - zoneDelta) / 6048e5;
-            break;
-          default:
-            output = this - that;
-        }
-        return asFloat ? output : absFloor(output);
-      }
-      function monthDiff(a, b) {
-        if (a.date() < b.date()) {
-          return -monthDiff(b, a);
-        }
-        var wholeMonthDiff = (b.year() - a.year()) * 12 + (b.month() - a.month()), anchor = a.clone().add(wholeMonthDiff, "months"), anchor2, adjust;
-        if (b - anchor < 0) {
-          anchor2 = a.clone().add(wholeMonthDiff - 1, "months");
-          adjust = (b - anchor) / (anchor - anchor2);
-        } else {
-          anchor2 = a.clone().add(wholeMonthDiff + 1, "months");
-          adjust = (b - anchor) / (anchor2 - anchor);
-        }
-        return -(wholeMonthDiff + adjust) || 0;
-      }
-      hooks.defaultFormat = "YYYY-MM-DDTHH:mm:ssZ";
-      hooks.defaultFormatUtc = "YYYY-MM-DDTHH:mm:ss[Z]";
-      function toString() {
-        return this.clone().locale("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
-      }
-      function toISOString(keepOffset) {
-        if (!this.isValid()) {
-          return null;
-        }
-        var utc = keepOffset !== true, m = utc ? this.clone().utc() : this;
-        if (m.year() < 0 || m.year() > 9999) {
-          return formatMoment(m, utc ? "YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYYYY-MM-DD[T]HH:mm:ss.SSSZ");
-        }
-        if (isFunction(Date.prototype.toISOString)) {
-          if (utc) {
-            return this.toDate().toISOString();
-          } else {
-            return new Date(this.valueOf() + this.utcOffset() * 60 * 1e3).toISOString().replace("Z", formatMoment(m, "Z"));
-          }
-        }
-        return formatMoment(m, utc ? "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYY-MM-DD[T]HH:mm:ss.SSSZ");
-      }
-      function inspect() {
-        if (!this.isValid()) {
-          return "moment.invalid(/* " + this._i + " */)";
-        }
-        var func = "moment", zone = "", prefix, year, datetime, suffix;
-        if (!this.isLocal()) {
-          func = this.utcOffset() === 0 ? "moment.utc" : "moment.parseZone";
-          zone = "Z";
-        }
-        prefix = "[" + func + '("]';
-        year = 0 <= this.year() && this.year() <= 9999 ? "YYYY" : "YYYYYY";
-        datetime = "-MM-DD[T]HH:mm:ss.SSS";
-        suffix = zone + '[")]';
-        return this.format(prefix + year + datetime + suffix);
-      }
-      function format(inputString) {
-        if (!inputString) {
-          inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
-        }
-        var output = formatMoment(this, inputString);
-        return this.localeData().postformat(output);
-      }
-      function from(time, withoutSuffix) {
-        if (this.isValid() && (isMoment(time) && time.isValid() || createLocal(time).isValid())) {
-          return createDuration({ to: this, from: time }).locale(this.locale()).humanize(!withoutSuffix);
-        } else {
-          return this.localeData().invalidDate();
-        }
-      }
-      function fromNow(withoutSuffix) {
-        return this.from(createLocal(), withoutSuffix);
-      }
-      function to(time, withoutSuffix) {
-        if (this.isValid() && (isMoment(time) && time.isValid() || createLocal(time).isValid())) {
-          return createDuration({ from: this, to: time }).locale(this.locale()).humanize(!withoutSuffix);
-        } else {
-          return this.localeData().invalidDate();
-        }
-      }
-      function toNow(withoutSuffix) {
-        return this.to(createLocal(), withoutSuffix);
-      }
-      function locale(key) {
-        var newLocaleData;
-        if (key === void 0) {
-          return this._locale._abbr;
-        } else {
-          newLocaleData = getLocale(key);
-          if (newLocaleData != null) {
-            this._locale = newLocaleData;
-          }
-          return this;
-        }
-      }
-      var lang = deprecate("moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.", function(key) {
-        if (key === void 0) {
-          return this.localeData();
-        } else {
-          return this.locale(key);
-        }
-      });
-      function localeData() {
-        return this._locale;
-      }
-      var MS_PER_SECOND = 1e3, MS_PER_MINUTE = 60 * MS_PER_SECOND, MS_PER_HOUR = 60 * MS_PER_MINUTE, MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
-      function mod$1(dividend, divisor) {
-        return (dividend % divisor + divisor) % divisor;
-      }
-      function localStartOfDate(y, m, d) {
-        if (y < 100 && y >= 0) {
-          return new Date(y + 400, m, d) - MS_PER_400_YEARS;
-        } else {
-          return new Date(y, m, d).valueOf();
-        }
-      }
-      function utcStartOfDate(y, m, d) {
-        if (y < 100 && y >= 0) {
-          return Date.UTC(y + 400, m, d) - MS_PER_400_YEARS;
-        } else {
-          return Date.UTC(y, m, d);
-        }
-      }
-      function startOf(units) {
-        var time, startOfDate;
-        units = normalizeUnits(units);
-        if (units === void 0 || units === "millisecond" || !this.isValid()) {
-          return this;
-        }
-        startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
-        switch (units) {
-          case "year":
-            time = startOfDate(this.year(), 0, 1);
-            break;
-          case "quarter":
-            time = startOfDate(this.year(), this.month() - this.month() % 3, 1);
-            break;
-          case "month":
-            time = startOfDate(this.year(), this.month(), 1);
-            break;
-          case "week":
-            time = startOfDate(this.year(), this.month(), this.date() - this.weekday());
-            break;
-          case "isoWeek":
-            time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1));
-            break;
-          case "day":
-          case "date":
-            time = startOfDate(this.year(), this.month(), this.date());
-            break;
-          case "hour":
-            time = this._d.valueOf();
-            time -= mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR);
-            break;
-          case "minute":
-            time = this._d.valueOf();
-            time -= mod$1(time, MS_PER_MINUTE);
-            break;
-          case "second":
-            time = this._d.valueOf();
-            time -= mod$1(time, MS_PER_SECOND);
-            break;
-        }
-        this._d.setTime(time);
-        hooks.updateOffset(this, true);
-        return this;
-      }
-      function endOf(units) {
-        var time, startOfDate;
-        units = normalizeUnits(units);
-        if (units === void 0 || units === "millisecond" || !this.isValid()) {
-          return this;
-        }
-        startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
-        switch (units) {
-          case "year":
-            time = startOfDate(this.year() + 1, 0, 1) - 1;
-            break;
-          case "quarter":
-            time = startOfDate(this.year(), this.month() - this.month() % 3 + 3, 1) - 1;
-            break;
-          case "month":
-            time = startOfDate(this.year(), this.month() + 1, 1) - 1;
-            break;
-          case "week":
-            time = startOfDate(this.year(), this.month(), this.date() - this.weekday() + 7) - 1;
-            break;
-          case "isoWeek":
-            time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1) + 7) - 1;
-            break;
-          case "day":
-          case "date":
-            time = startOfDate(this.year(), this.month(), this.date() + 1) - 1;
-            break;
-          case "hour":
-            time = this._d.valueOf();
-            time += MS_PER_HOUR - mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) - 1;
-            break;
-          case "minute":
-            time = this._d.valueOf();
-            time += MS_PER_MINUTE - mod$1(time, MS_PER_MINUTE) - 1;
-            break;
-          case "second":
-            time = this._d.valueOf();
-            time += MS_PER_SECOND - mod$1(time, MS_PER_SECOND) - 1;
-            break;
-        }
-        this._d.setTime(time);
-        hooks.updateOffset(this, true);
-        return this;
-      }
-      function valueOf() {
-        return this._d.valueOf() - (this._offset || 0) * 6e4;
-      }
-      function unix() {
-        return Math.floor(this.valueOf() / 1e3);
-      }
-      function toDate() {
-        return new Date(this.valueOf());
-      }
-      function toArray() {
-        var m = this;
-        return [
-          m.year(),
-          m.month(),
-          m.date(),
-          m.hour(),
-          m.minute(),
-          m.second(),
-          m.millisecond()
-        ];
-      }
-      function toObject() {
-        var m = this;
-        return {
-          years: m.year(),
-          months: m.month(),
-          date: m.date(),
-          hours: m.hours(),
-          minutes: m.minutes(),
-          seconds: m.seconds(),
-          milliseconds: m.milliseconds()
-        };
-      }
-      function toJSON() {
-        return this.isValid() ? this.toISOString() : null;
-      }
-      function isValid$2() {
-        return isValid(this);
-      }
-      function parsingFlags() {
-        return extend({}, getParsingFlags(this));
-      }
-      function invalidAt() {
-        return getParsingFlags(this).overflow;
-      }
-      function creationData() {
-        return {
-          input: this._i,
-          format: this._f,
-          locale: this._locale,
-          isUTC: this._isUTC,
-          strict: this._strict
-        };
-      }
-      addFormatToken("N", 0, 0, "eraAbbr");
-      addFormatToken("NN", 0, 0, "eraAbbr");
-      addFormatToken("NNN", 0, 0, "eraAbbr");
-      addFormatToken("NNNN", 0, 0, "eraName");
-      addFormatToken("NNNNN", 0, 0, "eraNarrow");
-      addFormatToken("y", ["y", 1], "yo", "eraYear");
-      addFormatToken("y", ["yy", 2], 0, "eraYear");
-      addFormatToken("y", ["yyy", 3], 0, "eraYear");
-      addFormatToken("y", ["yyyy", 4], 0, "eraYear");
-      addRegexToken("N", matchEraAbbr);
-      addRegexToken("NN", matchEraAbbr);
-      addRegexToken("NNN", matchEraAbbr);
-      addRegexToken("NNNN", matchEraName);
-      addRegexToken("NNNNN", matchEraNarrow);
-      addParseToken(["N", "NN", "NNN", "NNNN", "NNNNN"], function(input, array, config, token2) {
-        var era = config._locale.erasParse(input, token2, config._strict);
-        if (era) {
-          getParsingFlags(config).era = era;
-        } else {
-          getParsingFlags(config).invalidEra = input;
-        }
-      });
-      addRegexToken("y", matchUnsigned);
-      addRegexToken("yy", matchUnsigned);
-      addRegexToken("yyy", matchUnsigned);
-      addRegexToken("yyyy", matchUnsigned);
-      addRegexToken("yo", matchEraYearOrdinal);
-      addParseToken(["y", "yy", "yyy", "yyyy"], YEAR);
-      addParseToken(["yo"], function(input, array, config, token2) {
-        var match;
-        if (config._locale._eraYearOrdinalRegex) {
-          match = input.match(config._locale._eraYearOrdinalRegex);
-        }
-        if (config._locale.eraYearOrdinalParse) {
-          array[YEAR] = config._locale.eraYearOrdinalParse(input, match);
-        } else {
-          array[YEAR] = parseInt(input, 10);
-        }
-      });
-      function localeEras(m, format2) {
-        var i, l, date, eras = this._eras || getLocale("en")._eras;
-        for (i = 0, l = eras.length; i < l; ++i) {
-          switch (typeof eras[i].since) {
-            case "string":
-              date = hooks(eras[i].since).startOf("day");
-              eras[i].since = date.valueOf();
-              break;
-          }
-          switch (typeof eras[i].until) {
-            case "undefined":
-              eras[i].until = Infinity;
-              break;
-            case "string":
-              date = hooks(eras[i].until).startOf("day").valueOf();
-              eras[i].until = date.valueOf();
-              break;
-          }
-        }
-        return eras;
-      }
-      function localeErasParse(eraName, format2, strict) {
-        var i, l, eras = this.eras(), name, abbr, narrow;
-        eraName = eraName.toUpperCase();
-        for (i = 0, l = eras.length; i < l; ++i) {
-          name = eras[i].name.toUpperCase();
-          abbr = eras[i].abbr.toUpperCase();
-          narrow = eras[i].narrow.toUpperCase();
-          if (strict) {
-            switch (format2) {
-              case "N":
-              case "NN":
-              case "NNN":
-                if (abbr === eraName) {
-                  return eras[i];
-                }
-                break;
-              case "NNNN":
-                if (name === eraName) {
-                  return eras[i];
-                }
-                break;
-              case "NNNNN":
-                if (narrow === eraName) {
-                  return eras[i];
-                }
-                break;
-            }
-          } else if ([name, abbr, narrow].indexOf(eraName) >= 0) {
-            return eras[i];
-          }
-        }
-      }
-      function localeErasConvertYear(era, year) {
-        var dir = era.since <= era.until ? 1 : -1;
-        if (year === void 0) {
-          return hooks(era.since).year();
-        } else {
-          return hooks(era.since).year() + (year - era.offset) * dir;
-        }
-      }
-      function getEraName() {
-        var i, l, val, eras = this.localeData().eras();
-        for (i = 0, l = eras.length; i < l; ++i) {
-          val = this.clone().startOf("day").valueOf();
-          if (eras[i].since <= val && val <= eras[i].until) {
-            return eras[i].name;
-          }
-          if (eras[i].until <= val && val <= eras[i].since) {
-            return eras[i].name;
-          }
-        }
-        return "";
-      }
-      function getEraNarrow() {
-        var i, l, val, eras = this.localeData().eras();
-        for (i = 0, l = eras.length; i < l; ++i) {
-          val = this.clone().startOf("day").valueOf();
-          if (eras[i].since <= val && val <= eras[i].until) {
-            return eras[i].narrow;
-          }
-          if (eras[i].until <= val && val <= eras[i].since) {
-            return eras[i].narrow;
-          }
-        }
-        return "";
-      }
-      function getEraAbbr() {
-        var i, l, val, eras = this.localeData().eras();
-        for (i = 0, l = eras.length; i < l; ++i) {
-          val = this.clone().startOf("day").valueOf();
-          if (eras[i].since <= val && val <= eras[i].until) {
-            return eras[i].abbr;
-          }
-          if (eras[i].until <= val && val <= eras[i].since) {
-            return eras[i].abbr;
-          }
-        }
-        return "";
-      }
-      function getEraYear() {
-        var i, l, dir, val, eras = this.localeData().eras();
-        for (i = 0, l = eras.length; i < l; ++i) {
-          dir = eras[i].since <= eras[i].until ? 1 : -1;
-          val = this.clone().startOf("day").valueOf();
-          if (eras[i].since <= val && val <= eras[i].until || eras[i].until <= val && val <= eras[i].since) {
-            return (this.year() - hooks(eras[i].since).year()) * dir + eras[i].offset;
-          }
-        }
-        return this.year();
-      }
-      function erasNameRegex(isStrict) {
-        if (!hasOwnProp(this, "_erasNameRegex")) {
-          computeErasParse.call(this);
-        }
-        return isStrict ? this._erasNameRegex : this._erasRegex;
-      }
-      function erasAbbrRegex(isStrict) {
-        if (!hasOwnProp(this, "_erasAbbrRegex")) {
-          computeErasParse.call(this);
-        }
-        return isStrict ? this._erasAbbrRegex : this._erasRegex;
-      }
-      function erasNarrowRegex(isStrict) {
-        if (!hasOwnProp(this, "_erasNarrowRegex")) {
-          computeErasParse.call(this);
-        }
-        return isStrict ? this._erasNarrowRegex : this._erasRegex;
-      }
-      function matchEraAbbr(isStrict, locale2) {
-        return locale2.erasAbbrRegex(isStrict);
-      }
-      function matchEraName(isStrict, locale2) {
-        return locale2.erasNameRegex(isStrict);
-      }
-      function matchEraNarrow(isStrict, locale2) {
-        return locale2.erasNarrowRegex(isStrict);
-      }
-      function matchEraYearOrdinal(isStrict, locale2) {
-        return locale2._eraYearOrdinalRegex || matchUnsigned;
-      }
-      function computeErasParse() {
-        var abbrPieces = [], namePieces = [], narrowPieces = [], mixedPieces = [], i, l, eras = this.eras();
-        for (i = 0, l = eras.length; i < l; ++i) {
-          namePieces.push(regexEscape(eras[i].name));
-          abbrPieces.push(regexEscape(eras[i].abbr));
-          narrowPieces.push(regexEscape(eras[i].narrow));
-          mixedPieces.push(regexEscape(eras[i].name));
-          mixedPieces.push(regexEscape(eras[i].abbr));
-          mixedPieces.push(regexEscape(eras[i].narrow));
-        }
-        this._erasRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
-        this._erasNameRegex = new RegExp("^(" + namePieces.join("|") + ")", "i");
-        this._erasAbbrRegex = new RegExp("^(" + abbrPieces.join("|") + ")", "i");
-        this._erasNarrowRegex = new RegExp("^(" + narrowPieces.join("|") + ")", "i");
-      }
-      addFormatToken(0, ["gg", 2], 0, function() {
-        return this.weekYear() % 100;
-      });
-      addFormatToken(0, ["GG", 2], 0, function() {
-        return this.isoWeekYear() % 100;
-      });
-      function addWeekYearFormatToken(token2, getter) {
-        addFormatToken(0, [token2, token2.length], 0, getter);
-      }
-      addWeekYearFormatToken("gggg", "weekYear");
-      addWeekYearFormatToken("ggggg", "weekYear");
-      addWeekYearFormatToken("GGGG", "isoWeekYear");
-      addWeekYearFormatToken("GGGGG", "isoWeekYear");
-      addUnitAlias("weekYear", "gg");
-      addUnitAlias("isoWeekYear", "GG");
-      addUnitPriority("weekYear", 1);
-      addUnitPriority("isoWeekYear", 1);
-      addRegexToken("G", matchSigned);
-      addRegexToken("g", matchSigned);
-      addRegexToken("GG", match1to2, match2);
-      addRegexToken("gg", match1to2, match2);
-      addRegexToken("GGGG", match1to4, match4);
-      addRegexToken("gggg", match1to4, match4);
-      addRegexToken("GGGGG", match1to6, match6);
-      addRegexToken("ggggg", match1to6, match6);
-      addWeekParseToken(["gggg", "ggggg", "GGGG", "GGGGG"], function(input, week, config, token2) {
-        week[token2.substr(0, 2)] = toInt(input);
-      });
-      addWeekParseToken(["gg", "GG"], function(input, week, config, token2) {
-        week[token2] = hooks.parseTwoDigitYear(input);
-      });
-      function getSetWeekYear(input) {
-        return getSetWeekYearHelper.call(this, input, this.week(), this.weekday(), this.localeData()._week.dow, this.localeData()._week.doy);
-      }
-      function getSetISOWeekYear(input) {
-        return getSetWeekYearHelper.call(this, input, this.isoWeek(), this.isoWeekday(), 1, 4);
-      }
-      function getISOWeeksInYear() {
-        return weeksInYear(this.year(), 1, 4);
-      }
-      function getISOWeeksInISOWeekYear() {
-        return weeksInYear(this.isoWeekYear(), 1, 4);
-      }
-      function getWeeksInYear() {
-        var weekInfo = this.localeData()._week;
-        return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
-      }
-      function getWeeksInWeekYear() {
-        var weekInfo = this.localeData()._week;
-        return weeksInYear(this.weekYear(), weekInfo.dow, weekInfo.doy);
-      }
-      function getSetWeekYearHelper(input, week, weekday, dow, doy) {
-        var weeksTarget;
-        if (input == null) {
-          return weekOfYear(this, dow, doy).year;
-        } else {
-          weeksTarget = weeksInYear(input, dow, doy);
-          if (week > weeksTarget) {
-            week = weeksTarget;
-          }
-          return setWeekAll.call(this, input, week, weekday, dow, doy);
-        }
-      }
-      function setWeekAll(weekYear, week, weekday, dow, doy) {
-        var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy), date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
-        this.year(date.getUTCFullYear());
-        this.month(date.getUTCMonth());
-        this.date(date.getUTCDate());
-        return this;
-      }
-      addFormatToken("Q", 0, "Qo", "quarter");
-      addUnitAlias("quarter", "Q");
-      addUnitPriority("quarter", 7);
-      addRegexToken("Q", match1);
-      addParseToken("Q", function(input, array) {
-        array[MONTH] = (toInt(input) - 1) * 3;
-      });
-      function getSetQuarter(input) {
-        return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
-      }
-      addFormatToken("D", ["DD", 2], "Do", "date");
-      addUnitAlias("date", "D");
-      addUnitPriority("date", 9);
-      addRegexToken("D", match1to2);
-      addRegexToken("DD", match1to2, match2);
-      addRegexToken("Do", function(isStrict, locale2) {
-        return isStrict ? locale2._dayOfMonthOrdinalParse || locale2._ordinalParse : locale2._dayOfMonthOrdinalParseLenient;
-      });
-      addParseToken(["D", "DD"], DATE);
-      addParseToken("Do", function(input, array) {
-        array[DATE] = toInt(input.match(match1to2)[0]);
-      });
-      var getSetDayOfMonth = makeGetSet("Date", true);
-      addFormatToken("DDD", ["DDDD", 3], "DDDo", "dayOfYear");
-      addUnitAlias("dayOfYear", "DDD");
-      addUnitPriority("dayOfYear", 4);
-      addRegexToken("DDD", match1to3);
-      addRegexToken("DDDD", match3);
-      addParseToken(["DDD", "DDDD"], function(input, array, config) {
-        config._dayOfYear = toInt(input);
-      });
-      function getSetDayOfYear(input) {
-        var dayOfYear = Math.round((this.clone().startOf("day") - this.clone().startOf("year")) / 864e5) + 1;
-        return input == null ? dayOfYear : this.add(input - dayOfYear, "d");
-      }
-      addFormatToken("m", ["mm", 2], 0, "minute");
-      addUnitAlias("minute", "m");
-      addUnitPriority("minute", 14);
-      addRegexToken("m", match1to2);
-      addRegexToken("mm", match1to2, match2);
-      addParseToken(["m", "mm"], MINUTE);
-      var getSetMinute = makeGetSet("Minutes", false);
-      addFormatToken("s", ["ss", 2], 0, "second");
-      addUnitAlias("second", "s");
-      addUnitPriority("second", 15);
-      addRegexToken("s", match1to2);
-      addRegexToken("ss", match1to2, match2);
-      addParseToken(["s", "ss"], SECOND);
-      var getSetSecond = makeGetSet("Seconds", false);
-      addFormatToken("S", 0, 0, function() {
-        return ~~(this.millisecond() / 100);
-      });
-      addFormatToken(0, ["SS", 2], 0, function() {
-        return ~~(this.millisecond() / 10);
-      });
-      addFormatToken(0, ["SSS", 3], 0, "millisecond");
-      addFormatToken(0, ["SSSS", 4], 0, function() {
-        return this.millisecond() * 10;
-      });
-      addFormatToken(0, ["SSSSS", 5], 0, function() {
-        return this.millisecond() * 100;
-      });
-      addFormatToken(0, ["SSSSSS", 6], 0, function() {
-        return this.millisecond() * 1e3;
-      });
-      addFormatToken(0, ["SSSSSSS", 7], 0, function() {
-        return this.millisecond() * 1e4;
-      });
-      addFormatToken(0, ["SSSSSSSS", 8], 0, function() {
-        return this.millisecond() * 1e5;
-      });
-      addFormatToken(0, ["SSSSSSSSS", 9], 0, function() {
-        return this.millisecond() * 1e6;
-      });
-      addUnitAlias("millisecond", "ms");
-      addUnitPriority("millisecond", 16);
-      addRegexToken("S", match1to3, match1);
-      addRegexToken("SS", match1to3, match2);
-      addRegexToken("SSS", match1to3, match3);
-      var token, getSetMillisecond;
-      for (token = "SSSS"; token.length <= 9; token += "S") {
-        addRegexToken(token, matchUnsigned);
-      }
-      function parseMs(input, array) {
-        array[MILLISECOND] = toInt(("0." + input) * 1e3);
-      }
-      for (token = "S"; token.length <= 9; token += "S") {
-        addParseToken(token, parseMs);
-      }
-      getSetMillisecond = makeGetSet("Milliseconds", false);
-      addFormatToken("z", 0, 0, "zoneAbbr");
-      addFormatToken("zz", 0, 0, "zoneName");
-      function getZoneAbbr() {
-        return this._isUTC ? "UTC" : "";
-      }
-      function getZoneName() {
-        return this._isUTC ? "Coordinated Universal Time" : "";
-      }
-      var proto = Moment.prototype;
-      proto.add = add;
-      proto.calendar = calendar$1;
-      proto.clone = clone;
-      proto.diff = diff;
-      proto.endOf = endOf;
-      proto.format = format;
-      proto.from = from;
-      proto.fromNow = fromNow;
-      proto.to = to;
-      proto.toNow = toNow;
-      proto.get = stringGet;
-      proto.invalidAt = invalidAt;
-      proto.isAfter = isAfter;
-      proto.isBefore = isBefore;
-      proto.isBetween = isBetween;
-      proto.isSame = isSame;
-      proto.isSameOrAfter = isSameOrAfter;
-      proto.isSameOrBefore = isSameOrBefore;
-      proto.isValid = isValid$2;
-      proto.lang = lang;
-      proto.locale = locale;
-      proto.localeData = localeData;
-      proto.max = prototypeMax;
-      proto.min = prototypeMin;
-      proto.parsingFlags = parsingFlags;
-      proto.set = stringSet;
-      proto.startOf = startOf;
-      proto.subtract = subtract;
-      proto.toArray = toArray;
-      proto.toObject = toObject;
-      proto.toDate = toDate;
-      proto.toISOString = toISOString;
-      proto.inspect = inspect;
-      if (typeof Symbol !== "undefined" && Symbol.for != null) {
-        proto[Symbol.for("nodejs.util.inspect.custom")] = function() {
-          return "Moment<" + this.format() + ">";
-        };
-      }
-      proto.toJSON = toJSON;
-      proto.toString = toString;
-      proto.unix = unix;
-      proto.valueOf = valueOf;
-      proto.creationData = creationData;
-      proto.eraName = getEraName;
-      proto.eraNarrow = getEraNarrow;
-      proto.eraAbbr = getEraAbbr;
-      proto.eraYear = getEraYear;
-      proto.year = getSetYear;
-      proto.isLeapYear = getIsLeapYear;
-      proto.weekYear = getSetWeekYear;
-      proto.isoWeekYear = getSetISOWeekYear;
-      proto.quarter = proto.quarters = getSetQuarter;
-      proto.month = getSetMonth;
-      proto.daysInMonth = getDaysInMonth;
-      proto.week = proto.weeks = getSetWeek;
-      proto.isoWeek = proto.isoWeeks = getSetISOWeek;
-      proto.weeksInYear = getWeeksInYear;
-      proto.weeksInWeekYear = getWeeksInWeekYear;
-      proto.isoWeeksInYear = getISOWeeksInYear;
-      proto.isoWeeksInISOWeekYear = getISOWeeksInISOWeekYear;
-      proto.date = getSetDayOfMonth;
-      proto.day = proto.days = getSetDayOfWeek;
-      proto.weekday = getSetLocaleDayOfWeek;
-      proto.isoWeekday = getSetISODayOfWeek;
-      proto.dayOfYear = getSetDayOfYear;
-      proto.hour = proto.hours = getSetHour;
-      proto.minute = proto.minutes = getSetMinute;
-      proto.second = proto.seconds = getSetSecond;
-      proto.millisecond = proto.milliseconds = getSetMillisecond;
-      proto.utcOffset = getSetOffset;
-      proto.utc = setOffsetToUTC;
-      proto.local = setOffsetToLocal;
-      proto.parseZone = setOffsetToParsedOffset;
-      proto.hasAlignedHourOffset = hasAlignedHourOffset;
-      proto.isDST = isDaylightSavingTime;
-      proto.isLocal = isLocal;
-      proto.isUtcOffset = isUtcOffset;
-      proto.isUtc = isUtc;
-      proto.isUTC = isUtc;
-      proto.zoneAbbr = getZoneAbbr;
-      proto.zoneName = getZoneName;
-      proto.dates = deprecate("dates accessor is deprecated. Use date instead.", getSetDayOfMonth);
-      proto.months = deprecate("months accessor is deprecated. Use month instead", getSetMonth);
-      proto.years = deprecate("years accessor is deprecated. Use year instead", getSetYear);
-      proto.zone = deprecate("moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/", getSetZone);
-      proto.isDSTShifted = deprecate("isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information", isDaylightSavingTimeShifted);
-      function createUnix(input) {
-        return createLocal(input * 1e3);
-      }
-      function createInZone() {
-        return createLocal.apply(null, arguments).parseZone();
-      }
-      function preParsePostFormat(string) {
-        return string;
-      }
-      var proto$1 = Locale.prototype;
-      proto$1.calendar = calendar;
-      proto$1.longDateFormat = longDateFormat;
-      proto$1.invalidDate = invalidDate;
-      proto$1.ordinal = ordinal;
-      proto$1.preparse = preParsePostFormat;
-      proto$1.postformat = preParsePostFormat;
-      proto$1.relativeTime = relativeTime;
-      proto$1.pastFuture = pastFuture;
-      proto$1.set = set;
-      proto$1.eras = localeEras;
-      proto$1.erasParse = localeErasParse;
-      proto$1.erasConvertYear = localeErasConvertYear;
-      proto$1.erasAbbrRegex = erasAbbrRegex;
-      proto$1.erasNameRegex = erasNameRegex;
-      proto$1.erasNarrowRegex = erasNarrowRegex;
-      proto$1.months = localeMonths;
-      proto$1.monthsShort = localeMonthsShort;
-      proto$1.monthsParse = localeMonthsParse;
-      proto$1.monthsRegex = monthsRegex;
-      proto$1.monthsShortRegex = monthsShortRegex;
-      proto$1.week = localeWeek;
-      proto$1.firstDayOfYear = localeFirstDayOfYear;
-      proto$1.firstDayOfWeek = localeFirstDayOfWeek;
-      proto$1.weekdays = localeWeekdays;
-      proto$1.weekdaysMin = localeWeekdaysMin;
-      proto$1.weekdaysShort = localeWeekdaysShort;
-      proto$1.weekdaysParse = localeWeekdaysParse;
-      proto$1.weekdaysRegex = weekdaysRegex;
-      proto$1.weekdaysShortRegex = weekdaysShortRegex;
-      proto$1.weekdaysMinRegex = weekdaysMinRegex;
-      proto$1.isPM = localeIsPM;
-      proto$1.meridiem = localeMeridiem;
-      function get$1(format2, index, field, setter) {
-        var locale2 = getLocale(), utc = createUTC().set(setter, index);
-        return locale2[field](utc, format2);
-      }
-      function listMonthsImpl(format2, index, field) {
-        if (isNumber(format2)) {
-          index = format2;
-          format2 = void 0;
-        }
-        format2 = format2 || "";
-        if (index != null) {
-          return get$1(format2, index, field, "month");
-        }
-        var i, out = [];
-        for (i = 0; i < 12; i++) {
-          out[i] = get$1(format2, i, field, "month");
-        }
-        return out;
-      }
-      function listWeekdaysImpl(localeSorted, format2, index, field) {
-        if (typeof localeSorted === "boolean") {
-          if (isNumber(format2)) {
-            index = format2;
-            format2 = void 0;
-          }
-          format2 = format2 || "";
-        } else {
-          format2 = localeSorted;
-          index = format2;
-          localeSorted = false;
-          if (isNumber(format2)) {
-            index = format2;
-            format2 = void 0;
-          }
-          format2 = format2 || "";
-        }
-        var locale2 = getLocale(), shift = localeSorted ? locale2._week.dow : 0, i, out = [];
-        if (index != null) {
-          return get$1(format2, (index + shift) % 7, field, "day");
-        }
-        for (i = 0; i < 7; i++) {
-          out[i] = get$1(format2, (i + shift) % 7, field, "day");
-        }
-        return out;
-      }
-      function listMonths(format2, index) {
-        return listMonthsImpl(format2, index, "months");
-      }
-      function listMonthsShort(format2, index) {
-        return listMonthsImpl(format2, index, "monthsShort");
-      }
-      function listWeekdays(localeSorted, format2, index) {
-        return listWeekdaysImpl(localeSorted, format2, index, "weekdays");
-      }
-      function listWeekdaysShort(localeSorted, format2, index) {
-        return listWeekdaysImpl(localeSorted, format2, index, "weekdaysShort");
-      }
-      function listWeekdaysMin(localeSorted, format2, index) {
-        return listWeekdaysImpl(localeSorted, format2, index, "weekdaysMin");
-      }
-      getSetGlobalLocale("en", {
-        eras: [
-          {
-            since: "0001-01-01",
-            until: Infinity,
-            offset: 1,
-            name: "Anno Domini",
-            narrow: "AD",
-            abbr: "AD"
-          },
-          {
-            since: "0000-12-31",
-            until: -Infinity,
-            offset: 1,
-            name: "Before Christ",
-            narrow: "BC",
-            abbr: "BC"
-          }
-        ],
-        dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
-        ordinal: function(number) {
-          var b = number % 10, output = toInt(number % 100 / 10) === 1 ? "th" : b === 1 ? "st" : b === 2 ? "nd" : b === 3 ? "rd" : "th";
-          return number + output;
-        }
-      });
-      hooks.lang = deprecate("moment.lang is deprecated. Use moment.locale instead.", getSetGlobalLocale);
-      hooks.langData = deprecate("moment.langData is deprecated. Use moment.localeData instead.", getLocale);
-      var mathAbs = Math.abs;
-      function abs() {
-        var data = this._data;
-        this._milliseconds = mathAbs(this._milliseconds);
-        this._days = mathAbs(this._days);
-        this._months = mathAbs(this._months);
-        data.milliseconds = mathAbs(data.milliseconds);
-        data.seconds = mathAbs(data.seconds);
-        data.minutes = mathAbs(data.minutes);
-        data.hours = mathAbs(data.hours);
-        data.months = mathAbs(data.months);
-        data.years = mathAbs(data.years);
-        return this;
-      }
-      function addSubtract$1(duration, input, value, direction) {
-        var other = createDuration(input, value);
-        duration._milliseconds += direction * other._milliseconds;
-        duration._days += direction * other._days;
-        duration._months += direction * other._months;
-        return duration._bubble();
-      }
-      function add$1(input, value) {
-        return addSubtract$1(this, input, value, 1);
-      }
-      function subtract$1(input, value) {
-        return addSubtract$1(this, input, value, -1);
-      }
-      function absCeil(number) {
-        if (number < 0) {
-          return Math.floor(number);
-        } else {
-          return Math.ceil(number);
-        }
-      }
-      function bubble() {
-        var milliseconds2 = this._milliseconds, days2 = this._days, months2 = this._months, data = this._data, seconds2, minutes2, hours2, years2, monthsFromDays;
-        if (!(milliseconds2 >= 0 && days2 >= 0 && months2 >= 0 || milliseconds2 <= 0 && days2 <= 0 && months2 <= 0)) {
-          milliseconds2 += absCeil(monthsToDays(months2) + days2) * 864e5;
-          days2 = 0;
-          months2 = 0;
-        }
-        data.milliseconds = milliseconds2 % 1e3;
-        seconds2 = absFloor(milliseconds2 / 1e3);
-        data.seconds = seconds2 % 60;
-        minutes2 = absFloor(seconds2 / 60);
-        data.minutes = minutes2 % 60;
-        hours2 = absFloor(minutes2 / 60);
-        data.hours = hours2 % 24;
-        days2 += absFloor(hours2 / 24);
-        monthsFromDays = absFloor(daysToMonths(days2));
-        months2 += monthsFromDays;
-        days2 -= absCeil(monthsToDays(monthsFromDays));
-        years2 = absFloor(months2 / 12);
-        months2 %= 12;
-        data.days = days2;
-        data.months = months2;
-        data.years = years2;
-        return this;
-      }
-      function daysToMonths(days2) {
-        return days2 * 4800 / 146097;
-      }
-      function monthsToDays(months2) {
-        return months2 * 146097 / 4800;
-      }
-      function as(units) {
-        if (!this.isValid()) {
-          return NaN;
-        }
-        var days2, months2, milliseconds2 = this._milliseconds;
-        units = normalizeUnits(units);
-        if (units === "month" || units === "quarter" || units === "year") {
-          days2 = this._days + milliseconds2 / 864e5;
-          months2 = this._months + daysToMonths(days2);
-          switch (units) {
-            case "month":
-              return months2;
-            case "quarter":
-              return months2 / 3;
-            case "year":
-              return months2 / 12;
-          }
-        } else {
-          days2 = this._days + Math.round(monthsToDays(this._months));
-          switch (units) {
-            case "week":
-              return days2 / 7 + milliseconds2 / 6048e5;
-            case "day":
-              return days2 + milliseconds2 / 864e5;
-            case "hour":
-              return days2 * 24 + milliseconds2 / 36e5;
-            case "minute":
-              return days2 * 1440 + milliseconds2 / 6e4;
-            case "second":
-              return days2 * 86400 + milliseconds2 / 1e3;
-            case "millisecond":
-              return Math.floor(days2 * 864e5) + milliseconds2;
-            default:
-              throw new Error("Unknown unit " + units);
-          }
-        }
-      }
-      function valueOf$1() {
-        if (!this.isValid()) {
-          return NaN;
-        }
-        return this._milliseconds + this._days * 864e5 + this._months % 12 * 2592e6 + toInt(this._months / 12) * 31536e6;
-      }
-      function makeAs(alias) {
-        return function() {
-          return this.as(alias);
-        };
-      }
-      var asMilliseconds = makeAs("ms"), asSeconds = makeAs("s"), asMinutes = makeAs("m"), asHours = makeAs("h"), asDays = makeAs("d"), asWeeks = makeAs("w"), asMonths = makeAs("M"), asQuarters = makeAs("Q"), asYears = makeAs("y");
-      function clone$1() {
-        return createDuration(this);
-      }
-      function get$2(units) {
-        units = normalizeUnits(units);
-        return this.isValid() ? this[units + "s"]() : NaN;
-      }
-      function makeGetter(name) {
-        return function() {
-          return this.isValid() ? this._data[name] : NaN;
-        };
-      }
-      var milliseconds = makeGetter("milliseconds"), seconds = makeGetter("seconds"), minutes = makeGetter("minutes"), hours = makeGetter("hours"), days = makeGetter("days"), months = makeGetter("months"), years = makeGetter("years");
-      function weeks() {
-        return absFloor(this.days() / 7);
-      }
-      var round = Math.round, thresholds = {
-        ss: 44,
-        s: 45,
-        m: 45,
-        h: 22,
-        d: 26,
-        w: null,
-        M: 11
-      };
-      function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale2) {
-        return locale2.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
-      }
-      function relativeTime$1(posNegDuration, withoutSuffix, thresholds2, locale2) {
-        var duration = createDuration(posNegDuration).abs(), seconds2 = round(duration.as("s")), minutes2 = round(duration.as("m")), hours2 = round(duration.as("h")), days2 = round(duration.as("d")), months2 = round(duration.as("M")), weeks2 = round(duration.as("w")), years2 = round(duration.as("y")), a = seconds2 <= thresholds2.ss && ["s", seconds2] || seconds2 < thresholds2.s && ["ss", seconds2] || minutes2 <= 1 && ["m"] || minutes2 < thresholds2.m && ["mm", minutes2] || hours2 <= 1 && ["h"] || hours2 < thresholds2.h && ["hh", hours2] || days2 <= 1 && ["d"] || days2 < thresholds2.d && ["dd", days2];
-        if (thresholds2.w != null) {
-          a = a || weeks2 <= 1 && ["w"] || weeks2 < thresholds2.w && ["ww", weeks2];
-        }
-        a = a || months2 <= 1 && ["M"] || months2 < thresholds2.M && ["MM", months2] || years2 <= 1 && ["y"] || ["yy", years2];
-        a[2] = withoutSuffix;
-        a[3] = +posNegDuration > 0;
-        a[4] = locale2;
-        return substituteTimeAgo.apply(null, a);
-      }
-      function getSetRelativeTimeRounding(roundingFunction) {
-        if (roundingFunction === void 0) {
-          return round;
-        }
-        if (typeof roundingFunction === "function") {
-          round = roundingFunction;
-          return true;
-        }
-        return false;
-      }
-      function getSetRelativeTimeThreshold(threshold, limit) {
-        if (thresholds[threshold] === void 0) {
-          return false;
-        }
-        if (limit === void 0) {
-          return thresholds[threshold];
-        }
-        thresholds[threshold] = limit;
-        if (threshold === "s") {
-          thresholds.ss = limit - 1;
-        }
-        return true;
-      }
-      function humanize(argWithSuffix, argThresholds) {
-        if (!this.isValid()) {
-          return this.localeData().invalidDate();
-        }
-        var withSuffix = false, th = thresholds, locale2, output;
-        if (typeof argWithSuffix === "object") {
-          argThresholds = argWithSuffix;
-          argWithSuffix = false;
-        }
-        if (typeof argWithSuffix === "boolean") {
-          withSuffix = argWithSuffix;
-        }
-        if (typeof argThresholds === "object") {
-          th = Object.assign({}, thresholds, argThresholds);
-          if (argThresholds.s != null && argThresholds.ss == null) {
-            th.ss = argThresholds.s - 1;
-          }
-        }
-        locale2 = this.localeData();
-        output = relativeTime$1(this, !withSuffix, th, locale2);
-        if (withSuffix) {
-          output = locale2.pastFuture(+this, output);
-        }
-        return locale2.postformat(output);
-      }
-      var abs$1 = Math.abs;
-      function sign(x) {
-        return (x > 0) - (x < 0) || +x;
-      }
-      function toISOString$1() {
-        if (!this.isValid()) {
-          return this.localeData().invalidDate();
-        }
-        var seconds2 = abs$1(this._milliseconds) / 1e3, days2 = abs$1(this._days), months2 = abs$1(this._months), minutes2, hours2, years2, s, total = this.asSeconds(), totalSign, ymSign, daysSign, hmsSign;
-        if (!total) {
-          return "P0D";
-        }
-        minutes2 = absFloor(seconds2 / 60);
-        hours2 = absFloor(minutes2 / 60);
-        seconds2 %= 60;
-        minutes2 %= 60;
-        years2 = absFloor(months2 / 12);
-        months2 %= 12;
-        s = seconds2 ? seconds2.toFixed(3).replace(/\.?0+$/, "") : "";
-        totalSign = total < 0 ? "-" : "";
-        ymSign = sign(this._months) !== sign(total) ? "-" : "";
-        daysSign = sign(this._days) !== sign(total) ? "-" : "";
-        hmsSign = sign(this._milliseconds) !== sign(total) ? "-" : "";
-        return totalSign + "P" + (years2 ? ymSign + years2 + "Y" : "") + (months2 ? ymSign + months2 + "M" : "") + (days2 ? daysSign + days2 + "D" : "") + (hours2 || minutes2 || seconds2 ? "T" : "") + (hours2 ? hmsSign + hours2 + "H" : "") + (minutes2 ? hmsSign + minutes2 + "M" : "") + (seconds2 ? hmsSign + s + "S" : "");
-      }
-      var proto$2 = Duration.prototype;
-      proto$2.isValid = isValid$1;
-      proto$2.abs = abs;
-      proto$2.add = add$1;
-      proto$2.subtract = subtract$1;
-      proto$2.as = as;
-      proto$2.asMilliseconds = asMilliseconds;
-      proto$2.asSeconds = asSeconds;
-      proto$2.asMinutes = asMinutes;
-      proto$2.asHours = asHours;
-      proto$2.asDays = asDays;
-      proto$2.asWeeks = asWeeks;
-      proto$2.asMonths = asMonths;
-      proto$2.asQuarters = asQuarters;
-      proto$2.asYears = asYears;
-      proto$2.valueOf = valueOf$1;
-      proto$2._bubble = bubble;
-      proto$2.clone = clone$1;
-      proto$2.get = get$2;
-      proto$2.milliseconds = milliseconds;
-      proto$2.seconds = seconds;
-      proto$2.minutes = minutes;
-      proto$2.hours = hours;
-      proto$2.days = days;
-      proto$2.weeks = weeks;
-      proto$2.months = months;
-      proto$2.years = years;
-      proto$2.humanize = humanize;
-      proto$2.toISOString = toISOString$1;
-      proto$2.toString = toISOString$1;
-      proto$2.toJSON = toISOString$1;
-      proto$2.locale = locale;
-      proto$2.localeData = localeData;
-      proto$2.toIsoString = deprecate("toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)", toISOString$1);
-      proto$2.lang = lang;
-      addFormatToken("X", 0, 0, "unix");
-      addFormatToken("x", 0, 0, "valueOf");
-      addRegexToken("x", matchSigned);
-      addRegexToken("X", matchTimestamp);
-      addParseToken("X", function(input, array, config) {
-        config._d = new Date(parseFloat(input) * 1e3);
-      });
-      addParseToken("x", function(input, array, config) {
-        config._d = new Date(toInt(input));
-      });
-      hooks.version = "2.29.4";
-      setHookCallback(createLocal);
-      hooks.fn = proto;
-      hooks.min = min;
-      hooks.max = max;
-      hooks.now = now;
-      hooks.utc = createUTC;
-      hooks.unix = createUnix;
-      hooks.months = listMonths;
-      hooks.isDate = isDate;
-      hooks.locale = getSetGlobalLocale;
-      hooks.invalid = createInvalid;
-      hooks.duration = createDuration;
-      hooks.isMoment = isMoment;
-      hooks.weekdays = listWeekdays;
-      hooks.parseZone = createInZone;
-      hooks.localeData = getLocale;
-      hooks.isDuration = isDuration;
-      hooks.monthsShort = listMonthsShort;
-      hooks.weekdaysMin = listWeekdaysMin;
-      hooks.defineLocale = defineLocale;
-      hooks.updateLocale = updateLocale;
-      hooks.locales = listLocales;
-      hooks.weekdaysShort = listWeekdaysShort;
-      hooks.normalizeUnits = normalizeUnits;
-      hooks.relativeTimeRounding = getSetRelativeTimeRounding;
-      hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
-      hooks.calendarFormat = getCalendarFormat;
-      hooks.prototype = proto;
-      hooks.HTML5_FMT = {
-        DATETIME_LOCAL: "YYYY-MM-DDTHH:mm",
-        DATETIME_LOCAL_SECONDS: "YYYY-MM-DDTHH:mm:ss",
-        DATETIME_LOCAL_MS: "YYYY-MM-DDTHH:mm:ss.SSS",
-        DATE: "YYYY-MM-DD",
-        TIME: "HH:mm",
-        TIME_SECONDS: "HH:mm:ss",
-        TIME_MS: "HH:mm:ss.SSS",
-        WEEK: "GGGG-[W]WW",
-        MONTH: "YYYY-MM"
-      };
-      return hooks;
-    });
-  }
-});
-
 // node_modules/upath/build/code/upath.js
 var require_upath = __commonJS({
   "node_modules/upath/build/code/upath.js"(exports) {
@@ -5768,8 +2069,8 @@ var require_lib = __commonJS({
       return new Duration(conf);
     }
     function durationToMillis(matrix, vals) {
-      var _a2;
-      let sum = (_a2 = vals.milliseconds) != null ? _a2 : 0;
+      var _a3;
+      let sum = (_a3 = vals.milliseconds) != null ? _a3 : 0;
       for (const unit of reverseUnits.slice(1)) {
         if (vals[unit]) {
           sum += vals[unit] * matrix[unit]["milliseconds"];
@@ -8904,7 +5205,7 @@ var require_lib = __commonJS({
       }
       Values2.mapLeaves = mapLeaves;
       function compareValue(val1, val2, linkNormalizer) {
-        var _a2, _b2;
+        var _a3, _b3;
         if (val1 === void 0)
           val1 = null;
         if (val2 === void 0)
@@ -8959,7 +5260,7 @@ var require_lib = __commonJS({
               return -1;
             if (!link1.subpath && !link2.subpath)
               return 0;
-            return ((_a2 = link1.subpath) != null ? _a2 : "").localeCompare((_b2 = link2.subpath) != null ? _b2 : "");
+            return ((_a3 = link1.subpath) != null ? _a3 : "").localeCompare((_b3 = link2.subpath) != null ? _b3 : "");
           case "date":
             return wrap1.value < wrap2.value ? -1 : wrap1.value.equals(wrap2.value) ? 0 : 1;
           case "duration":
@@ -8997,8 +5298,8 @@ var require_lib = __commonJS({
       }
       Values2.compareValue = compareValue;
       function typeOf(val) {
-        var _a2;
-        return (_a2 = wrapValue(val)) == null ? void 0 : _a2.type;
+        var _a3;
+        return (_a3 = wrapValue(val)) == null ? void 0 : _a3.type;
       }
       Values2.typeOf = typeOf;
       function isTruthy(field) {
@@ -9227,12 +5528,12 @@ var require_lib = __commonJS({
         return result;
       }
       obsidianLink() {
-        var _a2, _b2;
+        var _a3, _b3;
         const escaped = this.path.replaceAll("|", "\\|");
         if (this.type == "header")
-          return escaped + "#" + ((_a2 = this.subpath) == null ? void 0 : _a2.replaceAll("|", "\\|"));
+          return escaped + "#" + ((_a3 = this.subpath) == null ? void 0 : _a3.replaceAll("|", "\\|"));
         if (this.type == "block")
-          return escaped + "#^" + ((_b2 = this.subpath) == null ? void 0 : _b2.replaceAll("|", "\\|"));
+          return escaped + "#^" + ((_b3 = this.subpath) == null ? void 0 : _b3.replaceAll("|", "\\|"));
         else
           return escaped;
       }
@@ -9267,8 +5568,8 @@ var require_lib = __commonJS({
         this.display = display;
       }
       markdown() {
-        var _a2;
-        return `[${(_a2 = this.display) != null ? _a2 : this.url}](${this.url})`;
+        var _a3;
+        return `[${(_a3 = this.display) != null ? _a3 : this.url}](${this.url})`;
       }
     };
     var Widgets;
@@ -9514,7 +5815,7 @@ var require_lib = __commonJS({
         return DateTime.fromObject({ year: Number.parseInt(year), month: Number.parseInt(month) });
       }).desc("date in format YYYY-MM[-DDTHH-MM-SS.MS]"),
       dateShorthand: (_) => parsimmon_umd_minExports.alt(...Object.keys(DATE_SHORTHANDS).sort((a, b) => b.length - a.length).map(parsimmon_umd_minExports.string)),
-      date: (q) => chainOpt(q.rootDate, (ym) => parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("-"), parsimmon_umd_minExports.regexp(/\d{2}/), (_, day) => ym.set({ day: Number.parseInt(day) })), (ymd) => parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("T"), parsimmon_umd_minExports.regexp(/\d{2}/), (_, hour) => ymd.set({ hour: Number.parseInt(hour) })), (ymdh) => parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string(":"), parsimmon_umd_minExports.regexp(/\d{2}/), (_, minute) => ymdh.set({ minute: Number.parseInt(minute) })), (ymdhm) => parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string(":"), parsimmon_umd_minExports.regexp(/\d{2}/), (_, second) => ymdhm.set({ second: Number.parseInt(second) })), (ymdhms) => parsimmon_umd_minExports.alt(parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("."), parsimmon_umd_minExports.regexp(/\d{3}/), (_, millisecond) => ymdhms.set({ millisecond: Number.parseInt(millisecond) })), parsimmon_umd_minExports.succeed(ymdhms)), (dt) => parsimmon_umd_minExports.alt(parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("+").or(parsimmon_umd_minExports.string("-")), parsimmon_umd_minExports.regexp(/\d{1,2}(:\d{2})?/), (pm, hr) => dt.setZone("UTC" + pm + hr, { keepLocalTime: true })), parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("Z"), () => dt.setZone("utc", { keepLocalTime: true })), parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("["), parsimmon_umd_minExports.regexp(/[0-9A-Za-z+-\/]+/u), parsimmon_umd_minExports.string("]"), (_a2, zone, _b2) => dt.setZone(zone, { keepLocalTime: true })))).assert((dt) => dt.isValid, "valid date").desc("date in format YYYY-MM[-DDTHH-MM-SS.MS]"),
+      date: (q) => chainOpt(q.rootDate, (ym) => parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("-"), parsimmon_umd_minExports.regexp(/\d{2}/), (_, day) => ym.set({ day: Number.parseInt(day) })), (ymd) => parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("T"), parsimmon_umd_minExports.regexp(/\d{2}/), (_, hour) => ymd.set({ hour: Number.parseInt(hour) })), (ymdh) => parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string(":"), parsimmon_umd_minExports.regexp(/\d{2}/), (_, minute) => ymdh.set({ minute: Number.parseInt(minute) })), (ymdhm) => parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string(":"), parsimmon_umd_minExports.regexp(/\d{2}/), (_, second) => ymdhm.set({ second: Number.parseInt(second) })), (ymdhms) => parsimmon_umd_minExports.alt(parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("."), parsimmon_umd_minExports.regexp(/\d{3}/), (_, millisecond) => ymdhms.set({ millisecond: Number.parseInt(millisecond) })), parsimmon_umd_minExports.succeed(ymdhms)), (dt) => parsimmon_umd_minExports.alt(parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("+").or(parsimmon_umd_minExports.string("-")), parsimmon_umd_minExports.regexp(/\d{1,2}(:\d{2})?/), (pm, hr) => dt.setZone("UTC" + pm + hr, { keepLocalTime: true })), parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("Z"), () => dt.setZone("utc", { keepLocalTime: true })), parsimmon_umd_minExports.seqMap(parsimmon_umd_minExports.string("["), parsimmon_umd_minExports.regexp(/[0-9A-Za-z+-\/]+/u), parsimmon_umd_minExports.string("]"), (_a3, zone, _b3) => dt.setZone(zone, { keepLocalTime: true })))).assert((dt) => dt.isValid, "valid date").desc("date in format YYYY-MM[-DDTHH-MM-SS.MS]"),
       datePlus: (q) => parsimmon_umd_minExports.alt(q.dateShorthand.map((d) => DATE_SHORTHANDS[d]()), q.date).desc("date in format YYYY-MM[-DDTHH-MM-SS.MS] or in shorthand"),
       durationType: (_) => parsimmon_umd_minExports.alt(...Object.keys(DURATION_TYPES).sort((a, b) => b.length - a.length).map(parsimmon_umd_minExports.string)),
       duration: (q) => parsimmon_umd_minExports.seqMap(q.number, parsimmon_umd_minExports.optWhitespace, q.durationType, (count, _, t) => DURATION_TYPES[t].mapUnits((x) => x * count)).sepBy1(parsimmon_umd_minExports.string(",").trim(parsimmon_umd_minExports.optWhitespace).or(parsimmon_umd_minExports.optWhitespace)).map((durations) => durations.reduce((p, c) => p.plus(c))).desc("duration like 4hr2min"),
@@ -9708,9 +6009,9 @@ var require_lib = __commonJS({
     });
     var optionalWhitespaceOrComment = parsimmon_umd_minExports.alt(parsimmon_umd_minExports.whitespace, QUERY_LANGUAGE.comment).many().map((arr) => arr.join(""));
     var getAPI2 = (app2) => {
-      var _a2;
+      var _a3;
       if (app2)
-        return (_a2 = app2.plugins.plugins.dataview) == null ? void 0 : _a2.api;
+        return (_a3 = app2.plugins.plugins.dataview) == null ? void 0 : _a3.api;
       else
         return window.DataviewAPI;
     };
@@ -26321,7 +22622,7 @@ var require_decode_data_xml = __commonJS({
 var require_decode_codepoint = __commonJS({
   "node_modules/entities/lib/decode_codepoint.js"(exports) {
     "use strict";
-    var _a2;
+    var _a3;
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.replaceCodePoint = exports.fromCodePoint = void 0;
     var decodeMap = /* @__PURE__ */ new Map([
@@ -26354,7 +22655,7 @@ var require_decode_codepoint = __commonJS({
       [158, 382],
       [159, 376]
     ]);
-    exports.fromCodePoint = (_a2 = String.fromCodePoint) !== null && _a2 !== void 0 ? _a2 : function(codePoint) {
+    exports.fromCodePoint = (_a3 = String.fromCodePoint) !== null && _a3 !== void 0 ? _a3 : function(codePoint) {
       var output = "";
       if (codePoint > 65535) {
         codePoint -= 65536;
@@ -26365,11 +22666,11 @@ var require_decode_codepoint = __commonJS({
       return output;
     };
     function replaceCodePoint(codePoint) {
-      var _a3;
+      var _a4;
       if (codePoint >= 55296 && codePoint <= 57343 || codePoint > 1114111) {
         return 65533;
       }
-      return (_a3 = decodeMap.get(codePoint)) !== null && _a3 !== void 0 ? _a3 : codePoint;
+      return (_a4 = decodeMap.get(codePoint)) !== null && _a4 !== void 0 ? _a4 : codePoint;
     }
     exports.replaceCodePoint = replaceCodePoint;
     function decodeCodePoint(codePoint) {
@@ -26574,9 +22875,9 @@ var require_decode = __commonJS({
         return -1;
       };
       EntityDecoder2.prototype.emitNumericEntity = function(lastCp, expectedLength) {
-        var _a2;
+        var _a3;
         if (this.consumed <= expectedLength) {
-          (_a2 = this.errors) === null || _a2 === void 0 ? void 0 : _a2.absenceOfDigitsInNumericCharacterReference(this.consumed);
+          (_a3 = this.errors) === null || _a3 === void 0 ? void 0 : _a3.absenceOfDigitsInNumericCharacterReference(this.consumed);
           return 0;
         }
         if (lastCp === CharCodes.SEMI) {
@@ -26619,11 +22920,11 @@ var require_decode = __commonJS({
         return -1;
       };
       EntityDecoder2.prototype.emitNotTerminatedNamedEntity = function() {
-        var _a2;
-        var _b2 = this, result = _b2.result, decodeTree = _b2.decodeTree;
+        var _a3;
+        var _b3 = this, result = _b3.result, decodeTree = _b3.decodeTree;
         var valueLength = (decodeTree[result] & BinTrieFlags.VALUE_LENGTH) >> 14;
         this.emitNamedEntityData(result, valueLength, this.consumed);
-        (_a2 = this.errors) === null || _a2 === void 0 ? void 0 : _a2.missingSemicolonAfterCharacterReference();
+        (_a3 = this.errors) === null || _a3 === void 0 ? void 0 : _a3.missingSemicolonAfterCharacterReference();
         return this.consumed;
       };
       EntityDecoder2.prototype.emitNamedEntityData = function(result, valueLength, consumed) {
@@ -26635,7 +22936,7 @@ var require_decode = __commonJS({
         return consumed;
       };
       EntityDecoder2.prototype.end = function() {
-        var _a2;
+        var _a3;
         switch (this.state) {
           case EntityDecoderState.NamedEntity: {
             return this.result !== 0 && (this.decodeMode !== DecodingMode.Attribute || this.result === this.treeIndex) ? this.emitNotTerminatedNamedEntity() : 0;
@@ -26647,7 +22948,7 @@ var require_decode = __commonJS({
             return this.emitNumericEntity(0, 3);
           }
           case EntityDecoderState.NumericStart: {
-            (_a2 = this.errors) === null || _a2 === void 0 ? void 0 : _a2.absenceOfDigitsInNumericCharacterReference(this.consumed);
+            (_a3 = this.errors) === null || _a3 === void 0 ? void 0 : _a3.absenceOfDigitsInNumericCharacterReference(this.consumed);
             return 0;
           }
           case EntityDecoderState.EntityStart: {
@@ -26906,12 +23207,12 @@ var require_lib2 = __commonJS({
     }
     exports.decode = decode;
     function decodeStrict(data, options) {
-      var _a2;
+      var _a3;
       if (options === void 0) {
         options = EntityLevel.XML;
       }
       var opts = typeof options === "number" ? { level: options } : options;
-      (_a2 = opts.mode) !== null && _a2 !== void 0 ? _a2 : opts.mode = decode_js_1.DecodingMode.Strict;
+      (_a3 = opts.mode) !== null && _a3 !== void 0 ? _a3 : opts.mode = decode_js_1.DecodingMode.Strict;
       return decode(data, opts);
     }
     exports.decodeStrict = decodeStrict;
@@ -72175,7 +68476,7 @@ __export(main_exports, {
   default: () => HTMLExportPlugin
 });
 module.exports = __toCommonJS(main_exports);
-var import_obsidian13 = require("obsidian");
+var import_obsidian12 = require("obsidian");
 
 // src/frontend/graph-view/graph-wasm.txt.js
 var graph_wasm_txt_default = 'var Module = typeof Module != "undefined" ? Module : {};\nvar ENVIRONMENT_IS_WEB = typeof window == "object";\nvar ENVIRONMENT_IS_WORKER = typeof importScripts == "function";\nvar ENVIRONMENT_IS_NODE = typeof process == "object" && typeof process.versions == "object" && typeof process.versions.node == "string";\nif (ENVIRONMENT_IS_NODE) {}\nvar moduleOverrides = Object.assign({}, Module);\nvar arguments_ = [];\nvar thisProgram = "./this.program";\nvar quit_ = (status, toThrow) => {\n    throw toThrow\n};\nvar scriptDirectory = "";\n\nfunction locateFile(path) {\n    if (Module["locateFile"]) {\n        return Module["locateFile"](path, scriptDirectory)\n    }\n    return scriptDirectory + path\n}\nvar read_, readAsync, readBinary;\nif (ENVIRONMENT_IS_NODE) {\n    var fs = require("fs");\n    var nodePath = require("path");\n    if (ENVIRONMENT_IS_WORKER) {\n        scriptDirectory = nodePath.dirname(scriptDirectory) + "/"\n    } else {\n        scriptDirectory = __dirname + "/"\n    }\n    read_ = (filename, binary) => {\n        filename = isFileURI(filename) ? new URL(filename) : nodePath.normalize(filename);\n        return fs.readFileSync(filename, binary ? undefined : "utf8")\n    };\n    readBinary = filename => {\n        var ret = read_(filename, true);\n        if (!ret.buffer) {\n            ret = new Uint8Array(ret)\n        }\n        return ret\n    };\n    readAsync = (filename, onload, onerror, binary = true) => {\n        filename = isFileURI(filename) ? new URL(filename) : nodePath.normalize(filename);\n        fs.readFile(filename, binary ? undefined : "utf8", (err, data) => {\n            if (err) onerror(err);\n            else onload(binary ? data.buffer : data)\n        })\n    };\n    if (!Module["thisProgram"] && process.argv.length > 1) {\n        thisProgram = process.argv[1].replace(/\\\\/g, "/")\n    }\n    arguments_ = process.argv.slice(2);\n    if (typeof module != "undefined") {\n        module["exports"] = Module\n    }\n    process.on("uncaughtException", ex => {\n        if (ex !== "unwind" && !(ex instanceof ExitStatus) && !(ex.context instanceof ExitStatus)) {\n            throw ex\n        }\n    });\n    quit_ = (status, toThrow) => {\n        process.exitCode = status;\n        throw toThrow\n    }\n} else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {\n    if (ENVIRONMENT_IS_WORKER) {\n        scriptDirectory = self.location.href\n    } else if (typeof document != "undefined" && document.currentScript) {\n        scriptDirectory = document.currentScript.src\n    }\n    if (scriptDirectory.startsWith("blob:")) {\n        scriptDirectory = ""\n    } else {\n        scriptDirectory = scriptDirectory.substr(0, scriptDirectory.replace(/[?#].*/, "").lastIndexOf("/") + 1)\n    } {\n        read_ = url => {\n            var xhr = new XMLHttpRequest;\n            xhr.open("GET", url, false);\n            xhr.send(null);\n            return xhr.responseText\n        };\n        if (ENVIRONMENT_IS_WORKER) {\n            readBinary = url => {\n                var xhr = new XMLHttpRequest;\n                xhr.open("GET", url, false);\n                xhr.responseType = "arraybuffer";\n                xhr.send(null);\n                return new Uint8Array(xhr.response)\n            }\n        }\n        readAsync = (url, onload, onerror) => {\n            var xhr = new XMLHttpRequest;\n            xhr.open("GET", url, true);\n            xhr.responseType = "arraybuffer";\n            xhr.onload = () => {\n                if (xhr.status == 200 || xhr.status == 0 && xhr.response) {\n                    onload(xhr.response);\n                    return\n                }\n                onerror()\n            };\n            xhr.onerror = onerror;\n            xhr.send(null)\n        }\n    }\n} else {}\nvar out = Module["print"] || console.log.bind(console);\nvar err = Module["printErr"] || console.error.bind(console);\nObject.assign(Module, moduleOverrides);\nmoduleOverrides = null;\nif (Module["arguments"]) arguments_ = Module["arguments"];\nif (Module["thisProgram"]) thisProgram = Module["thisProgram"];\nif (Module["quit"]) quit_ = Module["quit"];\nvar wasmBinary;\nif (Module["wasmBinary"]) wasmBinary = Module["wasmBinary"];\nvar wasmMemory;\nvar ABORT = false;\nvar EXITSTATUS;\nvar HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64;\n\nfunction updateMemoryViews() {\n    var b = wasmMemory.buffer;\n    Module["HEAP8"] = HEAP8 = new Int8Array(b);\n    Module["HEAP16"] = HEAP16 = new Int16Array(b);\n    Module["HEAPU8"] = HEAPU8 = new Uint8Array(b);\n    Module["HEAPU16"] = HEAPU16 = new Uint16Array(b);\n    Module["HEAP32"] = HEAP32 = new Int32Array(b);\n    Module["HEAPU32"] = HEAPU32 = new Uint32Array(b);\n    Module["HEAPF32"] = HEAPF32 = new Float32Array(b);\n    Module["HEAPF64"] = HEAPF64 = new Float64Array(b)\n}\nvar __ATPRERUN__ = [];\nvar __ATINIT__ = [];\nvar __ATPOSTRUN__ = [];\nvar runtimeInitialized = false;\n\nfunction preRun() {\n    if (Module["preRun"]) {\n        if (typeof Module["preRun"] == "function") Module["preRun"] = [Module["preRun"]];\n        while (Module["preRun"].length) {\n            addOnPreRun(Module["preRun"].shift())\n        }\n    }\n    callRuntimeCallbacks(__ATPRERUN__)\n}\n\nfunction initRuntime() {\n    runtimeInitialized = true;\n    callRuntimeCallbacks(__ATINIT__)\n}\n\nfunction postRun() {\n    if (Module["postRun"]) {\n        if (typeof Module["postRun"] == "function") Module["postRun"] = [Module["postRun"]];\n        while (Module["postRun"].length) {\n            addOnPostRun(Module["postRun"].shift())\n        }\n    }\n    callRuntimeCallbacks(__ATPOSTRUN__)\n}\n\nfunction addOnPreRun(cb) {\n    __ATPRERUN__.unshift(cb)\n}\n\nfunction addOnInit(cb) {\n    __ATINIT__.unshift(cb)\n}\n\nfunction addOnPostRun(cb) {\n    __ATPOSTRUN__.unshift(cb)\n}\nvar runDependencies = 0;\nvar runDependencyWatcher = null;\nvar dependenciesFulfilled = null;\n\nfunction addRunDependency(id) {\n    runDependencies++;\n    Module["monitorRunDependencies"]?.(runDependencies)\n}\n\nfunction removeRunDependency(id) {\n    runDependencies--;\n    Module["monitorRunDependencies"]?.(runDependencies);\n    if (runDependencies == 0) {\n        if (runDependencyWatcher !== null) {\n            clearInterval(runDependencyWatcher);\n            runDependencyWatcher = null\n        }\n        if (dependenciesFulfilled) {\n            var callback = dependenciesFulfilled;\n            dependenciesFulfilled = null;\n            callback()\n        }\n    }\n}\n\nfunction abort(what) {\n    Module["onAbort"]?.(what);\n    what = "Aborted(" + what + ")";\n    err(what);\n    ABORT = true;\n    EXITSTATUS = 1;\n    what += ". Build with -sASSERTIONS for more info.";\n    var e = new WebAssembly.RuntimeError(what);\n    throw e\n}\nvar dataURIPrefix = "data:application/octet-stream;base64,";\nvar isDataURI = filename => filename.startsWith(dataURIPrefix);\nvar isFileURI = filename => filename.startsWith("file://");\nvar wasmBinaryFile;\nwasmBinaryFile = "graph-wasm.wasm";\nif (!isDataURI(wasmBinaryFile)) {\n    wasmBinaryFile = locateFile(wasmBinaryFile)\n}\n\nfunction getBinarySync(file) {\n    if (file == wasmBinaryFile && wasmBinary) {\n        return new Uint8Array(wasmBinary)\n    }\n    if (readBinary) {\n        return readBinary(file)\n    }\n    throw "both async and sync fetching of the wasm failed"\n}\n\nfunction getBinaryPromise(binaryFile) \n{\n	if (window.location.protocol === \'file:\')\n	{\n		return new Promise((resolve, reject) =>\n		{\n			let id = btoa(encodeURI(`site-lib/scripts/${binaryFile}`));\n			window.addEventListener(\'DOMContentLoaded\', () => \n			{\n				const dataEl = document.getElementById(id);\n				if (dataEl)\n				{\n					const data = Uint8Array.from(Array.from(atob(JSON.parse(decodeURI(atob(dataEl.value))).data)).map(s => s.charCodeAt(0)));\n					resolve(data);\n				}\n			});\n		});\n	}\n\n    if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {\n        if (typeof fetch == "function" && !isFileURI(binaryFile)) {\n            return fetch(binaryFile, {\n                credentials: "same-origin"\n            }).then(response => {\n                if (!response["ok"]) {\n                    throw `failed to load wasm binary file at \'${binaryFile}\'`\n                }\n                return response["arrayBuffer"]()\n            }).catch(() => getBinarySync(binaryFile))\n        } else if (readAsync) {\n            return new Promise((resolve, reject) => {\n                readAsync(binaryFile, response => resolve(new Uint8Array(response)), reject)\n            })\n        }\n    }\n    return Promise.resolve().then(() => getBinarySync(binaryFile))\n}\n\nfunction instantiateArrayBuffer(binaryFile, imports, receiver) \n{\n	return getBinaryPromise(binaryFile).then(binary => \n		{\n			console.log("loaded wasm from", binary);\n			return WebAssembly.instantiate(binary, imports)\n		}).then(receiver, reason => {\n		err(`failed to asynchronously prepare wasm: ${reason}`);\n		abort(reason)\n	})\n}\n\nfunction instantiateAsync(binary, binaryFile, imports, callback) {\n    // if (!binary && typeof WebAssembly.instantiateStreaming == "function" && !isDataURI(binaryFile) && !isFileURI(binaryFile) && !ENVIRONMENT_IS_NODE && typeof fetch == "function") {\n    //     return fetch(binaryFile, {\n    //         credentials: "same-origin"\n    //     }).then(response => {\n	// 		response.headers.set(\'Content-Type\', \'application/wasm\');\n    //         var result = WebAssembly.instantiateStreaming(response, imports);\n    //         return result.then(callback, function(reason) {\n    //             err(`wasm streaming compile failed: ${reason}`);\n    //             err("falling back to ArrayBuffer instantiation");\n    //             return instantiateArrayBuffer(binaryFile, imports, callback)\n    //         })\n    //     })\n    // }\n    return instantiateArrayBuffer(binaryFile, imports, callback)\n}\n\nfunction getWasmImports() {\n    return {\n        "a": wasmImports\n    }\n}\n\nfunction createWasm() {\n    var info = getWasmImports();\n\n    function receiveInstance(instance, module) {\n        wasmExports = instance.exports;\n        wasmMemory = wasmExports["f"];\n        updateMemoryViews();\n        addOnInit(wasmExports["g"]);\n        removeRunDependency("wasm-instantiate");\n        return wasmExports\n    }\n    addRunDependency("wasm-instantiate");\n\n    function receiveInstantiationResult(result) {\n        receiveInstance(result["instance"])\n    }\n    if (Module["instantiateWasm"]) {\n        try {\n            return Module["instantiateWasm"](info, receiveInstance)\n        } catch (e) {\n            err(`Module.instantiateWasm callback failed with error: ${e}`);\n            return false\n        }\n    }\n    instantiateAsync(wasmBinary, wasmBinaryFile, info, receiveInstantiationResult);\n    return {}\n}\nvar ASM_CONSTS = {\n    2408: $0 => {\n        console.log(UTF8ToString($0))\n    }\n};\n\nfunction ExitStatus(status) {\n    this.name = "ExitStatus";\n    this.message = `Program terminated with exit(${status})`;\n    this.status = status\n}\nvar callRuntimeCallbacks = callbacks => {\n    while (callbacks.length > 0) {\n        callbacks.shift()(Module)\n    }\n};\n\nfunction getValue(ptr, type = "i8") {\n    if (type.endsWith("*")) type = "*";\n    switch (type) {\n        case "i1":\n            return HEAP8[ptr];\n        case "i8":\n            return HEAP8[ptr];\n        case "i16":\n            return HEAP16[ptr >> 1];\n        case "i32":\n            return HEAP32[ptr >> 2];\n        case "i64":\n            abort("to do getValue(i64) use WASM_BIGINT");\n        case "float":\n            return HEAPF32[ptr >> 2];\n        case "double":\n            return HEAPF64[ptr >> 3];\n        case "*":\n            return HEAPU32[ptr >> 2];\n        default:\n            abort(`invalid type for getValue: ${type}`)\n    }\n}\nvar noExitRuntime = Module["noExitRuntime"] || true;\n\nfunction setValue(ptr, value, type = "i8") {\n    if (type.endsWith("*")) type = "*";\n    switch (type) {\n        case "i1":\n            HEAP8[ptr] = value;\n            break;\n        case "i8":\n            HEAP8[ptr] = value;\n            break;\n        case "i16":\n            HEAP16[ptr >> 1] = value;\n            break;\n        case "i32":\n            HEAP32[ptr >> 2] = value;\n            break;\n        case "i64":\n            abort("to do setValue(i64) use WASM_BIGINT");\n        case "float":\n            HEAPF32[ptr >> 2] = value;\n            break;\n        case "double":\n            HEAPF64[ptr >> 3] = value;\n            break;\n        case "*":\n            HEAPU32[ptr >> 2] = value;\n            break;\n        default:\n            abort(`invalid type for setValue: ${type}`)\n    }\n}\nvar stackRestore = val => __emscripten_stack_restore(val);\nvar stackSave = () => _emscripten_stack_get_current();\nvar __emscripten_memcpy_js = (dest, src, num) => HEAPU8.copyWithin(dest, src, src + num);\nvar _abort = () => {\n    abort("")\n};\nvar readEmAsmArgsArray = [];\nvar readEmAsmArgs = (sigPtr, buf) => {\n    readEmAsmArgsArray.length = 0;\n    var ch;\n    while (ch = HEAPU8[sigPtr++]) {\n        var wide = ch != 105;\n        wide &= ch != 112;\n        buf += wide && buf % 8 ? 4 : 0;\n        readEmAsmArgsArray.push(ch == 112 ? HEAPU32[buf >> 2] : ch == 105 ? HEAP32[buf >> 2] : HEAPF64[buf >> 3]);\n        buf += wide ? 8 : 4\n    }\n    return readEmAsmArgsArray\n};\nvar runEmAsmFunction = (code, sigPtr, argbuf) => {\n    var args = readEmAsmArgs(sigPtr, argbuf);\n    return ASM_CONSTS[code](...args)\n};\nvar _emscripten_asm_const_int = (code, sigPtr, argbuf) => runEmAsmFunction(code, sigPtr, argbuf);\nvar _emscripten_date_now = () => Date.now();\nvar getHeapMax = () => 2147483648;\nvar growMemory = size => {\n    var b = wasmMemory.buffer;\n    var pages = (size - b.byteLength + 65535) / 65536;\n    try {\n        wasmMemory.grow(pages);\n        updateMemoryViews();\n        return 1\n    } catch (e) {}\n};\nvar _emscripten_resize_heap = requestedSize => {\n    var oldSize = HEAPU8.length;\n    requestedSize >>>= 0;\n    var maxHeapSize = getHeapMax();\n    if (requestedSize > maxHeapSize) {\n        return false\n    }\n    var alignUp = (x, multiple) => x + (multiple - x % multiple) % multiple;\n    for (var cutDown = 1; cutDown <= 4; cutDown *= 2) {\n        var overGrownHeapSize = oldSize * (1 + .2 / cutDown);\n        overGrownHeapSize = Math.min(overGrownHeapSize, requestedSize + 100663296);\n        var newSize = Math.min(maxHeapSize, alignUp(Math.max(requestedSize, overGrownHeapSize), 65536));\n        var replacement = growMemory(newSize);\n        if (replacement) {\n            return true\n        }\n    }\n    return false\n};\nvar getCFunc = ident => {\n    var func = Module["_" + ident];\n    return func\n};\nvar writeArrayToMemory = (array, buffer) => {\n    HEAP8.set(array, buffer)\n};\nvar lengthBytesUTF8 = str => {\n    var len = 0;\n    for (var i = 0; i < str.length; ++i) {\n        var c = str.charCodeAt(i);\n        if (c <= 127) {\n            len++\n        } else if (c <= 2047) {\n            len += 2\n        } else if (c >= 55296 && c <= 57343) {\n            len += 4;\n            ++i\n        } else {\n            len += 3\n        }\n    }\n    return len\n};\nvar stringToUTF8Array = (str, heap, outIdx, maxBytesToWrite) => {\n    if (!(maxBytesToWrite > 0)) return 0;\n    var startIdx = outIdx;\n    var endIdx = outIdx + maxBytesToWrite - 1;\n    for (var i = 0; i < str.length; ++i) {\n        var u = str.charCodeAt(i);\n        if (u >= 55296 && u <= 57343) {\n            var u1 = str.charCodeAt(++i);\n            u = 65536 + ((u & 1023) << 10) | u1 & 1023\n        }\n        if (u <= 127) {\n            if (outIdx >= endIdx) break;\n            heap[outIdx++] = u\n        } else if (u <= 2047) {\n            if (outIdx + 1 >= endIdx) break;\n            heap[outIdx++] = 192 | u >> 6;\n            heap[outIdx++] = 128 | u & 63\n        } else if (u <= 65535) {\n            if (outIdx + 2 >= endIdx) break;\n            heap[outIdx++] = 224 | u >> 12;\n            heap[outIdx++] = 128 | u >> 6 & 63;\n            heap[outIdx++] = 128 | u & 63\n        } else {\n            if (outIdx + 3 >= endIdx) break;\n            heap[outIdx++] = 240 | u >> 18;\n            heap[outIdx++] = 128 | u >> 12 & 63;\n            heap[outIdx++] = 128 | u >> 6 & 63;\n            heap[outIdx++] = 128 | u & 63\n        }\n    }\n    heap[outIdx] = 0;\n    return outIdx - startIdx\n};\nvar stringToUTF8 = (str, outPtr, maxBytesToWrite) => stringToUTF8Array(str, HEAPU8, outPtr, maxBytesToWrite);\nvar stackAlloc = sz => __emscripten_stack_alloc(sz);\nvar stringToUTF8OnStack = str => {\n    var size = lengthBytesUTF8(str) + 1;\n    var ret = stackAlloc(size);\n    stringToUTF8(str, ret, size);\n    return ret\n};\nvar UTF8Decoder = typeof TextDecoder != "undefined" ? new TextDecoder("utf8") : undefined;\nvar UTF8ArrayToString = (heapOrArray, idx, maxBytesToRead) => {\n    var endIdx = idx + maxBytesToRead;\n    var endPtr = idx;\n    while (heapOrArray[endPtr] && !(endPtr >= endIdx)) ++endPtr;\n    if (endPtr - idx > 16 && heapOrArray.buffer && UTF8Decoder) {\n        return UTF8Decoder.decode(heapOrArray.subarray(idx, endPtr))\n    }\n    var str = "";\n    while (idx < endPtr) {\n        var u0 = heapOrArray[idx++];\n        if (!(u0 & 128)) {\n            str += String.fromCharCode(u0);\n            continue\n        }\n        var u1 = heapOrArray[idx++] & 63;\n        if ((u0 & 224) == 192) {\n            str += String.fromCharCode((u0 & 31) << 6 | u1);\n            continue\n        }\n        var u2 = heapOrArray[idx++] & 63;\n        if ((u0 & 240) == 224) {\n            u0 = (u0 & 15) << 12 | u1 << 6 | u2\n        } else {\n            u0 = (u0 & 7) << 18 | u1 << 12 | u2 << 6 | heapOrArray[idx++] & 63\n        }\n        if (u0 < 65536) {\n            str += String.fromCharCode(u0)\n        } else {\n            var ch = u0 - 65536;\n            str += String.fromCharCode(55296 | ch >> 10, 56320 | ch & 1023)\n        }\n    }\n    return str\n};\nvar UTF8ToString = (ptr, maxBytesToRead) => ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : "";\nvar ccall = (ident, returnType, argTypes, args, opts) => {\n    var toC = {\n        "string": str => {\n            var ret = 0;\n            if (str !== null && str !== undefined && str !== 0) {\n                ret = stringToUTF8OnStack(str)\n            }\n            return ret\n        },\n        "array": arr => {\n            var ret = stackAlloc(arr.length);\n            writeArrayToMemory(arr, ret);\n            return ret\n        }\n    };\n\n    function convertReturnValue(ret) {\n        if (returnType === "string") {\n            return UTF8ToString(ret)\n        }\n        if (returnType === "boolean") return Boolean(ret);\n        return ret\n    }\n    var func = getCFunc(ident);\n    var cArgs = [];\n    var stack = 0;\n    if (args) {\n        for (var i = 0; i < args.length; i++) {\n            var converter = toC[argTypes[i]];\n            if (converter) {\n                if (stack === 0) stack = stackSave();\n                cArgs[i] = converter(args[i])\n            } else {\n                cArgs[i] = args[i]\n            }\n        }\n    }\n    var ret = func(...cArgs);\n\n    function onDone(ret) {\n        if (stack !== 0) stackRestore(stack);\n        return convertReturnValue(ret)\n    }\n    ret = onDone(ret);\n    return ret\n};\nvar cwrap = (ident, returnType, argTypes, opts) => {\n    var numericArgs = !argTypes || argTypes.every(type => type === "number" || type === "boolean");\n    var numericRet = returnType !== "string";\n    if (numericRet && numericArgs && !opts) {\n        return getCFunc(ident)\n    }\n    return (...args) => ccall(ident, returnType, argTypes, args, opts)\n};\nvar wasmImports = {\n    c: __emscripten_memcpy_js,\n    a: _abort,\n    e: _emscripten_asm_const_int,\n    d: _emscripten_date_now,\n    b: _emscripten_resize_heap\n};\nvar wasmExports = createWasm();\nvar ___wasm_call_ctors = () => (___wasm_call_ctors = wasmExports["g"])();\nvar _SetBatchFractionSize = Module["_SetBatchFractionSize"] = a0 => (_SetBatchFractionSize = Module["_SetBatchFractionSize"] = wasmExports["h"])(a0);\nvar _SetAttractionForce = Module["_SetAttractionForce"] = a0 => (_SetAttractionForce = Module["_SetAttractionForce"] = wasmExports["i"])(a0);\nvar _SetLinkLength = Module["_SetLinkLength"] = a0 => (_SetLinkLength = Module["_SetLinkLength"] = wasmExports["j"])(a0);\nvar _SetRepulsionForce = Module["_SetRepulsionForce"] = a0 => (_SetRepulsionForce = Module["_SetRepulsionForce"] = wasmExports["k"])(a0);\nvar _SetCentralForce = Module["_SetCentralForce"] = a0 => (_SetCentralForce = Module["_SetCentralForce"] = wasmExports["l"])(a0);\nvar _SetDt = Module["_SetDt"] = a0 => (_SetDt = Module["_SetDt"] = wasmExports["m"])(a0);\nvar _Init = Module["_Init"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) => (_Init = Module["_Init"] = wasmExports["n"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);\nvar _Update = Module["_Update"] = (a0, a1, a2, a3) => (_Update = Module["_Update"] = wasmExports["o"])(a0, a1, a2, a3);\nvar _SetPosition = Module["_SetPosition"] = (a0, a1, a2) => (_SetPosition = Module["_SetPosition"] = wasmExports["p"])(a0, a1, a2);\nvar _SetSettleness = Module["_SetSettleness"] = a0 => (_SetSettleness = Module["_SetSettleness"] = wasmExports["q"])(a0);\nvar _FreeMemory = Module["_FreeMemory"] = () => (_FreeMemory = Module["_FreeMemory"] = wasmExports["r"])();\nvar _malloc = Module["_malloc"] = a0 => (_malloc = Module["_malloc"] = wasmExports["t"])(a0);\nvar _free = Module["_free"] = a0 => (_free = Module["_free"] = wasmExports["u"])(a0);\nvar __emscripten_stack_restore = a0 => (__emscripten_stack_restore = wasmExports["v"])(a0);\nvar __emscripten_stack_alloc = a0 => (__emscripten_stack_alloc = wasmExports["w"])(a0);\nvar _emscripten_stack_get_current = () => (_emscripten_stack_get_current = wasmExports["x"])();\nvar ___cxa_increment_exception_refcount = a0 => (___cxa_increment_exception_refcount = wasmExports["__cxa_increment_exception_refcount"])(a0);\nvar ___cxa_is_pointer_type = a0 => (___cxa_is_pointer_type = wasmExports["__cxa_is_pointer_type"])(a0);\nModule["cwrap"] = cwrap;\nModule["setValue"] = setValue;\nModule["getValue"] = getValue;\nvar calledRun;\ndependenciesFulfilled = function runCaller() {\n    // if (!calledRun) run();\n    // if (!calledRun) dependenciesFulfilled = runCaller\n};\n\nfunction run() \n{\n    if (runDependencies > 0) {\n        return\n    }\n    preRun();\n    if (runDependencies > 0) {\n        return\n    }\n\n    function doRun() {\n        if (calledRun) return;\n        calledRun = true;\n        Module["calledRun"] = true;\n        if (ABORT) return;\n        initRuntime();\n		console.log("wasm loaded");\n        if (Module["onRuntimeInitialized"]) Module["onRuntimeInitialized"]();\n		console.log("wasm initialized");\n        postRun()\n    }\n    if (Module["setStatus"]) {\n        Module["setStatus"]("Running...");\n        setTimeout(function() {\n            setTimeout(function() {\n                Module["setStatus"]("")\n            }, 1);\n            doRun()\n        }, 1)\n    } else {\n        doRun()\n    }\n}\nif (Module["preInit"]) {\n    if (typeof Module["preInit"] == "function") Module["preInit"] = [Module["preInit"]];\n    while (Module["preInit"].length > 0) {\n        Module["preInit"].pop()()\n    }\n}\n';
@@ -72650,10 +68951,14 @@ a.tree-item-self.is-clickable {
 	display: none;
 }
 
-.outline-tree .tree-item[data-depth="1"]:not(.mod-collapsible)>.tree-item-self {
-	padding-left: var(--nav-item-children-margin-left);
+#outline .tree-item[data-depth="1"]:not(.mod-collapsible)>.tree-item-self {
 	font-weight: 900;
 	font-size: 1.05em;
+}
+
+.tree-item:not(.mod-collapsible)>.tree-item-self
+{
+	padding-left: calc(var(--nav-item-children-margin-start,var(--nav-item-children-margin-left)) - 0.35em);
 }
 
 .tree-item-self {
@@ -72728,13 +69033,13 @@ h1 li {
 }
 
 /* high specificity in order to override other style */
-html>body>#layout>#center-content>.obsidian-document>.markdown-preview-sizer>div:not(:is(.footer, .header)) {
+html>body>#main-horizontal>#center-content>.obsidian-document>.markdown-preview-sizer>div:not(:is(.footer, .header)) {
 	margin-inline: 0 !important;
 	margin: 0 !important;
 	padding: 0 !important;
 }
 
-html>body>#layout>#center-content>.obsidian-document>.markdown-preview-sizer>div {
+html>body>#main-horizontal>#center-content>.obsidian-document>.markdown-preview-sizer>div {
 	width: 100%;
 	max-width: 100%;
 }
@@ -73197,7 +69502,7 @@ body.is-phone {
 	}
 
 	:root,
-	html body.publish> :is(#layout, #center-content, .obsidian-document):not(script, style, include) {
+	html body.publish> :is(#main-horizontal, #center-content, .obsidian-document):not(script, style, include) {
 		display: contents !important;
 	}
 
@@ -73325,7 +69630,6 @@ input[type=search] {
 }
 
 .search-input-container {
-	width: 100% !important;
 	display: flex !important;
 }
 
@@ -73443,15 +69747,21 @@ a.backlink:hover {
 
 /*#region Tags */
 
-#tags {
+#tags, #aliases {
 	display: flex;
 	align-items: baseline;
 	gap: 1em;
 }
 
-#tags .tags-content {
+#tags .tags-content, #aliases .aliases-content {
 	display: flex;
 	gap: 0.5em;
+}
+
+#aliases .aliases-content .alias
+{
+	font-size: var(--tag-size);
+	padding-inline: 0.25em;
 }
 
 /*#endregion */
@@ -73472,6 +69782,19 @@ a.backlink:hover {
 /*#endregion */
 
 /*#region Header & Footer */
+
+.header .data-bar
+{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.header .data-bar > :not(:first-child)
+{
+	border-left: 1px solid var(--background-modifier-border);
+	padding-left: 0.5em;
+	margin-left: 0.5em;
+}
 
 .header .data-bar:not(:empty) {
 	padding-bottom: 1em;
@@ -73700,8 +70023,6 @@ body.theme-light .excalidraw-plugin svg.light {
 // src/assets/deferred.txt.js
 var deferred_txt_default = `async function loadIncludes()
 {
-	// if (location.protocol != "file:") 
-	// {
 	// replace include tags with the contents of the file
 	let includeTags = document.querySelectorAll("link[itemprop='include']");
 	for (const includeTag of includeTags)
@@ -73736,18 +70057,6 @@ var deferred_txt_default = `async function loadIncludes()
 
 
 			let docFrag = document.createRange().createContextualFragment(includeText);
-			let includeChildren = Array.from(docFrag.children);
-			for (let child of includeChildren)
-			{
-				child?.classList?.add("hide");
-				child.style.transition = "opacity 0.5s ease-in-out";
-
-				setTimeout(() => 
-				{
-					child?.classList?.remove("hide");
-				}, 10);
-			};
-
 			includeTag.before(docFrag);
 			includeTag.remove();
 
@@ -73762,26 +70071,6 @@ var deferred_txt_default = `async function loadIncludes()
 			continue;
 		}
 	}
-	// }
-	// else
-	// {
-	// 	let e = document.querySelectorAll("link[itemprop='include']");
-	// 	if (e.length > 0)
-	// 	{
-	// 		var error = document.createElement("div");
-	// 		error.id = "error";
-	// 		error.textContent = "Web server exports must be hosted on an http / web server to be viewed correctly.";
-	// 		error.style.position = "fixed";
-	// 		error.style.top = "50%";
-	// 		error.style.left = "50%";
-	// 		error.style.transform = "translate(-50%, -50%)";
-	// 		error.style.fontSize = "1.5em";
-	// 		error.style.fontWeight = "bold";
-	// 		error.style.textAlign = "center";
-	// 		document.body.appendChild(error);
-	// 		document.querySelector("#center-content")?.classList?.remove("hide");
-	// 	}
-	// }
 }
 
 document.addEventListener("DOMContentLoaded", () => 
@@ -73830,18 +70119,18 @@ function waitLoadScripts(scriptNames, callback)
 var deferred_txt_default2 = `/* Define default values for variables */
 body
 {
-	--line-width: 40em;
-	--line-width-adaptive: 40em;
-	--file-line-width: 40em;
-	--sidebar-width: min(20em, 80vw);
-	--collapse-arrow-size: 11px;
-	--tree-vertical-spacing: 1.3em;
-	--sidebar-margin: 12px;
+    --line-width: 40em;
+    --line-width-adaptive: 40em;
+    --file-line-width: 40em;
+    --sidebar-width: min(20em, 80vw);
+    --collapse-arrow-size: 11px;
+    --tree-vertical-spacing: 1.3em;
+    --sidebar-margin: 12px;
 }
 
 :root
 {
-	background-color: #202124;
+    background-color: #202124;
 }
 
 /*#region Sidebars */
@@ -73850,15 +70139,15 @@ body
     height: 100%;
     font-size: 14px;
     z-index: 10;
-	min-width: calc(var(--sidebar-width) + var(--divider-width-hover));
+    min-width: calc(var(--sidebar-width) + var(--divider-width-hover));
     max-width: calc(var(--sidebar-width) + var(--divider-width-hover));
     position: relative;
     overflow: hidden;
     overflow: clip;
-	
+
     transition: min-width ease-in-out, max-width ease-in-out;
-	transition-duration: .2s;
-	contain: size;
+    transition-duration: .2s;
+    contain: size;
 }
 
 #left-sidebar {
@@ -73875,7 +70164,7 @@ body
 }
 
 .sidebar.floating {
-	position: absolute;
+    position: absolute;
 }
 
 .sidebar .leaf-content {
@@ -73904,34 +70193,33 @@ body
 {
     left: 0;
     border-top-right-radius: var(--radius-l);
-	border-bottom-right-radius: var(--radius-l);
+    border-bottom-right-radius: var(--radius-l);
 }
 
 #right-sidebar-content
 {
     right: 0;
-	border-top-left-radius: var(--radius-l);
-	border-bottom-left-radius: var(--radius-l);
+    border-top-left-radius: var(--radius-l);
+    border-bottom-left-radius: var(--radius-l);
 }
 
 .sidebar #right-sidebar-content, .sidebar #left-sidebar-content
 {
-	contain: none !important;
-	container-type: normal !important;
-	animation: none !important;
+    contain: none !important;
+    container-type: normal !important;
+    animation: none !important;
 }
 
 /* Hide empty sidebars */
 .sidebar:has(.leaf-content:empty):has(.topbar-content:empty)
 {
-	display: none;
+    display: none;
 }
 
 .sidebar-topbar {
-    height: 2em;
+    height: calc(2.3em + 2 * var(--sidebar-margin));
     width: var(--sidebar-width);
-    top: var(--sidebar-margin);
-    padding-inline: var(--sidebar-margin);
+    padding: var(--sidebar-margin);
     z-index: 1;
 
     position: fixed;
@@ -73948,27 +70236,29 @@ body
 
 .sidebar .sidebar-topbar.is-collapsed
 {
-	width: 0;
+    width: 0;
 }
 
 #left-sidebar .sidebar-topbar {
-	left: 0;
-	flex-direction: row;
+    left: 0;
+    flex-direction: row;
+	border-top-right-radius: var(--radius-l);
 }
 
 #right-sidebar .sidebar-topbar {
-	right: 0;
-	flex-direction: row-reverse;
+    right: 0;
+    flex-direction: row-reverse;
+	border-top-left-radius: var(--radius-l);
 }
 
 #left-sidebar .topbar-content {
-	margin-right: calc(2.3em + var(--sidebar-margin));
-	flex-direction: row;
+    margin-right: calc(2.3em + var(--sidebar-margin));
+    flex-direction: row;
 }
 
 #right-sidebar .topbar-content {
-	margin-left: calc(2.3em + var(--sidebar-margin));
-	flex-direction: row-reverse;
+    margin-left: calc(2.3em + var(--sidebar-margin));
+    flex-direction: row-reverse;
 }
 
 .topbar-content {
@@ -73982,8 +70272,8 @@ body
 }
 
 .sidebar.is-collapsed .topbar-content {
-	width: 0;
-	transition: inherit;
+    width: 0;
+    transition: inherit;
 }
 
 .clickable-icon.sidebar-collapse-icon {
@@ -73992,28 +70282,28 @@ body
     padding: 2px!important;
     margin: 0!important;
     height: 100%!important;
-	width: 2.3em !important;
+    width: 2.3em !important;
     margin-inline: 0.14em!important;
     position: absolute;
 }
 
 #left-sidebar .clickable-icon.sidebar-collapse-icon {
     transform: rotateY(180deg);
-	right: var(--sidebar-margin);
+    right: var(--sidebar-margin);
 }
 
 #right-sidebar .clickable-icon.sidebar-collapse-icon {
     transform: rotateY(180deg);
-	left: var(--sidebar-margin);
+    left: var(--sidebar-margin);
 }
 
 .clickable-icon.sidebar-collapse-icon svg.svg-icon {
     width: 100%;
-	height: 100%;
+    height: 100%;
 }
 
 .feature-title {
-    margin-left: 4px;
+    margin-left: 1px;
     text-transform: uppercase;
     letter-spacing: .06em;
     margin-top: 0.75em;
@@ -74024,14 +70314,14 @@ body
 {
     display: flex;
     align-items: center;
-	padding-top: 0;
+    padding-top: 0;
     font-size: 1em;
     padding-left: 0;
 }
 
 body.floating-sidebars .sidebar
 {
-	position: absolute;
+    position: absolute;
 }
 
 /*#endregion */
@@ -74040,13 +70330,31 @@ body.floating-sidebars .sidebar
 
 body
 {
-	transition: background-color var(--color-fade-speed) ease-in-out;
+    transition: background-color var(--color-fade-speed) ease-in-out;
 }
 
-#layout {
+#navbar:not(:empty)
+{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.5em 1em;
+	width: 100%;
+}
+
+#main {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	align-items: stretch;
+	justify-content: center;
+}
+
+#main-horizontal {
     display: flex;
     flex-direction: row;
-    height: 100%;
+	flex-grow: 1;
     width: 100%;
     align-items: stretch;
     justify-content: center;
@@ -74061,26 +70369,26 @@ body
     display: flex;
     flex-direction: column;
     align-items: center;
-	transition: opacity 0.2s ease-in-out;
-	contain: inline-size;
+    transition: opacity 0.2s ease-in-out;
+    contain: inline-size;
 }
 
 .hide
 {
-	opacity: 0 !important;
-	transition: opacity 0.2s ease-in-out;
-	pointer-events: none;
+    opacity: 0 !important;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
 }
 
 #center-content>.obsidian-document 
 {
-	padding-left: 2em;
-	padding-right: 1em;
-	margin-bottom: 0;
-	width: 100%;
-	width: -webkit-fill-available;
-	width: -moz-available;
-	width: fill-available;
+    padding-left: 2em;
+    padding-right: 1em;
+    margin-bottom: 0;
+    width: 100%;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     transition: background-color var(--color-fade-speed) ease-in-out;
     border-top-right-radius: var(--window-radius, var(--radius-m));
     border-top-left-radius: var(--window-radius, var(--radius-m));
@@ -74089,7 +70397,7 @@ body
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-	contain: inline-size;
+    contain: inline-size;
 }
 
 body #center-content>.obsidian-document>.markdown-preview-sizer 
@@ -74099,14 +70407,14 @@ body #center-content>.obsidian-document>.markdown-preview-sizer
     max-width: var(--line-width);
     flex-basis: var(--line-width);
     transition: background-color var(--color-fade-speed) ease-in-out;
-	contain: inline-size;
+    contain: inline-size;
 }
 
 #center-content>.obsidian-document>div
 {
     width: 100% !important;
     transition: background-color var(--color-fade-speed) ease-in-out;
-	contain: inline-size;
+    contain: inline-size;
 }
 
 /* If the markdown view is displaying a raw file or embed then increase it's size to make everything as large as possible */
@@ -74121,12 +70429,12 @@ body #center-content>.obsidian-document>.markdown-preview-sizer
 
 #center-content > .obsidian-document:not([data-type='markdown']).embed > *
 {
-	max-width: 100%;
-	max-height: 100%;
-	object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
-:not(h1,h2,h3,h4,h5,h6):has(> :is(.math:not(.math-inline), table)) 
+:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math, table)) 
 {
     overflow-x: auto !important;
 }
@@ -74134,55 +70442,55 @@ body #center-content>.obsidian-document>.markdown-preview-sizer
 /* For custom view exports */
 #center-content > .obsidian-document:not([data-type='markdown'])
 {
-	overflow-x: auto;
-	contain: content;
-	padding: 0;
-	margin: 0;
-	height: 100%;
+    overflow-x: auto;
+    contain: content;
+    padding: 0;
+    margin: 0;
+    height: 100%;
 }
 
 .obsidian-document[data-type="attachment"]
 {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-	width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
 .obsidian-document[data-type="attachment"] > *
 {
     outline: none;
-	border: none;
-	box-shadow: none;
+    border: none;
+    box-shadow: none;
 }
 
 .obsidian-document[data-type="attachment"] :is(img)
 {
-	max-width: 90%;
-	max-height: 90%;
-	object-fit: contain;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
 }
 
 .obsidian-document[data-type="attachment"] > :is(audio)
 {
-	width: 100%;
-	max-width: min(90%, var(--line-width));
+    width: 100%;
+    max-width: min(90%, var(--line-width));
 }
 
 .obsidian-document[data-type="attachment"] > :is(embed, iframe, video)
 {
-	width: 100%;
-	height: 100%;
-	max-width: 100%;
-	max-height: 100%;
-	object-fit: contain;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .canvas-wrapper > :is(.header, .footer)
 {
-	z-index: 100;
+    z-index: 100;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -74221,9 +70529,6 @@ var import_fs = require("fs");
 var import_obsidian = require("obsidian");
 var import_os = require("os");
 var import_promises = require("fs/promises");
-
-// src/plugin/translations/language.ts
-var import_moment = __toESM(require_moment());
 
 // src/plugin/translations/zh-cn.ts
 var language = {
@@ -74267,19 +70572,17 @@ var language = {
       rawDocuments: "\u5BFC\u51FA\u666E\u901A\u7684HTML\u6587\u6863\uFF0C\u5E26\u6709\u7B80\u5355\u7684\u6837\u5F0F\u548C\u811A\u672C\uFF0C\u4F46\u65E0\u989D\u5916\u529F\u80FD\u3002"
     },
     purgeExport: {
-      description: "\u6E05\u9664\u7AD9\u70B9\u7F13\u5B58\u4EE5\u91CD\u65B0\u5BFC\u51FA\u6240\u6709\u6587\u4EF6\uFF0C\u6216\u5F7B\u5E95\u6E05\u9664/\u5220\u9664\u7AD9\u70B9\u53CA\u5176\u6240\u6709\u6587\u4EF6\u3002",
+      description: "\u6E05\u9664\u7AD9\u70B9\u7F13\u5B58\u4EE5\u91CD\u65B0\u5BFC\u51FA\u6240\u6709\u6587\u4EF6\u3002",
       clearCache: "\u6E05\u9664\u7F13\u5B58",
-      purgeSite: "\u5F7B\u5E95\u6E05\u9664\u5E76\u5220\u9664",
       confirmation: "\u60A8\u786E\u5B9A\u5417\uFF1F",
-      clearWarning: "\u6B64\u64CD\u4F5C\u5C06\u5220\u9664\u7AD9\u70B9\u7684\u5143\u6570\u636E\uFF08\u4F46\u4E0D\u4F1A\u5220\u9664\u6240\u6709\u5BFC\u51FA\u7684HTML\u6587\u4EF6\uFF09\u3002\n\n\u8FD9\u5C06\u5F3A\u5236\u7AD9\u70B9\u91CD\u65B0\u5BFC\u51FA\u6240\u6709\u6587\u4EF6\u3002\n\n\u6B64\u5916\uFF0C\u5982\u679C\u60A8\u5728\u518D\u6B21\u5BFC\u51FA\u4E4B\u524D\u66F4\u6539\u4E86\u9009\u5B9A\u7684\u5BFC\u51FA\u6587\u4EF6\uFF0C\u67D0\u4E9B\u6587\u4EF6\u53EF\u80FD\u4F1A\u4FDD\u7559\u5728\u6587\u4EF6\u7CFB\u7EDF\u4E2D\u672A\u4F7F\u7528\u3002\n\n\u6B64\u64CD\u4F5C\u4E0D\u53EF\u64A4\u9500\u3002",
-      purgeWarning: "\u6B64\u64CD\u4F5C\u5C06\u5220\u9664\u6574\u4E2A\u5BFC\u51FA\u7684\u7AD9\u70B9\u53CA\u5176\u6240\u6709\u6587\u4EF6\u3002\n\n\u6B64\u64CD\u4F5C\u4E0D\u53EF\u64A4\u9500\u3002"
+      clearWarning: "\u6B64\u64CD\u4F5C\u5C06\u5220\u9664\u7AD9\u70B9\u7684\u5143\u6570\u636E\uFF08\u4F46\u4E0D\u4F1A\u5220\u9664\u6240\u6709\u5BFC\u51FA\u7684HTML\u6587\u4EF6\uFF09\u3002\n\n\u8FD9\u5C06\u5F3A\u5236\u7AD9\u70B9\u91CD\u65B0\u5BFC\u51FA\u6240\u6709\u6587\u4EF6\u3002\n\n\u6B64\u5916\uFF0C\u5982\u679C\u60A8\u5728\u518D\u6B21\u5BFC\u51FA\u4E4B\u524D\u66F4\u6539\u4E86\u9009\u5B9A\u7684\u5BFC\u51FA\u6587\u4EF6\uFF0C\u67D0\u4E9B\u6587\u4EF6\u53EF\u80FD\u4F1A\u4FDD\u7559\u5728\u6587\u4EF6\u7CFB\u7EDF\u4E2D\u672A\u4F7F\u7528\u3002\n\n\u6B64\u64CD\u4F5C\u4E0D\u53EF\u64A4\u9500\u3002"
     }
   },
   settings: {
     title: "HTML\u5BFC\u51FA\u8BBE\u7F6E",
     support: "\u652F\u6301\u8BE5\u63D2\u4EF6\u7684\u6301\u7EED\u5F00\u53D1\u3002",
     debug: "\u5C06\u8C03\u8BD5\u4FE1\u606F\u590D\u5236\u5230\u526A\u8D34\u677F",
-    unavailableSetting: "\u26A0\uFE0F This feature is not available in {0} mode.",
+    unavailableSetting: "\u26A0\uFE0F \u6B64\u529F\u80FD\u5728 {0} \u6A21\u5F0F\u4E0B\u4E0D\u53EF\u7528\u3002",
     pageFeatures: {
       title: "\u9875\u9762\u529F\u80FD",
       description: "\u63A7\u5236\u5BFC\u51FA\u9875\u9762\u7684\u5404\u79CD\u529F\u80FD\u3002"
@@ -74311,9 +70614,9 @@ var language = {
       info_showCustomIcons: "\u4E3A\u6811\u4E2D\u7684\u6BCF\u4E2A\u6587\u4EF6\u663E\u793A\u4E00\u4E2A\u81EA\u5B9A\u4E49\u56FE\u6807",
       info_showDefaultFolderIcons: "\u4E3A\u6811\u4E2D\u7684\u6BCF\u4E2A\u6587\u4EF6\u5939\u663E\u793A\u4E00\u4E2A\u9ED8\u8BA4\u56FE\u6807",
       info_showDefaultFileIcons: "\u4E3A\u6811\u4E2D\u7684\u6BCF\u4E2A\u6587\u4EF6\u663E\u793A\u4E00\u4E2A\u9ED8\u8BA4\u56FE\u6807",
-      info_defaultFolderIcon: "\u7528\u4E8E\u6587\u4EF6\u5939\u7684\u56FE\u6807\u3002\u4F7F\u7528\u201Clucide//\u201D\u524D\u7F00\u4F7F\u7528Lucide\u56FE\u6807",
-      info_defaultFileIcon: "\u7528\u4E8E\u6587\u4EF6\u7684\u56FE\u6807\u3002\u4F7F\u7528\u201Clucide//\u201D\u524D\u7F00\u4F7F\u7528Lucide\u56FE\u6807",
-      info_defaultMediaIcon: "\u7528\u4E8E\u5A92\u4F53\u6587\u4EF6\u7684\u56FE\u6807\u3002\u4F7F\u7528\u201Clucide//\u201D\u524D\u7F00\u4F7F\u7528Lucide\u56FE\u6807",
+      info_defaultFolderIcon: "\u7528\u4E8E\u6587\u4EF6\u5939\u7684\u56FE\u6807\u3002\u4F7F\u7528'lucide//'\u524D\u7F00\u4F7F\u7528Lucide\u56FE\u6807",
+      info_defaultFileIcon: "\u7528\u4E8E\u6587\u4EF6\u7684\u56FE\u6807\u3002\u4F7F\u7528'lucide//'\u524D\u7F00\u4F7F\u7528Lucide\u56FE\u6807",
+      info_defaultMediaIcon: "\u7528\u4E8E\u5A92\u4F53\u6587\u4EF6\u7684\u56FE\u6807\u3002\u4F7F\u7528'lucide//'\u524D\u7F00\u4F7F\u7528Lucide\u56FE\u6807",
       info_exposeStartingPath: "\u5728\u9875\u9762\u9996\u6B21\u52A0\u8F7D\u65F6\u662F\u5426\u663E\u793A\u6587\u4EF6\u6811\u4E2D\u7684\u5F53\u524D\u6587\u4EF6"
     },
     outline: {
@@ -74341,6 +70644,10 @@ var language = {
       title: "\u641C\u7D22\u680F",
       description: "\u5141\u8BB8\u60A8\u641C\u7D22\u5E93\uFF0C\u5217\u51FA\u5339\u914D\u7684\u6587\u4EF6\u548C\u6807\u9898\u3002\uFF08\u6CE8\u610F\uFF1A\u6B64\u529F\u80FD\u4EC5\u9002\u7528\u4E8E\u6258\u7BA1\u5728Web\u670D\u52A1\u5668\u4E0A\u7684\u5BFC\u51FA\uFF09",
       placeholder: "\u641C\u7D22..."
+    },
+    linkPreview: {
+      title: "\u94FE\u63A5\u9884\u89C8",
+      description: "\u5F53\u9F20\u6807\u60AC\u505C\u5728\u6307\u5411\u5176\u4ED6\u6587\u6863\u7684\u5185\u90E8\u94FE\u63A5\u4E0A\u65F6\u663E\u793A\u9884\u89C8\u3002"
     },
     themeToggle: {
       title: "\u4E3B\u9898\u5207\u6362",
@@ -74373,11 +70680,10 @@ var language = {
     },
     rss: {
       title: "RSS",
-      description: "Generate an RSS feed for the exported site",
-      info_siteUrl: "The url that this site will be hosted at",
+      description: "\u4E3A\u5BFC\u51FA\u7684\u7AD9\u70B9\u751F\u6210RSS\u6E90",
+      info_siteUrl: "\u6B64\u7AD9\u70B9\u5C06\u6258\u7BA1\u7684URL",
       info_siteUrlPlaceholder: "https://example.com/mysite",
-      info_siteName: "The name of the vault / exported site",
-      info_authorName: "The name of the author of the site"
+      info_authorName: "\u7AD9\u70B9\u4F5C\u8005\u7684\u540D\u79F0"
     },
     styleOptionsSection: {
       title: "\u6837\u5F0F\u9009\u9879",
@@ -74392,52 +70698,56 @@ var language = {
       description: "\u5728\u5BFC\u51FA\u7684HTML\u4E2D\u5305\u542B\u4EE5\u4E0B\u63D2\u4EF6\u7684CSS\u3002\u5982\u679C\u63D2\u4EF6\u529F\u80FD\u672A\u6B63\u786E\u5448\u73B0\uFF0C\u8BF7\u5C1D\u8BD5\u5C06\u63D2\u4EF6\u6DFB\u52A0\u5230\u6B64\u5217\u8868\u4E2D\u3002\u907F\u514D\u65E0\u5FC5\u8981\u6DFB\u52A0\u63D2\u4EF6\uFF0C\u56E0\u4E3A\u66F4\u591A\u7684CSS\u4F1A\u589E\u52A0\u9875\u9762\u7684\u52A0\u8F7D\u65F6\u95F4\u3002"
     },
     includeStyleCssIds: {
-      title: "Include Styles with IDs",
-      description: "Include CSS from style tags with the following IDs in the exported HTML."
+      title: "\u5305\u542B\u7279\u5B9AID\u7684\u6837\u5F0F",
+      description: "\u5728\u5BFC\u51FA\u7684HTML\u4E2D\u5305\u542B\u5E26\u6709\u4EE5\u4E0BID\u7684\u6837\u5F0F\u6807\u7B7E\u7684CSS\u3002"
     },
     generalSettingsSection: {
-      title: "General Settings",
-      description: "placeholder"
+      title: "\u901A\u7528\u8BBE\u7F6E",
+      description: "\u63A7\u5236\u7F51\u7AD9\u56FE\u6807\u548C\u7AD9\u70B9\u5143\u6570\u636E\u7B49\u7B80\u5355\u8BBE\u7F6E"
     },
     favicon: {
-      title: "Favicon image",
-      description: "placeholder"
+      title: "\u7F51\u7AD9\u56FE\u6807",
+      description: "\u7AD9\u70B9\u7684\u7F51\u7AD9\u56FE\u6807\u7684\u672C\u5730\u8DEF\u5F84"
+    },
+    siteName: {
+      title: "\u7AD9\u70B9\u540D\u79F0",
+      description: "\u5E93/\u5BFC\u51FA\u7AD9\u70B9\u7684\u540D\u79F0"
     },
     iconEmojiStyle: {
-      title: "Icon emoji style",
-      description: "placeholder"
+      title: "\u56FE\u6807\u8868\u60C5\u7B26\u53F7\u6837\u5F0F",
+      description: "\u7528\u4E8E\u81EA\u5B9A\u4E49\u56FE\u6807\u7684\u8868\u60C5\u7B26\u53F7\u6837\u5F0F"
     },
     themeName: {
-      title: "Theme",
-      description: "placeholder"
+      title: "\u4E3B\u9898",
+      description: "\u5BFC\u51FA\u4F7F\u7528\u7684\u5DF2\u5B89\u88C5\u4E3B\u9898"
     },
     exportSettingsSection: {
-      title: "Export Settings",
-      description: "placeholder"
+      title: "\u5BFC\u51FA\u8BBE\u7F6E",
+      description: "\u63A7\u5236\u66F4\u591A\u6280\u672F\u6027\u5BFC\u51FA\u8BBE\u7F6E\uFF0C\u5982\u63A7\u5236\u94FE\u63A5\u7684\u751F\u6210\u65B9\u5F0F"
     },
     relativeHeaderLinks: {
-      title: "Use Relative Header Links",
-      description: "placeholder"
+      title: "\u4F7F\u7528\u76F8\u5BF9\u6807\u9898\u94FE\u63A5",
+      description: "\u4E3A\u6807\u9898\u4F7F\u7528\u76F8\u5BF9\u94FE\u63A5\u800C\u4E0D\u662F\u7EDD\u5BF9\u94FE\u63A5"
     },
     slugifyPaths: {
-      title: "Slugify Paths",
-      description: "placeholder"
+      title: "\u8DEF\u5F84\u522B\u540D\u5316",
+      description: "\u4F7F\u6240\u6709\u8DEF\u5F84\u548C\u6587\u4EF6\u540D\u7B26\u5408\u7F51\u7EDC\u98CE\u683C\uFF08\u5C0F\u5199\uFF0C\u65E0\u7A7A\u683C\uFF09"
     },
     addPageIcon: {
-      title: "Add Page Icon",
-      description: "placeholder"
+      title: "\u6DFB\u52A0\u9875\u9762\u56FE\u6807",
+      description: "\u5728\u9875\u9762\u6807\u9898\u4E2D\u6DFB\u52A0\u6587\u4EF6\u7684\u56FE\u6807"
     },
     obsidianSettingsSection: {
-      title: "Obsidian Settings",
-      description: "Control how the plugin functions inside Obsidian"
+      title: "Obsidian\u8BBE\u7F6E",
+      description: "\u63A7\u5236\u63D2\u4EF6\u5728Obsidian\u4E2D\u7684\u8FD0\u884C\u65B9\u5F0F"
     },
     logLevel: {
-      title: "Log Level",
-      description: "Set the level of logging to display in the console"
+      title: "\u65E5\u5FD7\u7EA7\u522B",
+      description: "\u8BBE\u7F6E\u5728\u63A7\u5236\u53F0\u4E2D\u663E\u793A\u7684\u65E5\u5FD7\u7EA7\u522B"
     },
     titleProperty: {
-      title: "Title Property",
-      description: "The property to use as the title of the document"
+      title: "\u6807\u9898\u5C5E\u6027",
+      description: "\u7528\u4F5C\u6587\u6863\u6807\u9898\u7684\u5C5E\u6027"
     }
   }
 };
@@ -74484,12 +70794,10 @@ var language2 = {
       rawDocuments: "Export plain html documents with simple style and scripts but no additional features."
     },
     purgeExport: {
-      description: "Clear the site cache to re-export all files, or purge / delete the site with all it's files.",
+      description: "Clear the site cache to re-export all files.",
       clearCache: "Clear Cache",
-      purgeSite: "Purge & Delete",
       confirmation: "Are you sure?",
-      clearWarning: "This will delete the site metadata (but not all the exported html).\n\nThis will force the site to re-export all files.\n\nAlso if you change which files are selected for export before exporting again some files may be left on your file system unused.\n\nThis action cannot be undone.",
-      purgeWarning: "This will delete the entire exported site and all it's files.\n\nThis action cannot be undone."
+      clearWarning: "This will delete the site metadata (but not all the exported html).\n\nThis will force the site to re-export all files.\n\nAlso if you change which files are selected for export before exporting again some files may be left on your file system unused.\n\nThis action cannot be undone."
     }
   },
   settings: {
@@ -74559,6 +70867,10 @@ var language2 = {
       description: "Allows you search the vault, listing matching files and headers. (NOTE: this is only available for exports hosted on a web server)",
       placeholder: "Search..."
     },
+    linkPreview: {
+      title: "Link Previews",
+      description: "Show hover previews when you hover over internal links to other documents."
+    },
     themeToggle: {
       title: "Theme Toggle",
       description: "Allows you to switch between dark and light theme dynamically."
@@ -74593,7 +70905,6 @@ var language2 = {
       description: "Generate an RSS feed for the exported site",
       info_siteUrl: "The url that this site will be hosted at",
       info_siteUrlPlaceholder: "https://example.com/mysite",
-      info_siteName: "The name of the vault / exported site",
       info_authorName: "The name of the author of the site"
     },
     styleOptionsSection: {
@@ -74619,6 +70930,10 @@ var language2 = {
     favicon: {
       title: "Favicon image",
       description: "The local path to the favicon for the site"
+    },
+    siteName: {
+      title: "Site Name",
+      description: "The name of the vault / exported site"
     },
     iconEmojiStyle: {
       title: "Icon emoji style",
@@ -74701,19 +71016,17 @@ var language3 = {
       rawDocuments: "Esporta documenti HTML semplici con stile e script di base, senza funzioni aggiuntive."
     },
     purgeExport: {
-      description: "Cancella la cache del sito per riesportare tutti i file o elimina il sito con tutti i suoi file.",
+      description: "Cancella la cache del sito per riesportare tutti i file.",
       clearCache: "Cancella cache",
-      purgeSite: "Elimina e cancella",
       confirmation: "Sei sicuro?",
-      clearWarning: "Questo eliminer\xE0 i metadati del sito (ma non tutti gli HTML esportati).\n\nCi\xF2 forzer\xE0 la riesportazione di tutti i file.\n\nInoltre, se cambi i file selezionati per l'esportazione, alcuni potrebbero rimanere inutilizzati sul sistema.\n\nQuesta azione non pu\xF2 essere annullata.",
-      purgeWarning: "Questo eliminer\xE0 l'intero sito esportato e tutti i suoi file.\n\nQuesta azione non pu\xF2 essere annullata."
+      clearWarning: "Questo eliminer\xE0 i metadati del sito (ma non tutti gli HTML esportati).\n\nCi\xF2 forzer\xE0 la riesportazione di tutti i file.\n\nInoltre, se cambi i file selezionati per l'esportazione, alcuni potrebbero rimanere inutilizzati sul sistema.\n\nQuesta azione non pu\xF2 essere annullata."
     }
   },
   settings: {
     title: "Impostazioni Esportazione HTML",
     support: "Supporta lo sviluppo continuo di questo plugin.",
     debug: "Copia info di debug negli appunti",
-    unavailableSetting: "\u26A0\uFE0F This feature is not available in {0} mode.",
+    unavailableSetting: "\u26A0\uFE0F Questa funzionalit\xE0 non \xE8 disponibile in modalit\xE0 {0}.",
     pageFeatures: {
       title: "Funzionalit\xE0 della pagina",
       description: "Controlla varie funzionalit\xE0 della pagina esportata."
@@ -74745,9 +71058,9 @@ var language3 = {
       info_showCustomIcons: "Mostra un'icona personalizzata per ogni file nell'albero",
       info_showDefaultFolderIcons: "Mostra un'icona predefinita per ogni cartella nell'albero",
       info_showDefaultFileIcons: "Mostra un'icona predefinita per ogni file nell'albero",
-      info_defaultFolderIcon: "Icona da usare per le cartelle. Usa il prefisso 'lucide//' per usare un'icona Lucide",
-      info_defaultFileIcon: "Icona da usare per i file. Usa il prefisso 'lucide//' per usare un'icona Lucide",
-      info_defaultMediaIcon: "Icona da usare per i file multimediali. Usa il prefisso 'lucide//' per usare un'icona Lucide",
+      info_defaultFolderIcon: `Icona da usare per le cartelle. Usa il prefisso "lucide//" per usare un'icona Lucide`,
+      info_defaultFileIcon: `Icona da usare per i file. Usa il prefisso "lucide//" per usare un'icona Lucide`,
+      info_defaultMediaIcon: `Icona da usare per i file multimediali. Usa il prefisso "lucide//" per usare un'icona Lucide`,
       info_exposeStartingPath: "Mostra il file corrente nell'albero all'apertura della pagina"
     },
     outline: {
@@ -74775,6 +71088,10 @@ var language3 = {
       title: "Barra di Ricerca",
       description: "Permette di cercare nel vault, elencando file e titoli corrispondenti. (NOTA: disponibile solo per esportazioni su un server web)",
       placeholder: "Cerca..."
+    },
+    linkPreview: {
+      title: "Anteprime dei Collegamenti",
+      description: "Mostra anteprime al passaggio del mouse sui collegamenti interni ad altri documenti."
     },
     themeToggle: {
       title: "Cambio Tema",
@@ -74807,11 +71124,10 @@ var language3 = {
     },
     rss: {
       title: "RSS",
-      description: "Generate an RSS feed for the exported site",
-      info_siteUrl: "The url that this site will be hosted at",
+      description: "Genera un feed RSS per il sito esportato",
+      info_siteUrl: "L'URL su cui sar\xE0 ospitato questo sito",
       info_siteUrlPlaceholder: "https://example.com/mysite",
-      info_siteName: "The name of the vault / exported site",
-      info_authorName: "The name of the author of the site"
+      info_authorName: "Il nome dell'autore del sito"
     },
     styleOptionsSection: {
       title: "Opzioni di Stile",
@@ -74826,74 +71142,527 @@ var language3 = {
       description: "Includi il CSS dei seguenti plugin nell'HTML esportato. Se le funzionalit\xE0 dei plugin non si visualizzano correttamente, prova ad aggiungere il plugin a questo elenco. Evita di aggiungere plugin se non noti problemi specifici, poich\xE9 pi\xF9 CSS aumenter\xE0 il tempo di caricamento della pagina."
     },
     includeStyleCssIds: {
-      title: "Include Styles with IDs",
-      description: "Include CSS from style tags with the following IDs in the exported HTML."
+      title: "Includi stili con ID",
+      description: "Includi CSS dai tag di stile con i seguenti ID nell'HTML esportato."
     },
     generalSettingsSection: {
-      title: "General Settings",
-      description: "placeholder"
+      title: "Impostazioni Generali",
+      description: "Controlla impostazioni semplici come favicon e metadati del sito"
     },
     favicon: {
-      title: "Favicon image",
-      description: "placeholder"
+      title: "Immagine Favicon",
+      description: "Il percorso locale della favicon per il sito"
+    },
+    siteName: {
+      title: "Nome del Sito",
+      description: "Il nome del vault / sito esportato"
     },
     iconEmojiStyle: {
-      title: "Icon emoji style",
-      description: "placeholder"
+      title: "Stile emoji per le icone",
+      description: "Lo stile di emoji da utilizzare per le icone personalizzate"
     },
     themeName: {
-      title: "Theme",
-      description: "placeholder"
+      title: "Tema",
+      description: "Il tema installato da utilizzare per l'esportazione"
     },
     exportSettingsSection: {
-      title: "Export Settings",
-      description: "placeholder"
+      title: "Impostazioni di Esportazione",
+      description: "Controlla impostazioni tecniche pi\xF9 avanzate come la generazione dei link"
     },
     relativeHeaderLinks: {
-      title: "Use Relative Header Links",
-      description: "placeholder"
+      title: "Usa Link Relativi per i Titoli",
+      description: "Usa link relativi per i titoli invece di link assoluti"
     },
     slugifyPaths: {
-      title: "Slugify Paths",
-      description: "placeholder"
+      title: "Percorsi Slugificati",
+      description: "Rendi tutti i percorsi e i nomi dei file in stile web (minuscoli, senza spazi)"
     },
     addPageIcon: {
-      title: "Add Page Icon",
-      description: "placeholder"
+      title: "Aggiungi Icona Pagina",
+      description: "Aggiungi l'icona del file all'intestazione della pagina"
     },
     obsidianSettingsSection: {
-      title: "Obsidian Settings",
-      description: "Control how the plugin functions inside Obsidian"
+      title: "Impostazioni Obsidian",
+      description: "Controlla come funziona il plugin all'interno di Obsidian"
     },
     logLevel: {
-      title: "Log Level",
-      description: "Set the level of logging to display in the console"
+      title: "Livello di Log",
+      description: "Imposta il livello di registrazione da visualizzare nella console"
     },
     titleProperty: {
-      title: "Title Property",
-      description: "The property to use as the title of the document"
+      title: "Propriet\xE0 del Titolo",
+      description: "La propriet\xE0 da utilizzare come titolo del documento"
+    }
+  }
+};
+
+// src/plugin/translations/uk.ts
+var language4 = {
+  cancel: "\u0421\u043A\u0430\u0441\u0443\u0432\u0430\u0442\u0438",
+  browse: "\u041E\u0433\u043B\u044F\u0434",
+  pathInputPlaceholder: "\u0412\u0432\u0435\u0434\u0456\u0442\u044C \u0430\u0431\u043E \u043E\u0431\u0435\u0440\u0456\u0442\u044C \u0448\u043B\u044F\u0445...",
+  pathValidations: {
+    noEmpty: "\u0428\u043B\u044F\u0445 \u043D\u0435 \u043C\u043E\u0436\u0435 \u0431\u0443\u0442\u0438 \u043F\u043E\u0440\u043E\u0436\u043D\u0456\u043C",
+    mustExist: "\u0428\u043B\u044F\u0445 \u043D\u0435 \u0456\u0441\u043D\u0443\u0454",
+    noTilde: "\u0414\u043E\u043C\u0430\u0448\u043D\u0456\u0439 \u043A\u0430\u0442\u0430\u043B\u043E\u0433 \u0437 \u0442\u0438\u043B\u044C\u0434\u043E\u044E (~) \u043D\u0435 \u0434\u043E\u0437\u0432\u043E\u043B\u044F\u0454\u0442\u044C\u0441\u044F",
+    noAbsolute: "\u0428\u043B\u044F\u0445 \u043D\u0435 \u043C\u043E\u0436\u0435 \u0431\u0443\u0442\u0438 \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u043D\u0438\u043C",
+    noRelative: "\u0428\u043B\u044F\u0445 \u043D\u0435 \u043C\u043E\u0436\u0435 \u0431\u0443\u0442\u0438 \u0432\u0456\u0434\u043D\u043E\u0441\u043D\u0438\u043C",
+    noFiles: "\u0428\u043B\u044F\u0445 \u043D\u0435 \u043C\u043E\u0436\u0435 \u0431\u0443\u0442\u0438 \u0444\u0430\u0439\u043B\u043E\u043C",
+    noFolders: "\u0428\u043B\u044F\u0445 \u043D\u0435 \u043C\u043E\u0436\u0435 \u0431\u0443\u0442\u0438 \u043A\u0430\u0442\u0430\u043B\u043E\u0433\u043E\u043C",
+    mustHaveExtension: "\u0428\u043B\u044F\u0445 \u043F\u043E\u0432\u0438\u043D\u0435\u043D \u043C\u0430\u0442\u0438 \u0440\u043E\u0437\u0448\u0438\u0440\u0435\u043D\u043D\u044F: {0}"
+  },
+  updateAvailable: "\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u0435 \u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u044F",
+  exportAsHTML: "\u0415\u043A\u0441\u043F\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438 \u044F\u043A HTML",
+  exportModal: {
+    title: "\u0415\u043A\u0441\u043F\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438 \u0432 HTML",
+    exportAsTitle: "\u0415\u043A\u0441\u043F\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438 {0} \u044F\u043A HTML",
+    moreOptions: "\u0411\u0456\u043B\u044C\u0448\u0435 \u043E\u043F\u0446\u0456\u0439 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u0446\u0456 \u043D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u044C \u043F\u043B\u0430\u0433\u0456\u043D\u0430.",
+    openAfterExport: "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0456\u0441\u043B\u044F \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443",
+    exportButton: "\u0415\u043A\u0441\u043F\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438",
+    filePicker: {
+      title: "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0432\u0441\u0456 \u0444\u0430\u0439\u043B\u0438 \u0432 \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u043E\u043C\u0443 \u0441\u0445\u043E\u0432\u0438\u0449\u0456",
+      selectAll: "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0432\u0441\u0435",
+      save: "\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438"
+    },
+    currentSite: {
+      noSite: "\u0426\u0435\u0439 \u0448\u043B\u044F\u0445 \u043D\u0430\u0440\u0430\u0437\u0456 \u043D\u0435 \u043C\u0456\u0441\u0442\u0438\u0442\u044C \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u043E\u0433\u043E \u0432\u0435\u0431-\u0441\u0430\u0439\u0442\u0443.",
+      oldSite: "\u0426\u0435\u0439 \u0448\u043B\u044F\u0445 \u043C\u0456\u0441\u0442\u0438\u0442\u044C \u0435\u043A\u0441\u043F\u043E\u0440\u0442, \u0441\u0442\u0432\u043E\u0440\u0435\u043D\u0438\u0439 \u0437 \u0456\u043D\u0448\u043E\u044E \u0432\u0435\u0440\u0441\u0456\u0454\u044E \u043F\u043B\u0430\u0433\u0456\u043D\u0430.",
+      pathContainsSite: "\u0421\u0430\u0439\u0442",
+      fileCount: "\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0444\u0430\u0439\u043B\u0456\u0432",
+      lastExported: "\u041E\u0441\u0442\u0430\u043D\u043D\u0456\u0439 \u0435\u043A\u0441\u043F\u043E\u0440\u0442"
+    },
+    exportMode: {
+      title: "\u0420\u0435\u0436\u0438\u043C \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443",
+      online: "\u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0439\u0442\u0435 \u0446\u0435\u0439 \u0440\u0435\u0436\u0438\u043C, \u044F\u043A\u0449\u043E \u0432\u0430\u0448\u0456 \u0444\u0430\u0439\u043B\u0438 \u0431\u0443\u0434\u0443\u0442\u044C \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0456 \u043E\u043D\u043B\u0430\u0439\u043D (\u0447\u0435\u0440\u0435\u0437 http-\u0441\u0435\u0440\u0432\u0435\u0440).",
+      local: "\u0426\u0435\u0439 \u0440\u0435\u0436\u0438\u043C \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443\u0454 \u043E\u0434\u0438\u043D (\u0432\u0435\u043B\u0438\u043A\u0438\u0439) HTML-\u0444\u0430\u0439\u043B, \u0449\u043E \u043C\u0456\u0441\u0442\u0438\u0442\u044C \u0432\u0435\u0441\u044C \u0435\u043A\u0441\u043F\u043E\u0440\u0442. \u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0439\u0442\u0435 \u043B\u0438\u0448\u0435 \u0434\u043B\u044F \u043E\u0444\u043B\u0430\u0439\u043D-\u043F\u043E\u0448\u0438\u0440\u0435\u043D\u043D\u044F.",
+      rawDocuments: "\u0415\u043A\u0441\u043F\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438 \u043F\u0440\u043E\u0441\u0442\u0456 HTML-\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438 \u0437 \u0431\u0430\u0437\u043E\u0432\u0438\u043C\u0438 \u0441\u0442\u0438\u043B\u044F\u043C\u0438 \u0442\u0430 \u0441\u043A\u0440\u0438\u043F\u0442\u0430\u043C\u0438, \u0430\u043B\u0435 \u0431\u0435\u0437 \u0434\u043E\u0434\u0430\u0442\u043A\u043E\u0432\u0438\u0445 \u0444\u0443\u043D\u043A\u0446\u0456\u0439."
+    },
+    purgeExport: {
+      description: "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u0438 \u043A\u0435\u0448 \u0441\u0430\u0439\u0442\u0443 \u0434\u043B\u044F \u043F\u043E\u0432\u0442\u043E\u0440\u043D\u043E\u0433\u043E \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443 \u0432\u0441\u0456\u0445 \u0444\u0430\u0439\u043B\u0456\u0432.",
+      clearCache: "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u0438 \u043A\u0435\u0448",
+      confirmation: "\u0412\u0438 \u0432\u043F\u0435\u0432\u043D\u0435\u043D\u0456?",
+      clearWarning: "\u0426\u0435 \u0432\u0438\u0434\u0430\u043B\u0438\u0442\u044C \u043C\u0435\u0442\u0430\u0434\u0430\u043D\u0456 \u0441\u0430\u0439\u0442\u0443 (\u0430\u043B\u0435 \u043D\u0435 \u0432\u0435\u0441\u044C \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u0438\u0439 HTML).\n\n\u0426\u0435 \u0437\u043C\u0443\u0441\u0438\u0442\u044C \u0441\u0430\u0439\u0442 \u043F\u043E\u0432\u0442\u043E\u0440\u043D\u043E \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438 \u0432\u0441\u0456 \u0444\u0430\u0439\u043B\u0438.\n\n\u0422\u0430\u043A\u043E\u0436, \u044F\u043A\u0449\u043E \u0432\u0438 \u0437\u043C\u0456\u043D\u0438\u0442\u0435 \u0432\u0438\u0431\u0440\u0430\u043D\u0456 \u0434\u043B\u044F \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443 \u0444\u0430\u0439\u043B\u0438 \u043F\u0435\u0440\u0435\u0434 \u043F\u043E\u0432\u0442\u043E\u0440\u043D\u0438\u043C \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u043C, \u0434\u0435\u044F\u043A\u0456 \u0444\u0430\u0439\u043B\u0438 \u043C\u043E\u0436\u0443\u0442\u044C \u0437\u0430\u043B\u0438\u0448\u0438\u0442\u0438\u0441\u044F \u043D\u0435\u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u0438\u043C\u0438 \u0443 \u0432\u0430\u0448\u0456\u0439 \u0444\u0430\u0439\u043B\u043E\u0432\u0456\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u0456.\n\n\u0426\u044E \u0434\u0456\u044E \u043D\u0435\u043C\u043E\u0436\u043B\u0438\u0432\u043E \u0441\u043A\u0430\u0441\u0443\u0432\u0430\u0442\u0438."
+    }
+  },
+  settings: {
+    title: "\u041D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443 HTML",
+    support: "\u041F\u0456\u0434\u0442\u0440\u0438\u043C\u0430\u0439\u0442\u0435 \u043F\u043E\u0434\u0430\u043B\u044C\u0448\u0443 \u0440\u043E\u0437\u0440\u043E\u0431\u043A\u0443 \u0446\u044C\u043E\u0433\u043E \u043F\u043B\u0430\u0433\u0456\u043D\u0430.",
+    debug: "\u041A\u043E\u043F\u0456\u044E\u0432\u0430\u0442\u0438 \u0432\u0456\u0434\u043B\u0430\u0433\u043E\u0434\u0436\u0443\u0432\u0430\u043B\u044C\u043D\u0443 \u0456\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044E \u0432 \u0431\u0443\u0444\u0435\u0440 \u043E\u0431\u043C\u0456\u043D\u0443",
+    unavailableSetting: "\u26A0\uFE0F \u0426\u044F \u0444\u0443\u043D\u043A\u0446\u0456\u044F \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u0432 \u0440\u0435\u0436\u0438\u043C\u0456 {0}.",
+    pageFeatures: {
+      title: "\u0424\u0443\u043D\u043A\u0446\u0456\u0457 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0438",
+      description: "\u041A\u0435\u0440\u0443\u0432\u0430\u043D\u043D\u044F \u0440\u0456\u0437\u043D\u0438\u043C\u0438 \u0444\u0443\u043D\u043A\u0446\u0456\u044F\u043C\u0438 \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u043E\u0457 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0438."
+    },
+    baseFeatures: {
+      info_selector: "CSS-\u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440 \u0434\u043B\u044F \u0435\u043B\u0435\u043C\u0435\u043D\u0442\u0430. \u0424\u0443\u043D\u043A\u0446\u0456\u044F \u0431\u0443\u0434\u0435 \u0440\u043E\u0437\u043C\u0456\u0449\u0435\u043D\u0430 \u0432\u0456\u0434\u043D\u043E\u0441\u043D\u043E \u0446\u044C\u043E\u0433\u043E \u0435\u043B\u0435\u043C\u0435\u043D\u0442\u0430.",
+      info_type: "\u0426\u044F \u0444\u0443\u043D\u043A\u0446\u0456\u044F \u0431\u0443\u0434\u0435 \u0440\u043E\u0437\u043C\u0456\u0449\u0435\u043D\u0430 \u043F\u0435\u0440\u0435\u0434, \u043F\u0456\u0441\u043B\u044F \u0447\u0438 \u0432\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0456 (\u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u0430\u0431\u043E \u0432 \u043A\u0456\u043D\u0446\u0456) \u0435\u043B\u0435\u043C\u0435\u043D\u0442\u0430.",
+      info_displayTitle: "\u041E\u043F\u0438\u0441\u043E\u0432\u0438\u0439 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0434\u043B\u044F \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u043D\u044F \u043D\u0430\u0434 \u0444\u0443\u043D\u043A\u0446\u0456\u0454\u044E",
+      info_featurePlacement: "\u0414\u0435 \u0440\u043E\u0437\u043C\u0456\u0441\u0442\u0438\u0442\u0438 \u0446\u044E \u0444\u0443\u043D\u043A\u0446\u0456\u044E \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u0446\u0456 (\u0432\u0456\u0434\u043D\u043E\u0441\u043D\u043E \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440\u0430)."
+    },
+    document: {
+      title: "\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442",
+      description: "\u041A\u0435\u0440\u0443\u0432\u0430\u043D\u043D\u044F \u043D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F\u043C\u0438 \u0441\u0430\u043C\u043E\u0433\u043E \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430",
+      info_allowFoldingLists: "\u0414\u043E\u0437\u0432\u043E\u043B\u0438\u0442\u0438 \u0447\u0438 \u0437\u0430\u0431\u043E\u0440\u043E\u043D\u0438\u0442\u0438 \u0437\u0433\u043E\u0440\u0442\u0430\u043D\u043D\u044F \u0441\u043F\u0438\u0441\u043A\u0456\u0432",
+      info_allowFoldingHeadings: "\u0414\u043E\u0437\u0432\u043E\u043B\u0438\u0442\u0438 \u0447\u0438 \u0437\u0430\u0431\u043E\u0440\u043E\u043D\u0438\u0442\u0438 \u0437\u0433\u043E\u0440\u0442\u0430\u043D\u043D\u044F \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0456\u0432",
+      info_documentWidth: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430"
+    },
+    sidebars: {
+      title: "\u0411\u0456\u0447\u043D\u0456 \u043F\u0430\u043D\u0435\u043B\u0456",
+      description: "\u041C\u0456\u0441\u0442\u0438\u0442\u044C \u0443\u0441\u0456 \u0456\u043D\u0448\u0456 \u0444\u0443\u043D\u043A\u0446\u0456\u0457, \u0442\u0430\u043A\u0456 \u044F\u043A \u043D\u0430\u0432\u0456\u0433\u0430\u0446\u0456\u044F \u043F\u043E \u0444\u0430\u0439\u043B\u0430\u0445, \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430, \u043F\u0435\u0440\u0435\u043C\u0438\u043A\u0430\u043D\u043D\u044F \u0442\u0435\u043C\u0438, \u0433\u0440\u0430\u0444\u0456\u0447\u043D\u0438\u0439 \u0432\u0438\u0433\u043B\u044F\u0434 \u0442\u043E\u0449\u043E.",
+      info_allowResizing: "\u0414\u043E\u0437\u0432\u043E\u043B\u0438\u0442\u0438 \u0447\u0438 \u0437\u0430\u0431\u043E\u0440\u043E\u043D\u0438\u0442\u0438 \u0437\u043C\u0456\u043D\u0443 \u0440\u043E\u0437\u043C\u0456\u0440\u0443 \u0431\u0456\u0447\u043D\u0438\u0445 \u043F\u0430\u043D\u0435\u043B\u0435\u0439",
+      info_allowCollapsing: "\u0414\u043E\u0437\u0432\u043E\u043B\u0438\u0442\u0438 \u0447\u0438 \u0437\u0430\u0431\u043E\u0440\u043E\u043D\u0438\u0442\u0438 \u0437\u0433\u043E\u0440\u0442\u0430\u043D\u043D\u044F \u0431\u0456\u0447\u043D\u0438\u0445 \u043F\u0430\u043D\u0435\u043B\u0435\u0439",
+      info_rightDefaultWidth: "\u0421\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u0430 \u0448\u0438\u0440\u0438\u043D\u0430 \u043F\u0440\u0430\u0432\u043E\u0457 \u0431\u0456\u0447\u043D\u043E\u0457 \u043F\u0430\u043D\u0435\u043B\u0456",
+      info_leftDefaultWidth: "\u0421\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u0430 \u0448\u0438\u0440\u0438\u043D\u0430 \u043B\u0456\u0432\u043E\u0457 \u0431\u0456\u0447\u043D\u043E\u0457 \u043F\u0430\u043D\u0435\u043B\u0456"
+    },
+    fileNavigation: {
+      title: "\u041D\u0430\u0432\u0456\u0433\u0430\u0446\u0456\u044F \u043F\u043E \u0444\u0430\u0439\u043B\u0430\u0445",
+      description: "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u0434\u0435\u0440\u0435\u0432\u043E \u0444\u0430\u0439\u043B\u0456\u0432 \u0434\u043B\u044F \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0443 \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u043E\u0433\u043E \u0441\u0445\u043E\u0432\u0438\u0449\u0430.",
+      info_showCustomIcons: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0446\u044C\u043A\u0456 \u0456\u043A\u043E\u043D\u043A\u0438 \u0434\u043B\u044F \u0444\u0430\u0439\u043B\u0456\u0432 \u0432 \u0434\u0435\u0440\u0435\u0432\u0456",
+      info_showDefaultFolderIcons: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u0443 \u0456\u043A\u043E\u043D\u043A\u0443 \u0434\u043B\u044F \u043A\u043E\u0436\u043D\u043E\u0457 \u043F\u0430\u043F\u043A\u0438 \u0432 \u0434\u0435\u0440\u0435\u0432\u0456",
+      info_showDefaultFileIcons: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u0443 \u0456\u043A\u043E\u043D\u043A\u0443 \u0434\u043B\u044F \u043A\u043E\u0436\u043D\u043E\u0433\u043E \u0444\u0430\u0439\u043B\u0443 \u0432 \u0434\u0435\u0440\u0435\u0432\u0456",
+      info_defaultFolderIcon: '\u0406\u043A\u043E\u043D\u043A\u0430 \u0434\u043B\u044F \u043F\u0430\u043F\u043E\u043A. \u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0439\u0442\u0435 \u043F\u0440\u0435\u0444\u0456\u043A\u0441 "lucide//" \u0434\u043B\u044F \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043D\u044F \u0456\u043A\u043E\u043D\u043A\u0438 Lucide',
+      info_defaultFileIcon: '\u0406\u043A\u043E\u043D\u043A\u0430 \u0434\u043B\u044F \u0444\u0430\u0439\u043B\u0456\u0432. \u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0439\u0442\u0435 \u043F\u0440\u0435\u0444\u0456\u043A\u0441 "lucide//" \u0434\u043B\u044F \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043D\u044F \u0456\u043A\u043E\u043D\u043A\u0438 Lucide',
+      info_defaultMediaIcon: '\u0406\u043A\u043E\u043D\u043A\u0430 \u0434\u043B\u044F \u043C\u0435\u0434\u0456\u0430-\u0444\u0430\u0439\u043B\u0456\u0432. \u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0439\u0442\u0435 \u043F\u0440\u0435\u0444\u0456\u043A\u0441 "lucide//" \u0434\u043B\u044F \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043D\u044F \u0456\u043A\u043E\u043D\u043A\u0438 Lucide',
+      info_exposeStartingPath: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043F\u043E\u0442\u043E\u0447\u043D\u0438\u0439 \u0444\u0430\u0439\u043B \u0443 \u0434\u0435\u0440\u0435\u0432\u0456 \u0444\u0430\u0439\u043B\u0456\u0432 \u043F\u0440\u0438 \u043F\u0435\u0440\u0448\u043E\u043C\u0443 \u0437\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u0456 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0438"
+    },
+    outline: {
+      title: "\u0421\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430",
+      description: "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u0441\u043F\u0438\u0441\u043E\u043A \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0456\u0432 \u0432\u0456\u0434\u043A\u0440\u0438\u0442\u043E\u0433\u043E \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430.",
+      info_startCollapsed: "\u0427\u0438 \u043F\u043E\u0432\u0438\u043D\u043D\u0430 \u0441\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u0430 \u043F\u043E\u0447\u0438\u043D\u0430\u0442\u0438\u0441\u044C \u0437\u0433\u043E\u0440\u043D\u0443\u0442\u043E\u044E?",
+      info_minCollapseDepth: "\u041C\u0456\u043D\u0456\u043C\u0430\u043B\u044C\u043D\u0430 \u0433\u043B\u0438\u0431\u0438\u043D\u0430, \u043D\u0430 \u044F\u043A\u0456\u0439 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0438 \u043C\u043E\u0436\u0443\u0442\u044C \u0431\u0443\u0442\u0438 \u0437\u0433\u043E\u0440\u043D\u0443\u0442\u0456."
+    },
+    graphView: {
+      title: "\u0413\u0440\u0430\u0444\u0456\u0447\u043D\u0438\u0439 \u0432\u0438\u0433\u043B\u044F\u0434",
+      description: "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u0432\u0456\u0437\u0443\u0430\u043B\u044C\u043D\u0435, \u0456\u043D\u0442\u0435\u0440\u0430\u043A\u0442\u0438\u0432\u043D\u0435 \u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u043D\u044F \u0432\u0430\u0448\u043E\u0433\u043E \u0441\u0445\u043E\u0432\u0438\u0449\u0430. (\u041F\u0420\u0418\u041C\u0406\u0422\u041A\u0410: \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u043B\u0438\u0448\u0435 \u0434\u043B\u044F \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0456\u0432, \u0440\u043E\u0437\u043C\u0456\u0449\u0435\u043D\u0438\u0445 \u043D\u0430 \u0432\u0435\u0431-\u0441\u0435\u0440\u0432\u0435\u0440\u0456)",
+      info_showOrphanNodes: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0432\u0443\u0437\u043B\u0438, \u043D\u0435 \u043F\u043E\u0432'\u044F\u0437\u0430\u043D\u0456 \u0437 \u0456\u043D\u0448\u0438\u043C\u0438 \u0432\u0443\u0437\u043B\u0430\u043C\u0438.",
+      info_showAttachments: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0432\u043A\u043B\u0430\u0434\u0435\u043D\u043D\u044F, \u0442\u0430\u043A\u0456 \u044F\u043A \u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u043D\u044F \u0442\u0430 PDF, \u044F\u043A \u0432\u0443\u0437\u043B\u0438 \u0432 \u0433\u0440\u0430\u0444\u0456.",
+      info_allowGlobalGraph: "\u0414\u043E\u0437\u0432\u043E\u043B\u0438\u0442\u0438 \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0435\u0432\u0456 \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0430\u0442\u0438 \u0433\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u0438\u0439 \u0433\u0440\u0430\u0444 \u0443\u0441\u0456\u0445 \u0432\u0443\u0437\u043B\u0456\u0432.",
+      info_allowExpand: "\u0414\u043E\u0437\u0432\u043E\u043B\u0438\u0442\u0438 \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0435\u0432\u0456 \u0440\u043E\u0437\u0433\u043E\u0440\u0442\u0430\u0442\u0438 \u0433\u0440\u0430\u0444\u0456\u0447\u043D\u0438\u0439 \u0432\u0438\u0433\u043B\u044F\u0434 \u043D\u0430 \u0432\u0435\u0441\u044C \u0435\u043A\u0440\u0430\u043D",
+      info_attractionForce: "\u041D\u0430\u0441\u043A\u0456\u043B\u044C\u043A\u0438 \u043F\u043E\u0432'\u044F\u0437\u0430\u043D\u0456 \u0432\u0443\u0437\u043B\u0438 \u043F\u043E\u0432\u0438\u043D\u043D\u0456 \u043F\u0440\u0438\u0442\u044F\u0433\u0443\u0432\u0430\u0442\u0438\u0441\u044F \u043E\u0434\u0438\u043D \u0434\u043E \u043E\u0434\u043D\u043E\u0433\u043E? \u0421\u0438\u043B\u044C\u043D\u0456\u0448\u0435 \u043F\u0440\u0438\u0442\u044F\u0433\u0430\u043D\u043D\u044F \u0437\u0440\u043E\u0431\u0438\u0442\u044C \u0433\u0440\u0430\u0444 \u0431\u0456\u043B\u044C\u0448 \u043A\u043B\u0430\u0441\u0442\u0435\u0440\u0438\u0437\u043E\u0432\u0430\u043D\u0438\u043C.",
+      info_linkLength: "\u042F\u043A\u043E\u0457 \u0434\u043E\u0432\u0436\u0438\u043D\u0438 \u043F\u043E\u0432\u0438\u043D\u043D\u0456 \u0431\u0443\u0442\u0438 \u0437\u0432'\u044F\u0437\u043A\u0438 \u043C\u0456\u0436 \u0432\u0443\u0437\u043B\u0430\u043C\u0438? \u041A\u043E\u0440\u043E\u0442\u0448\u0456 \u0437\u0432'\u044F\u0437\u043A\u0438 \u0437\u0431\u043B\u0438\u0437\u044F\u0442\u044C \u043F\u043E\u0432'\u044F\u0437\u0430\u043D\u0456 \u0432\u0443\u0437\u043B\u0438.",
+      info_repulsionForce: "\u041D\u0430\u0441\u043A\u0456\u043B\u044C\u043A\u0438 \u0432\u0443\u0437\u043B\u0438 \u043F\u043E\u0432\u0438\u043D\u043D\u0456 \u0432\u0456\u0434\u0448\u0442\u043E\u0432\u0445\u0443\u0432\u0430\u0442\u0438\u0441\u044F \u043E\u0434\u0438\u043D \u0432\u0456\u0434 \u043E\u0434\u043D\u043E\u0433\u043E? \u0421\u0438\u043B\u044C\u043D\u0456\u0448\u0435 \u0432\u0456\u0434\u0448\u0442\u043E\u0432\u0445\u0443\u0432\u0430\u043D\u043D\u044F \u0440\u043E\u0437\u0441\u0456\u0454 \u043D\u0435\u0437\u0432'\u044F\u0437\u0430\u043D\u0456 \u0447\u0430\u0441\u0442\u0438\u043D\u0438.",
+      info_centralForce: "\u041D\u0430\u0441\u043A\u0456\u043B\u044C\u043A\u0438 \u0432\u0443\u0437\u043B\u0438 \u043F\u043E\u0432\u0438\u043D\u043D\u0456 \u043F\u0440\u0438\u0442\u044F\u0433\u0443\u0432\u0430\u0442\u0438\u0441\u044F \u0434\u043E \u0446\u0435\u043D\u0442\u0440\u0443? \u0421\u0438\u043B\u044C\u043D\u0456\u0448\u0435 \u043F\u0440\u0438\u0442\u044F\u0433\u0430\u043D\u043D\u044F \u0437\u0440\u043E\u0431\u0438\u0442\u044C \u0433\u0440\u0430\u0444 \u0449\u0456\u043B\u044C\u043D\u0456\u0448\u0438\u043C \u0456 \u043A\u0440\u0443\u0433\u043B\u0456\u0448\u0438\u043C.",
+      info_edgePruning: "\u0417\u0432'\u044F\u0437\u043A\u0438, \u0434\u043E\u0432\u0436\u0438\u043D\u0430 \u044F\u043A\u0438\u0445 \u043F\u0435\u0440\u0435\u0432\u0438\u0449\u0443\u0454 \u0446\u0435\u0439 \u043F\u043E\u0440\u0456\u0433, \u043D\u0435 \u0431\u0443\u0434\u0443\u0442\u044C \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u0438\u0441\u044F, \u0430\u043B\u0435 \u0432\u0441\u0435 \u043E\u0434\u043D\u043E \u0432\u043F\u043B\u0438\u0432\u0430\u0442\u0438\u043C\u0443\u0442\u044C \u043D\u0430 \u0441\u0438\u043C\u0443\u043B\u044F\u0446\u0456\u044E. \u0426\u0435 \u0434\u043E\u043F\u043E\u043C\u043E\u0436\u0435 \u0432\u0435\u043B\u0438\u043A\u0438\u043C \u0437\u0430\u043F\u043B\u0443\u0442\u0430\u043D\u0438\u043C \u0433\u0440\u0430\u0444\u0430\u043C \u0432\u0438\u0433\u043B\u044F\u0434\u0430\u0442\u0438 \u043E\u0440\u0433\u0430\u043D\u0456\u0437\u043E\u0432\u0430\u043D\u0456\u0448\u0435. \u041F\u0440\u0438 \u043D\u0430\u0432\u0435\u0434\u0435\u043D\u043D\u0456 \u043D\u0430 \u0432\u0443\u0437\u043E\u043B \u0446\u0456 \u0437\u0432'\u044F\u0437\u043A\u0438 \u0432\u0441\u0435 \u043E\u0434\u043D\u043E \u0431\u0443\u0434\u0443\u0442\u044C \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u0438\u0441\u044F.",
+      info_minNodeRadius: "\u042F\u043A\u043E\u0433\u043E \u0440\u043E\u0437\u043C\u0456\u0440\u0443 \u043F\u043E\u0432\u0438\u043D\u043D\u0456 \u0431\u0443\u0442\u0438 \u043D\u0430\u0439\u043C\u0435\u043D\u0448\u0456 \u0432\u0443\u0437\u043B\u0438? \u041C\u0435\u043D\u0448\u0456 \u0432\u0443\u0437\u043B\u0438 \u043C\u0435\u043D\u0448\u0435 \u043F\u0440\u0438\u0442\u044F\u0433\u0443\u0432\u0430\u0442\u0438\u043C\u0443\u0442\u044C \u0456\u043D\u0448\u0456 \u0432\u0443\u0437\u043B\u0438.",
+      info_maxNodeRadius: "\u042F\u043A\u043E\u0433\u043E \u0440\u043E\u0437\u043C\u0456\u0440\u0443 \u043F\u043E\u0432\u0438\u043D\u043D\u0456 \u0431\u0443\u0442\u0438 \u043D\u0430\u0439\u0431\u0456\u043B\u044C\u0448\u0456 \u0432\u0443\u0437\u043B\u0438? \u0420\u043E\u0437\u043C\u0456\u0440 \u0432\u0443\u0437\u043B\u0456\u0432 \u0437\u0430\u043B\u0435\u0436\u0438\u0442\u044C \u0432\u0456\u0434 \u043A\u0456\u043B\u044C\u043A\u043E\u0441\u0442\u0456 \u0457\u0445\u043D\u0456\u0445 \u0437\u0432'\u044F\u0437\u043A\u0456\u0432. \u0411\u0456\u043B\u044C\u0448\u0456 \u0432\u0443\u0437\u043B\u0438 \u0441\u0438\u043B\u044C\u043D\u0456\u0448\u0435 \u043F\u0440\u0438\u0442\u044F\u0433\u0443\u0432\u0430\u0442\u0438\u043C\u0443\u0442\u044C \u0456\u043D\u0448\u0456 \u0432\u0443\u0437\u043B\u0438. \u0426\u0435 \u0434\u043E\u043F\u043E\u043C\u043E\u0436\u0435 \u0441\u0442\u0432\u043E\u0440\u0438\u0442\u0438 \u0445\u043E\u0440\u043E\u0448\u0435 \u0433\u0440\u0443\u043F\u0443\u0432\u0430\u043D\u043D\u044F \u043D\u0430\u0432\u043A\u043E\u043B\u043E \u043D\u0430\u0439\u0432\u0430\u0436\u043B\u0438\u0432\u0456\u0448\u0438\u0445 \u0432\u0443\u0437\u043B\u0456\u0432."
+    },
+    search: {
+      title: "\u041F\u0430\u043D\u0435\u043B\u044C \u043F\u043E\u0448\u0443\u043A\u0443",
+      description: "\u0414\u043E\u0437\u0432\u043E\u043B\u044F\u0454 \u0448\u0443\u043A\u0430\u0442\u0438 \u0443 \u0441\u0445\u043E\u0432\u0438\u0449\u0456, \u043F\u043E\u043A\u0430\u0437\u0443\u044E\u0447\u0438 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u043D\u0456 \u0444\u0430\u0439\u043B\u0438 \u0442\u0430 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0438. (\u041F\u0420\u0418\u041C\u0406\u0422\u041A\u0410: \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u043B\u0438\u0448\u0435 \u0434\u043B\u044F \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0456\u0432, \u0440\u043E\u0437\u043C\u0456\u0449\u0435\u043D\u0438\u0445 \u043D\u0430 \u0432\u0435\u0431-\u0441\u0435\u0440\u0432\u0435\u0440\u0456)",
+      placeholder: "\u041F\u043E\u0448\u0443\u043A..."
+    },
+    linkPreview: {
+      title: "\u041F\u043E\u043F\u0435\u0440\u0435\u0434\u043D\u0456\u0439 \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u044C",
+      description: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043F\u043E\u043F\u0435\u0440\u0435\u0434\u043D\u0456\u0439 \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434 \u043F\u0440\u0438 \u043D\u0430\u0432\u0435\u0434\u0435\u043D\u043D\u0456 \u043D\u0430 \u0432\u043D\u0443\u0442\u0440\u0456\u0448\u043D\u0456 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F \u0434\u043E \u0456\u043D\u0448\u0438\u0445 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0456\u0432."
+    },
+    themeToggle: {
+      title: "\u041F\u0435\u0440\u0435\u043C\u0438\u043A\u0430\u0447 \u0442\u0435\u043C\u0438",
+      description: "\u0414\u043E\u0437\u0432\u043E\u043B\u044F\u0454 \u0434\u0438\u043D\u0430\u043C\u0456\u0447\u043D\u043E \u043F\u0435\u0440\u0435\u043C\u0438\u043A\u0430\u0442\u0438\u0441\u044F \u043C\u0456\u0436 \u0442\u0435\u043C\u043D\u043E\u044E \u0442\u0430 \u0441\u0432\u0456\u0442\u043B\u043E\u044E \u0442\u0435\u043C\u0430\u043C\u0438."
+    },
+    customHead: {
+      title: "\u0412\u043B\u0430\u0441\u043D\u0438\u0439 HTML / JS",
+      description: "\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u0438 \u0432\u043A\u0430\u0437\u0430\u043D\u0438\u0439 HTML-\u0444\u0430\u0439\u043B \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443, \u044F\u043A\u0438\u0439 \u043C\u043E\u0436\u0435 \u0432\u043A\u043B\u044E\u0447\u0430\u0442\u0438 \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0446\u044C\u043A\u0438\u0439 JS \u0430\u0431\u043E CSS",
+      info_sourcePath: "\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u0438\u0439 \u0448\u043B\u044F\u0445 \u0434\u043E HTML-\u0444\u0430\u0439\u043B\u0443, \u044F\u043A\u0438\u0439 \u0431\u0443\u0434\u0435 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u043E.",
+      validationError: "\u041C\u0430\u0454 \u0431\u0443\u0442\u0438 \u0448\u043B\u044F\u0445 \u0434\u043E HTML-\u0444\u0430\u0439\u043B\u0443"
+    },
+    backlinks: {
+      title: "\u0417\u0432\u043E\u0440\u043E\u0442\u043D\u0456 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F",
+      description: "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u0432\u0441\u0456 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438, \u044F\u043A\u0456 \u043F\u043E\u0441\u0438\u043B\u0430\u044E\u0442\u044C\u0441\u044F \u043D\u0430 \u043F\u043E\u0442\u043E\u0447\u043D\u0438\u0439 \u0432\u0456\u0434\u043A\u0440\u0438\u0442\u0438\u0439 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442."
+    },
+    tags: {
+      title: "\u0422\u0435\u0433\u0438",
+      description: "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u0442\u0435\u0433\u0438 \u0434\u043B\u044F \u043F\u043E\u0442\u043E\u0447\u043D\u043E\u0433\u043E \u0432\u0456\u0434\u043A\u0440\u0438\u0442\u043E\u0433\u043E \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430.",
+      info_showInlineTags: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0442\u0435\u0433\u0438, \u0432\u0438\u0437\u043D\u0430\u0447\u0435\u043D\u0456 \u0432\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0456 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430, \u0432\u0433\u043E\u0440\u0456 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0438.",
+      info_showFrontmatterTags: "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u0442\u0435\u0433\u0438, \u0432\u0438\u0437\u043D\u0430\u0447\u0435\u043D\u0456 \u0443 frontmatter \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430, \u0432\u0433\u043E\u0440\u0456 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0438."
+    },
+    aliases: {
+      title: "\u041F\u0441\u0435\u0432\u0434\u043E\u043D\u0456\u043C\u0438",
+      description: "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u043F\u0441\u0435\u0432\u0434\u043E\u043D\u0456\u043C\u0438 \u0434\u043B\u044F \u043F\u043E\u0442\u043E\u0447\u043D\u043E\u0433\u043E \u0432\u0456\u0434\u043A\u0440\u0438\u0442\u043E\u0433\u043E \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430."
+    },
+    properties: {
+      title: "\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456",
+      description: "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u0432\u0441\u0456 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456 \u043F\u043E\u0442\u043E\u0447\u043D\u043E\u0433\u043E \u0432\u0456\u0434\u043A\u0440\u0438\u0442\u043E\u0433\u043E \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430 \u0443 \u0432\u0438\u0433\u043B\u044F\u0434\u0456 \u0442\u0430\u0431\u043B\u0438\u0446\u0456.",
+      info_hideProperties: "\u0421\u043F\u0438\u0441\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439, \u044F\u043A\u0456 \u0441\u043B\u0456\u0434 \u043F\u0440\u0438\u0445\u043E\u0432\u0430\u0442\u0438 \u0437 \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0443 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439"
+    },
+    rss: {
+      title: "RSS",
+      description: "\u0413\u0435\u043D\u0435\u0440\u0443\u0432\u0430\u0442\u0438 RSS-\u0441\u0442\u0440\u0456\u0447\u043A\u0443 \u0434\u043B\u044F \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u043E\u0433\u043E \u0441\u0430\u0439\u0442\u0443",
+      info_siteUrl: "URL, \u043D\u0430 \u044F\u043A\u043E\u043C\u0443 \u0431\u0443\u0434\u0435 \u0440\u043E\u0437\u043C\u0456\u0449\u0435\u043D\u043E \u0446\u0435\u0439 \u0441\u0430\u0439\u0442",
+      info_siteUrlPlaceholder: "https://example.com/mysite",
+      info_authorName: "\u0406\u043C'\u044F \u0430\u0432\u0442\u043E\u0440\u0430 \u0441\u0430\u0439\u0442\u0443"
+    },
+    styleOptionsSection: {
+      title: "\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u0438 \u0441\u0442\u0438\u043B\u044E",
+      description: "\u041D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u0442\u0438, \u044F\u043A\u0456 \u0441\u0442\u0438\u043B\u0456 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0456 \u0432 \u0435\u043A\u0441\u043F\u043E\u0440\u0442"
+    },
+    makeOfflineCompatible: {
+      title: "\u0417\u0440\u043E\u0431\u0438\u0442\u0438 \u0441\u0443\u043C\u0456\u0441\u043D\u0438\u043C \u043E\u0444\u043B\u0430\u0439\u043D",
+      description: "\u0417\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0438\u0442\u0438 \u0431\u0443\u0434\u044C-\u044F\u043A\u0456 \u043E\u043D\u043B\u0430\u0439\u043D-\u0440\u0435\u0441\u0443\u0440\u0441\u0438 / \u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u043D\u044F / \u0441\u043A\u0440\u0438\u043F\u0442\u0438, \u0449\u043E\u0431 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443 \u043C\u043E\u0436\u043D\u0430 \u0431\u0443\u043B\u043E \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0430\u0442\u0438 \u043E\u0444\u043B\u0430\u0439\u043D. \u0410\u0431\u043E \u0449\u043E\u0431 \u0432\u0435\u0431-\u0441\u0430\u0439\u0442 \u043D\u0435 \u0437\u0430\u043B\u0435\u0436\u0430\u0432 \u0432\u0456\u0434 CDN."
+    },
+    includePluginCSS: {
+      title: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u0438 CSS \u0437 \u043F\u043B\u0430\u0433\u0456\u043D\u0456\u0432",
+      description: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u0438 CSS \u0437 \u043D\u0430\u0441\u0442\u0443\u043F\u043D\u0438\u0445 \u043F\u043B\u0430\u0433\u0456\u043D\u0456\u0432 \u0432 \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u0438\u0439 HTML. \u042F\u043A\u0449\u043E \u0444\u0443\u043D\u043A\u0446\u0456\u0457 \u043F\u043B\u0430\u0433\u0456\u043D\u0456\u0432 \u043D\u0435 \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0430\u044E\u0442\u044C\u0441\u044F \u043A\u043E\u0440\u0435\u043A\u0442\u043D\u043E, \u0441\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0434\u043E\u0434\u0430\u0442\u0438 \u043F\u043B\u0430\u0433\u0456\u043D \u0434\u043E \u0446\u044C\u043E\u0433\u043E \u0441\u043F\u0438\u0441\u043A\u0443. \u0423\u043D\u0438\u043A\u0430\u0439\u0442\u0435 \u0434\u043E\u0434\u0430\u0432\u0430\u043D\u043D\u044F \u043F\u043B\u0430\u0433\u0456\u043D\u0456\u0432, \u044F\u043A\u0449\u043E \u0432\u0438 \u043D\u0435 \u043F\u043E\u043C\u0456\u0442\u0438\u043B\u0438 \u043A\u043E\u043D\u043A\u0440\u0435\u0442\u043D\u043E\u0457 \u043F\u0440\u043E\u0431\u043B\u0435\u043C\u0438, \u043E\u0441\u043A\u0456\u043B\u044C\u043A\u0438 \u0431\u0456\u043B\u044C\u0448\u0435 CSS \u0437\u0431\u0456\u043B\u044C\u0448\u0438\u0442\u044C \u0447\u0430\u0441 \u0437\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0435\u043D\u043D\u044F \u0432\u0430\u0448\u043E\u0457 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0438."
+    },
+    includeStyleCssIds: {
+      title: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u0438 \u0441\u0442\u0438\u043B\u0456 \u0437 ID",
+      description: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u0438 CSS \u0437 \u0442\u0435\u0433\u0456\u0432 \u0441\u0442\u0438\u043B\u044E \u0437 \u0442\u0430\u043A\u0438\u043C\u0438 ID \u0432 \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u0438\u0439 HTML"
+    },
+    generalSettingsSection: {
+      title: "\u0417\u0430\u0433\u0430\u043B\u044C\u043D\u0456 \u043D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F",
+      description: "\u041A\u0435\u0440\u0443\u0432\u0430\u043D\u043D\u044F \u043F\u0440\u043E\u0441\u0442\u0438\u043C\u0438 \u043D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F\u043C\u0438, \u0442\u0430\u043A\u0438\u043C\u0438 \u044F\u043A favicon \u0442\u0430 \u043C\u0435\u0442\u0430\u0434\u0430\u043D\u0456 \u0441\u0430\u0439\u0442\u0443"
+    },
+    favicon: {
+      title: "\u0417\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u043D\u044F Favicon",
+      description: "\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u0438\u0439 \u0448\u043B\u044F\u0445 \u0434\u043E favicon \u0434\u043B\u044F \u0441\u0430\u0439\u0442\u0443"
+    },
+    siteName: {
+      title: "\u041D\u0430\u0437\u0432\u0430 \u0441\u0430\u0439\u0442\u0443",
+      description: "\u041D\u0430\u0437\u0432\u0430 \u0441\u0445\u043E\u0432\u0438\u0449\u0430 / \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u043E\u0432\u0430\u043D\u043E\u0433\u043E \u0441\u0430\u0439\u0442\u0443"
+    },
+    iconEmojiStyle: {
+      title: "\u0421\u0442\u0438\u043B\u044C \u0456\u043A\u043E\u043D\u043E\u043A-\u0435\u043C\u043E\u0434\u0437\u0456",
+      description: "\u0421\u0442\u0438\u043B\u044C \u0435\u043C\u043E\u0434\u0437\u0456 \u0434\u043B\u044F \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043D\u044F \u0443 \u043A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0446\u044C\u043A\u0438\u0445 \u0456\u043A\u043E\u043D\u043A\u0430\u0445"
+    },
+    themeName: {
+      title: "\u0422\u0435\u043C\u0430",
+      description: "\u0412\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0430 \u0442\u0435\u043C\u0430 \u0434\u043B\u044F \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043D\u044F \u043F\u0440\u0438 \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0456"
+    },
+    exportSettingsSection: {
+      title: "\u041D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443",
+      description: "\u041A\u0435\u0440\u0443\u0432\u0430\u043D\u043D\u044F \u0431\u0456\u043B\u044C\u0448 \u0442\u0435\u0445\u043D\u0456\u0447\u043D\u0438\u043C\u0438 \u043D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F\u043C\u0438 \u0435\u043A\u0441\u043F\u043E\u0440\u0442\u0443, \u0442\u0430\u043A\u0438\u043C\u0438 \u044F\u043A \u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0456\u044F \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u044C"
+    },
+    relativeHeaderLinks: {
+      title: "\u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0432\u0430\u0442\u0438 \u0432\u0456\u0434\u043D\u043E\u0441\u043D\u0456 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0456\u0432",
+      description: "\u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0432\u0430\u0442\u0438 \u0432\u0456\u0434\u043D\u043E\u0441\u043D\u0456 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F \u0434\u043B\u044F \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0456\u0432 \u0437\u0430\u043C\u0456\u0441\u0442\u044C \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u043D\u0438\u0445"
+    },
+    slugifyPaths: {
+      title: "Slugify \u0448\u043B\u044F\u0445\u0438",
+      description: "\u0417\u0440\u043E\u0431\u0438\u0442\u0438 \u0432\u0441\u0456 \u0448\u043B\u044F\u0445\u0438 \u0442\u0430 \u0456\u043C\u0435\u043D\u0430 \u0444\u0430\u0439\u043B\u0456\u0432 \u0443 \u0432\u0435\u0431-\u0441\u0442\u0438\u043B\u0456 (\u043D\u0438\u0436\u043D\u0456\u0439 \u0440\u0435\u0433\u0456\u0441\u0442\u0440, \u0431\u0435\u0437 \u043F\u0440\u043E\u0431\u0456\u043B\u0456\u0432)"
+    },
+    addPageIcon: {
+      title: "\u0414\u043E\u0434\u0430\u0442\u0438 \u0456\u043A\u043E\u043D\u043A\u0443 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0438",
+      description: "\u0414\u043E\u0434\u0430\u0442\u0438 \u0456\u043A\u043E\u043D\u043A\u0443 \u0444\u0430\u0439\u043B\u0443 \u0434\u043E \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0438"
+    },
+    obsidianSettingsSection: {
+      title: "\u041D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F Obsidian",
+      description: "\u041A\u0435\u0440\u0443\u0432\u0430\u043D\u043D\u044F \u0444\u0443\u043D\u043A\u0446\u0456\u043E\u043D\u0443\u0432\u0430\u043D\u043D\u044F\u043C \u043F\u043B\u0430\u0433\u0456\u043D\u0430 \u0432\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0456 Obsidian"
+    },
+    logLevel: {
+      title: "\u0420\u0456\u0432\u0435\u043D\u044C \u0436\u0443\u0440\u043D\u0430\u043B\u044E\u0432\u0430\u043D\u043D\u044F",
+      description: "\u0412\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0438 \u0440\u0456\u0432\u0435\u043D\u044C \u0436\u0443\u0440\u043D\u0430\u043B\u044E\u0432\u0430\u043D\u043D\u044F \u0434\u043B\u044F \u0432\u0456\u0434\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u043D\u044F \u0432 \u043A\u043E\u043D\u0441\u043E\u043B\u0456"
+    },
+    titleProperty: {
+      title: "\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u0456\u0441\u0442\u044C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430",
+      description: "\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u0456\u0441\u0442\u044C \u0434\u043B\u044F \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u0430\u043D\u043D\u044F \u044F\u043A \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430"
+    }
+  }
+};
+
+// src/plugin/translations/pt.ts
+var language5 = {
+  cancel: "Cancelar",
+  browse: "Procurar",
+  pathInputPlaceholder: "Digite ou procure um caminho...",
+  pathValidations: {
+    noEmpty: "O caminho n\xE3o pode estar vazio",
+    mustExist: "O caminho n\xE3o existe",
+    noTilde: "Diret\xF3rio inicial com til (~) n\xE3o \xE9 permitido",
+    noAbsolute: "O caminho n\xE3o pode ser absoluto",
+    noRelative: "O caminho n\xE3o pode ser relativo",
+    noFiles: "O caminho n\xE3o pode ser um arquivo",
+    noFolders: "O caminho n\xE3o pode ser um diret\xF3rio",
+    mustHaveExtension: "O caminho deve ter a extens\xE3o: {0}"
+  },
+  updateAvailable: "Atualiza\xE7\xE3o dispon\xEDvel",
+  exportAsHTML: "Exportar como HTML",
+  exportModal: {
+    title: "Exportar para HTML",
+    exportAsTitle: "Exportar {0} como HTML",
+    moreOptions: "Mais op\xE7\xF5es dispon\xEDveis na p\xE1gina de configura\xE7\xF5es do plugin.",
+    openAfterExport: "Abrir ap\xF3s exportar",
+    exportButton: "Exportar",
+    filePicker: {
+      title: "Selecionar todos os arquivos no cofre exportado",
+      selectAll: "Selecionar tudo",
+      save: "Salvar"
+    },
+    currentSite: {
+      noSite: "Este caminho n\xE3o cont\xE9m um site exportado atualmente.",
+      oldSite: "Este caminho cont\xE9m uma exporta\xE7\xE3o criada com uma vers\xE3o diferente do plugin.",
+      pathContainsSite: "Site",
+      fileCount: "Quantidade de arquivos",
+      lastExported: "\xDAltima exporta\xE7\xE3o"
+    },
+    exportMode: {
+      title: "Modo de Exporta\xE7\xE3o",
+      online: "Use este modo se seus arquivos forem acessados online (via servidor http).",
+      local: "Este modo exporta um \xFAnico arquivo HTML (grande) contendo toda a exporta\xE7\xE3o. Use apenas para compartilhamento offline.",
+      rawDocuments: "Exportar documentos HTML simples com estilo e scripts b\xE1sicos, sem recursos adicionais."
+    },
+    purgeExport: {
+      description: "Limpe o cache do site para reexportar todos os arquivos ou exclua o site com todos os seus arquivos.",
+      clearCache: "Limpar Cache",
+      confirmation: "Tem certeza?",
+      clearWarning: "Isso excluir\xE1 os metadados do site (mas n\xE3o todo o HTML exportado).\n\nFor\xE7ar\xE1 a reexporta\xE7\xE3o de todos os arquivos.\n\nAl\xE9m disso se voc\xEA alterar os arquivos selecionados antes da pr\xF3xima exporta\xE7\xE3o, alguns arquivos podem permanecer inutilizados no seu sistema.\n\nEsta a\xE7\xE3o n\xE3o pode ser desfeita."
+    }
+  },
+  settings: {
+    title: "Configura\xE7\xF5es de Exporta\xE7\xE3o HTML",
+    support: "Apoie o desenvolvimento cont\xEDnuo deste plugin.",
+    debug: "Copiar informa\xE7\xF5es de debug para a \xE1rea de transfer\xEAncia",
+    unavailableSetting: "\u26A0\uFE0F Este recurso n\xE3o est\xE1 dispon\xEDvel no modo {0}.",
+    pageFeatures: {
+      title: "Recursos da P\xE1gina",
+      description: "Controle diversos recursos da p\xE1gina exportada."
+    },
+    baseFeatures: {
+      info_selector: "Seletor CSS de um elemento. O recurso ser\xE1 posicionado em rela\xE7\xE3o a esse elemento.",
+      info_type: "Este recurso ser\xE1 colocado antes, depois ou dentro (no in\xEDcio ou final).",
+      info_displayTitle: "T\xEDtulo descritivo a ser exibido acima do recurso",
+      info_featurePlacement: "Onde posicionar esse recurso na p\xE1gina. (Relativo ao seletor)"
+    },
+    document: {
+      title: "Documento",
+      description: "Controle configura\xE7\xF5es do pr\xF3prio documento",
+      info_allowFoldingLists: "Permitir que listas sejam recolhidas",
+      info_allowFoldingHeadings: "Permitir que cabe\xE7alhos sejam recolhidos",
+      info_documentWidth: "A largura do documento"
+    },
+    sidebars: {
+      title: "Barras Laterais",
+      description: "Cont\xE9m recursos como navega\xE7\xE3o de arquivos, sum\xE1rio, altern\xE2ncia de tema, visualiza\xE7\xE3o em gr\xE1fico etc.",
+      info_allowResizing: "Permitir redimensionamento das barras laterais",
+      info_allowCollapsing: "Permitir recolher as barras laterais",
+      info_rightDefaultWidth: "Largura padr\xE3o da barra lateral direita",
+      info_leftDefaultWidth: "Largura padr\xE3o da barra lateral esquerda"
+    },
+    fileNavigation: {
+      title: "Navega\xE7\xE3o de Arquivos",
+      description: "Exibe uma \xE1rvore de arquivos para explorar o cofre exportado.",
+      info_showCustomIcons: "Exibir \xEDcones personalizados para arquivos e pastas",
+      info_showDefaultFolderIcons: "Mostrar \xEDcone padr\xE3o para cada pasta na \xE1rvore",
+      info_showDefaultFileIcons: "Mostrar \xEDcone padr\xE3o para cada arquivo na \xE1rvore",
+      info_defaultFolderIcon: "\xCDcone usado para pastas. Prefixe com 'lucide//' para usar um \xEDcone do Lucide",
+      info_defaultFileIcon: "\xCDcone usado para arquivos. Prefixe com 'lucide//' para usar um \xEDcone do Lucide",
+      info_defaultMediaIcon: "\xCDcone usado para arquivos de m\xEDdia. Prefixe com 'lucide//' para usar um \xEDcone do Lucide",
+      info_exposeStartingPath: "Mostrar o arquivo atual na \xE1rvore ao carregar a p\xE1gina"
+    },
+    outline: {
+      title: "Sum\xE1rio",
+      description: "Exibe uma lista de cabe\xE7alhos do documento aberto.",
+      info_startCollapsed: "O sum\xE1rio deve come\xE7ar recolhido?",
+      info_minCollapseDepth: "Permitir recolhimento apenas se o item tiver ao menos esse n\xFAmero de n\xEDveis na \xE1rvore."
+    },
+    graphView: {
+      title: "Visualiza\xE7\xE3o em Gr\xE1fico",
+      description: "Mostra uma representa\xE7\xE3o interativa do seu cofre. (NOTA: dispon\xEDvel apenas em exporta\xE7\xF5es hospedadas num servidor web)",
+      info_showOrphanNodes: "Exibir n\xF3s sem conex\xE3o com outros",
+      info_showAttachments: "Mostrar anexos como imagens e PDFs como n\xF3s no gr\xE1fico.",
+      info_allowGlobalGraph: "Permitir ao utilizador a visualiza\xE7\xE3o do gr\xE1fico global para todos os n\xF3s",
+      info_allowExpand: "Permitir expandir a visualiza\xE7\xE3o para tela inteira",
+      info_attractionForce: "Com qual for\xE7a os n\xF3s s\xE3o atra\xEDdos uns pelos outros? Isso far\xE1 com que o gr\xE1fico seja mais compacto.",
+      info_linkLength: "Qu\xE3o longos os links entres os n\xF3s devem ser? Quanto mais curtos os links, mais conectados os n\xF3s parecer\xE3o.",
+      info_repulsionForce: "Com qual for\xE7a os n\xF3s s\xE3o repelidos uns dos outros? Isso far\xE1 com que partes desconectadas do gr\xE1fico estejam mais espa\xE7adas.",
+      info_centralForce: "Com qual intensidade os n\xF3s s\xE3o atra\xEDdos para o centro do gr\xE1fico? Isso far\xE1 com que o gr\xE1fico seja mais denso e circular.",
+      info_edgePruning: "Arestas com copmrimeto menor que esse limite n\xE3o ser\xE3o renderizadas, no entanto, ainda contribuir\xE3o para a simula\xE7\xE3o. Isso pode ser \xFAtil para que gr\xE1ficos enrolados sejam apresentados de forma mais organizada. Passando o mouse sobre um n\xF3 mostrar\xE1 todas as arestas conectadas a ele.",
+      info_minNodeRadius: "Qu\xE3o pequenos os menores n\xF3s devem ser? Quando menor um n\xF3, menos atrair\xE1 outros n\xF3s.",
+      info_maxNodeRadius: "Qu\xE3o grandes os maiores n\xF3s devem ser? N\xF3s s\xE3o escalados proporcionalmente ao n\xFAmero de conex\xF5es que t\xEAm. Quanto maior um n\xF3, mais atrair\xE1 outros n\xF3s. Isso pode ser \xFAtil para agrupar e destacar n\xF3s importantes."
+    },
+    search: {
+      title: "Barra de Pesquisa",
+      description: "Permite pesquisar no cofre, listando arquivos e cabe\xE7alhos correspondentes. (NOTA: dispon\xEDvel apenas em exporta\xE7\xF5es hospedadas na web)",
+      placeholder: "Pesquisar..."
+    },
+    linkPreview: {
+      title: "Pr\xE9-visualiza\xE7\xF5es de Links",
+      description: "Mostrar pr\xE9-visualiza\xE7\xF5es ao passar o mouse sobre links internos para outros documentos."
+    },
+    themeToggle: {
+      title: "Alternar Tema",
+      description: "Permite alternar entre tema claro e escuro dinamicamente."
+    },
+    customHead: {
+      title: "HTML / JS Personalizado",
+      description: "Insere um arquivo .html que pode conter JS ou CSS personalizados",
+      info_sourcePath: "Caminho local do arquivo .html que ser\xE1 inclu\xEDdo.",
+      validationError: "Deve ser o caminho de um arquivo .html"
+    },
+    backlinks: {
+      title: "Links de Retorno",
+      description: "Mostra os documentos que fazem refer\xEAncia ao documento atual."
+    },
+    tags: {
+      title: "Tags",
+      description: "Exibe as tags do documento aberto.",
+      info_showInlineTags: "Mostrar tags definidas dentro do conte\xFAdo no topo da p\xE1gina.",
+      info_showFrontmatterTags: "Mostrar tags definidas no frontmatter no topo da p\xE1gina."
+    },
+    aliases: {
+      title: "Apelidos",
+      description: "Exibe os apelidos do documento atual."
+    },
+    properties: {
+      title: "Propriedades",
+      description: "Exibe todas as propriedades do documento em uma tabela.",
+      info_hideProperties: "Lista de propriedades a ocultar na visualiza\xE7\xE3o"
+    },
+    rss: {
+      title: "RSS",
+      description: "Gera um feed RSS para o site exportado",
+      info_siteUrl: "URL onde o site ser\xE1 hospedado",
+      info_siteUrlPlaceholder: "https://exemplo.com/meusite",
+      info_authorName: "Nome do autor do site"
+    },
+    styleOptionsSection: {
+      title: "Op\xE7\xF5es de Estilo",
+      description: "Configure quais estilos ser\xE3o inclu\xEDdos na exporta\xE7\xE3o"
+    },
+    makeOfflineCompatible: {
+      title: "Tornar Compat\xEDvel com Modo Offline",
+      description: "Baixar recursos / imagens / scripts online para que a p\xE1gina funcione offline. Ou evitar depend\xEAncia de CDNs."
+    },
+    includePluginCSS: {
+      title: "Incluir CSS de Plugins",
+      description: "Inclui CSS de plugins na exporta\xE7\xE3o do HTML. Se recursos do plugin n\xE3o renderizarem corretamente, adicione o plugin nessa lista. Evite adicionar plugins sem necessidade, pois isso aumenta o tempo de carregamento da sua p\xE1gina, quanto mais CSS for inclu\xEDdo."
+    },
+    includeStyleCssIds: {
+      title: "Incluir Estilos com IDs",
+      description: "Inclui CSS de tags de estilo com os IDs especificados"
+    },
+    generalSettingsSection: {
+      title: "Configura\xE7\xF5es Gerais",
+      description: "Controle configura\xE7\xF5es simples como favicon e metadados do site"
+    },
+    favicon: {
+      title: "Imagem do Favicon",
+      description: "Caminho local da imagem favicon do site"
+    },
+    siteName: {
+      title: "Nome do Site",
+      description: "Nome do cofre / site exportado"
+    },
+    iconEmojiStyle: {
+      title: "Estilo de Emoji para \xCDcones",
+      description: "Estilo de emoji usado para \xEDcones personalizados"
+    },
+    themeName: {
+      title: "Tema",
+      description: "Tema instalado a ser usado na exporta\xE7\xE3o"
+    },
+    exportSettingsSection: {
+      title: "Configura\xE7\xF5es de Exporta\xE7\xE3o",
+      description: "Configura\xE7\xF5es t\xE9cnicas como controle de gera\xE7\xE3o de links"
+    },
+    relativeHeaderLinks: {
+      title: "Usar Links Relativos para Cabe\xE7alhos",
+      description: "Utiliza links relativos em vez de absolutos para cabe\xE7alhos"
+    },
+    slugifyPaths: {
+      title: "Slugificar Caminhos",
+      description: "Transformar caminhos e nomes de arquivos para formato web (min\xFAsculo, sem espa\xE7os)"
+    },
+    addPageIcon: {
+      title: "Adicionar \xCDcone \xE0 P\xE1gina",
+      description: "Adiciona o \xEDcone do arquivo ao cabe\xE7alho da p\xE1gina"
+    },
+    obsidianSettingsSection: {
+      title: "Configura\xE7\xF5es do Obsidian",
+      description: "Controla o funcionamento do plugin dentro do Obsidian"
+    },
+    logLevel: {
+      title: "N\xEDvel de Log",
+      description: "Define o n\xEDvel de detalhamento nos logs do console"
+    },
+    titleProperty: {
+      title: "Propriedade de T\xEDtulo",
+      description: "Propriedade a ser usada como t\xEDtulo do documento"
     }
   }
 };
 
 // src/plugin/translations/language.ts
 function getUserLanguage() {
-  const locale = import_moment.default.locale();
-  const language4 = locale ? import_moment.default.locale() : "en";
-  return language4;
+  let locale = window.moment.locale();
+  if (!locale) {
+    locale = "en";
+  }
+  return locale;
 }
 function getLanguage() {
   const settingLanguages = getUserLanguage();
-  const language4 = translations[settingLanguages];
-  if (!language4) {
+  const language6 = translations[settingLanguages];
+  if (!language6) {
+    console.log(`Language ${settingLanguages} not found, defaulting to English`);
     return translations["en"];
   }
-  return language4;
+  return language6;
 }
 var translations = {
   "en": language2,
   "zh-cn": language,
-  "it": language3
+  "it": language3,
+  "uk": language4,
+  "pt": language5
 };
 var i18n = getLanguage();
 
@@ -74928,7 +71697,7 @@ var _Path = class {
     return queue;
   }
   reparse(path) {
-    var _a2, _b2, _c2;
+    var _a3, _b3, _c2;
     let parsed = _Path.parsePath(path);
     if (path == "")
       parsed = { root: "", dir: "", parent: "", base: "", ext: "", name: "", fullPath: "" };
@@ -74943,8 +71712,8 @@ var _Path = class {
     this._dir = parsed.dir;
     this._parent = parsed.parent;
     this._base = parsed.base;
-    this._ext = (_a2 = parsed.ext.split("#")[0]) != null ? _a2 : parsed.ext;
-    this._hash = (_b2 = parsed.ext.split("#")[1]) != null ? _b2 : "";
+    this._ext = (_a3 = parsed.ext.split("#")[0]) != null ? _a3 : parsed.ext;
+    this._hash = (_b3 = parsed.ext.split("#")[1]) != null ? _b3 : "";
     this._name = parsed.name;
     this._fullPath = parsed.fullPath;
     this._isDirectory = this._ext == "";
@@ -75095,8 +71864,8 @@ var _Path = class {
     return newPath;
   }
   set parent(parent) {
-    var _a2;
-    this._parent = (_a2 = parent == null ? void 0 : parent.path) != null ? _a2 : "";
+    var _a3;
+    this._parent = (_a3 = parent == null ? void 0 : parent.path) != null ? _a3 : "";
     this._fullPath = _Path.joinStringPaths(this._parent, this._base);
     this.reparse(this._fullPath);
   }
@@ -75262,11 +72031,11 @@ var _Path = class {
     return newPath;
   }
   validate(options) {
-    var _a2, _b2;
+    var _a3, _b3;
     let error = "";
     let valid = true;
     const isEmpty = this.sourceString.trim() == "";
-    options.requireExtentions = (_b2 = (_a2 = options.requireExtentions) == null ? void 0 : _a2.map((e) => e.replace(".", ""))) != null ? _b2 : [];
+    options.requireExtentions = (_b3 = (_a3 = options.requireExtentions) == null ? void 0 : _a3.map((e) => e.replace(".", ""))) != null ? _b3 : [];
     const dottedExtention = options.requireExtentions.map((e) => "." + e);
     const lang = i18n.pathValidations;
     if (!options.allowEmpty && isEmpty) {
@@ -75366,8 +72135,8 @@ var _Path = class {
     }
   }
   static parsePath(path) {
-    var _a2;
-    const args = (_a2 = path.split("?")[1]) != null ? _a2 : "";
+    var _a3;
+    const args = (_a3 = path.split("?")[1]) != null ? _a3 : "";
     path = path.split("?")[0];
     if (process.platform === "win32") {
       if (path.startsWith("~")) {
@@ -75450,12 +72219,12 @@ var _Path = class {
     return _Path.getRelativePath(_Path.vaultPath, path, useAbsolute);
   }
   static get vaultPath() {
-    var _a2;
+    var _a3;
     if (this.vaultPathCache != void 0)
       return this.vaultPathCache;
     const adapter = app.vault.adapter;
     if (adapter instanceof import_obsidian.FileSystemAdapter) {
-      const basePath = (_a2 = adapter.getBasePath()) != null ? _a2 : "";
+      const basePath = (_a3 = adapter.getBasePath()) != null ? _a3 : "";
       this.vaultPathCache = new _Path(basePath, "");
       return this.vaultPathCache;
     }
@@ -75475,11 +72244,6 @@ var _Path = class {
   }
   static slugify(path) {
     return path.replaceAll(" ", "-").replaceAll(/-{2,}/g, "-").toLowerCase();
-  }
-  static equal(path1, path2) {
-    const path1Parsed = new _Path(path1).slugify().path;
-    const path2Parsed = new _Path(path2).slugify().path;
-    return path1Parsed == path2Parsed;
   }
   static async removeEmptyDirectories(directory) {
     const path = new _Path(directory);
@@ -75550,9 +72314,9 @@ var Attachment = class {
     return this._sourcePathRootRelative;
   }
   set source(source) {
-    var _a2, _b2, _c2;
+    var _a3, _b3, _c2;
     this._source = source;
-    this.sourceStat = (_c2 = source == null ? void 0 : source.stat) != null ? _c2 : { ctime: Date.now(), mtime: Date.now(), size: (_b2 = (_a2 = this.data) == null ? void 0 : _a2.length) != null ? _b2 : 0 };
+    this.sourceStat = (_c2 = source == null ? void 0 : source.stat) != null ? _c2 : { ctime: Date.now(), mtime: Date.now(), size: (_b3 = (_a3 = this.data) == null ? void 0 : _a3.length) != null ? _b3 : 0 };
     this.sourcePath = source == null ? void 0 : source.path;
   }
   get source() {
@@ -75570,14 +72334,14 @@ var Attachment = class {
     return this._data;
   }
   set data(data) {
-    var _a2, _b2;
+    var _a3, _b3;
     this._data = data;
     if (!this.source)
-      this.sourceStat = { ctime: Date.now(), mtime: Date.now(), size: (_b2 = (_a2 = this.data) == null ? void 0 : _a2.length) != null ? _b2 : 0 };
+      this.sourceStat = { ctime: Date.now(), mtime: Date.now(), size: (_b3 = (_a3 = this.data) == null ? void 0 : _a3.length) != null ? _b3 : 0 };
   }
   removeRootFromPath(path, allowSlugify = true) {
-    var _a2;
-    const root2 = new Path((_a2 = this.exportOptions.exportRoot) != null ? _a2 : "").slugify(allowSlugify && this.exportOptions.slugifyPaths).path + "/";
+    var _a3;
+    const root2 = new Path((_a3 = this.exportOptions.exportRoot) != null ? _a3 : "").slugify(allowSlugify && this.exportOptions.slugifyPaths).path + "/";
     if (path.path.startsWith(root2)) {
       path.reparse(path.path.substring(root2.length));
     }
@@ -75623,6 +72387,7 @@ var MarkdownRendererOptions = class {
     this.inlineHTML = false;
     this.exportPath = "";
     this.filesToExport = [];
+    this.useFallbackRenderer = false;
   }
 };
 
@@ -75700,10 +72465,18 @@ var _a, _b, _c;
 var _DataviewRenderer = class {
   constructor(view, file, query, keyword) {
     this.rendered = false;
+    if (!_DataviewRenderer.isDataviewEnabled()) {
+      throw new Error("Dataview plugin is not enabled or not installed.");
+    }
     this.view = view;
     this.file = file;
     this.query = query;
     this.keyword = keyword;
+    _DataviewRenderer.api = (0, import_obsidian_dataview.getAPI)();
+  }
+  static isDataviewEnabled() {
+    var _a3, _b3, _c2;
+    return (_c2 = (_b3 = (_a3 = app.plugins) == null ? void 0 : _a3.enabledPlugins) == null ? void 0 : _b3.has("dataview")) != null ? _c2 : false;
   }
   async generate(container) {
     this.container = container != null ? container : document.body;
@@ -75721,8 +72494,8 @@ var _DataviewRenderer = class {
   static getDataViewsFromHTML(sectionContainer) {
     const dataviewEls = Array.from(sectionContainer.querySelectorAll(`pre:has(:is(.language-dataview, .block-language-dataview, .language-${_DataviewRenderer.jsKeyword}, .block-language-${_DataviewRenderer.jsKeyword}))`));
     const results = dataviewEls.map((el) => {
-      var _a2;
-      const code = (_a2 = el.querySelector("code")) != null ? _a2 : el;
+      var _a3;
+      const code = (_a3 = el.querySelector("code")) != null ? _a3 : el;
       const query = code.innerText;
       const keyword = code.className.contains(_DataviewRenderer.jsKeyword) ? _DataviewRenderer.jsKeyword : "dataview";
       return { query, preEl: el, keyword };
@@ -75880,6 +72653,443 @@ var Utils;
 // src/plugin/utils/icon-handler.ts
 var import_obsidian4 = require("obsidian");
 
+// src/shared/features/feature-options-base.ts
+var RelationType = /* @__PURE__ */ ((RelationType2) => {
+  RelationType2["Before"] = "before";
+  RelationType2["After"] = "after";
+  RelationType2["Start"] = "start";
+  RelationType2["End"] = "end";
+  return RelationType2;
+})(RelationType || {});
+var FeatureRelation = class {
+  constructor(selector = "#right-sidebar-content", type = "start" /* Start */) {
+    this.selector = "#right-sidebar-content";
+    this.type = "start" /* Start */;
+    this.info_selector = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.baseFeatures.info_selector
+    });
+    this.info_type = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.baseFeatures.info_type,
+      dropdownTypes: RelationType
+    });
+    this.selector = selector;
+    this.type = type;
+  }
+};
+var FeatureSettingInfo = class {
+  constructor(options) {
+    this.show = true;
+    this.name = "";
+    this.description = "";
+    this.placeholder = "";
+    this.fileInputOptions = void 0;
+    this.dropdownOptions = void 0;
+    var _a3, _b3, _c2, _d, _e, _f;
+    if (options) {
+      this.show = (_a3 = options.show) != null ? _a3 : this.show;
+      this.name = (_b3 = options.name) != null ? _b3 : this.name;
+      this.description = (_c2 = options.description) != null ? _c2 : this.description;
+      this.placeholder = (_d = options.placeholder) != null ? _d : this.placeholder;
+      this.fileInputOptions = (_e = options.fileInputOptions) != null ? _e : this.fileInputOptions;
+      this.dropdownOptions = (_f = options.dropdownTypes) != null ? _f : this.dropdownOptions;
+    }
+  }
+};
+var FeatureOptions = class {
+  constructor() {
+    this.featureId = "feature";
+    this.enabled = true;
+    this.unavailable = false;
+    this.alwaysEnabled = false;
+    this.hideSettingsButton = false;
+  }
+  setAvailable(value) {
+    this.unavailable = !value;
+    this.enabled = value;
+  }
+};
+var InsertedFeatureOptions = class extends FeatureOptions {
+  constructor(featureId, featurePlacement) {
+    super();
+    this.featurePlacement = new FeatureRelation();
+    this.info_featurePlacement = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.baseFeatures.info_featurePlacement
+    });
+    this.featureId = featureId != null ? featureId : "inserted-feature";
+    this.featurePlacement = featurePlacement != null ? featurePlacement : new FeatureRelation();
+  }
+  insertFeature(container, feature) {
+    if (!container)
+      return false;
+    let relation = container.querySelector(this.featurePlacement.selector);
+    if (relation) {
+      switch (this.featurePlacement.type) {
+        case "before" /* Before */:
+          relation.before(feature);
+          return true;
+        case "after" /* After */:
+          relation.after(feature);
+          return true;
+        case "start" /* Start */:
+          relation.prepend(feature);
+          return true;
+        case "end" /* End */:
+          relation.append(feature);
+          return true;
+        default:
+          return false;
+      }
+    }
+    return false;
+  }
+};
+var InsertedFeatureOptionsWithTitle = class extends InsertedFeatureOptions {
+  constructor() {
+    super(...arguments);
+    this.displayTitle = "Feature";
+    this.info_displayTitle = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.baseFeatures.info_displayTitle
+    });
+  }
+};
+var FetchedFeatureOptions = class extends InsertedFeatureOptions {
+  constructor() {
+    super(...arguments);
+    this.info_includePath = new FeatureSettingInfo({
+      show: false
+    });
+  }
+};
+
+// src/shared/features/aliases.ts
+var AliasesOptions = class extends InsertedFeatureOptionsWithTitle {
+  constructor() {
+    super();
+    this.featureId = "aliases";
+    this.displayTitle = "Aliases";
+    this.featurePlacement = new FeatureRelation(".header .data-bar", "start" /* Start */);
+  }
+};
+
+// src/shared/features/backlinks.ts
+var BacklinksOptions = class extends InsertedFeatureOptionsWithTitle {
+  constructor() {
+    super();
+    this.featureId = "backlinks";
+    this.displayTitle = i18n.settings.backlinks.title;
+    this.featurePlacement = new FeatureRelation(".footer", "start" /* Start */);
+  }
+};
+
+// src/shared/shared.ts
+var Shared = class {
+};
+Shared.libFolderName = "site-lib";
+Shared.mediaFolderName = "media";
+Shared.scriptsFolderName = "scripts";
+Shared.cssFolderName = "styles";
+Shared.fontFolderName = "fonts";
+Shared.htmlFolderName = "html";
+Shared.metadataFileName = "metadata.json";
+Shared.searchIndexFileName = "search-index.json";
+
+// src/shared/features/custom-head.ts
+var CustomHeadOptions = class extends FetchedFeatureOptions {
+  constructor() {
+    super();
+    this.sourcePath = "";
+    this.info_sourcePath = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.customHead.info_sourcePath,
+      fileInputOptions: {
+        makeRelativeToVault: true,
+        validation: (path) => {
+          let isEmpty = (path || "").length === 0;
+          let valid = path.endsWith(".html") || isEmpty;
+          return { valid, isEmpty, error: !valid ? i18n.settings.customHead.validationError : "" };
+        },
+        browseButton: true
+      }
+    });
+    this.featureId = "custom-head";
+    this.featurePlacement = new FeatureRelation("head", "end" /* End */);
+    this.includePath = `${Shared.libFolderName}/${Shared.htmlFolderName}/custom-head.html`;
+  }
+};
+
+// src/shared/features/document.ts
+var DocumentOptions = class extends FeatureOptions {
+  constructor() {
+    super();
+    this.allowFoldingLists = true;
+    this.allowFoldingHeadings = true;
+    this.documentWidth = "40em";
+    this.info_allowFoldingLists = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.document.info_allowFoldingLists
+    });
+    this.info_allowFoldingHeadings = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.document.info_allowFoldingHeadings
+    });
+    this.info_documentWidth = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.document.info_documentWidth
+    });
+    this.featureId = "obsidian-document";
+    this.alwaysEnabled = true;
+  }
+};
+
+// src/shared/features/file-navigation.ts
+var FileNavigationOptions = class extends FetchedFeatureOptions {
+  constructor() {
+    super();
+    this.showCustomIcons = false;
+    this.showDefaultFolderIcons = false;
+    this.showDefaultFileIcons = false;
+    this.defaultFolderIcon = "lucide//folder";
+    this.defaultFileIcon = "lucide//file";
+    this.defaultMediaIcon = "lucide//file-image";
+    this.exposeStartingPath = true;
+    this.info_showCustomIcons = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.fileNavigation.info_showCustomIcons
+    });
+    this.info_showDefaultFolderIcons = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.fileNavigation.info_showDefaultFolderIcons
+    });
+    this.info_showDefaultFileIcons = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.fileNavigation.info_showDefaultFileIcons
+    });
+    this.info_defaultFolderIcon = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.fileNavigation.info_defaultFolderIcon
+    });
+    this.info_defaultFileIcon = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.fileNavigation.info_defaultFileIcon
+    });
+    this.info_defaultMediaIcon = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.fileNavigation.info_defaultMediaIcon
+    });
+    this.info_exposeStartingPath = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.fileNavigation.info_exposeStartingPath
+    });
+    this.featureId = "file-navigation";
+    this.featurePlacement = new FeatureRelation("#left-sidebar-content", "end" /* End */);
+    this.includePath = `${Shared.libFolderName}/${Shared.htmlFolderName}/file-tree.html`;
+  }
+};
+
+// src/shared/features/graph-view.ts
+var GraphViewOptions = class extends InsertedFeatureOptionsWithTitle {
+  constructor() {
+    super();
+    this.showOrphanNodes = true;
+    this.showAttachments = false;
+    this.allowGlobalGraph = true;
+    this.allowExpand = true;
+    this.attractionForce = 1;
+    this.linkLength = 15;
+    this.repulsionForce = 80;
+    this.centralForce = 2;
+    this.edgePruning = 100;
+    this.minNodeRadius = 3;
+    this.maxNodeRadius = 7;
+    this.info_showOrphanNodes = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_showOrphanNodes
+    });
+    this.info_showAttachments = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_showAttachments
+    });
+    this.info_allowGlobalGraph = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_allowGlobalGraph
+    });
+    this.info_allowExpand = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_allowExpand
+    });
+    this.info_attractionForce = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_attractionForce
+    });
+    this.info_linkLength = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_linkLength
+    });
+    this.info_repulsionForce = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_repulsionForce
+    });
+    this.info_centralForce = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_centralForce
+    });
+    this.info_edgePruning = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_edgePruning
+    });
+    this.info_minNodeRadius = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_minNodeRadius
+    });
+    this.info_maxNodeRadius = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.graphView.info_maxNodeRadius
+    });
+    this.featureId = "graph-view";
+    this.displayTitle = i18n.settings.graphView.title;
+    this.featurePlacement = new FeatureRelation("#right-sidebar-content", "start" /* Start */);
+  }
+};
+
+// src/shared/features/link-preview.ts
+var LinkPreviewOptions = class extends FeatureOptions {
+  constructor() {
+    super();
+    this.featureId = "link-preview";
+    this.hideSettingsButton = true;
+  }
+};
+
+// src/shared/features/outline.ts
+var OutlineOptions = class extends InsertedFeatureOptionsWithTitle {
+  constructor() {
+    super();
+    this.startCollapsed = false;
+    this.minCollapseDepth = 0;
+    this.info_startCollapsed = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.outline.info_startCollapsed
+    });
+    this.info_minCollapseDepth = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.outline.info_minCollapseDepth,
+      dropdownTypes: {
+        "1": 1,
+        "2": 2,
+        "No Collapse": 100
+      }
+    });
+    this.featureId = "outline";
+    this.displayTitle = i18n.settings.outline.title;
+    this.featurePlacement = new FeatureRelation("#right-sidebar-content", "end" /* End */);
+  }
+};
+
+// src/shared/features/properties.ts
+var PropertiesOptions = class extends InsertedFeatureOptionsWithTitle {
+  constructor() {
+    super();
+    this.info_hideProperties = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.properties.info_hideProperties
+    });
+    this.featureId = "properties";
+    this.displayTitle = i18n.settings.properties.title;
+    this.featurePlacement = new FeatureRelation(".header", "start" /* Start */);
+  }
+};
+
+// src/shared/features/rss.ts
+var RssOptions = class extends FeatureOptions {
+  constructor() {
+    super();
+    this.siteUrl = "";
+    this.authorName = "";
+    this.info_siteUrl = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.rss.info_siteUrl,
+      placeholder: i18n.settings.rss.info_siteUrlPlaceholder
+    });
+    this.info_authorName = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.rss.info_authorName
+    });
+    this.featureId = "rss";
+  }
+};
+
+// src/shared/features/search.ts
+var SearchOptions = class extends InsertedFeatureOptionsWithTitle {
+  constructor() {
+    super();
+    this.featureId = "search";
+    this.displayTitle = i18n.settings.search.placeholder;
+    this.featurePlacement = new FeatureRelation("#left-sidebar .topbar-content", "start" /* Start */);
+  }
+};
+
+// src/shared/features/sidebar.ts
+var SidebarOptions = class extends FeatureOptions {
+  constructor() {
+    super();
+    this.allowResizing = true;
+    this.allowCollapsing = true;
+    this.rightDefaultWidth = "20em";
+    this.leftDefaultWidth = "20em";
+    this.info_allowResizing = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.sidebars.info_allowResizing
+    });
+    this.info_allowCollapsing = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.sidebars.info_allowCollapsing
+    });
+    this.info_rightDefaultWidth = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.sidebars.info_rightDefaultWidth
+    });
+    this.info_leftDefaultWidth = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.sidebars.info_leftDefaultWidth
+    });
+    this.featureId = "sidebar";
+  }
+};
+
+// src/shared/features/tags.ts
+var TagsOptions = class extends InsertedFeatureOptionsWithTitle {
+  constructor() {
+    super();
+    this.showInlineTags = true;
+    this.showFrontmatterTags = true;
+    this.info_showInlineTags = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.tags.info_showInlineTags
+    });
+    this.info_showFrontmatterTags = new FeatureSettingInfo({
+      show: true,
+      description: i18n.settings.tags.info_showFrontmatterTags
+    });
+    this.featureId = "tags";
+    this.displayTitle = "";
+    this.featurePlacement = new FeatureRelation(".header .data-bar", "end" /* End */);
+  }
+};
+
+// src/shared/features/theme-toggle.ts
+var ThemeToggleOptions = class extends InsertedFeatureOptionsWithTitle {
+  constructor() {
+    super();
+    this.featureId = "theme-toggle";
+    this.displayTitle = "";
+    this.featurePlacement = new FeatureRelation("#right-sidebar .topbar-content", "start" /* Start */);
+  }
+};
+
 // src/shared/website-data.ts
 var EmojiStyle = /* @__PURE__ */ ((EmojiStyle2) => {
   EmojiStyle2["Native"] = "Native";
@@ -75914,13 +73124,13 @@ var IconHandler;
   }
   IconHandler2.getEmojiIcon = getEmojiIcon;
   async function getIcon4(iconName) {
-    var _a2, _b2, _c2;
+    var _a3, _b3, _c2;
     if (iconName.startsWith("emoji//")) {
       const iconCode = iconName.replace(/^emoji\/\//, "");
-      iconName = (_a2 = getEmojiIcon(iconCode)) != null ? _a2 : "\uFFFD";
+      iconName = (_a3 = getEmojiIcon(iconCode)) != null ? _a3 : "\uFFFD";
     } else if (iconName.startsWith("lucide//")) {
       const lucideIconName = iconName.replace(/^lucide\/\//, "");
-      iconName = (_b2 = getLucideIcon(lucideIconName)) != null ? _b2 : "\uFFFD";
+      iconName = (_b3 = getLucideIcon(lucideIconName)) != null ? _b3 : "\uFFFD";
     }
     if (/^\p{Emoji}/gu.test(iconName)) {
       const codepoint = [...iconName].map((e) => e.codePointAt(0).toString(16)).join(`-`);
@@ -75949,7 +73159,7 @@ var IconHandler;
 var MarkdownRendererAPI;
 ((MarkdownRendererAPI2) => {
   MarkdownRendererAPI2.viewableMediaExtensions = ["png", "jpg", "jpeg", "svg", "gif", "bmp", "ico", "mp4", "mov", "avi", "webm", "mpeg", "mp3", "wav", "ogg", "aac", "pdf", "html", "htm", "json", "txt", "yaml"];
-  MarkdownRendererAPI2.convertableExtensions = ["md", "canvas", "drawing", "excalidraw", ...MarkdownRendererAPI2.viewableMediaExtensions];
+  MarkdownRendererAPI2.convertableExtensions = ["md", "canvas", "base", "drawing", "excalidraw", ...MarkdownRendererAPI2.viewableMediaExtensions];
   function extentionToTag(extention) {
     if (["png", "jpg", "jpeg", "svg", "gif", "bmp", "ico"].includes(extention))
       return "img";
@@ -76007,6 +73217,13 @@ var MarkdownRendererAPI;
     return text;
   }
   MarkdownRendererAPI2.renderFileToString = renderFileToString;
+  async function renderFilePathToString(filePath, options) {
+    const file = app.vault.getAbstractFileByPath(filePath);
+    if (!file || !(file instanceof import_obsidian5.TFile))
+      return;
+    return await this.renderFileToString(file, options);
+  }
+  MarkdownRendererAPI2.renderFilePathToString = renderFilePathToString;
   async function renderMarkdownSimple(markdown) {
     const container = document.body.createDiv();
     await _MarkdownRendererInternal.renderSimpleMarkdown(markdown, container);
@@ -76090,10 +73307,10 @@ var _MarkdownRendererInternal;
     });
   }
   function failRender(file, message) {
-    var _a2;
+    var _a3;
     if (checkCancelled())
       return void 0;
-    ExportLog.error(message, `Rendering ${(_a2 = file == null ? void 0 : file.path) != null ? _a2 : " custom markdown "} failed: `);
+    ExportLog.error(message, `Rendering ${(_a3 = file == null ? void 0 : file.path) != null ? _a3 : " custom markdown "} failed: `);
     return;
   }
   async function renderFile(file, options) {
@@ -76172,7 +73389,7 @@ var _MarkdownRendererInternal;
   }
   _MarkdownRendererInternal2.renderMarkdown = renderMarkdown;
   async function renderMarkdownViewFallback(preview, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g;
+    var _a3, _b3, _c2, _d, _e, _f, _g;
     preview.load();
     const renderer = preview.renderer;
     try {
@@ -76186,7 +73403,7 @@ var _MarkdownRendererInternal;
       await (0, import_obsidian5.loadMermaid)();
     }
     const sections = renderer.sections;
-    const newMarkdownEl = document.body.createDiv({ attr: { class: "obsidian-document " + ((_c2 = (_b2 = (_a2 = preview.renderer) == null ? void 0 : _a2.previewEl) == null ? void 0 : _b2.className) != null ? _c2 : "") } });
+    const newMarkdownEl = document.body.createDiv({ attr: { class: "obsidian-document " + ((_c2 = (_b3 = (_a3 = preview.renderer) == null ? void 0 : _a3.previewEl) == null ? void 0 : _b3.className) != null ? _c2 : "") } });
     const newSizerEl = newMarkdownEl.createDiv({ attr: { class: "markdown-preview-sizer" } });
     if (!newMarkdownEl || !newSizerEl)
       return failRender(preview.file, "Please specify a container element, or enable keepViewContainer!");
@@ -76208,12 +73425,14 @@ var _MarkdownRendererInternal;
       success = await waitUntil(() => section.computed || checkCancelled(), 2e3, 1);
       if (!success)
         return failRender(preview.file, "Failed to compute section!");
-      const dataviewInfo = DataviewRenderer.getDataViewsFromHTML(section.el)[0];
-      if (dataviewInfo) {
-        const dataviewContainer = document.body.createDiv();
-        dataviewContainer.classList.add(`block-language-${dataviewInfo.keyword}`);
-        dataviewInfo.preEl.replaceWith(dataviewContainer);
-        await new DataviewRenderer(preview, preview.file, dataviewInfo == null ? void 0 : dataviewInfo.query, dataviewInfo.keyword).generate(dataviewContainer);
+      if (DataviewRenderer.isDataviewEnabled()) {
+        const dataviewInfo = DataviewRenderer.getDataViewsFromHTML(section.el)[0];
+        if (dataviewInfo) {
+          const dataviewContainer = document.body.createDiv();
+          dataviewContainer.classList.add(`block-language-${dataviewInfo.keyword}`);
+          dataviewInfo.preEl.replaceWith(dataviewContainer);
+          await new DataviewRenderer(preview, preview.file, dataviewInfo == null ? void 0 : dataviewInfo.query, dataviewInfo.keyword).generate(dataviewContainer);
+        }
       }
       await preview.postProcess(section, promises, renderer.frontmatter);
       const folded = Array.from(section.el.querySelectorAll(".callout-content[style*='display: none']"));
@@ -76278,10 +73497,10 @@ var _MarkdownRendererInternal;
     return newMarkdownEl;
   }
   async function renderMarkdownView(preview, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+    var _a3, _b3, _c2, _d, _e, _f, _g, _h;
     if (preview.show)
       preview.show();
-    if (!preview.rerender) {
+    if (!preview.rerender || options.useFallbackRenderer) {
       console.log(`Rendering ${preview.file.name} using fallback method`);
       return renderMarkdownViewFallback(preview, options);
     }
@@ -76297,18 +73516,34 @@ var _MarkdownRendererInternal;
       await (0, import_obsidian5.loadMermaid)();
     }
     const sections = renderer.sections;
-    const newMarkdownEl = _MarkdownRendererInternal2.batchDocument.body.createDiv({ attr: { class: "obsidian-document " + ((_c2 = (_b2 = (_a2 = preview.renderer) == null ? void 0 : _a2.previewEl) == null ? void 0 : _b2.className) != null ? _c2 : "") } });
-    const newSizerEl = newMarkdownEl.createDiv({ attr: { class: "markdown-preview-sizer markdown-preview-section" } });
+    const newMarkdownEl = _MarkdownRendererInternal2.batchDocument.body.createDiv({
+      attr: {
+        class: "obsidian-document " + ((_c2 = (_b3 = (_a3 = preview.renderer) == null ? void 0 : _a3.previewEl) == null ? void 0 : _b3.className) != null ? _c2 : "")
+      }
+    });
+    const newSizerEl = newMarkdownEl.createDiv({
+      attr: { class: "markdown-preview-sizer markdown-preview-section" }
+    });
     if (!newMarkdownEl || !newSizerEl)
       return failRender(preview.file, "Please specify a container element, or enable keepViewContainer!");
     const previewEl = renderer.previewEl;
     const sizerEl = (_d = previewEl.querySelector(".markdown-preview-sizer")) != null ? _d : previewEl;
     previewEl.style.minHeight = sizerEl.style.minHeight;
-    await Utils.delay(5);
-    preview.rerender();
+    await Utils.delay(16);
+    let rendered = false;
+    preview.renderer.onRendered(() => {
+      console.log("Rendered");
+      rendered = true;
+    });
+    preview.rerender(true);
     await Utils.delay(5);
     previewEl.style.minHeight = sizerEl.style.minHeight;
     await Utils.delay(5);
+    let renderSuccess = await waitUntil(() => rendered || checkCancelled(), 2e3, 16);
+    if (checkCancelled())
+      return void 0;
+    if (!renderSuccess)
+      return failRender(preview.file, "Failed to render preview!");
     const foldedCallouts = [];
     for (const section of sections) {
       const folded = Array.from(section.el.querySelectorAll(".callout-content[style*='display: none']"));
@@ -76319,17 +73554,23 @@ var _MarkdownRendererInternal;
     }
     await Utils.delay(5);
     ExportLog.log("Waiting for all sections to be counted...");
-    var sectionsSuccess = await waitUntil(() => sizerEl.children.length >= sections.length || checkCancelled(), 4e3, 5);
+    var sectionsSuccess = await waitUntil(() => {
+      console.log(sizerEl.children.length, sections.length);
+      return sizerEl.children.length >= sections.length || checkCancelled();
+    }, 4e3, 5);
     if (checkCancelled())
       return void 0;
     if (!sectionsSuccess) {
+      console.log(sizerEl.children.length, sections.length, sizerEl.children, sections);
       ExportLog.warning("Failed to render all sections in file " + preview.file.name + ", using fallback!");
       return renderMarkdownViewFallback(preview, options);
     }
     await Utils.delay(50);
-    const dataviewInfos = DataviewRenderer.getDataViewsFromHTML(preview.containerEl);
-    for (const dataviewInfo of dataviewInfos) {
-      await new DataviewRenderer(preview, preview.file, dataviewInfo == null ? void 0 : dataviewInfo.query, dataviewInfo.keyword).generate(dataviewInfo.preEl);
+    if (DataviewRenderer.isDataviewEnabled()) {
+      const dataviewInfos = DataviewRenderer.getDataViewsFromHTML(preview.containerEl);
+      for (const dataviewInfo of dataviewInfos) {
+        await new DataviewRenderer(preview, preview.file, dataviewInfo == null ? void 0 : dataviewInfo.query, dataviewInfo.keyword).generate(dataviewInfo.preEl);
+      }
     }
     ExportLog.log("Waiting for transclusions to render...");
     await waitUntil(() => !preview.containerEl.querySelector(".markdown-preview-pusher") || preview.containerEl.querySelector(".markdown-preview-pusher + *") != null || checkCancelled(), 2e3, 5);
@@ -76339,7 +73580,7 @@ var _MarkdownRendererInternal;
       ExportLog.warning("Transclusions were not rendered correctly in file " + preview.file.name + "!");
     }
     ExportLog.log("Waiting for generic plugins to render...");
-    await waitUntil(() => !preview.containerEl.querySelector("[class^='block-language-']:empty") || checkCancelled(), 2e3, 5);
+    await waitUntil(() => !preview.containerEl.querySelector("[class^='block-language-']:empty") || checkCancelled(), 2e3, 16);
     if (checkCancelled())
       return void 0;
     const invalidPluginBlocks = Array.from(preview.containerEl.querySelectorAll("[class^='block-language-']:empty"));
@@ -76349,7 +73590,7 @@ var _MarkdownRendererInternal;
     const canvases = Array.from(preview.containerEl.querySelectorAll("canvas:not(.pdf-embed canvas)"));
     for (const canvas of canvases) {
       ExportLog.log("Waiting for canvas-based plugin to render...");
-      let canvasSuccess = await waitUntil(() => canvas.toDataURL().length > 100 || checkCancelled(), 1e3, 5);
+      let canvasSuccess = await waitUntil(() => canvas.toDataURL().length > 100 || checkCancelled(), 1e3, 16);
       if (!canvasSuccess)
         continue;
       const data = canvas.toDataURL();
@@ -76359,13 +73600,17 @@ var _MarkdownRendererInternal;
       image.style.maxWidth = "100%";
       canvas.replaceWith(image);
     }
-    ;
     for (const callout of foldedCallouts) {
       callout.style.display = "none";
     }
     newSizerEl.empty();
     if (options.createPusherElement) {
-      newSizerEl.createDiv({ attr: { class: "markdown-pusher", style: "width: 1px; height: 0.1px; margin-bottom: 0px;" } });
+      newSizerEl.createDiv({
+        attr: {
+          class: "markdown-pusher",
+          style: "width: 1px; height: 0.1px; margin-bottom: 0px;"
+        }
+      });
     }
     newSizerEl.innerHTML = sizerEl.innerHTML;
     const banner = preview.containerEl.querySelector(".obsidian-banner-wrapper");
@@ -76398,9 +73643,9 @@ var _MarkdownRendererInternal;
       element.remove();
     });
     container.querySelectorAll("ol").forEach((listEl) => {
-      var _a2;
+      var _a3;
       if (listEl.parentElement) {
-        const start = (_a2 = listEl.getAttribute("start")) != null ? _a2 : "1";
+        const start = (_a3 = listEl.getAttribute("start")) != null ? _a3 : "1";
         listEl.parentElement.createSpan().outerHTML = `${start}. ${listEl.innerText}`;
         listEl.remove();
       }
@@ -76420,16 +73665,16 @@ var _MarkdownRendererInternal;
   }
   _MarkdownRendererInternal2.renderSimpleMarkdown = renderSimpleMarkdown;
   async function renderGeneric(view, options) {
-    var _a2;
+    var _a3;
     await delay(2e3);
     if (checkCancelled())
       return void 0;
     const contentEl = view.contentEl.cloneNode(true);
-    (_a2 = options.container) == null ? void 0 : _a2.appendChild(contentEl);
+    (_a3 = options.container) == null ? void 0 : _a3.appendChild(contentEl);
     return contentEl;
   }
   async function renderExcalidraw(view, options) {
-    var _a2;
+    var _a3;
     await delay(500);
     const scene = view.excalidrawData.scene;
     const svg = await view.svg(scene, "", false);
@@ -76447,11 +73692,11 @@ var _MarkdownRendererInternal;
     if (options.createDocumentContainer === false) {
       contentEl = svg;
     }
-    (_a2 = options.container) == null ? void 0 : _a2.appendChild(contentEl);
+    (_a3 = options.container) == null ? void 0 : _a3.appendChild(contentEl);
     return contentEl;
   }
   async function getIconForFile(file) {
-    var _a2, _b2, _c2, _d, _e;
+    var _a3, _b3, _c2, _d, _e, _f, _g;
     if (!file)
       return { icon: "", isDefault: true };
     let iconOutput = "";
@@ -76462,7 +73707,6 @@ var _MarkdownRendererInternal;
       let childFile = app.vault.getFileByPath(file.path + "/" + file.name + ".md");
       if (childFile)
         useFile = childFile;
-      console.log(file.path + "/" + file.name + ".md", childFile);
       if (!childFile && Settings.exportOptions.fileNavigationOptions.showDefaultFolderIcons) {
         iconProperty = Settings.exportOptions.fileNavigationOptions.defaultFolderIcon;
         useDefaultIcon = true;
@@ -76471,7 +73715,7 @@ var _MarkdownRendererInternal;
     if (useFile instanceof import_obsidian5.TFile) {
       const fileCache = app.metadataCache.getFileCache(useFile);
       const frontmatter = fileCache == null ? void 0 : fileCache.frontmatter;
-      iconProperty = (_b2 = (_a2 = frontmatter == null ? void 0 : frontmatter.icon) != null ? _a2 : frontmatter == null ? void 0 : frontmatter.sticker) != null ? _b2 : frontmatter == null ? void 0 : frontmatter.banner_icon;
+      iconProperty = (_b3 = (_a3 = frontmatter == null ? void 0 : frontmatter.icon) != null ? _a3 : frontmatter == null ? void 0 : frontmatter.sticker) != null ? _b3 : frontmatter == null ? void 0 : frontmatter.banner_icon;
       if (!iconProperty && Settings.exportOptions.fileNavigationOptions.showDefaultFileIcons) {
         useDefaultIcon = true;
         const isMedia = AssetLoader.extentionToType(useFile.extension) == "media" /* Media */;
@@ -76483,14 +73727,14 @@ var _MarkdownRendererInternal;
     iconOutput = await IconHandler.getIcon(iconProperty != null ? iconProperty : "");
     const isUnchangedNotEmojiNotHTML = iconProperty == iconOutput && iconOutput.length < 40 && !/\p{Emoji}/u.test(iconOutput) && !iconOutput.includes("<") && !iconOutput.includes(">");
     let parsedAsIconize = false;
-    if ((useDefaultIcon || !iconProperty || isUnchangedNotEmojiNotHTML) && app.plugins.enabledPlugins.has("obsidian-icon-folder")) {
+    if ((useDefaultIcon || !iconProperty || isUnchangedNotEmojiNotHTML) && ((_d = (_c2 = app == null ? void 0 : app.plugins) == null ? void 0 : _c2.enabledPlugins) == null ? void 0 : _d.has("obsidian-icon-folder"))) {
       const fileToIconName = app.plugins.plugins["obsidian-icon-folder"].data;
-      const noteIconsEnabled = (_c2 = fileToIconName.settings.iconsInNotesEnabled) != null ? _c2 : false;
+      const noteIconsEnabled = (_e = fileToIconName.settings.iconsInNotesEnabled) != null ? _e : false;
       if (noteIconsEnabled) {
-        const iconIdentifier = (_d = fileToIconName.settings.iconIdentifier) != null ? _d : ":";
+        const iconIdentifier = (_f = fileToIconName.settings.iconIdentifier) != null ? _f : ":";
         let iconProperty2 = fileToIconName[file.path];
         if (iconProperty2 && typeof iconProperty2 != "string") {
-          iconProperty2 = (_e = iconProperty2.iconName) != null ? _e : "";
+          iconProperty2 = (_g = iconProperty2.iconName) != null ? _g : "";
         }
         if (iconProperty2 && typeof iconProperty2 == "string" && iconProperty2.trim() != "") {
           if (file instanceof import_obsidian5.TFile)
@@ -76513,14 +73757,16 @@ var _MarkdownRendererInternal;
   }
   _MarkdownRendererInternal2.getIconForFile = getIconForFile;
   async function getTitleForFile(file) {
-    var _a2, _b2;
+    var _a3, _b3, _c2;
+    if (!file)
+      return { title: "NULL ERROR", isDefault: true };
     let title = file.name;
     let isDefaultTitle = true;
     if (file instanceof import_obsidian5.TFile) {
       const fileCache = app.metadataCache.getFileCache(file);
       const frontmatter = fileCache == null ? void 0 : fileCache.frontmatter;
-      const titleFromFrontmatter = (_a2 = frontmatter == null ? void 0 : frontmatter[Settings.titleProperty]) != null ? _a2 : frontmatter == null ? void 0 : frontmatter["banner_header"];
-      title = (_b2 = (titleFromFrontmatter != null ? titleFromFrontmatter : file.basename).toString()) != null ? _b2 : "";
+      const titleFromFrontmatter = (_a3 = frontmatter == null ? void 0 : frontmatter[Settings.titleProperty]) != null ? _a3 : frontmatter == null ? void 0 : frontmatter["banner_header"];
+      title = (_c2 = (_b3 = titleFromFrontmatter != null ? titleFromFrontmatter : file.basename) == null ? void 0 : _b3.toString()) != null ? _c2 : "";
       if (title.endsWith(".excalidraw")) {
         title = title.substring(0, title.length - 11);
       }
@@ -76536,7 +73782,7 @@ var _MarkdownRendererInternal;
   }
   _MarkdownRendererInternal2.getTitleForFile = getTitleForFile;
   async function addTitle(documentRoot, title, isDefaultTitle, icon, isDefaultIcon, source, exportOptions) {
-    var _a2, _b2;
+    var _a3, _b3;
     const inlineTitle = documentRoot.querySelector(".inline-title");
     inlineTitle == null ? void 0 : inlineTitle.remove();
     const makeTitle = documentRoot.querySelector(".mk-inline-context");
@@ -76550,7 +73796,7 @@ var _MarkdownRendererInternal;
     footer == null ? void 0 : footer.createDiv({ cls: "data-bar" });
     if (header)
       sizerElement == null ? void 0 : sizerElement.prepend(header);
-    (_a2 = documentRoot.querySelector(".banner-header")) == null ? void 0 : _a2.remove();
+    (_a3 = documentRoot.querySelector(".banner-header")) == null ? void 0 : _a3.remove();
     const titleEl = documentRoot.createEl("h1");
     titleEl.classList.add("page-title", "heading");
     if (document.body.classList.contains("show-inline-title"))
@@ -76569,11 +73815,11 @@ var _MarkdownRendererInternal;
         titleEl.prepend(pageIcon);
       }
     }
-    (_b2 = header != null ? header : sizerElement) == null ? void 0 : _b2.prepend(titleEl);
+    (_b3 = header != null ? header : sizerElement) == null ? void 0 : _b3.prepend(titleEl);
   }
   _MarkdownRendererInternal2.addTitle = addTitle;
   async function renderCanvas(view, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m;
+    var _a3, _b3, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m;
     if (checkCancelled())
       return void 0;
     let allExportedPaths = Settings.getAllFilesFromPaths(options.filesToExport);
@@ -76584,8 +73830,8 @@ var _MarkdownRendererInternal;
     await delay(500);
     for (const node of nodes) {
       let n = node[1];
-      (_a2 = n.placeholderEl) == null ? void 0 : _a2.detach();
-      (_b2 = n.containerEl) == null ? void 0 : _b2.appendChild(n.contentEl);
+      (_a3 = n.placeholderEl) == null ? void 0 : _a3.detach();
+      (_b3 = n.containerEl) == null ? void 0 : _b3.appendChild(n.contentEl);
       n.render();
     }
     for (const edge of edges) {
@@ -76593,6 +73839,10 @@ var _MarkdownRendererInternal;
     }
     let contentEl = view.contentEl;
     const canvasEl = contentEl.querySelector(".canvas");
+    if (!canvasEl) {
+      console.log(contentEl.innerHTML);
+      return failRender(view.file, "Failed to render canvas! Canvas element not found!");
+    }
     const edgeContainer = canvasEl.createEl("svg", { cls: "canvas-edges" });
     const edgeHeadContainer = canvasEl.createEl("svg", { cls: "canvas-edges" });
     for (const pair of nodes) {
@@ -76655,7 +73905,7 @@ var _MarkdownRendererInternal;
   }
   _MarkdownRendererInternal2.renderCanvas = renderCanvas;
   async function createMediaPage(file, options) {
-    var _a2;
+    var _a3;
     const contentEl = _MarkdownRendererInternal2.batchDocument.body.createDiv({ attr: { class: "obsidian-document" } });
     const embedType = MarkdownRendererAPI.extentionToTag(file.extension);
     let media = contentEl.createEl(embedType);
@@ -76667,13 +73917,13 @@ var _MarkdownRendererInternal;
       pathObj.setFileName(pathObj.basename + "-content");
     }
     media.src = file.path;
-    (_a2 = options.container) == null ? void 0 : _a2.appendChild(contentEl);
+    (_a3 = options.container) == null ? void 0 : _a3.appendChild(contentEl);
     contentEl.appendChild(media);
     return contentEl;
   }
   _MarkdownRendererInternal2.createMediaPage = createMediaPage;
   async function postProcessHTML(html, options) {
-    var _a2;
+    var _a3;
     if (!html.classList.contains("obsidian-document")) {
       const viewContainer = html.classList.contains("view-content") || html.classList.contains("markdown-preview-view") ? html : html.querySelector(".view-content, .markdown-preview-view");
       if (!viewContainer) {
@@ -76709,10 +73959,10 @@ var _MarkdownRendererInternal;
       element.textContent = element.value;
     });
     html.querySelectorAll("a.tag").forEach((element) => {
-      var _a3, _b2;
+      var _a4, _b3;
       const split = element.href.split("#");
-      const tag = (_a3 = split[1]) != null ? _a3 : element.href.substring(1);
-      element.setAttribute("data-href", (_b2 = element.getAttribute("href")) != null ? _b2 : "");
+      const tag = (_a4 = split[1]) != null ? _a4 : element.href.substring(1);
+      element.setAttribute("data-href", (_b3 = element.getAttribute("href")) != null ? _b3 : "");
       element.setAttribute("href", `?query=tag:${tag}`);
     });
     html.querySelectorAll("img, video, .media-embed:has( > :is(img, video))").forEach((element) => {
@@ -76724,13 +73974,13 @@ var _MarkdownRendererInternal;
       }
     });
     html.querySelectorAll("span.internal-embed.pdf-embed").forEach((pdf) => {
-      var _a3, _b2;
+      var _a4, _b3;
       const embed = _MarkdownRendererInternal2.batchDocument.body.createEl("embed");
-      embed.setAttribute("src", (_a3 = pdf.getAttribute("src")) != null ? _a3 : "");
+      embed.setAttribute("src", (_a4 = pdf.getAttribute("src")) != null ? _a4 : "");
       embed.style.width = pdf.style.width || "100%";
       embed.style.maxWidth = "100%";
       embed.style.height = pdf.style.height || "800px";
-      const container = (_b2 = pdf.parentElement) == null ? void 0 : _b2.parentElement;
+      const container = (_b3 = pdf.parentElement) == null ? void 0 : _b3.parentElement;
       container == null ? void 0 : container.querySelectorAll("*").forEach((el) => el.remove());
       if (container)
         container.appendChild(embed);
@@ -76762,7 +74012,7 @@ var _MarkdownRendererInternal;
     const tocEls = Array.from(html.querySelectorAll(".block-language-toc.dynamic-toc li > a"));
     for (const element of tocEls) {
       const renderEl = _MarkdownRendererInternal2.batchDocument.body.createDiv();
-      renderSimpleMarkdown((_a2 = element.textContent) != null ? _a2 : "", renderEl);
+      renderSimpleMarkdown((_a3 = element.textContent) != null ? _a3 : "", renderEl);
       element.textContent = renderEl.textContent;
       renderEl.remove();
     }
@@ -76812,11 +74062,11 @@ var _MarkdownRendererInternal;
   }
   _MarkdownRendererInternal2.cancelExport = cancelExport;
   function endBatch() {
-    var _a2, _b2;
+    var _a3, _b3;
     if (!_MarkdownRendererInternal2.batchStarted)
       return;
     document.body.classList.remove("html-export-running");
-    (_a2 = _MarkdownRendererInternal2.electronWindow) == null ? void 0 : _a2.webContents.setBackgroundThrottling(true);
+    (_a3 = _MarkdownRendererInternal2.electronWindow) == null ? void 0 : _a3.webContents.setBackgroundThrottling(true);
     if (_MarkdownRendererInternal2.renderLeaf) {
       if (!_MarkdownRendererInternal2.errorInBatch) {
         ExportLog.log("Closing render window");
@@ -76830,7 +74080,7 @@ var _MarkdownRendererInternal;
         closebutton.textContent = "Close";
       }
     }
-    (_b2 = _MarkdownRendererInternal2.electronWindow) == null ? void 0 : _b2.setProgressBar(-1);
+    (_b3 = _MarkdownRendererInternal2.electronWindow) == null ? void 0 : _b3.setProgressBar(-1);
     _MarkdownRendererInternal2.electronWindow = void 0;
     _MarkdownRendererInternal2.renderLeaf = void 0;
     loadingContainer = void 0;
@@ -76884,8 +74134,8 @@ var _MarkdownRendererInternal;
   }
   let logShowing = false;
   function appendLogEl(logEl) {
-    var _a2;
-    logContainer = (_a2 = loadingContainer == null ? void 0 : loadingContainer.querySelector(".html-progress-log")) != null ? _a2 : void 0;
+    var _a3;
+    logContainer = (_a3 = loadingContainer == null ? void 0 : loadingContainer.querySelector(".html-progress-log")) != null ? _a3 : void 0;
     if (!logContainer || !_MarkdownRendererInternal2.renderLeaf) {
       console.error("Failed to append log element, log container or render leaf is undefined!");
       return;
@@ -76899,10 +74149,10 @@ var _MarkdownRendererInternal;
     logEl.scrollIntoView({ behavior: "instant", block: "end", inline: "end" });
   }
   async function _reportProgress(fraction, message, subMessage, progressColor) {
-    var _a2, _b2, _c2;
+    var _a3, _b3, _c2;
     if (!_MarkdownRendererInternal2.batchStarted)
       return;
-    if (!((_b2 = (_a2 = _MarkdownRendererInternal2.renderLeaf) == null ? void 0 : _a2.parent) == null ? void 0 : _b2.parent))
+    if (!((_b3 = (_a3 = _MarkdownRendererInternal2.renderLeaf) == null ? void 0 : _a3.parent) == null ? void 0 : _b3.parent))
       return;
     const loadingContainer2 = _MarkdownRendererInternal2.renderLeaf.parent.parent.containerEl.querySelector(`.html-progress-wrapper`);
     if (!loadingContainer2)
@@ -77239,14 +74489,14 @@ function createError(container) {
   return error;
 }
 function createFileInput(container, get, set, options) {
-  var _a2, _b2, _c2, _d, _e, _f, _g, _h;
+  var _a3, _b3, _c2, _d, _e, _f, _g, _h;
   const getSafe = () => {
-    var _a3;
-    return new Path((_a3 = get()) != null ? _a3 : "").makePlatformSafe();
+    var _a4;
+    return new Path((_a4 = get()) != null ? _a4 : "").makePlatformSafe();
   };
   const setSafe = (value) => set(new Path(value).makePlatformSafe().path);
-  const name = (_a2 = options == null ? void 0 : options.name) != null ? _a2 : "";
-  const description = (_b2 = options == null ? void 0 : options.description) != null ? _b2 : "";
+  const name = (_a3 = options == null ? void 0 : options.name) != null ? _a3 : "";
+  const description = (_b3 = options == null ? void 0 : options.description) != null ? _b3 : "";
   const placeholder = (_c2 = options == null ? void 0 : options.placeholder) != null ? _c2 : "Path to file...";
   const defaultPath = (_d = options == null ? void 0 : options.defaultPath) != null ? _d : Path.vaultPath;
   const makeRelativeToVault = (_e = options == null ? void 0 : options.makeRelativeToVault) != null ? _e : false;
@@ -77322,7 +74572,7 @@ function createSectionGetSettings(container, name, desc) {
   return { section, sectionSetting: setting };
 }
 function generateSettingsFromObject(obj, container) {
-  var _a2, _b2, _c2, _d;
+  var _a3, _b3, _c2, _d;
   for (const key in obj) {
     const value = obj[key];
     const type = typeof value;
@@ -77348,18 +74598,18 @@ function generateSettingsFromObject(obj, container) {
         name,
         description,
         placeholder: settinginfo.placeholder,
-        defaultPath: new Path((_a2 = settinginfo.fileInputOptions.defaultPath) != null ? _a2 : Path.vaultPath.path),
-        makeRelativeToVault: (_b2 = settinginfo.fileInputOptions) == null ? void 0 : _b2.makeRelativeToVault,
+        defaultPath: new Path((_a3 = settinginfo.fileInputOptions.defaultPath) != null ? _a3 : Path.vaultPath.path),
+        makeRelativeToVault: (_b3 = settinginfo.fileInputOptions) == null ? void 0 : _b3.makeRelativeToVault,
         pickFolder: (_c2 = settinginfo.fileInputOptions) == null ? void 0 : _c2.pickFolder,
         validation: (path) => {
-          var _a3, _b3, _c3;
-          return ((_a3 = settinginfo.fileInputOptions) == null ? void 0 : _a3.validation) ? (_c3 = (_b3 = settinginfo.fileInputOptions) == null ? void 0 : _b3.validation(path.path)) != null ? _c3 : { valid: true, isEmpty: false, error: "" } : { valid: true, isEmpty: false, error: "" };
+          var _a4, _b4, _c3;
+          return ((_a4 = settinginfo.fileInputOptions) == null ? void 0 : _a4.validation) ? (_c3 = (_b4 = settinginfo.fileInputOptions) == null ? void 0 : _b4.validation(path.path)) != null ? _c3 : { valid: true, isEmpty: false, error: "" } : { valid: true, isEmpty: false, error: "" };
         },
         browseButton: (_d = settinginfo.fileInputOptions) == null ? void 0 : _d.browseButton,
         onChanged: (path) => {
-          var _a3, _b3;
-          if ((_a3 = settinginfo.fileInputOptions) == null ? void 0 : _a3.onChanged)
-            (_b3 = settinginfo.fileInputOptions) == null ? void 0 : _b3.onChanged(path.path);
+          var _a4, _b4;
+          if ((_a4 = settinginfo.fileInputOptions) == null ? void 0 : _a4.onChanged)
+            (_b4 = settinginfo.fileInputOptions) == null ? void 0 : _b4.onChanged(path.path);
         }
       });
       continue;
@@ -77443,450 +74693,29 @@ function createFeatureSetting(container, name, feature, desc, addSettings) {
     });
   }
   setting.addExtraButton((button) => {
-    button.setTooltip(feature.unavailable ? i18n.settings.unavailableSetting.format(Settings.exportPreset) : "", { delay: 0 });
-    button.setDisabled(feature.unavailable);
     button.setIcon("settings");
-    button.onClick(() => {
-      let modal = new import_obsidian6.Modal(app);
-      let contentEl = modal.contentEl;
-      modal.open();
-      modal.setTitle(name);
-      generateSettingsFromObject(feature, contentEl);
-      if (addSettings)
-        addSettings(contentEl);
-    });
+    if (feature.hideSettingsButton) {
+      button.extraSettingsEl.style.opacity = "0";
+      button.extraSettingsEl.style.pointerEvents = "none";
+      button.extraSettingsEl.style.cursor = "default";
+    } else {
+      button.setTooltip(feature.unavailable ? i18n.settings.unavailableSetting.format(Settings.exportPreset) : "", { delay: 0 });
+      button.setDisabled(feature.unavailable);
+      button.onClick(() => {
+        let modal = new import_obsidian6.Modal(app);
+        let contentEl = modal.contentEl;
+        modal.open();
+        modal.setTitle(name);
+        generateSettingsFromObject(feature, contentEl);
+        if (addSettings)
+          addSettings(contentEl);
+      });
+    }
   });
 }
 
-// src/shared/features/feature-options-base.ts
-var RelationType = /* @__PURE__ */ ((RelationType2) => {
-  RelationType2["Before"] = "before";
-  RelationType2["After"] = "after";
-  RelationType2["Start"] = "start";
-  RelationType2["End"] = "end";
-  return RelationType2;
-})(RelationType || {});
-var FeatureRelation = class {
-  constructor(selector = "#right-sidebar-content", type = "start" /* Start */) {
-    this.selector = "#right-sidebar-content";
-    this.type = "start" /* Start */;
-    this.info_selector = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.baseFeatures.info_selector
-    });
-    this.info_type = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.baseFeatures.info_type,
-      dropdownTypes: RelationType
-    });
-    this.selector = selector;
-    this.type = type;
-  }
-};
-var FeatureSettingInfo = class {
-  constructor(options) {
-    this.show = true;
-    this.name = "";
-    this.description = "";
-    this.placeholder = "";
-    this.fileInputOptions = void 0;
-    this.dropdownOptions = void 0;
-    var _a2, _b2, _c2, _d, _e, _f;
-    if (options) {
-      this.show = (_a2 = options.show) != null ? _a2 : this.show;
-      this.name = (_b2 = options.name) != null ? _b2 : this.name;
-      this.description = (_c2 = options.description) != null ? _c2 : this.description;
-      this.placeholder = (_d = options.placeholder) != null ? _d : this.placeholder;
-      this.fileInputOptions = (_e = options.fileInputOptions) != null ? _e : this.fileInputOptions;
-      this.dropdownOptions = (_f = options.dropdownTypes) != null ? _f : this.dropdownOptions;
-    }
-  }
-};
-var FeatureOptions = class {
-  constructor() {
-    this.featureId = "feature";
-    this.enabled = true;
-    this.unavailable = false;
-    this.alwaysEnabled = false;
-  }
-  setAvailable(value) {
-    this.unavailable = !value;
-    this.enabled = value;
-  }
-};
-var InsertedFeatureOptions = class extends FeatureOptions {
-  constructor(options) {
-    super();
-    this.displayTitle = "Feature";
-    this.featurePlacement = new FeatureRelation();
-    this.info_displayTitle = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.baseFeatures.info_displayTitle
-    });
-    this.info_featurePlacement = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.baseFeatures.info_featurePlacement
-    });
-    Object.assign(this, options);
-  }
-  insertFeature(container, feature) {
-    if (!container)
-      return false;
-    let relation = container.querySelector(this.featurePlacement.selector);
-    if (relation) {
-      switch (this.featurePlacement.type) {
-        case "before" /* Before */:
-          relation.before(feature);
-          return true;
-        case "after" /* After */:
-          relation.after(feature);
-          return true;
-        case "start" /* Start */:
-          relation.prepend(feature);
-          return true;
-        case "end" /* End */:
-          relation.append(feature);
-          return true;
-        default:
-          return false;
-      }
-    }
-    return false;
-  }
-};
-var FetchedFeatureOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super(...arguments);
-    this.info_includePath = new FeatureSettingInfo({
-      show: false
-    });
-  }
-};
-
-// src/shared/features/backlinks.ts
-var BacklinksOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super();
-    this.featureId = "backlinks";
-    this.displayTitle = i18n.settings.backlinks.title;
-    this.featurePlacement = new FeatureRelation(".footer", "start" /* Start */);
-  }
-};
-
-// src/shared/features/tags.ts
-var TagsOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super();
-    this.showInlineTags = true;
-    this.showFrontmatterTags = true;
-    this.info_showInlineTags = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.tags.info_showInlineTags
-    });
-    this.info_showFrontmatterTags = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.tags.info_showFrontmatterTags
-    });
-    this.featureId = "tags";
-    this.displayTitle = "";
-    this.featurePlacement = new FeatureRelation(".header .data-bar", "end" /* End */);
-  }
-};
-
-// src/shared/features/aliases.ts
-var AliasesOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super();
-    this.featureId = "aliases";
-    this.displayTitle = "";
-    this.featurePlacement = new FeatureRelation(".header .data-bar", "start" /* Start */);
-  }
-};
-
-// src/shared/features/properties.ts
-var PropertiesOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super();
-    this.info_hideProperties = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.properties.info_hideProperties
-    });
-    this.featureId = "properties";
-    this.displayTitle = i18n.settings.properties.title;
-    this.featurePlacement = new FeatureRelation(".header", "start" /* Start */);
-  }
-};
-
-// src/shared/shared.ts
-var Shared = class {
-};
-Shared.libFolderName = "site-lib";
-Shared.mediaFolderName = "media";
-Shared.scriptsFolderName = "scripts";
-Shared.cssFolderName = "styles";
-Shared.fontFolderName = "fonts";
-Shared.htmlFolderName = "html";
-Shared.metadataFileName = "metadata.json";
-Shared.searchIndexFileName = "search-index.json";
-
-// src/shared/features/file-navigation.ts
-var FileNavigationOptions = class extends FetchedFeatureOptions {
-  constructor() {
-    super();
-    this.showCustomIcons = false;
-    this.showDefaultFolderIcons = false;
-    this.showDefaultFileIcons = false;
-    this.defaultFolderIcon = "lucide//folder";
-    this.defaultFileIcon = "lucide//file";
-    this.defaultMediaIcon = "lucide//file-image";
-    this.exposeStartingPath = true;
-    this.info_showCustomIcons = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.fileNavigation.info_showCustomIcons
-    });
-    this.info_showDefaultFolderIcons = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.fileNavigation.info_showDefaultFolderIcons
-    });
-    this.info_showDefaultFileIcons = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.fileNavigation.info_showDefaultFileIcons
-    });
-    this.info_defaultFolderIcon = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.fileNavigation.info_defaultFolderIcon
-    });
-    this.info_defaultFileIcon = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.fileNavigation.info_defaultFileIcon
-    });
-    this.info_defaultMediaIcon = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.fileNavigation.info_defaultMediaIcon
-    });
-    this.info_exposeStartingPath = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.fileNavigation.info_exposeStartingPath
-    });
-    this.featureId = "file-navigation";
-    this.displayTitle = "";
-    this.featurePlacement = new FeatureRelation("#left-sidebar-content", "end" /* End */);
-    this.includePath = `${Shared.libFolderName}/${Shared.htmlFolderName}/file-tree.html`;
-  }
-};
-
-// src/shared/features/outline.ts
-var OutlineOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super();
-    this.startCollapsed = false;
-    this.minCollapseDepth = 0;
-    this.info_startCollapsed = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.outline.info_startCollapsed
-    });
-    this.info_minCollapseDepth = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.outline.info_minCollapseDepth,
-      dropdownTypes: {
-        "1": 1,
-        "2": 2,
-        "No Collapse": 100
-      }
-    });
-    this.featureId = "outline";
-    this.displayTitle = i18n.settings.outline.title;
-    this.featurePlacement = new FeatureRelation("#right-sidebar-content", "end" /* End */);
-  }
-};
-
-// src/shared/features/theme-toggle.ts
-var ThemeToggleOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super();
-    this.featureId = "theme-toggle";
-    this.displayTitle = "";
-    this.featurePlacement = new FeatureRelation("#right-sidebar .topbar-content", "start" /* Start */);
-  }
-};
-
-// src/shared/features/graph-view.ts
-var GraphViewOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super();
-    this.showOrphanNodes = true;
-    this.showAttachments = false;
-    this.allowGlobalGraph = true;
-    this.allowExpand = true;
-    this.attractionForce = 1;
-    this.linkLength = 15;
-    this.repulsionForce = 80;
-    this.centralForce = 2;
-    this.edgePruning = 100;
-    this.minNodeRadius = 3;
-    this.maxNodeRadius = 7;
-    this.info_showOrphanNodes = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_showOrphanNodes
-    });
-    this.info_showAttachments = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_showAttachments
-    });
-    this.info_allowGlobalGraph = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_allowGlobalGraph
-    });
-    this.info_allowExpand = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_allowExpand
-    });
-    this.info_attractionForce = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_attractionForce
-    });
-    this.info_linkLength = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_linkLength
-    });
-    this.info_repulsionForce = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_repulsionForce
-    });
-    this.info_centralForce = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_centralForce
-    });
-    this.info_edgePruning = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_edgePruning
-    });
-    this.info_minNodeRadius = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_minNodeRadius
-    });
-    this.info_maxNodeRadius = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.graphView.info_maxNodeRadius
-    });
-    this.featureId = "graph-view";
-    this.displayTitle = i18n.settings.graphView.title;
-    this.featurePlacement = new FeatureRelation("#right-sidebar-content", "start" /* Start */);
-  }
-};
-
-// src/shared/features/sidebar.ts
-var SidebarOptions = class extends FeatureOptions {
-  constructor() {
-    super();
-    this.allowResizing = true;
-    this.allowCollapsing = true;
-    this.rightDefaultWidth = "20em";
-    this.leftDefaultWidth = "20em";
-    this.info_allowResizing = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.sidebars.info_allowResizing
-    });
-    this.info_allowCollapsing = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.sidebars.info_allowCollapsing
-    });
-    this.info_rightDefaultWidth = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.sidebars.info_rightDefaultWidth
-    });
-    this.info_leftDefaultWidth = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.sidebars.info_leftDefaultWidth
-    });
-    this.featureId = "sidebar";
-  }
-};
-
-// src/shared/features/document.ts
-var DocumentOptions = class extends FeatureOptions {
-  constructor() {
-    super();
-    this.allowFoldingLists = true;
-    this.allowFoldingHeadings = true;
-    this.documentWidth = "40em";
-    this.info_allowFoldingLists = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.document.info_allowFoldingLists
-    });
-    this.info_allowFoldingHeadings = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.document.info_allowFoldingHeadings
-    });
-    this.info_documentWidth = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.document.info_documentWidth
-    });
-    this.featureId = "obsidian-document";
-    this.alwaysEnabled = true;
-  }
-};
-
-// src/shared/features/search.ts
-var SearchOptions = class extends InsertedFeatureOptions {
-  constructor() {
-    super();
-    this.featureId = "search";
-    this.displayTitle = i18n.settings.search.placeholder;
-    this.featurePlacement = new FeatureRelation("#left-sidebar .topbar-content", "start" /* Start */);
-  }
-};
-
-// src/shared/features/custom-head.ts
-var CustomHeadOptions = class extends FetchedFeatureOptions {
-  constructor() {
-    super();
-    this.sourcePath = "";
-    this.info_sourcePath = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.customHead.info_sourcePath,
-      fileInputOptions: {
-        makeRelativeToVault: true,
-        validation: (path) => {
-          let isEmpty = (path || "").length === 0;
-          let valid = path.endsWith(".html") || isEmpty;
-          return { valid, isEmpty, error: !valid ? i18n.settings.customHead.validationError : "" };
-        },
-        browseButton: true
-      }
-    });
-    this.featureId = "custom-head";
-    this.displayTitle = "";
-    this.featurePlacement = new FeatureRelation("head", "end" /* End */);
-    this.includePath = `${Shared.libFolderName}/${Shared.htmlFolderName}/custom-head.html`;
-  }
-};
-
-// src/shared/features/rss.ts
-var RssOptions = class extends FeatureOptions {
-  constructor() {
-    super();
-    this.siteUrl = "";
-    this.siteName = app.vault.getName();
-    this.authorName = "";
-    this.info_siteUrl = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.rss.info_siteUrl,
-      placeholder: i18n.settings.rss.info_siteUrlPlaceholder
-    });
-    this.info_siteName = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.rss.info_siteName
-    });
-    this.info_authorName = new FeatureSettingInfo({
-      show: true,
-      description: i18n.settings.rss.info_authorName
-    });
-    this.featureId = "obsidian-document";
-  }
-};
-
 // src/plugin/website/pipeline-options.ts
+var _a2, _b2;
 var ExportPipelineOptions = class extends MarkdownRendererOptions {
   constructor() {
     super(...arguments);
@@ -77906,6 +74735,7 @@ var ExportPipelineOptions = class extends MarkdownRendererOptions {
     this.customHeadOptions = new CustomHeadOptions();
     this.documentOptions = new DocumentOptions();
     this.rssOptions = new RssOptions();
+    this.linkPreviewOptions = new LinkPreviewOptions();
     this.relativeHeaderLinks = false;
     this.includeJS = true;
     this.includeCSS = true;
@@ -77921,11 +74751,21 @@ var ExportPipelineOptions = class extends MarkdownRendererOptions {
     this.flattenExportPaths = false;
     this.fixLinks = true;
     this.faviconPath = "";
+    this.siteName = (_b2 = (_a2 = app == null ? void 0 : app.vault) == null ? void 0 : _a2.getName()) != null ? _b2 : "";
     this.iconEmojiStyle = "Native" /* Native */;
     this.exportRoot = "";
     this.includePluginCss = [];
     this.includeStyleCssIds = [];
     this.autoDisposeWebpages = true;
+  }
+  reconstructFeatureOptions() {
+    for (const [propertyName, propertyValue] of Object.entries(this)) {
+      if (propertyValue && typeof propertyValue === "object" && "featureId" in propertyValue && propertyValue.constructor !== Object) {
+        const ConstructorClass = propertyValue.constructor;
+        const freshInstance = new ConstructorClass();
+        this[propertyName] = Object.assign(freshInstance, propertyValue);
+      }
+    }
   }
 };
 
@@ -78046,8 +74886,8 @@ var _Settings = class {
         files.push(file.path);
       else if (file instanceof import_obsidian7.TFolder) {
         const newFiles = allFilePaths.filter((f) => {
-          var _a2;
-          return f.startsWith((_a2 = file == null ? void 0 : file.path) != null ? _a2 : "*");
+          var _a3;
+          return f.startsWith((_a3 = file == null ? void 0 : file.path) != null ? _a3 : "*");
         });
         files.push(...newFiles);
       }
@@ -78126,12 +74966,12 @@ var _SettingsPage = class extends import_obsidian7.PluginSettingTab {
     createFeatureSetting(section, lang.outline.title, Settings.exportOptions.outlineOptions, lang.outline.description);
     createFeatureSetting(section, lang.graphView.title, Settings.exportOptions.graphViewOptions, lang.graphView.description);
     createFeatureSetting(section, lang.search.title, Settings.exportOptions.searchOptions, lang.search.description);
+    createFeatureSetting(section, lang.linkPreview.title, Settings.exportOptions.linkPreviewOptions, lang.linkPreview.description);
     createFeatureSetting(section, lang.themeToggle.title, Settings.exportOptions.themeToggleOptions, lang.themeToggle.description);
     createFeatureSetting(section, lang.customHead.title, Settings.exportOptions.customHeadOptions, lang.customHead.description);
     createFeatureSetting(section, lang.backlinks.title, Settings.exportOptions.backlinkOptions, lang.backlinks.description);
     createFeatureSetting(section, lang.tags.title, Settings.exportOptions.tagOptions, lang.tags.description);
     createFeatureSetting(section, lang.aliases.title, Settings.exportOptions.aliasOptions, lang.aliases.description);
-    createFeatureSetting(section, lang.properties.title, Settings.exportOptions.propertiesOptions, lang.properties.description);
     createFeatureSetting(section, lang.rss.title, Settings.exportOptions.rssOptions, lang.rss.description);
     createDivider(container);
     section = createSection(container, lang.generalSettingsSection.title, lang.generalSettingsSection.description);
@@ -78151,12 +74991,13 @@ var _SettingsPage = class extends import_obsidian7.PluginSettingTab {
       }),
       browseButton: true
     });
+    createText(section, lang.siteName.title, () => Settings.exportOptions.siteName, (value) => Settings.exportOptions.siteName = value, lang.siteName.description);
     createDivider(container);
     section = createSection(container, lang.styleOptionsSection.title, lang.styleOptionsSection.description);
     createDropdown(section, lang.iconEmojiStyle.title, () => Settings.exportOptions.iconEmojiStyle, (value) => Settings.exportOptions.iconEmojiStyle = value, EmojiStyle, lang.iconEmojiStyle.description);
     createDropdown(section, lang.themeName.title, () => {
-      var _a2, _b2;
-      return Settings.exportOptions.themeName || ((_b2 = (_a2 = app.vault) == null ? void 0 : _a2.config) == null ? void 0 : _b2.cssTheme) || "Default";
+      var _a3, _b3;
+      return Settings.exportOptions.themeName || ((_b3 = (_a3 = app.vault) == null ? void 0 : _a3.config) == null ? void 0 : _b3.cssTheme) || "Default";
     }, (value) => Settings.exportOptions.themeName = value, this.getInstalledThemesRecord(), lang.themeName.description);
     new import_obsidian7.Setting(section).setName(lang.includeStyleCssIds.title).setDesc(lang.includeStyleCssIds.description);
     const styleIdsList = new FlowList();
@@ -78196,7 +75037,7 @@ var _SettingsPage = class extends import_obsidian7.PluginSettingTab {
     createDivider(container);
     section = createSection(container, lang.exportSettingsSection.title, lang.exportSettingsSection.description);
     createToggle(section, lang.relativeHeaderLinks.title, () => Settings.exportOptions.relativeHeaderLinks, (value) => Settings.exportOptions.relativeHeaderLinks = value, lang.relativeHeaderLinks.description);
-    createToggle(section, lang.slugifyPaths.title, () => Settings.exportOptions.includeJS, (value) => Settings.exportOptions.includeJS = value, lang.slugifyPaths.description);
+    createToggle(section, lang.slugifyPaths.title, () => Settings.exportOptions.slugifyPaths, (value) => Settings.exportOptions.slugifyPaths = value, lang.slugifyPaths.description);
     createToggle(section, lang.makeOfflineCompatible.title, () => Settings.exportOptions.offlineResources, (value) => Settings.exportOptions.offlineResources = value, lang.makeOfflineCompatible.description);
     createDivider(container);
     section = createSection(container, lang.obsidianSettingsSection.title, lang.obsidianSettingsSection.description);
@@ -78255,7 +75096,6 @@ var _SettingsPage = class extends import_obsidian7.PluginSettingTab {
         return false;
       }
     });
-    console.log(commentWords);
     root2.walkRules((rule2) => {
       const selectors = rule2.selector.match(/[.#][\w-]+/g) || [];
       selectors.forEach((selector) => {
@@ -78283,20 +75123,44 @@ var _SettingsPage = class extends import_obsidian7.PluginSettingTab {
     }
   }
   static nameStyles() {
-    var _a2, _b2, _c2, _d;
+    var _a3, _b3, _c2, _d;
     const stylesheets = document.styleSheets;
-    console.log(stylesheets);
     for (let i = 1; i < stylesheets.length; i++) {
-      const styleID = (_a2 = stylesheets[i].ownerNode) == null ? void 0 : _a2.id;
+      const styleID = (_a3 = stylesheets[i].ownerNode) == null ? void 0 : _a3.id;
       if (!styleID || styleID == "") {
+        const attributes = (_b3 = stylesheets[i].ownerNode) == null ? void 0 : _b3.attributes;
+        if (attributes) {
+          const priorityPrefixes = ["source-plugin", "type", "name", "source"];
+          let foundPriorityAttr = false;
+          for (const prefix of priorityPrefixes) {
+            const attr = Array.from(attributes).find((a) => a.name === `data-${prefix}`);
+            if (attr) {
+              stylesheets[i].ownerNode.id = `${prefix}-${attr.value}-stylesheet`;
+              foundPriorityAttr = true;
+              break;
+            }
+          }
+          if (!foundPriorityAttr) {
+            const dataAttrs = Array.from(attributes).filter((attr) => attr.name.startsWith("data-")).map((attr) => ({
+              name: attr.name.substring(5),
+              value: attr.value
+            }));
+            if (dataAttrs.length > 0) {
+              const id = dataAttrs.map((attr) => `${attr.name}${attr.value ? `-${attr.value}` : ""}`).join("-");
+              stylesheets[i].ownerNode.id = `${id}-stylesheet`;
+              continue;
+            }
+          } else {
+            continue;
+          }
+        }
         let hasUniqueAttr = false;
-        const attributes = (_b2 = stylesheets[i].ownerNode) == null ? void 0 : _b2.attributes;
         if (attributes) {
           for (const attr of attributes) {
             if (!["type", "id"].contains(attr.name) && !attr.name.startsWith("data-")) {
               const elements = document.querySelectorAll(`[${attr.name}]`);
               if (elements.length == 1) {
-                stylesheets[i].ownerNode.id = attr.name;
+                stylesheets[i].ownerNode.id = `${attr.name}-stylesheet`;
                 hasUniqueAttr = true;
                 break;
               }
@@ -78307,7 +75171,6 @@ var _SettingsPage = class extends import_obsidian7.PluginSettingTab {
           continue;
         if (!((_d = (_c2 = stylesheets[i].ownerNode) == null ? void 0 : _c2.textContent) == null ? void 0 : _d.contains("svelte-")))
           continue;
-        console.log(stylesheets[i].ownerNode);
         stylesheets[i].ownerNode.id = this.nameStylesheet(stylesheets[i].ownerNode.textContent);
       }
     }
@@ -78371,6 +75234,7 @@ var _SettingsPage = class extends import_obsidian7.PluginSettingTab {
   static async loadSettings() {
     const loadedSettings = await _SettingsPage.plugin.loadData();
     _SettingsPage.deepAssign(Settings, loadedSettings);
+    Settings.exportOptions.reconstructFeatureOptions();
     _SettingsPage.saveSettings();
     _SettingsPage.loaded = true;
   }
@@ -78609,11 +75473,11 @@ AssetLoader.replacements = {
   "\\.leaf>.leaf-content": ".leaf .leaf-content",
   "\\.markdown-reading-view": "#center-content",
   "\\.markdown-preview-sizer|\\.markdown-preview-section": ".markdown-preview-sizer",
-  "\\.horizontal-main-container|\\.workspace": "#layout"
+  "\\.horizontal-main-container|\\.workspace": "#main-horizontal"
 };
 
 // src/assets/obsidian-styles.txt.css
-var obsidian_styles_txt_default = ".obsidian-document .heading-collapse-indicator \n{\n    margin-left: calc( 0px - var(--collapse-arrow-size) - 10px) !important;\n    padding: 0px 0px !important;\n}\n\n.node-insert-event \n{\n    animation-duration: unset !important;\n    animation-name: none !important;\n}\n\nhr\n{\n    border: none;\n	border-top: var(--hr-thickness) solid;\n    border-color: var(--hr-color);\n}\n\nh1:hover .collapse-indicator, h2:hover .collapse-indicator, h3:hover .collapse-indicator, h4:hover .collapse-indicator, h5:hover .collapse-indicator, h6:hover .collapse-indicator, .collapse-indicator:hover, .is-collapsed .collapse-indicator, .cm-fold-indicator.is-collapsed .collapse-indicator, .cm-gutterElement:hover .collapse-indicator, .cm-gutterElement .is-collapsed .collapse-indicator, .cm-line:hover .cm-fold-indicator .collapse-indicator, .fold-gutter.is-collapsed, .fold-gutter:hover, .metadata-properties-heading:hover .collapse-indicator {\n    opacity: 1;\n	transition: opacity 0.15s ease-in-out;\n}\n\n.collapse-indicator, .fold-gutter\n{\n	opacity: 0;\n	transition: opacity 0.15s ease-in-out;\n}\n\n@media print \n{\n    html body > :not(.print) \n    {\n        display: unset !important;\n    }\n\n    .collapse-indicator\n    {\n        display: none !important;\n    }\n\n    .is-collapsed > element > .collapse-indicator\n    {\n        display: unset !important;\n    }\n}\n\n/*#region Misc Hiding */\n\n.mod-header .metadata-container\n{\n	display: none !important;\n}\n\n.canvas-empty-embed-action-list\n{\n	display: none !important;\n}\n\n/*#endregion */\n\n/*#region Transclusions */\n\n.markdown-embed .heading-collapse-indicator {\n    translate: -1em 0;\n}\n\n.markdown-embed.internal-embed.inline-embed .markdown-embed-content,\n.markdown-embed.internal-embed.inline-embed .markdown-embed-content .obsidian-document\n{\n	overflow: visible !important;\n}\n\n.markdown-embed-link\n{\n	display: none !important;\n}\n\n/*#endregion  */\n\n/*#region Canvas */\n\n.canvas-wrapper:not(.mod-readonly) .canvas-node-content.markdown-embed>.markdown-embed-content>.obsidian-document\n{\n	user-select: text !important;\n}\n\n.canvas-card-menu {\n	display: none;\n	cursor: default !important;\n\n}\n\n.canvas-controls {\n	display: none;\n	cursor: default !important;\n\n}\n\n.canvas-background\n{\n	pointer-events: visible !important;\n	cursor: grab !important;\n}\n\n.canvas-background:active\n{\n	cursor: grabbing !important;\n}\n\n.canvas-node-connection-point \n{\n	display: none;\n	cursor: default !important;\n\n}\n\n.canvas-node-content\n{\n	backface-visibility: visible !important;\n}\n\n.canvas-menu-container {\n	display: none;\n}\n\n.canvas-node-content-blocker\n{\n	cursor: pointer !important;\n}\n\n.canvas-wrapper\n{\n	position: relative;\n	cursor: default !important;\n}\n\n.canvas-node-resizer\n{\n	cursor: default !important;\n}\n\n.canvas-node-container\n{\n	cursor: default !important;\n}\n\n.canvas-node .obsidian-document.is-readable-line-width .markdown-preview-sizer {\n    max-width: 100%;\n    margin-left: unset;\n    margin-right: unset;\n}\n\n/*#endregion */\n\n/*#region Code Copy */\n\n/* Make code block copy button fade in and out */\n.markdown-rendered pre:not(:hover) > button.copy-code-button\n{\n	display: unset;\n	opacity: 0;\n}\n\n.markdown-rendered pre:hover > button.copy-code-button\n{\n	opacity: 1;\n}\n\n.markdown-rendered pre button.copy-code-button\n{\n	transition: opacity 0.2s ease-in-out, width 0.3s ease-in-out, background-color 0.2s ease-in-out;\n	text-overflow: clip;\n}\n\n.markdown-rendered pre > button.copy-code-button:hover\n{\n	background-color: var(--interactive-normal);\n}\n\n.markdown-rendered pre > button.copy-code-button:active\n{\n	background-color: var(--interactive-hover);\n	box-shadow: var(--input-shadow);\n	transition: none;\n}\n\n/*#endregion */\n\n/*#region Lists */\n\n#layout .is-collapsed .list-collapse-indicator svg.svg-icon, \n#layout .is-collapsed .collapse-indicator svg.svg-icon\n{\n	color: var(--collapse-icon-color-collapsed);\n}\n\n/*#endregion */\n";
+var obsidian_styles_txt_default = ".obsidian-document .heading-collapse-indicator \n{\n    margin-left: calc( 0px - var(--collapse-arrow-size) - 10px) !important;\n    padding: 0px 0px !important;\n}\n\n.node-insert-event \n{\n    animation-duration: unset !important;\n    animation-name: none !important;\n}\n\nhr\n{\n    border: none;\n	border-top: var(--hr-thickness) solid;\n    border-color: var(--hr-color);\n}\n\nh1:hover .collapse-indicator, h2:hover .collapse-indicator, h3:hover .collapse-indicator, h4:hover .collapse-indicator, h5:hover .collapse-indicator, h6:hover .collapse-indicator, .collapse-indicator:hover, .is-collapsed .collapse-indicator, .cm-fold-indicator.is-collapsed .collapse-indicator, .cm-gutterElement:hover .collapse-indicator, .cm-gutterElement .is-collapsed .collapse-indicator, .cm-line:hover .cm-fold-indicator .collapse-indicator, .fold-gutter.is-collapsed, .fold-gutter:hover, .metadata-properties-heading:hover .collapse-indicator {\n    opacity: 1;\n	transition: opacity 0.15s ease-in-out;\n}\n\n.collapse-indicator, .fold-gutter\n{\n	opacity: 0;\n	transition: opacity 0.15s ease-in-out;\n}\n\n@media print \n{\n    html body > :not(.print) \n    {\n        display: unset !important;\n    }\n\n    .collapse-indicator\n    {\n        display: none !important;\n    }\n\n    .is-collapsed > element > .collapse-indicator\n    {\n        display: unset !important;\n    }\n}\n\n/*#region Misc Hiding */\n\n.mod-header .metadata-container\n{\n	display: none !important;\n}\n\n.canvas-empty-embed-action-list\n{\n	display: none !important;\n}\n\n/*#endregion */\n\n/*#region Transclusions */\n\n.markdown-embed .heading-collapse-indicator {\n    translate: -1em 0;\n}\n\n.markdown-embed.internal-embed.inline-embed .markdown-embed-content,\n.markdown-embed.internal-embed.inline-embed .markdown-embed-content .obsidian-document\n{\n	overflow: visible !important;\n}\n\n.markdown-embed-link\n{\n	display: none !important;\n}\n\n/*#endregion  */\n\n/*#region Canvas */\n\n.canvas-wrapper:not(.mod-readonly) .canvas-node-content.markdown-embed>.markdown-embed-content>.obsidian-document\n{\n	user-select: text !important;\n}\n\n.canvas-card-menu {\n	display: none;\n	cursor: default !important;\n\n}\n\n.canvas-controls {\n	display: none;\n	cursor: default !important;\n\n}\n\n.canvas-background\n{\n	pointer-events: visible !important;\n	cursor: grab !important;\n}\n\n.canvas-background:active\n{\n	cursor: grabbing !important;\n}\n\n.canvas-node-connection-point \n{\n	display: none;\n	cursor: default !important;\n\n}\n\n.canvas-node-content\n{\n	backface-visibility: visible !important;\n}\n\n.canvas-menu-container {\n	display: none;\n}\n\n.canvas-node-content-blocker\n{\n	cursor: pointer !important;\n}\n\n.canvas-wrapper\n{\n	position: relative;\n	cursor: default !important;\n}\n\n.canvas-node-resizer\n{\n	cursor: default !important;\n}\n\n.canvas-node-container\n{\n	cursor: default !important;\n}\n\n.canvas-node .obsidian-document.is-readable-line-width .markdown-preview-sizer {\n    max-width: 100%;\n    margin-left: unset;\n    margin-right: unset;\n}\n\n/*#endregion */\n\n/*#region Code Copy */\n\n/* Make code block copy button fade in and out */\n.markdown-rendered pre:not(:hover) > button.copy-code-button\n{\n	display: unset;\n	opacity: 0;\n}\n\n.markdown-rendered pre:hover > button.copy-code-button\n{\n	opacity: 1;\n}\n\n.markdown-rendered pre button.copy-code-button\n{\n	transition: opacity 0.2s ease-in-out, width 0.3s ease-in-out, background-color 0.2s ease-in-out;\n	text-overflow: clip;\n}\n\n.markdown-rendered pre > button.copy-code-button:hover\n{\n	background-color: var(--interactive-normal);\n}\n\n.markdown-rendered pre > button.copy-code-button:active\n{\n	background-color: var(--interactive-hover);\n	box-shadow: var(--input-shadow);\n	transition: none;\n}\n\n/*#endregion */\n\n/*#region Lists */\n\n#main-horizontal .is-collapsed .list-collapse-indicator svg.svg-icon, \n#main-horizontal .is-collapsed .collapse-indicator svg.svg-icon\n{\n	color: var(--collapse-icon-color-collapsed);\n}\n\n/*#endregion */\n";
 
 // src/plugin/asset-loaders/obsidian-styles.ts
 var _ObsidianStyles = class extends AssetLoader {
@@ -78621,12 +75485,12 @@ var _ObsidianStyles = class extends AssetLoader {
     super("obsidian.css", "", null, "style" /* Style */, "autohead" /* AutoHead */, true, "dynamic" /* Dynamic */, "" /* Default */, 10);
   }
   async load() {
-    var _a2;
+    var _a3;
     this.data = "";
     let appSheet = document.styleSheets[1];
     const stylesheets = Array.from(document.styleSheets);
     for (const element of stylesheets) {
-      if (element.href && ((_a2 = element.href) == null ? void 0 : _a2.includes("app.css"))) {
+      if (element.href && ((_a3 = element.href) == null ? void 0 : _a3.includes("app.css"))) {
         appSheet = element;
         break;
       }
@@ -78676,7 +75540,7 @@ ObsidianStyles.obsidianStylesFilter = [
   "windows",
   "titlebar",
   "source",
-  "#layout",
+  "#main-horizontal",
   "menu",
   "message",
   "suggestion",
@@ -78715,11 +75579,11 @@ var OtherPluginStyles = class extends AssetLoader {
     this.lastEnabledPluginStyles = [];
   }
   static async getStyleForPlugin(pluginName) {
-    var _a2;
+    var _a3;
     const path = AssetHandler.vaultPluginsPath.joinString(pluginName.replace("\n", ""), "styles.css");
     if (!path.exists)
       return "";
-    return (_a2 = await path.readAsString()) != null ? _a2 : "";
+    return (_a3 = await path.readAsString()) != null ? _a3 : "";
   }
   async load() {
     if (this.lastEnabledPluginStyles == Settings.exportOptions.includePluginCss)
@@ -78747,7 +75611,7 @@ var _ThemeStyles = class extends AssetLoader {
     this.lastThemeName = "";
   }
   static async getThemeContent(themeName) {
-    var _a2;
+    var _a3;
     if (themeName == "Default")
       return "/* Using default theme. */";
     const themePath = new Path(app.customCss.themes[themeName].dir).joinString("theme.css").absolute();
@@ -78756,14 +75620,14 @@ var _ThemeStyles = class extends AssetLoader {
       ExportLog.warning("Cannot find theme at path: \n\n" + themePath.path);
       return "";
     }
-    const themeContent = (_a2 = await themePath.readAsString()) != null ? _a2 : "";
+    const themeContent = (_a3 = await themePath.readAsString()) != null ? _a3 : "";
     return themeContent;
   }
   async load() {
-    var _a2, _b2;
+    var _a3, _b3;
     let themeName = this.exportOptions.themeName;
     if (!themeName || themeName == "" || themeName == "obsidian-current-theme")
-      themeName = (_b2 = (_a2 = app == null ? void 0 : app.vault) == null ? void 0 : _a2.config) == null ? void 0 : _b2.cssTheme;
+      themeName = (_b3 = (_a3 = app == null ? void 0 : app.vault) == null ? void 0 : _a3.config) == null ? void 0 : _b3.cssTheme;
     if (!themeName || themeName == "")
       themeName = "Default";
     if (themeName == this.lastThemeName && this.data != "") {
@@ -78787,17 +75651,17 @@ var SnippetStyles = class extends AssetLoader {
     super("snippets.css", "", null, "style" /* Style */, "autohead" /* AutoHead */, true, "dynamic" /* Dynamic */, "async" /* Async */, 20);
   }
   static getEnabledSnippets() {
-    var _a2, _b2;
-    return (_b2 = (_a2 = app.vault.config) == null ? void 0 : _a2.enabledCssSnippets) != null ? _b2 : [];
+    var _a3, _b3;
+    return (_b3 = (_a3 = app.vault.config) == null ? void 0 : _a3.enabledCssSnippets) != null ? _b3 : [];
   }
   static async getStyleSnippetsContent() {
-    var _a2;
+    var _a3;
     const snippetContents = [];
     const enabledSnippets = this.getEnabledSnippets();
     for (let i = 0; i < enabledSnippets.length; i++) {
       const path = new Path(`.obsidian/snippets/${enabledSnippets[i]}.css`).absoluted();
       if (path.exists)
-        snippetContents.push((_a2 = await path.readAsString()) != null ? _a2 : "\n");
+        snippetContents.push((_a3 = await path.readAsString()) != null ? _a3 : "\n");
     }
     return snippetContents;
   }
@@ -78821,13 +75685,13 @@ var MathjaxStyles = class extends AssetLoader {
     this.lastMathjaxChanged = -1;
   }
   async load() {
-    var _a2;
+    var _a3;
     if (this.mathjaxStylesheet == void 0)
       this.mathjaxStylesheet = Array.from(document.styleSheets).find((sheet) => sheet.ownerNode.id == "MJX-CHTML-styles");
     if (this.mathjaxStylesheet == void 0) {
       return;
     }
-    const changed = (_a2 = this.mathjaxStylesheet) == null ? void 0 : _a2.ownerNode.getAttribute("data-change");
+    const changed = (_a3 = this.mathjaxStylesheet) == null ? void 0 : _a3.ownerNode.getAttribute("data-change");
     if (changed != this.lastMathjaxChanged) {
       this.data = "";
       for (let i = 0; i < this.mathjaxStylesheet.cssRules.length; i++) {
@@ -78847,7 +75711,7 @@ var CustomHeadContent = class extends AssetLoader {
     super("custom-head-content.html", "", null, "html" /* HTML */, "auto" /* Auto */, false, "dynamic" /* Dynamic */, "" /* Default */, 1e11);
   }
   async load() {
-    var _a2;
+    var _a3;
     const customHeadPath = new Path(this.exportOptions.customHeadOptions.sourcePath);
     if (customHeadPath.isEmpty) {
       this.data = "";
@@ -78872,7 +75736,7 @@ var CustomHeadContent = class extends AssetLoader {
         this.sourceStat = { ctime: stat.ctimeMs, mtime: stat.mtimeMs, size: stat.size };
       }
     }
-    this.data = (_a2 = await customHeadPath.readAsString()) != null ? _a2 : "";
+    this.data = (_a3 = await customHeadPath.readAsString()) != null ? _a3 : "";
     await super.load();
   }
 };
@@ -78883,8 +75747,8 @@ var GlobalVariableStyles = class extends AssetLoader {
     super("global-variable-styles.css", "", null, "style" /* Style */, "autohead" /* AutoHead */, true, "dynamic" /* Dynamic */, "async" /* Async */, 6);
   }
   async load() {
-    var _a2;
-    const bodyStyle = ((_a2 = document.body.getAttribute("style")) != null ? _a2 : "").replaceAll('"', "'").replaceAll("; ", " !important;\n	");
+    var _a3;
+    const bodyStyle = ((_a3 = document.body.getAttribute("style")) != null ? _a3 : "").replaceAll('"', "'").replaceAll("; ", " !important;\n	");
     let lineWidth = this.exportOptions.documentOptions.documentWidth || "40em";
     let sidebarWidthRight = this.exportOptions.sidebarOptions.rightDefaultWidth;
     let sidebarWidthLeft = this.exportOptions.sidebarOptions.leftDefaultWidth;
@@ -79904,12 +76768,12 @@ var FileTypeParser = class {
       readableStream.on("error", reject);
       readableStream.once("readable", () => {
         (async () => {
-          var _a2, _b2;
+          var _a3, _b3;
           try {
             const pass = new stream.PassThrough();
             const outputStream = stream.pipeline ? stream.pipeline(readableStream, pass, () => {
             }) : readableStream.pipe(pass);
-            const chunk = (_b2 = (_a2 = readableStream.read(sampleSize)) != null ? _a2 : readableStream.read()) != null ? _b2 : import_node_buffer3.Buffer.alloc(0);
+            const chunk = (_b3 = (_a3 = readableStream.read(sampleSize)) != null ? _a3 : readableStream.read()) != null ? _b3 : import_node_buffer3.Buffer.alloc(0);
             try {
               pass.fileType = await this.fromBuffer(chunk);
             } catch (error) {
@@ -81190,12 +78054,12 @@ var SupportedPluginStyles = class extends AssetLoader {
     super("supported-plugins.css", "", null, "style" /* Style */, "autohead" /* AutoHead */, true, "dynamic" /* Dynamic */, "async" /* Async */, 5);
   }
   async load() {
-    var _a2;
+    var _a3;
     SettingsPage.nameStyles();
     const stylesheets = document.styleSheets;
     this.data = "";
     for (let i = 1; i < stylesheets.length; i++) {
-      const styleID = (_a2 = stylesheets[i].ownerNode) == null ? void 0 : _a2.id;
+      const styleID = (_a3 = stylesheets[i].ownerNode) == null ? void 0 : _a3.id;
       if (plugin_style_ids_default.ids.contains(styleID) || Settings.exportOptions.includeStyleCssIds.contains(styleID)) {
         ExportLog.log("Including stylesheet: " + styleID);
         const style = stylesheets[i].cssRules;
@@ -81236,7 +78100,7 @@ var SupportedPluginStyles = class extends AssetLoader {
 };
 
 // src/frontend/dist/index.txt.js
-var index_txt_default = '/*\nTHIS IS A GENERATED/BUNDLED FILE BY ESBUILD\nif you want to view the source, please visit the github repository of this plugin\n*/\n\n"use strict";\n(() => {\n  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {\n    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]\n  }) : x)(function(x) {\n    if (typeof require !== "undefined")\n      return require.apply(this, arguments);\n    throw new Error(\'Dynamic require of "\' + x + \'" is not supported\');\n  });\n  var __accessCheck = (obj, member, msg) => {\n    if (!member.has(obj))\n      throw TypeError("Cannot " + msg);\n  };\n  var __privateGet = (obj, member, getter) => {\n    __accessCheck(obj, member, "read from private field");\n    return getter ? getter.call(obj) : member.get(obj);\n  };\n  var __privateAdd = (obj, member, value) => {\n    if (member.has(obj))\n      throw TypeError("Cannot add the same private member more than once");\n    member instanceof WeakSet ? member.add(obj) : member.set(obj, value);\n  };\n  var __privateSet = (obj, member, value, setter) => {\n    __accessCheck(obj, member, "write to private field");\n    setter ? setter.call(obj, value) : member.set(obj, value);\n    return value;\n  };\n  var __privateMethod = (obj, member, method) => {\n    __accessCheck(obj, member, "access private method");\n    return method;\n  };\n\n  // src/frontend/main/utils.ts\n  async function delay(ms) {\n    return new Promise((resolve) => setTimeout(resolve, ms));\n  }\n  async function waitUntil(predicate, interval = 100) {\n    while (!predicate())\n      await delay(interval);\n  }\n  function getTextNodes(element) {\n    const textNodes = [];\n    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);\n    let node;\n    while (node = walker.nextNode()) {\n      textNodes.push(node);\n    }\n    return textNodes;\n  }\n  function getLengthInPixels(cssString, contextElement) {\n    const tempElement = document.createElement("div");\n    tempElement.style.position = "absolute";\n    tempElement.style.visibility = "hidden";\n    tempElement.style.width = cssString;\n    contextElement.appendChild(tempElement);\n    const lengthInPixels = tempElement.offsetWidth;\n    contextElement.removeChild(tempElement);\n    return lengthInPixels;\n  }\n  var Bounds = class {\n    get width() {\n      return this.right - this.left;\n    }\n    set width(value) {\n      this.right = this.left + value;\n    }\n    get height() {\n      return this.bottom - this.top;\n    }\n    set height(value) {\n      this.bottom = this.top + value;\n    }\n    get center() {\n      return new Vector2(this.left + this.width / 2, this.top + this.height / 2);\n    }\n    get min() {\n      return new Vector2(this.left, this.top);\n    }\n    set min(value) {\n      this.left = value.x;\n      this.top = value.y;\n    }\n    set position(value) {\n      this.min = value;\n    }\n    get max() {\n      return new Vector2(this.right, this.bottom);\n    }\n    set max(value) {\n      this.right = value.x;\n      this.bottom = value.y;\n    }\n    get size() {\n      return new Vector2(this.width, this.height);\n    }\n    set size(value) {\n      this.width = value.x;\n      this.height = value.y;\n    }\n    constructor(left, top, width, height) {\n      this.left = left;\n      this.top = top;\n      this.right = left + width;\n      this.bottom = top + height;\n    }\n    containsPoint(point) {\n      return point.x >= this.left && point.x <= this.right && point.y >= this.top && point.y <= this.bottom;\n    }\n    containsBounds(bounds) {\n      return bounds.left >= this.left && bounds.right <= this.right && bounds.top >= this.top && bounds.bottom <= this.bottom;\n    }\n    encapsulate(bounds) {\n      this.left = Math.min(this.left, bounds.left);\n      this.top = Math.min(this.top, bounds.top);\n      this.right = Math.max(this.right, bounds.right);\n      this.bottom = Math.max(this.bottom, bounds.bottom);\n      return this;\n    }\n    encapsulatePoint(point) {\n      if (point.isUndefined)\n        return;\n      this.left = Math.min(this.left, point.x);\n      this.top = Math.min(this.top, point.y);\n      this.right = Math.max(this.right, point.x);\n      this.bottom = Math.max(this.bottom, point.y);\n      return this;\n    }\n    expand(by) {\n      this.left -= by;\n      this.right += by;\n      this.top -= by;\n      this.bottom += by;\n      return this;\n    }\n    translate(by) {\n      this.left += by.x;\n      this.right += by.x;\n      this.top += by.y;\n      this.bottom += by.y;\n      return this;\n    }\n    scale(by) {\n      let width = this.width;\n      let height = this.height;\n      this.left += width * (1 - by) / 2;\n      this.right -= width * (1 - by) / 2;\n      this.top += height * (1 - by) / 2;\n      this.bottom -= height * (1 - by) / 2;\n      return this;\n    }\n    overlaps(bounds) {\n      return this.left < bounds.right && this.right > bounds.left && this.top < bounds.bottom && this.bottom > bounds.top;\n    }\n    static fromElement(el) {\n      const rect = el.getBoundingClientRect();\n      return new Bounds(rect.x, rect.y, rect.width, rect.height);\n    }\n    static get screenBounds() {\n      return new Bounds(0, 0, window.innerWidth, window.innerHeight);\n    }\n  };\n  var _Vector2 = class {\n    constructor(x, y) {\n      this.x = x;\n      this.y = y;\n    }\n    add(point) {\n      return new _Vector2(this.x + point.x, this.y + point.y);\n    }\n    sub(point) {\n      return new _Vector2(this.x - point.x, this.y - point.y);\n    }\n    scale(scalar) {\n      return new _Vector2(this.x * scalar, this.y * scalar);\n    }\n    divide(scalar) {\n      return new _Vector2(this.x / scalar, this.y / scalar);\n    }\n    get isUndefined() {\n      return isNaN(this.x) || isNaN(this.y);\n    }\n    get magnitude() {\n      return Math.sqrt(this.sqrMagnitude);\n    }\n    get sqrMagnitude() {\n      return this.x * this.x + this.y * this.y;\n    }\n    get normalized() {\n      const mag = this.magnitude;\n      return new _Vector2(this.x / mag, this.y / mag);\n    }\n    get inverse() {\n      return new _Vector2(-this.x, -this.y);\n    }\n    static distance(a, b) {\n      return a.sub(b).magnitude;\n    }\n    static dot(a, b) {\n      return a.x * b.x + a.y * b.y;\n    }\n  };\n  var Vector2 = _Vector2;\n  Vector2.Undefined = new _Vector2(NaN, NaN);\n  var Ticker = class {\n    constructor(targetFPS) {\n      this.callbacks = [];\n      this.targetFPS = targetFPS;\n      this.measuredFPS = targetFPS;\n      this._lastTime = performance.now();\n      this._deltaTime = 1 / targetFPS;\n      this._time = this._lastTime;\n    }\n    get deltaTime() {\n      return this._deltaTime / 1e3;\n    }\n    get time() {\n      return this._time;\n    }\n    async start() {\n      while (true) {\n        this._time = performance.now();\n        requestAnimationFrame(() => {\n          for (let callback of this.callbacks) {\n            callback(this.deltaTime);\n          }\n        });\n        const dt = this._time - this._lastTime;\n        let deltaDiff = dt - 1e3 / this.targetFPS;\n        this._lastTime = this._time + Math.max(deltaDiff, 0);\n        await delay(Math.max(0, deltaDiff));\n        this._deltaTime = Math.min(dt + Math.max(deltaDiff, 0), 1e3 / this.targetFPS * 3);\n        this.measuredFPS = 1 / this.deltaTime * 0.1 + this.measuredFPS * 0.9;\n      }\n    }\n    add(callback) {\n      this.callbacks.push(callback);\n    }\n  };\n  function slideUp(target, duration = 500) {\n    if (target.style.display === "none")\n      return;\n    target.style.transitionProperty = "height, margin, padding";\n    target.style.transitionTimingFunction = "ease-in-out";\n    target.style.transitionDuration = duration + "ms";\n    target.style.boxSizing = "border-box";\n    target.style.height = target.offsetHeight + "px";\n    target.offsetHeight;\n    target.style.overflow = "hidden";\n    target.style.height = "0";\n    target.style.paddingTop = "0";\n    target.style.paddingBottom = "0";\n    target.style.marginTop = "0";\n    target.style.marginBottom = "0";\n    window.setTimeout(async () => {\n      target.style.display = "none";\n      target.style.removeProperty("height");\n      target.style.removeProperty("padding-top");\n      target.style.removeProperty("padding-bottom");\n      target.style.removeProperty("margin-top");\n      target.style.removeProperty("margin-bottom");\n      target.style.removeProperty("overflow");\n      target.style.removeProperty("transition-duration");\n      target.style.removeProperty("transition-property");\n    }, duration);\n  }\n  function slideDown(target, duration = 500) {\n    if (window.getComputedStyle(target).display !== "none")\n      return;\n    target.style.removeProperty("display");\n    let display = window.getComputedStyle(target).display;\n    if (display === "none")\n      display = "block";\n    target.style.display = display;\n    const height = target.offsetHeight;\n    target.style.overflow = "hidden";\n    target.style.height = "0";\n    target.style.paddingTop = "0";\n    target.style.paddingBottom = "0";\n    target.style.marginTop = "0";\n    target.style.marginBottom = "0";\n    target.offsetHeight;\n    target.style.boxSizing = "border-box";\n    target.style.transitionProperty = "height, margin, padding";\n    target.style.transitionTimingFunction = "ease-in-out";\n    target.style.transitionDuration = duration + "ms";\n    target.style.height = height + "px";\n    target.style.removeProperty("padding-top");\n    target.style.removeProperty("padding-bottom");\n    target.style.removeProperty("margin-top");\n    target.style.removeProperty("margin-bottom");\n    window.setTimeout(async () => {\n      target.style.removeProperty("height");\n      target.style.removeProperty("overflow");\n      target.style.removeProperty("transition-duration");\n      target.style.removeProperty("transition-property");\n    }, duration);\n  }\n  function getTouchPosition(event) {\n    const touches = Array.from(event.touches);\n    const x = touches.reduce((acc, cur) => acc + cur.clientX, 0) / touches.length;\n    const y = touches.reduce((acc, cur) => acc + cur.clientY, 0) / touches.length;\n    return new Vector2(x, y);\n  }\n  function getPointerPosition(event) {\n    return new Vector2(event.clientX, event.clientY);\n  }\n  function getTouchPositionVector(touch) {\n    return { x: touch.clientX, y: touch.clientY };\n  }\n  function inOutQuadBlend(start, end, t) {\n    t /= 2;\n    let t2 = 2 * t * (1 - t) + 0.5;\n    t2 -= 0.5;\n    t2 *= 2;\n    return start + (end - start) * t2;\n  }\n  function inOutQuadBlendv(start, end, t) {\n    return new Vector2(inOutQuadBlend(start.x, end.x, t), inOutQuadBlend(start.y, end.y, t));\n  }\n  function clamp(value, min, max) {\n    return Math.max(min, Math.min(value, max));\n  }\n  function mapRange(value, low1, high1, low2, high2) {\n    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);\n  }\n  function mapRangeClamped(value, low1, high1, low2, high2) {\n    return clamp(mapRange(value, low1, high1, low2, high2), low2, high2);\n  }\n\n  // src/frontend/main/canvas.ts\n  var CanvasNode = class {\n    constructor(canvas, nodeEl) {\n      this.isFocused = false;\n      this.canvas = canvas;\n      this.nodeEl = nodeEl;\n      this.nodeEl.nodeObj = this;\n      this.labelEl = nodeEl.querySelector(".canvas-node-label");\n      this.containerEl = nodeEl.querySelector(".canvas-node-container");\n      this.contentEl = nodeEl.querySelector(".canvas-node-content");\n      if (!this.labelEl || !this.containerEl || !this.contentEl) {\n        console.error("Failed to find all required elements for canvas node", this);\n        return;\n      }\n      const contentClasses = this.contentEl.classList;\n      if (contentClasses.contains("image-embed"))\n        this.type = "image" /* Image */;\n      else if (contentClasses.contains("video-embed"))\n        this.type = "video" /* Video */;\n      else if (contentClasses.contains("audio-embed"))\n        this.type = "audio" /* Audio */;\n      else if (contentClasses.contains("markdown-embed") && contentClasses.contains("external-markdown-embed"))\n        this.type = "external-markdown" /* ExternalMarkdown */;\n      else if (contentClasses.contains("markdown-embed"))\n        this.type = "markdown" /* Markdown */;\n      else if (contentClasses.contains("canvas-embed"))\n        this.type = "canvas" /* Canvas */;\n      else if (this.contentEl.firstElementChild?.tagName === "IFRAME")\n        this.type = "website" /* Website */;\n      else if (this.nodeEl.classList.contains("canvas-node-group"))\n        this.type = "group" /* Group */;\n      else\n        this.type = "none" /* None */;\n      if (this.type == "external-markdown" /* ExternalMarkdown */) {\n        const documentEl = this.contentEl.querySelector(".obsidian-document");\n        console.log(documentEl);\n        const documentObj = canvas.document.children.find((doc) => doc.documentEl == documentEl);\n        if (documentObj)\n          this.document = documentObj;\n        else\n          console.error("Failed to find document object for external markdown node", this);\n      }\n      this.initEvents();\n    }\n    get size() {\n      return new Vector2(parseFloat(this.nodeEl.style.width.replace("px", "")), parseFloat(this.nodeEl.style.height.replace("px", "")));\n    }\n    set size(newSize) {\n      this.nodeEl.style.width = newSize.x + "px";\n      this.nodeEl.style.height = newSize.y + "px";\n      this.nodeEl.style.setProperty("--canvas-node-width", newSize.x + "px");\n      this.nodeEl.style.setProperty("--canvas-node-height", newSize.y + "px");\n    }\n    get position() {\n      const transform = this.nodeEl.style.transform;\n      const match = transform.match(/translate\\(([^,]+)px, ([^,]+)px\\)/);\n      const translate = this.nodeEl.style.translate;\n      const match2 = translate.match(/([^,]+)px ([^,]+)px/);\n      let x = 0;\n      let y = 0;\n      if (match) {\n        x += parseFloat(match[1]);\n        y += parseFloat(match[2]);\n      }\n      if (match2) {\n        x += parseFloat(match2[1]);\n        y += parseFloat(match2[2]);\n      }\n      return new Vector2(x, y);\n    }\n    set position(newPos) {\n      this.nodeEl.style.transform = `translate(${newPos.x}px, ${newPos.y}px)`;\n    }\n    get bounds() {\n      let bounds = new Bounds(0, 0, 0, 0);\n      let size = this.size.scale(this.canvas.scale);\n      let position = this.position.scale(this.canvas.scale).add(this.canvas.position);\n      bounds.position = position;\n      bounds.size = size;\n      return bounds;\n    }\n    get label() {\n      return this.labelEl.textContent ?? "";\n    }\n    set label(newLabel) {\n      this.labelEl.textContent = newLabel;\n    }\n    get isScrollable() {\n      if (!this.document)\n        return false;\n      return this.document?.documentEl.scrollHeight > this.document?.documentEl.clientHeight;\n    }\n    get scrollContainer() {\n      return this.document?.documentEl;\n    }\n    focus(force = true) {\n      if (this.isFocused && force)\n        return;\n      if (this.canvas.focusedNode != this)\n        this.canvas.focusedNode?.focus(false);\n      this.nodeEl.classList.toggle("is-focused", force);\n      this.canvas.focusedNode = force ? this : null;\n      this.isFocused = force;\n    }\n    initEvents() {\n      const node = this;\n      this.nodeEl.addEventListener("dblclick", (e) => {\n        node.fitToView(false);\n      });\n      function onEnter(event) {\n        node.focus(true);\n        node.nodeEl.addEventListener("mouseleave", onLeave);\n        node.nodeEl.addEventListener("touchend", onLeave);\n        event.stopPropagation();\n      }\n      function onLeave() {\n        console.log("leave");\n        node.focus(false);\n        node.nodeEl.removeEventListener("mouseleave", onLeave);\n        node.nodeEl.removeEventListener("touchend", onLeave);\n      }\n      this.nodeEl.addEventListener("pointerenter", onEnter);\n    }\n    fitToView(instant = false) {\n      this.canvas.fitToBounds(this.bounds, 0.9, instant);\n    }\n  };\n  var Canvas = class {\n    constructor(document2) {\n      this.hiddenNodes = [];\n      this.focusedNode = null;\n      this._renderScale = 1;\n      this._minScale = 0.1;\n      this._maxScale = 5;\n      this._targetScale = 1;\n      this._scale = 1;\n      this._targetPosition = new Vector2(0, 0);\n      this._position = new Vector2(0, 0);\n      this._backgroundBaseScale = 20;\n      this._invisibleBackgroundScale = 2;\n      this._backgroundScale = this._backgroundBaseScale;\n      this._backgroundDotSize = 1;\n      this._backgroundPosition = new Vector2(0, 0);\n      this.lastTime = 0;\n      this.document = document2;\n      this.nodes = Array.from(document2.documentEl.querySelectorAll(".canvas-node")).map((nodeEl) => new CanvasNode(this, nodeEl));\n      this.document.documentEl.style.position = "absolute";\n      this.document.documentEl.style.width = "100%";\n      this.document.documentEl.style.height = "100%";\n      this.document.documentEl.style.overflow = "hidden";\n      this.document.documentEl.style.top = "0";\n      this.document.documentEl.style.left = "0";\n      this.canvasEl = document2.documentEl.querySelector(".canvas");\n      this.wrapperEl = document2.documentEl.querySelector(".canvas-wrapper");\n      this.backgroundEl = document2.documentEl.querySelector(".canvas-background pattern");\n      this.backgroundDotEl = this.backgroundEl?.querySelector("circle");\n      this.canvasEl.setAttribute("style", `translate: 0px 1px; scale: 1;`);\n      this.backgroundScale = this._backgroundScale;\n      this.backgroundDotSize = this._backgroundDotSize;\n      this.renderScale = this._renderScale;\n      const nodespaceOffset = Bounds.fromElement(this.canvasEl).min.sub(this.nodeBounds.min);\n      Array.from(this.canvasEl.children).forEach((el) => {\n        el.style.translate = `${nodespaceOffset.x}px ${nodespaceOffset.y}px`;\n      });\n      this.forcePosition = this.nodeBounds.min.sub(this.wrapperBounds.min);\n      requestAnimationFrame(this.updateScale.bind(this));\n      this.initEvents();\n      this.wrapperEl.style.transition = "opacity 0.0s";\n      this.wrapperEl.classList.add("hide");\n      this.wrapperEl.style.transition = "opacity 3s";\n      this.wrapperEl.classList.remove("hide");\n      this.fitToBounds(this.nodeBounds, 3, true);\n      setTimeout(() => {\n        this.fitToBounds(this.nodeBounds, 0.9, false);\n      }, 100);\n    }\n    get renderScale() {\n      return this._renderScale;\n    }\n    set renderScale(scale) {\n      this._renderScale = scale;\n      this.canvasEl.style.zoom = scale * 100 + "%";\n      this.scale = this._scale;\n      this.position = this._position;\n    }\n    get nodeBounds() {\n      if (this.nodes.length == 0)\n        return new Bounds(0, 0, 0, 0);\n      const bounds = this.nodes[0].bounds;\n      for (const node of this.nodes) {\n        bounds.encapsulate(node.bounds);\n      }\n      ;\n      return bounds;\n    }\n    get wrapperBounds() {\n      return Bounds.fromElement(this.wrapperEl);\n    }\n    get minScale() {\n      return this._minScale;\n    }\n    get maxScale() {\n      return this._maxScale;\n    }\n    get targetScale() {\n      return this._targetScale;\n    }\n    set targetScale(newScale) {\n      newScale = Math.min(Math.max(newScale, this.minScale), this.maxScale);\n      this._targetScale = newScale;\n    }\n    get scale() {\n      return this._scale;\n    }\n    set scale(newScale) {\n      let ratio = newScale / this._scale;\n      this._scale = newScale;\n      let scaled = newScale / this.renderScale;\n      const scaleStr = scaled.toString() ?? "1";\n      this.canvasEl.style.scale = scaleStr;\n      const zoomStr = (1 / Math.sqrt(newScale)).toString() ?? "1";\n      this.wrapperEl.style.setProperty("--zoom-multiplier", zoomStr);\n      this.canvasEl.classList.toggle("small-scale", this.scale < 0.15);\n      this.backgroundScale = this.backgroundScale * ratio;\n    }\n    get targetPosition() {\n      return this._targetPosition;\n    }\n    set targetPosition(screenPos) {\n      this._targetPosition = screenPos;\n    }\n    get position() {\n      return this._position;\n    }\n    set position(screenPos) {\n      this._position = screenPos;\n      let scaled = screenPos.divide(this.renderScale);\n      this.canvasEl.style.translate = `${scaled.x}px ${scaled.y}px`;\n      this.backgroundPosition = this.position;\n    }\n    set forcePosition(screenPos) {\n      this.targetPosition = screenPos;\n      this.position = screenPos;\n    }\n    get forcePosition() {\n      return this.position;\n    }\n    get backgroundScale() {\n      return this._backgroundScale;\n    }\n    set backgroundScale(newScale) {\n      const scaleStr = newScale.toString() ?? "20";\n      this.backgroundEl?.setAttribute("width", scaleStr);\n      this.backgroundEl?.setAttribute("height", scaleStr);\n      this._backgroundScale = newScale;\n      if (this.backgroundEl?.parentElement)\n        this.backgroundEl.parentElement.style.opacity = (1 - mapRangeClamped(this._backgroundScale, this._backgroundBaseScale / 2, this._invisibleBackgroundScale, 0, 1)).toString();\n    }\n    get backgroundDotSize() {\n      return this._backgroundDotSize;\n    }\n    set backgroundDotSize(newSize) {\n      const sizeStr = newSize.toString() ?? "0.7";\n      this.backgroundDotEl?.setAttribute("r", sizeStr);\n      this.backgroundDotEl?.setAttribute("cx", sizeStr);\n      this.backgroundDotEl?.setAttribute("cy", sizeStr);\n      this._backgroundDotSize = newSize;\n    }\n    get backgroundPosition() {\n      return this._backgroundPosition;\n    }\n    set backgroundPosition(newPosition) {\n      if (!this.backgroundEl)\n        return;\n      this.backgroundEl?.setAttribute("x", newPosition.x.toString());\n      this.backgroundEl?.setAttribute("y", newPosition.y.toString());\n      this._backgroundPosition = newPosition;\n    }\n    updateScale(time) {\n      if (this.lastTime == 0)\n        this.lastTime = time;\n      const deltaTime = (time - this.lastTime) / 1e3;\n      this.lastTime = time;\n      if (Math.abs(this.targetScale - this.scale) > 1e-4)\n        this.scale = inOutQuadBlend(this.scale, this.targetScale, 6 * deltaTime);\n      if (this.targetPosition.sub(this.position).magnitude > 1e-3)\n        this.position = inOutQuadBlendv(this.position, this.targetPosition, 6 * deltaTime);\n      let screenBounds = Bounds.screenBounds;\n      this.hiddenNodes.sort((a, b) => {\n        const aCenter = a.bounds.center;\n        const bCenter = b.bounds.center;\n        const aDist = aCenter.sub(screenBounds.center).magnitude;\n        const bDist = bCenter.sub(screenBounds.center).magnitude;\n        return aDist - bDist;\n      });\n      for (let i = 0; i < 50; i++) {\n        if (i >= this.hiddenNodes.length)\n          break;\n        const node = this.hiddenNodes[i];\n        if (!node) {\n          this.hiddenNodes.splice(i, 1);\n          continue;\n        }\n        const bounds = node.bounds.expand(100);\n        const isVisible = bounds.overlaps(screenBounds);\n        node.nodeEl.style.display = isVisible ? "" : "none";\n        if (isVisible)\n          this.hiddenNodes.splice(i, 1);\n      }\n      requestAnimationFrame(this.updateScale.bind(this));\n    }\n    initEvents() {\n      const observer = new IntersectionObserver((entries) => {\n        entries.forEach((entry) => {\n          entry.target.style.display = entry.isIntersecting ? "" : "none";\n          if (!entry.isIntersecting)\n            this.hiddenNodes.push(entry.target.nodeObj);\n        });\n      }, { root: null, rootMargin: "0px", threshold: 0 });\n      this.nodes.forEach((node) => observer.observe(node.nodeEl));\n      const localThis = this;\n      const isWindows = navigator.userAgent.includes("Windows");\n      function getRelativePointerPosition(event) {\n        const rect = localThis.wrapperEl.getBoundingClientRect();\n        const x = event.clientX - rect.left;\n        const y = event.clientY - rect.top;\n        return new Vector2(x, y);\n      }\n      function dragStart(event) {\n        if (event.pointerType != "mouse" && event.pointerType != "pen")\n          return;\n        const startPointerPos = getRelativePointerPosition(event);\n        const startCanvasPos = localThis.position;\n        const startingNode = localThis.focusedNode;\n        function drag(dragEvent) {\n          if (isWindows && startingNode?.isScrollable && dragEvent.buttons == 4)\n            return;\n          dragEvent.preventDefault();\n          const pointer = getRelativePointerPosition(dragEvent);\n          const delta = pointer.sub(startPointerPos);\n          localThis.forcePosition = startCanvasPos.add(delta);\n        }\n        function dragEnd(e) {\n          document.removeEventListener("mousemove", drag);\n          document.removeEventListener("mouseup", dragEnd);\n        }\n        document.addEventListener("mousemove", drag);\n        document.addEventListener("mouseup", dragEnd);\n      }\n      this.wrapperEl.addEventListener("pointerdown", dragStart);\n      function shouldOverrideScroll(deltaY, deltaX, node) {\n        const scrollContainer = node?.scrollContainer;\n        if (scrollContainer) {\n          if (scrollContainer.scrollTop != 0 && deltaY < 0 && Math.abs(deltaY / (deltaX + 0.01)) > 2)\n            return false;\n          if (scrollContainer.scrollHeight - scrollContainer.scrollTop > scrollContainer.clientHeight + 1 && deltaY > 0 && Math.abs(deltaY / (deltaX + 0.01)) > 2)\n            return false;\n          if (scrollContainer.scrollLeft != 0 && deltaX < 0 && Math.abs(deltaX / (deltaY + 0.01)) > 2)\n            return false;\n          if (scrollContainer.scrollWidth - scrollContainer.scrollLeft > scrollContainer.clientWidth + 1 && deltaX > 0 && Math.abs(deltaX / (deltaY + 0.01)) > 2)\n            return false;\n        }\n        return true;\n      }\n      this.wrapperEl.addEventListener("wheel", function(event) {\n        if (!shouldOverrideScroll(event.deltaY, event.deltaX, localThis.focusedNode))\n          return;\n        let scale = 1;\n        scale -= event.deltaY / 700 * scale;\n        localThis.scaleAround(scale, getRelativePointerPosition(event));\n      }, { passive: true });\n      let touching = false;\n      this.wrapperEl.addEventListener("touchstart", function(event) {\n        if (touching)\n          return;\n        touching = true;\n        const touches = event.touches;\n        function getTouchData(touches2) {\n          const touch1 = getRelativePointerPosition(touches2[0]);\n          const touch2 = touches2.length == 2 ? getRelativePointerPosition(touches2[1]) : null;\n          const center = touch2 ? touch1.add(touch2).scale(0.5) : touch1;\n          const distance = touch2 ? Vector2.distance(touch1, touch2) : 0;\n          return { touch1, touch2, center, distance };\n        }\n        let lastTouchData = getTouchData(touches);\n        let isTwoFingerDrag = touches.length == 2;\n        const startingNode = localThis.focusedNode;\n        function touchMove(event2) {\n          const touches2 = event2.touches;\n          const touchData = getTouchData(touches2);\n          if (touches2.length == 2) {\n            if (!isTwoFingerDrag) {\n              lastTouchData = getTouchData(touches2);\n              isTwoFingerDrag = true;\n            }\n            const scaleDelta = (touchData.distance - lastTouchData.distance) / lastTouchData.distance;\n            localThis.scaleAround(1 + scaleDelta, touchData.center);\n          }\n          const delta = touchData.center.sub(lastTouchData.center);\n          if (!isTwoFingerDrag && !shouldOverrideScroll(-delta.y, delta.x, startingNode)) {\n            lastTouchData = getTouchData(touches2);\n            return;\n          }\n          event2.preventDefault();\n          localThis.targetPosition = localThis.targetPosition.add(delta);\n          lastTouchData = getTouchData(touches2);\n        }\n        function touchEnd(event2) {\n          document.removeEventListener("touchmove", touchMove);\n          document.removeEventListener("touchend", touchEnd);\n          touching = false;\n        }\n        document.addEventListener("touchmove", touchMove);\n        document.addEventListener("touchend", touchEnd);\n      });\n    }\n    scaleAround(scaleBy, point, instantScale = false) {\n      const currentScale = this.targetScale;\n      let newScale = currentScale * scaleBy;\n      newScale = Math.min(Math.max(newScale, this.minScale), this.maxScale);\n      scaleBy = newScale / currentScale;\n      const centerToPoint = point.sub(this.targetPosition);\n      const centerPin = centerToPoint.scale(scaleBy).add(this.targetPosition);\n      const offset = point.sub(centerPin);\n      if (instantScale) {\n        this.scale *= scaleBy;\n        this.targetScale = this.scale;\n        this.forcePosition = this.forcePosition.add(offset);\n      } else {\n        this.targetScale *= scaleBy;\n        this.targetPosition = this.targetPosition.add(offset);\n      }\n      return offset;\n    }\n    setScaleAround(scale, point, instant = false) {\n      this.scaleAround(scale / this.targetScale, point, instant);\n    }\n    fitToBounds(bounds = this.nodeBounds, scaleMultiplier = 0.9, instant = false) {\n      this.hideNodesOutsideBounds(bounds.scale(2));\n      const documentWidth = this.document.containerEl.clientWidth;\n      const documentHeight = this.document.containerEl.clientHeight;\n      const xRatio = documentWidth / bounds.width;\n      const yRatio = documentHeight / bounds.height;\n      const scale = scaleMultiplier * Math.min(xRatio, yRatio);\n      this.scaleAround(scale, bounds.center, instant);\n      this.centerView(bounds.center, instant);\n    }\n    hideNodesOutsideBounds(bounds) {\n      for (const node of this.nodes) {\n        if (!bounds.overlaps(node.bounds)) {\n          node.nodeEl.style.display = "none";\n          this.hiddenNodes.push(node);\n        }\n      }\n    }\n    centerView(center, instant = false) {\n      const offset = this.wrapperBounds.center.sub(center);\n      if (instant)\n        this.forcePosition = this.forcePosition.add(offset);\n      else\n        this.targetPosition = this.targetPosition.add(offset);\n    }\n  };\n\n  // src/shared/website-data.ts\n  var WebsiteOptions = class {\n  };\n  var WebsiteData = class {\n    constructor() {\n      this.ignoreMetadata = false;\n      this.webpages = {};\n      this.fileInfo = {};\n      this.sourceToTarget = {};\n      this.attachments = [];\n      this.shownInTree = [];\n      this.allFiles = [];\n      this.siteName = "";\n      this.vaultName = "";\n      this.createdTime = 0;\n      this.modifiedTime = 0;\n      this.pluginVersion = "";\n      this.exportRoot = "";\n      this.baseURL = "";\n      this.themeName = "";\n      this.bodyClasses = "";\n      this.hasFavicon = false;\n      this.featureOptions = new WebsiteOptions();\n    }\n  };\n\n  // src/shared/features/feature-options-base.ts\n  \n  var RelationType = /* @__PURE__ */ ((RelationType2) => {\n    RelationType2["Before"] = "before";\n    RelationType2["After"] = "after";\n    RelationType2["Start"] = "start";\n    RelationType2["End"] = "end";\n    return RelationType2;\n  })(RelationType || {});\n  var FeatureRelation = class {\n    constructor(selector = "#right-sidebar-content", type = "start" /* Start */) {\n      this.selector = "#right-sidebar-content";\n      this.type = "start" /* Start */;\n      \n      \n      this.selector = selector;\n      this.type = type;\n    }\n  };\n  var FeatureSettingInfo = class {\n    constructor(options) {\n      this.show = true;\n      this.name = "";\n      this.description = "";\n      this.placeholder = "";\n      this.fileInputOptions = void 0;\n      this.dropdownOptions = void 0;\n      if (options) {\n        this.show = options.show ?? this.show;\n        this.name = options.name ?? this.name;\n        this.description = options.description ?? this.description;\n        this.placeholder = options.placeholder ?? this.placeholder;\n        this.fileInputOptions = options.fileInputOptions ?? this.fileInputOptions;\n        this.dropdownOptions = options.dropdownTypes ?? this.dropdownOptions;\n      }\n    }\n  };\n  var FeatureOptions = class {\n    constructor() {\n      this.featureId = "feature";\n      this.enabled = true;\n      this.unavailable = false;\n      this.alwaysEnabled = false;\n    }\n    setAvailable(value) {\n      this.unavailable = !value;\n      this.enabled = value;\n    }\n  };\n  var InsertedFeatureOptions = class extends FeatureOptions {\n    constructor(options) {\n      super();\n      this.displayTitle = "Feature";\n      this.featurePlacement = new FeatureRelation();\n      \n      \n      Object.assign(this, options);\n    }\n    insertFeature(container, feature) {\n      if (!container)\n        return false;\n      let relation = container.querySelector(this.featurePlacement.selector);\n      if (relation) {\n        switch (this.featurePlacement.type) {\n          case "before" /* Before */:\n            relation.before(feature);\n            return true;\n          case "after" /* After */:\n            relation.after(feature);\n            return true;\n          case "start" /* Start */:\n            relation.prepend(feature);\n            return true;\n          case "end" /* End */:\n            relation.append(feature);\n            return true;\n          default:\n            return false;\n        }\n      }\n      return false;\n    }\n  };\n\n  // src/shared/feature.ts\n  var InsertedFeature = class {\n    get options() {\n      return this._options;\n    }\n    set options(options) {\n      this._options = options;\n    }\n    constructor(featureOptions, featureEl) {\n      this.options = new InsertedFeatureOptions(featureOptions);\n      console.log("Feature options", this.options);\n      this.featureEl = featureEl;\n      const contentEl = this.featureEl?.querySelector("." + featureOptions.featureId + "-content");\n      if (contentEl)\n        this.contentEl = contentEl;\n      const headerEl = this.featureEl?.querySelector(".feature-header");\n      if (headerEl)\n        this.headerEl = headerEl;\n      const titleEl = this.featureEl?.querySelector(".feature-title");\n      if (titleEl)\n        this.titleEl = titleEl;\n      if (!this.featureEl) {\n        this.featureEl = document.createElement("div");\n        this.featureEl.id = featureOptions.featureId;\n        this.featureEl.classList.add("hide");\n        setTimeout(() => this.featureEl.classList.remove("hide"), 0);\n      }\n      if (!this.contentEl) {\n        this.contentEl = document.createElement("div");\n        this.contentEl.classList.add(featureOptions.featureId + "-content");\n        this.featureEl.appendChild(this.contentEl);\n      }\n      if (!this.headerEl) {\n        this.headerEl = document.createElement("div");\n        this.headerEl.classList.add("feature-header");\n        this.featureEl.prepend(this.headerEl);\n      }\n      if ((this._options.displayTitle || "").length > 0) {\n        if (!this.titleEl) {\n          this.titleEl = document.createElement("div");\n          this.titleEl.classList.add("feature-title");\n          this.headerEl.prepend(this.titleEl);\n        }\n        this.titleEl.innerText = this._options.displayTitle;\n      }\n      this.options.insertFeature(document.body, this.featureEl);\n    }\n  };\n\n  // src/frontend/main/backlinks.ts\n  var Backlink = class {\n    get url() {\n      return this._url;\n    }\n    constructor(container, targetURL) {\n      this.targetData = ObsidianSite.getWebpageData(targetURL);\n      if (!this.targetData) {\n        console.error("Failed to find target for backlink", targetURL);\n        return;\n      }\n      this._url = targetURL;\n      this.backlinkEl = document.createElement("a");\n      this.backlinkEl.href = targetURL;\n      this.backlinkEl.classList.add("backlink");\n      container.appendChild(this.backlinkEl);\n      this.backlinkIconEl = document.createElement("div");\n      this.backlinkIconEl.classList.add("backlink-icon");\n      this.backlinkIconEl.innerHTML = this.targetData.icon;\n      this.backlinkEl.appendChild(this.backlinkIconEl);\n      this.backlinkTitleEl = document.createElement("div");\n      this.backlinkTitleEl.classList.add("backlink-title");\n      this.backlinkTitleEl.innerText = this.targetData.title;\n      this.backlinkEl.appendChild(this.backlinkTitleEl);\n      this.backlinkEl.addEventListener("click", (e) => {\n        e.preventDefault();\n        ObsidianSite.loadURL(this.url);\n      });\n    }\n  };\n  var BacklinkList = class extends InsertedFeature {\n    constructor(backlinkPaths) {\n      super(ObsidianSite.metadata.featureOptions.backlinks);\n      this.backlinks = backlinkPaths.map((url) => new Backlink(this.contentEl, url));\n    }\n  };\n\n  // src/frontend/main/callouts.ts\n  var Callout = class {\n    constructor(calloutEl, initEvents = true) {\n      this._collapsed = false;\n      this.calloutEl = calloutEl;\n      this.titleEl = calloutEl.querySelector(".callout-title-inner");\n      this.contentEl = calloutEl.querySelector(".callout-content");\n      this.iconEl = calloutEl.querySelector(".callout-icon");\n      this.foldIconEl = calloutEl.querySelector(".callout-fold");\n      const fold = calloutEl.getAttribute("data-callout-fold");\n      switch (fold) {\n        case "+":\n          this.foldType = 0 /* StartOpen */;\n          this._collapsed = false;\n          break;\n        case "-":\n          this.foldType = 1 /* StartClosed */;\n          this._collapsed = true;\n          break;\n        default:\n          this.foldType = 2 /* Static */;\n          this._collapsed = false;\n          break;\n      }\n      this.type = calloutEl.getAttribute("data-callout") ?? "";\n      this.metadata = calloutEl.getAttribute("data-callout-metadata") ?? "";\n      if (initEvents)\n        this.init();\n    }\n    get title() {\n      return this.titleEl?.textContent ?? "";\n    }\n    set title(title) {\n      this.titleEl.textContent = title;\n    }\n    get collapsed() {\n      return this._collapsed;\n    }\n    set collapsed(collapse) {\n      this.toggle(collapse);\n    }\n    toggle(force) {\n      if (this.foldType == 2 /* Static */)\n        return;\n      if (force === void 0)\n        force = !this._collapsed;\n      this.calloutEl?.classList.toggle("is-collapsed", force);\n      this.foldIconEl?.classList.toggle("is-collapsed", force);\n      if (force)\n        slideUp(this.contentEl, 150);\n      else\n        slideDown(this.contentEl, 150);\n      this._collapsed = force;\n    }\n    collapse() {\n      this.toggle(true);\n    }\n    expand() {\n      this.toggle(false);\n    }\n    init() {\n      if (this.foldIconEl) {\n        this.foldIconEl.addEventListener("click", () => {\n          this.toggle();\n        });\n      }\n    }\n  };\n\n  // src/frontend/main/headers.ts\n  var _Header = class {\n    constructor(element) {\n      this._children = [];\n      this._isCollapsed = false;\n      this._content = [];\n      this._divParent = element.parentElement;\n      this._headerElement = element;\n      this._collapseIndicatorElement = this._headerElement.querySelector(".heading-collapse-indicator");\n      this._id = element.id;\n      this._level = parseInt(element.tagName.replace("H", ""));\n      _Header.headerMap.set(element, this);\n      if (this._collapseIndicatorElement) {\n        this._collapseIndicatorElement.addEventListener("click", () => {\n          this.toggleCollapse();\n        });\n      }\n    }\n    get id() {\n      return this._id;\n    }\n    get text() {\n      return this._headerElement.textContent ?? "";\n    }\n    set text(value) {\n      this._headerElement.textContent = value;\n    }\n    get level() {\n      return this._level;\n    }\n    get headerElement() {\n      return this._headerElement;\n    }\n    get collapseIndicatorElement() {\n      return this._collapseIndicatorElement;\n    }\n    get children() {\n      return this._children;\n    }\n    get isCollapsed() {\n      return this._isCollapsed;\n    }\n    scrollTo(options = { behavior: "smooth", block: "start" }) {\n      this._headerElement.scrollIntoView(options);\n    }\n    find(predicate) {\n      if (predicate(this)) {\n        return this;\n      }\n      for (const child of this.children) {\n        const result = child.find(predicate);\n        if (result) {\n          return result;\n        }\n      }\n      return void 0;\n    }\n    findByID(id) {\n      if (id.startsWith("#")) {\n        id = id.substring(1);\n      }\n      return this.find((header) => header.id === id);\n    }\n    toggleCollapse() {\n      this._isCollapsed = !this._isCollapsed;\n      this._collapseIndicatorElement?.classList.toggle("is-collapsed", this._isCollapsed);\n      this._headerElement.classList.toggle("is-collapsed", this._isCollapsed);\n      this.updateVisibility(this._isCollapsed);\n    }\n    updateVisibility(collapse) {\n      this._collapseIndicatorElement?.classList.toggle("is-collapsed", collapse);\n      this._headerElement.classList.toggle("is-collapsed", collapse);\n      for (const element of this._content) {\n        element.style.display = collapse ? "none" : "";\n      }\n      for (const child of this._children) {\n        child.headerElement.style.display = collapse ? "none" : "";\n        if (collapse) {\n          child.updateVisibility(true);\n        } else {\n          child.updateVisibility(child._isCollapsed);\n        }\n      }\n    }\n    getHeaderWithContentRecursive() {\n      let content = [];\n      content.push(this._divParent);\n      for (const element of this._content) {\n        content.push(element);\n      }\n      for (const child of this._children) {\n        content = content.concat(child.getHeaderWithContentRecursive());\n      }\n      return content;\n    }\n    static createHeaderTree(html) {\n      const headers = Array.from(html.querySelectorAll("h1, h2, h3, h4, h5, h6"));\n      const headerObjects = headers.map((el) => new _Header(el));\n      const rootHeaders = [];\n      const stack = [];\n      for (let i = 0; i < headerObjects.length; i++) {\n        const currentHeader = headerObjects[i];\n        while (stack.length > 0 && stack[stack.length - 1].level >= currentHeader.level) {\n          stack.pop();\n        }\n        if (stack.length > 0) {\n          stack[stack.length - 1].children.push(currentHeader);\n        } else {\n          rootHeaders.push(currentHeader);\n        }\n        stack.push(currentHeader);\n        let nextElement = currentHeader.headerElement.nextElementSibling;\n        while (nextElement && !(nextElement instanceof HTMLHeadingElement)) {\n          if (nextElement instanceof HTMLElement) {\n            currentHeader._content.push(nextElement);\n          }\n          nextElement = nextElement.nextElementSibling;\n        }\n        nextElement = currentHeader.headerElement.parentElement?.nextElementSibling ?? null;\n        while (nextElement && !nextElement.querySelector("h1, h2, h3, h4, h5, h6")) {\n          if (nextElement instanceof HTMLElement) {\n            currentHeader._content.push(nextElement);\n          }\n          nextElement = nextElement.nextElementSibling;\n        }\n      }\n      return rootHeaders;\n    }\n  };\n  var Header = _Header;\n  Header.headerMap = /* @__PURE__ */ new WeakMap();\n\n  // src/frontend/main/link-preview.ts\n  var _FilePreviewPopover = class {\n    constructor(link, target, onRemove) {\n      this.isPinned = false;\n      this.resizeObserver = null;\n      this.hoverTimeout = null;\n      this.showTimeout = null;\n      this.link = link;\n      this.target = target;\n      this.onRemove = onRemove;\n      this.createPreviewElements();\n      this.setupEventListeners();\n      this.positionPreview();\n      this.setupOutsideClickListener();\n    }\n    static savePinnedPreviews() {\n      var previewDatas = _FilePreviewPopover.pinnedPreviews.map((preview) => {\n        return {\n          target: preview.target,\n          top: preview.filePreviewPopover.style.top,\n          left: preview.filePreviewPopover.style.left,\n          width: preview.filePreviewPopover.style.width,\n          height: preview.filePreviewPopover.style.height,\n          zIndex: preview.filePreviewPopover.style.zIndex\n        };\n      });\n      localStorage.setItem("pinnedPreviews", JSON.stringify(previewDatas));\n    }\n    static loadPinnedPreviews() {\n      var previewDatas = JSON.parse(localStorage.getItem("pinnedPreviews") ?? "[]");\n      previewDatas.forEach(async (previewData) => {\n        let preview = new _FilePreviewPopover(null, previewData.target, () => {\n        });\n        preview.setPinned(true);\n        preview.filePreviewPopover.style.top = previewData.top;\n        preview.filePreviewPopover.style.left = previewData.left;\n        preview.filePreviewPopover.style.width = previewData.width;\n        preview.filePreviewPopover.style.height = previewData.height;\n        preview.filePreviewPopover.style.zIndex = previewData.zIndex || _FilePreviewPopover.baseZIndex.toString();\n        preview.show();\n      });\n    }\n    static create(target, x, y, pinned = true) {\n      const preview = new _FilePreviewPopover(null, target, () => {\n      });\n      preview.setPinned(pinned);\n      preview.filePreviewPopover.style.top = y + "px";\n      preview.filePreviewPopover.style.left = x + "px";\n      preview.show();\n    }\n    static initializeLink(link, target) {\n      let preview = null;\n      link.addEventListener("pointerenter", function(event) {\n        if (!preview) {\n          preview = new _FilePreviewPopover(link, target, () => {\n            preview = null;\n          });\n          preview.startShowTimeout();\n        }\n      });\n      link.addEventListener("pointerleave", function(event) {\n        if (preview) {\n          if (!preview.isPinned) {\n            preview.startRemoveTimeout();\n          }\n          preview.clearShowTimeout();\n        }\n      });\n    }\n    createPreviewElements() {\n      this.filePreviewPopover = document.createElement("div");\n      this.filePreviewPopover.className = "file-preview popover hover-popover hide";\n      document.body.appendChild(this.filePreviewPopover);\n      this.markdownEmbed = document.createElement("div");\n      this.markdownEmbed.className = "markdown-embed";\n      this.filePreviewPopover.appendChild(this.markdownEmbed);\n      this.markdownEmbedContent = document.createElement("div");\n      this.markdownEmbedContent.className = "markdown-embed-content";\n      this.markdownEmbed.appendChild(this.markdownEmbedContent);\n      this.actionContainer = document.createElement("div");\n      this.actionContainer.className = "preview-action-container";\n      this.filePreviewPopover.appendChild(this.actionContainer);\n      this.dragHandle = document.createElement("div");\n      this.dragHandle.className = "drag-handle clickable-icon popover-action";\n      this.actionContainer.appendChild(this.dragHandle);\n      this.pinButton = document.createElement("button");\n      this.pinButton.className = "pin-button clickable-icon popover-action";\n      this.actionContainer.appendChild(this.pinButton);\n      this.goToButton = document.createElement("button");\n      this.goToButton.className = "go-to-button clickable-icon popover-action";\n      this.actionContainer.appendChild(this.goToButton);\n      this.filePreviewPopover.style.zIndex = _FilePreviewPopover.baseZIndex.toString();\n      this.bringToFront();\n    }\n    setPinned(pinned) {\n      this.isPinned = pinned;\n      this.pinButton.classList.toggle("pinned", this.isPinned);\n      this.filePreviewPopover.classList.toggle("pinned", this.isPinned);\n      if (this.isPinned) {\n        _FilePreviewPopover.pinnedPreviews.push(this);\n      } else {\n        _FilePreviewPopover.pinnedPreviews = _FilePreviewPopover.pinnedPreviews.filter((preview) => preview !== this);\n      }\n    }\n    setupEventListeners() {\n      this.pinButton.addEventListener("click", () => {\n        this.setPinned(!this.isPinned);\n        _FilePreviewPopover.savePinnedPreviews();\n      });\n      this.goToButton.addEventListener("click", () => {\n        ObsidianSite.loadURL(this.target);\n      });\n      this.setupDragHandleListeners();\n      this.filePreviewPopover.addEventListener("pointerenter", () => {\n        this.clearRemoveTimeout();\n      });\n      this.filePreviewPopover.addEventListener("pointerleave", () => {\n        if (!this.isPinned) {\n          this.startRemoveTimeout();\n        }\n      });\n      this.setupResizeObserver();\n    }\n    updateMaxSize() {\n      const viewportWidth = window.innerWidth;\n      const viewportHeight = window.innerHeight;\n      const rect = this.filePreviewPopover.getBoundingClientRect();\n      const margin = 10;\n      const maxWidth = viewportWidth - rect.left - margin;\n      const maxHeight = viewportHeight - rect.top - margin;\n      this.filePreviewPopover.style.maxWidth = `${maxWidth}px`;\n      this.filePreviewPopover.style.maxHeight = `${maxHeight}px`;\n      let newLeft = Math.max(margin, rect.left);\n      let newTop = Math.max(margin, rect.top);\n      if (newLeft !== rect.left) {\n        this.filePreviewPopover.style.left = `${newLeft}px`;\n      }\n      if (newTop !== rect.top) {\n        this.filePreviewPopover.style.top = `${newTop}px`;\n      }\n      _FilePreviewPopover.savePinnedPreviews();\n    }\n    setupResizeObserver() {\n      this.updateMaxSize();\n      this.resizeObserver = new ResizeObserver(() => {\n        this.updateMaxSize();\n      });\n      this.resizeObserver.observe(this.filePreviewPopover);\n      window.addEventListener("resize", this.updateMaxSize);\n    }\n    dragPreviewCallback(event) {\n      event.stopPropagation();\n      this.bringToFront();\n      let offsetX = event.clientX - this.filePreviewPopover.getBoundingClientRect().left;\n      let offsetY = event.clientY - this.filePreviewPopover.getBoundingClientRect().top;\n      const onPointerMove = (event2) => {\n        let newLeft = event2.clientX - offsetX;\n        let newTop = event2.clientY - offsetY;\n        const viewportWidth = window.innerWidth;\n        const viewportHeight = window.innerHeight;\n        const previewRect = this.filePreviewPopover.getBoundingClientRect();\n        newLeft = Math.max(0, Math.min(newLeft, viewportWidth - previewRect.width));\n        newTop = Math.max(0, Math.min(newTop, viewportHeight - previewRect.height));\n        this.filePreviewPopover.style.left = newLeft + "px";\n        this.filePreviewPopover.style.top = newTop + "px";\n        this.updateMaxSize();\n      };\n      const onPointerUp = () => {\n        if (this.isPinned) {\n          _FilePreviewPopover.savePinnedPreviews();\n        }\n        document.removeEventListener("pointermove", onPointerMove);\n        document.removeEventListener("pointerup", onPointerUp);\n      };\n      document.addEventListener("pointermove", onPointerMove);\n      document.addEventListener("pointerup", onPointerUp);\n    }\n    setupDragHandleListeners() {\n      this.dragHandle.addEventListener("pointerdown", this.dragPreviewCallback.bind(this));\n      this.actionContainer.addEventListener("pointerdown", this.dragPreviewCallback.bind(this));\n    }\n    positionPreview() {\n      if (!this.link)\n        return;\n      const linkRect = this.link.getBoundingClientRect();\n      const previewRect = this.filePreviewPopover.getBoundingClientRect();\n      const viewportWidth = window.innerWidth;\n      const viewportHeight = window.innerHeight;\n      this.filePreviewPopover.style.top = "";\n      this.filePreviewPopover.style.left = "";\n      const margin = 10;\n      let top, left;\n      if (viewportHeight - linkRect.bottom >= previewRect.height + margin) {\n        top = linkRect.bottom + margin;\n      } else {\n        top = Math.max(margin, linkRect.top - previewRect.height - margin);\n      }\n      left = linkRect.left;\n      if (left + previewRect.width > viewportWidth - margin) {\n        left = Math.max(margin, linkRect.right - previewRect.width);\n      }\n      top = Math.min(Math.max(margin, top), viewportHeight - previewRect.height - margin);\n      left = Math.min(Math.max(margin, left), viewportWidth - previewRect.width - margin);\n      this.filePreviewPopover.style.top = `${top}px`;\n      this.filePreviewPopover.style.left = `${left}px`;\n    }\n    setupOutsideClickListener() {\n      this.outsideClickListener = (event) => {\n        if (!this.isPinned && !this.filePreviewPopover.contains(event.target) && !this.link?.contains(event.target)) {\n          this.remove();\n        }\n      };\n      document.addEventListener("pointerdown", this.outsideClickListener);\n    }\n    startShowTimeout() {\n      this.clearShowTimeout();\n      this.showTimeout = window.setTimeout(() => this.show(), 350);\n    }\n    clearShowTimeout() {\n      if (this.showTimeout !== null) {\n        clearTimeout(this.showTimeout);\n        this.showTimeout = null;\n      }\n    }\n    async show() {\n      this.filePreviewDocument = new WebpageDocument(this.target);\n      await this.filePreviewDocument.load(null, this.markdownEmbedContent, true, true);\n      this.positionPreview();\n      this.filePreviewPopover.classList.remove("hide");\n    }\n    bringToFront() {\n      let maxZIndex = Math.max(_FilePreviewPopover.baseZIndex, ..._FilePreviewPopover.pinnedPreviews.map((p) => parseInt(p.filePreviewPopover.style.zIndex) || _FilePreviewPopover.baseZIndex));\n      if (maxZIndex >= _FilePreviewPopover.maxZIndex) {\n        _FilePreviewPopover.pinnedPreviews.forEach((p, index) => {\n          p.filePreviewPopover.style.zIndex = (_FilePreviewPopover.baseZIndex + index).toString();\n        });\n        maxZIndex = _FilePreviewPopover.baseZIndex + _FilePreviewPopover.pinnedPreviews.length - 1;\n      }\n      this.filePreviewPopover.style.zIndex = (maxZIndex + 1).toString();\n    }\n    startRemoveTimeout() {\n      this.clearRemoveTimeout();\n      this.hoverTimeout = window.setTimeout(() => this.remove(), 300);\n    }\n    clearRemoveTimeout() {\n      if (this.hoverTimeout !== null) {\n        clearTimeout(this.hoverTimeout);\n        this.hoverTimeout = null;\n      }\n    }\n    remove() {\n      this.clearRemoveTimeout();\n      this.clearShowTimeout();\n      if (this.filePreviewPopover && this.filePreviewPopover.parentNode) {\n        this.filePreviewPopover.parentNode.removeChild(this.filePreviewPopover);\n      }\n      if (this.resizeObserver) {\n        this.resizeObserver.disconnect();\n      }\n      window.removeEventListener("resize", this.updateMaxSize);\n      document.removeEventListener("pointerdown", this.outsideClickListener);\n      this.onRemove();\n    }\n  };\n  var FilePreviewPopover = _FilePreviewPopover;\n  FilePreviewPopover.baseZIndex = 100;\n  FilePreviewPopover.maxZIndex = 1e3;\n  FilePreviewPopover.pinnedPreviews = [];\n\n  // src/frontend/main/links.ts\n  var LinkHandler = class {\n    static initializeLinks(onElement) {\n      console.log("Initializing links on element", onElement);\n      onElement?.querySelectorAll(".internal-link, a.tag, a.tree-item-self, a.footnote-link").forEach(function(link) {\n        let target = link.getAttribute("href") ?? "null";\n        if (target == "null") {\n          console.log("No target found for link");\n          return;\n        }\n        link.addEventListener("click", function(event) {\n          event.preventDefault();\n          event.stopPropagation();\n          ObsidianSite.loadURL(target);\n        });\n        if (target && !target.startsWith("http") && !ObsidianSite.documentExists(target)) {\n          link.classList.add("is-unresolved");\n        } else if (link.classList.contains("internal-link")) {\n          FilePreviewPopover.initializeLink(link, target);\n        }\n      });\n    }\n    static getPathnameFromURL(url) {\n      if (url == "" || url == "/" || url == "\\\\")\n        return "/index.html";\n      if (url?.startsWith("#") || url?.startsWith("?"))\n        return (ObsidianSite.document?.pathname?.split("#")[0]?.split("?")[0] ?? "") + (url ?? "");\n      return url?.split("?")[0]?.split("#")[0]?.trim() ?? "";\n    }\n    static getHashFromURL(url) {\n      return (url.split("#")[1] ?? "").split("?")[0]?.trim() ?? "";\n    }\n    static getQueryFromURL(url) {\n      return url.split("?")[1]?.trim() ?? "";\n    }\n    static getFileDataIdFromURL(url) {\n      url = this.getPathnameFromURL(url);\n      if (url.startsWith("./"))\n        url = url.substring(2);\n      while (url.startsWith("../")) {\n        url = url.substring(3);\n      }\n      return btoa(encodeURI(url));\n    }\n  };\n\n  // src/frontend/main/lists.ts\n  var ListItem = class {\n    constructor(element, parent) {\n      this.parent = void 0;\n      this.collapsible = false;\n      this.collapseEl = void 0;\n      this.line = 0;\n      this.itemEl = element;\n      this.parent = parent;\n      this.line = parseInt(this.itemEl.getAttribute("data-line") ?? "0");\n      this.collapseEl = Array.from(this.itemEl.children).find((el) => el.classList.contains("list-collapse-indicator"));\n      const child = this.itemEl.querySelector("ol, ul");\n      if (child) {\n        this.child = new List(child, this);\n        if (this.collapseEl) {\n          this.collapsible = true;\n          const localThis = this;\n          this.collapseEl.addEventListener("click", function(event) {\n            localThis.isCollapsed = !localThis.isCollapsed;\n            event.stopPropagation();\n          });\n        }\n      }\n    }\n    get isChecked() {\n      return this.itemEl.classList.contains("is-checked");\n    }\n    get isCollapsed() {\n      return this.itemEl.classList.contains("is-collapsed");\n    }\n    set isCollapsed(collapse) {\n      this.itemEl.classList.toggle("is-collapsed", collapse);\n      if (this.collapseEl)\n        this.collapseEl.classList.toggle("is-collapsed", collapse);\n    }\n    get textContent() {\n      return Array.prototype.filter.call(this.itemEl.childNodes, (child) => child.nodeType === Node.TEXT_NODE).map((child) => child.textContent).join("").trim();\n    }\n    get htmlContent() {\n      return this.itemEl.innerHTML;\n    }\n  };\n  var List = class {\n    constructor(element, parent) {\n      this.children = [];\n      this.parent = void 0;\n      if (element.tagName != "OL" && element.tagName != "UL")\n        throw new Error("Invalid list element");\n      this.listType = element.tagName == "OL" ? "ordered" /* Ordered */ : element.classList.contains("contains-task-list") ? "checklist" /* Checklist */ : "unordered" /* Unordered */;\n      this.listEl = element;\n      this.parent = parent;\n      const childItems = Array.from(this.listEl.children).filter((el) => el.tagName == "LI");\n      childItems.forEach((child) => {\n        this.children.push(new ListItem(child, this));\n      });\n    }\n    get linearList() {\n      let list = [];\n      this.children.forEach((child) => {\n        list.push(child);\n        if (child.child)\n          list = list.concat(child.child.linearList);\n      });\n      return list;\n    }\n  };\n\n  // src/frontend/main/notifications.ts\n  var Notice = class {\n    constructor(message, duration = 5e3) {\n      this.message = message;\n      this.duration = duration;\n      this.show();\n    }\n    show() {\n      if (!Notice.container) {\n        Notice.container = document.createElement("div");\n        Notice.container.classList.add("notice-container");\n        Notice.container.style.top = "0";\n        Notice.container.style.right = "0";\n        document.body.appendChild(Notice.container);\n      }\n      this.notification = document.createElement("div");\n      this.notification.classList.add("notice");\n      this.notification.innerHTML = this.message;\n      Notice.container.appendChild(this.notification);\n      this.notification.style.opacity = "0";\n      this.notification.style.transform = "translateX(350px)";\n      this.notification.style.transition = "all 0.5s";\n      setTimeout(() => {\n        this.notification.style.opacity = "1";\n        this.notification.style.transform = "translateX(0)";\n        this.notification.style.height = this.notification.scrollHeight + "px";\n      }, 100);\n      setTimeout(() => {\n        this.dismiss();\n      }, this.duration);\n      this.notification.addEventListener("click", () => {\n        this.dismiss();\n      }, { once: true });\n    }\n    dismiss() {\n      if (!this.notification)\n        return;\n      this.notification.style.opacity = "0";\n      this.notification.style.height = "0";\n      this.notification.style.margin = "0";\n      this.notification.style.padding = "0";\n      setTimeout(() => {\n        this.notification.remove();\n      }, 500);\n    }\n  };\n\n  // src/frontend/main/tags.ts\n  var Tags = class extends InsertedFeature {\n    constructor(tags) {\n      super(ObsidianSite.metadata.featureOptions.tags);\n      this.tagNames = tags;\n      this.tagElements = [];\n      for (let tagName of tags) {\n        const tagEl = document.createElement("a");\n        tagEl.classList.add("tag");\n        tagEl.setAttribute("href", `?query=tag:${tagName.replace("#", "")}`);\n        tagEl.innerText = tagName;\n        this.contentEl.appendChild(tagEl);\n        this.tagElements.push(tagEl);\n      }\n    }\n  };\n\n  // src/frontend/main/trees.ts\n  var TreeItem = class {\n    constructor(itemEl, parent) {\n      this._path = "";\n      this.collapseAnimationLength = 150;\n      this._oldAnimationLength = this.collapseAnimationLength;\n      this.root = this instanceof Tree ? this : parent?.root ?? (parent instanceof Tree ? parent : void 0);\n      this.parent = parent;\n      let isRoot = this instanceof Tree;\n      this.itemEl = itemEl;\n      this.selfEl = isRoot ? itemEl : itemEl.querySelector(".tree-item-self");\n      this.collapseIconEl = isRoot ? itemEl : this.selfEl.querySelector(".collapse-icon");\n      this.innerEl = isRoot ? itemEl : this.selfEl.querySelector(".tree-item-inner");\n      this.childrenEl = isRoot ? itemEl : itemEl.querySelector(".tree-item-children");\n      const hrefAttr = this.selfEl.getAttribute("href");\n      if (hrefAttr)\n        this.path = hrefAttr;\n      this.children = [];\n      const childItems = Array.from(this.childrenEl.children).filter((el) => el.classList.contains("tree-item"));\n      childItems.forEach((child) => {\n        this.children.push(new TreeItem(child, this));\n      });\n      this._isFolder = this.itemEl.classList.contains("nav-folder");\n      this._isLink = this.selfEl.tagName == "A";\n      this._isCollapsible = this.itemEl.classList.contains("mod-collapsible");\n      this.collapsed = this.itemEl.classList.contains("is-collapsed");\n      if (this._isCollapsible) {\n        const clickItem = this.isLink ? this.collapseIconEl ?? this.selfEl : this.selfEl;\n        clickItem.addEventListener("click", (e) => {\n          this.collapsed = !this.collapsed;\n          e.preventDefault();\n          e.stopPropagation();\n        });\n      }\n      this._checkAnyChildrenOpen();\n    }\n    get path() {\n      return this._path;\n    }\n    set path(path) {\n      if (this.root.pathToItem) {\n        this.root.pathToItem.delete(this._path);\n        this.root.pathToItem.set(path, this);\n      }\n      this._path = path;\n      this.selfEl.setAttribute("href", path);\n    }\n    get title() {\n      return this.innerEl.innerHTML;\n    }\n    set title(title) {\n      this.innerEl.innerHTML = title;\n    }\n    get isFolder() {\n      return this._isFolder;\n    }\n    get isLink() {\n      return this._isLink;\n    }\n    get collapsable() {\n      return this._isCollapsible;\n    }\n    get collapsed() {\n      return this._collapsed;\n    }\n    set collapsed(collapse) {\n      if (this.collapsed == collapse)\n        return;\n      if (!collapse && this.parent instanceof TreeItem && this.parent.collapsed) {\n        this.parent.collapsed = false;\n      }\n      this._collapsed = collapse;\n      this.itemEl.classList.toggle("is-collapsed", collapse);\n      this.collapseIconEl?.classList.toggle("is-collapsed", collapse);\n      if (collapse)\n        slideUp(this.childrenEl, this.collapseAnimationLength);\n      else\n        slideDown(this.childrenEl, this.collapseAnimationLength);\n      this.parent?._checkAnyChildrenOpen();\n    }\n    get collapsedRecursive() {\n      return this._collapsedRecursive;\n    }\n    set collapsedRecursive(collapse) {\n      if (this.collapsedRecursive == collapse)\n        return;\n      this._collapsedRecursive = collapse;\n      this.children.forEach((child) => {\n        child.collapsed = collapse;\n        child.collapsedRecursive = collapse;\n      });\n    }\n    get anyChildrenOpen() {\n      return this._anyChildrenOpen;\n    }\n    _checkAnyChildrenOpen() {\n      this._anyChildrenOpen = this.children.some((child) => !child.collapsed && child.collapsable);\n      this._collapsedRecursive = !this._anyChildrenOpen;\n      return this._anyChildrenOpen;\n    }\n    forAllChildren(callback) {\n      this.children.forEach((child) => {\n        callback(child);\n        child.forAllChildren(callback);\n      });\n    }\n    overrideAnimationLength(length) {\n      this._oldAnimationLength = this.collapseAnimationLength;\n      this.collapseAnimationLength = length;\n      this.children.forEach((child) => {\n        child.overrideAnimationLength(length);\n      });\n    }\n    restoreAnimationLength() {\n      this.collapseAnimationLength = this._oldAnimationLength;\n      this.children.forEach((child) => {\n        child.restoreAnimationLength();\n      });\n    }\n    setActive() {\n      if (this.root.activeItem)\n        this.root.activeItem.selfEl.classList.remove("is-active");\n      this.root.activeItem = this;\n      this.selfEl.classList.add("is-active");\n    }\n    setFiltered(filteredOut) {\n      if (filteredOut) {\n        this.itemEl.classList.add("filtered-out");\n      } else {\n        this.itemEl.classList.remove("filtered-out");\n        this.parent?.setFiltered(false);\n      }\n    }\n    filter(paths) {\n      this.overrideAnimationLength(0);\n      this.itemEl.classList.add("filtered");\n      this.collapsedRecursive = false;\n      this.forAllChildren((child) => {\n        child.setFiltered(true);\n      });\n      paths.forEach((path) => {\n        const item = this.findByPath(path);\n        if (item)\n          item.setFiltered(false);\n      });\n    }\n    async unfilter() {\n      this.itemEl.classList.remove("filtered");\n      this.forAllChildren((child) => {\n        child.setFiltered(false);\n      });\n      this.collapsedRecursive = true;\n      this.restoreAnimationLength();\n    }\n    setSubHeadings(hintLabelLists) {\n      this.removeSubHeadings();\n      for (const [path, hintLabels] of hintLabelLists) {\n        if (hintLabels.length == 0)\n          continue;\n        const item = this.findByPath(path);\n        if (!item)\n          continue;\n        item.itemEl.classList.add("has-hints");\n        const hintContainer = document.createElement("div");\n        hintContainer.classList.add("tree-hint-container");\n        item.itemEl.appendChild(hintContainer);\n        hintLabels.forEach((label) => {\n          const hintLabelEl = document.createElement("a");\n          hintLabelEl.classList.add("tree-hint-label");\n          hintLabelEl.classList.add("internal-link");\n          hintLabelEl.textContent = label;\n          hintLabelEl.href = path + "#" + label;\n          hintContainer.appendChild(hintLabelEl);\n        });\n        LinkHandler.initializeLinks(hintContainer);\n      }\n    }\n    removeSubHeadings() {\n      this.itemEl.classList.remove("has-hints");\n      this.itemEl.querySelectorAll(".tree-hint-container").forEach((el) => {\n        el.remove();\n      });\n      this.itemEl.querySelectorAll(".has-hints").forEach((el) => {\n        el.classList.remove("has-hints");\n      });\n    }\n    sort(sortFunction) {\n      this.itemEl.classList.add("sorted");\n      this.children.sort(sortFunction);\n      this.children.forEach((child) => {\n        child.sort(sortFunction);\n      });\n      this.children.forEach((child) => {\n        this.childrenEl.appendChild(child.itemEl);\n      });\n    }\n    unsort() {\n      this.itemEl.classList.remove("sorted");\n      this.sort((a, b) => (ObsidianSite.getWebpageData(a.path)?.treeOrder ?? 0) - (ObsidianSite.getWebpageData(b.path)?.treeOrder ?? 0));\n    }\n    find(predicate) {\n      if (predicate(this))\n        return this;\n      for (const child of this.children) {\n        const found = child.find(predicate);\n        if (found)\n          return found;\n      }\n      return void 0;\n    }\n    findByPath(path) {\n      return this.root.pathToItem.get(path);\n    }\n  };\n  var _Tree = class extends TreeItem {\n    constructor(container) {\n      const wrapperEl = container.classList.contains("tree-container") ? container : container.querySelector(".tree-container");\n      if (wrapperEl == null)\n        throw new Error("Invalid tree container");\n      super(wrapperEl, void 0);\n      this.pathToItem = /* @__PURE__ */ new Map();\n      this.rootEl = wrapperEl;\n      this.childrenEl = this.rootEl;\n      this.selfEl = this.rootEl;\n      this.innerEl = this.rootEl;\n      this.collapseAllEl = this.rootEl.querySelector(".tree-collapse-all");\n      const collapseSvg = this.collapseAllEl?.querySelector("svg");\n      if (collapseSvg) {\n        collapseSvg.innerHTML = "<path d></path><path d></path>";\n        this.collapsePath1 = collapseSvg.querySelector("path");\n        this.collapsePath2 = collapseSvg.querySelector("path:last-child");\n      }\n      this.forAllChildren((child) => {\n        if (child.path != "")\n          this.pathToItem.set(child.path, child);\n      });\n      this.collapseAllEl?.addEventListener("click", () => {\n        this.setCollapseIcon(!this.collapsedRecursive);\n        this.collapsedRecursive = !this.collapsedRecursive;\n      });\n      LinkHandler.initializeLinks(this.rootEl);\n      this.setCollapseIcon(!this.anyChildrenOpen);\n    }\n    _checkAnyChildrenOpen() {\n      const open = super._checkAnyChildrenOpen();\n      this.setCollapseIcon(!open);\n      return open;\n    }\n    setCollapseIcon(collapsed) {\n      if (collapsed) {\n        this.collapsePath1?.setAttribute("d", _Tree.collapsePaths[0]);\n        this.collapsePath2?.setAttribute("d", _Tree.collapsePaths[1]);\n      } else {\n        this.collapsePath1?.setAttribute("d", _Tree.uncollapsePaths[0]);\n        this.collapsePath2?.setAttribute("d", _Tree.uncollapsePaths[1]);\n      }\n    }\n    revealPath(path) {\n      const item = this.findByPath(path);\n      if (!item)\n        return;\n      item.collapsed = false;\n    }\n  };\n  var Tree = _Tree;\n  Tree.collapsePaths = ["m7 15 5 5 5-5", "m7 9 5-5 5 5"];\n  Tree.uncollapsePaths = ["m7 20 5-5 5 5", "m7 4 5 5 5-5"];\n\n  // src/frontend/main/document.ts\n  var WebpageDocument = class {\n    constructor(url) {\n      this.title = "";\n      this.headers = [];\n      this.callouts = [];\n      this.lists = [];\n      this.children = [];\n      this.isPreview = false;\n      this.initialized = false;\n      this._exists = false;\n      if (!window?.location)\n        return;\n      url = url.trim();\n      if (url.startsWith("http") || url.startsWith("www") || url.startsWith("/") || url.startsWith("\\\\")) {\n        console.error("Please use a relative path from the root of the wesite to load a webpage");\n        return;\n      }\n      this.pathname = LinkHandler.getPathnameFromURL(url);\n      this.hash = LinkHandler.getHashFromURL(url);\n      this.query = LinkHandler.getQueryFromURL(url);\n      let origin = window?.location?.origin;\n      if (origin == "null")\n        origin = "file://";\n      this.info = ObsidianSite.getWebpageData(this.pathname);\n      if (!this.info && !ObsidianSite.metadata.ignoreMetadata) {\n        new Notice("This page does not exist yet.");\n        console.warn("This page does not exist yet.", this.pathname);\n        return;\n      }\n      this._exists = true;\n      this.documentType = this.info?.type ?? "markdown" /* Markdown */;\n      this.title = this.info?.title ?? this.pathname;\n    }\n    get isMainDocument() {\n      return this.parent == null && !this.isPreview;\n    }\n    get bounds() {\n      return Bounds.fromElement(this.documentEl);\n    }\n    get exists() {\n      return this._exists;\n    }\n    findHeader(predicate) {\n      for (const header of this.headers) {\n        let result = header.find(predicate);\n        if (result)\n          return result;\n      }\n      return null;\n    }\n    scrollToHeader(headerId) {\n      console.log("Scrolling to header", headerId);\n      const header = this.findHeader((h) => h.id == headerId);\n      if (header)\n        header.scrollTo();\n    }\n    findElements() {\n      if (!this.containerEl)\n        this.containerEl = ObsidianSite.centerContentEl;\n      this.sizerEl = this.documentType == "markdown" /* Markdown */ ? this.containerEl.querySelector(".markdown-preview-sizer") : void 0;\n      this.documentEl = this.containerEl.querySelector(".obsidian-document");\n      this.headerEl = this.containerEl.querySelector(".header");\n      this.footerEl = this.containerEl.querySelector(".footer");\n    }\n    async setAsActive() {\n      if (ObsidianSite.document) {\n        let pathname = this.pathname;\n        if (pathname == "index.html")\n          pathname = "";\n        if (!ObsidianSite.isHttp)\n          pathname = null;\n        history.pushState({ pathname }, this.title, pathname);\n      }\n      await ObsidianSite.graphView?.showGraph([this.pathname]);\n      ObsidianSite.fileTree?.findByPath(this.pathname)?.setActive();\n      ObsidianSite.fileTree?.revealPath(this.pathname);\n      ObsidianSite.graphView?.setActiveNodeByPath(this.pathname);\n      ObsidianSite.document = this;\n    }\n    async load(parent = null, containerEl = ObsidianSite.centerContentEl, isPreview = false, headerOnly = false) {\n      this.parent = parent;\n      this.isPreview = isPreview;\n      if (!this.pathname || !this.exists)\n        return this;\n      if (this.isMainDocument && ObsidianSite.document.pathname == this.pathname) {\n        console.log("Already on this page");\n        new Notice("This page is already open.", 2e3);\n        return ObsidianSite.document;\n      }\n      let oldDocument = ObsidianSite.document;\n      await ObsidianSite.showLoading(true, containerEl);\n      this.containerEl = containerEl;\n      if (this.isMainDocument) {\n        await this.setAsActive();\n      }\n      const documentReq = await ObsidianSite.fetch(this.pathname);\n      if (documentReq?.ok) {\n        const documentText = await documentReq.text();\n        const html = new DOMParser().parseFromString(documentText, "text/html");\n        let newDocumentEl = html.querySelector(".obsidian-document");\n        let newOutlineEl = html.querySelector("#outline");\n        if (newDocumentEl) {\n          newDocumentEl = document.adoptNode(newDocumentEl);\n          const docEl = containerEl.querySelector(".obsidian-document");\n          if (docEl) {\n            docEl.before(newDocumentEl);\n            docEl.remove();\n          } else\n            containerEl.appendChild(newDocumentEl);\n        }\n        if (this.isMainDocument && newOutlineEl) {\n          newOutlineEl = document.adoptNode(newOutlineEl);\n          document.querySelector("#outline")?.replaceWith(newOutlineEl);\n          ObsidianSite.outlineTree = new Tree(newOutlineEl);\n        }\n        await this.loadChildDocuments();\n        await this.postLoadInit();\n        if (this.sizerEl && headerOnly && this.hash && this.hash != "") {\n          var header = this.headers.find((h) => h.findByID(this.hash))?.findByID(this.hash);\n          if (header) {\n            this.sizerEl.innerHTML = header.getHeaderWithContentRecursive().map((e) => e.outerHTML).join("");\n          }\n        }\n        this.initialized = false;\n      } else {\n        new Notice("This document could not be loaded.");\n        console.error("Failed to load document", this.pathname);\n        oldDocument?.setAsActive();\n      }\n      await ObsidianSite.showLoading(false, containerEl);\n      return this;\n    }\n    async postLoadInit() {\n      this.findElements();\n      this.postProcess();\n      if (this.isMainDocument && !ObsidianSite.metadata.ignoreMetadata && ObsidianSite.metadata.featureOptions.backlinks.enabled && this.documentType == "markdown" /* Markdown */)\n        this.createBacklinks();\n      if (this.isMainDocument && !ObsidianSite.metadata.ignoreMetadata && ObsidianSite.metadata.featureOptions.tags.enabled && this.documentType == "markdown" /* Markdown */)\n        this.createTags();\n      if (this.isMainDocument || this.isPreview) {\n        this.createHeaders();\n        this.createCallouts();\n        this.createLists();\n      }\n      if (this.documentType == "canvas" /* Canvas */) {\n        this.canvas = new Canvas(this);\n      }\n      if (this.isMainDocument || this.isPreview)\n        LinkHandler.initializeLinks(this.documentEl ?? this.containerEl);\n      return this;\n    }\n    createHeaders() {\n      this.headers = Header.createHeaderTree(this.documentEl);\n    }\n    createCallouts() {\n      const calloutEls = Array.from(this.documentEl.querySelectorAll(".callout"));\n      this.callouts = [];\n      for (const calloutEl of calloutEls) {\n        this.callouts.push(new Callout(calloutEl));\n      }\n    }\n    createLists() {\n      const listEls = Array.from(this.documentEl.querySelectorAll(":is(ul, ol):not(:is(ul, ol) :is(ul, ol))"));\n      this.lists = [];\n      for (const listEl of listEls) {\n        this.lists.push(new List(listEl, void 0));\n      }\n    }\n    createBacklinks() {\n      const backlinks = this.info.backlinks?.filter((b) => b != this.pathname);\n      if (!backlinks || backlinks.length == 0)\n        return;\n      this.backlinkList = new BacklinkList(backlinks);\n    }\n    createTags() {\n      const tags = [];\n      if (ObsidianSite.metadata.featureOptions.tags.showInlineTags && this.info.inlineTags)\n        tags.push(...this.info.inlineTags);\n      if (ObsidianSite.metadata.featureOptions.tags.showFrontmatterTags && this.info.frontmatterTags)\n        tags.push(...this.info.frontmatterTags);\n      if (tags.length == 0)\n        return;\n      this.tags = new Tags(tags);\n    }\n    postProcess() {\n      this.documentEl?.querySelectorAll(".kanban-plugin__item.is-complete input[type=\'checkbox\']").forEach((el) => el.checked = true);\n      if (!ObsidianSite.metadata.ignoreMetadata) {\n        this.documentEl?.classList.toggle("allow-fold-headings", ObsidianSite.metadata.featureOptions.document.allowFoldingHeadings);\n        this.documentEl?.classList.toggle("allow-fold-lists", ObsidianSite.metadata.featureOptions.document.allowFoldingLists);\n      }\n    }\n    async loadChildDocuments() {\n      this.findElements();\n      let parentTemp = this;\n      let parentCount = 0;\n      while (parentTemp) {\n        parentTemp = parentTemp.parent;\n        parentCount++;\n      }\n      if (parentCount > 4)\n        return;\n      const childRefs = Array.from(this.documentEl.querySelectorAll("link[itemprop=\'include-document\']"));\n      const promises = [];\n      for (const ref of childRefs) {\n        const url = ref.getAttribute("href");\n        if (!url)\n          continue;\n        const childPromise = new WebpageDocument(url).load(this, ref.parentElement);\n        promises.push(childPromise);\n        console.log("Loading child", url);\n        ref.remove();\n      }\n      const childrenTemp = await Promise.all(promises);\n      console.log("Loaded child documents", childrenTemp);\n      this.children.push(...childrenTemp);\n    }\n    async loadChild(url, containerEl) {\n      const child = new WebpageDocument(url);\n      await child.load(this, containerEl);\n      this.children.push(child);\n      return child;\n    }\n    async unloadChild(child) {\n      this.children = this.children.filter((c) => c != child);\n      child.documentEl?.remove();\n    }\n    getMinReadableWidth() {\n      const fontSize = parseFloat(getComputedStyle(this.sizerEl ?? this.documentEl).fontSize);\n      return fontSize * 30;\n    }\n  };\n\n  // src/shared/shared.ts\n  var Shared = class {\n  };\n  Shared.libFolderName = "site-lib";\n  Shared.mediaFolderName = "media";\n  Shared.scriptsFolderName = "scripts";\n  Shared.cssFolderName = "styles";\n  Shared.fontFolderName = "fonts";\n  Shared.htmlFolderName = "html";\n  Shared.metadataFileName = "metadata.json";\n  Shared.searchIndexFileName = "search-index.json";\n\n  // node_modules/minisearch/dist/es/index.js\n  function __awaiter(thisArg, _arguments, P, generator) {\n    function adopt(value) {\n      return value instanceof P ? value : new P(function(resolve) {\n        resolve(value);\n      });\n    }\n    return new (P || (P = Promise))(function(resolve, reject) {\n      function fulfilled(value) {\n        try {\n          step(generator.next(value));\n        } catch (e) {\n          reject(e);\n        }\n      }\n      function rejected(value) {\n        try {\n          step(generator["throw"](value));\n        } catch (e) {\n          reject(e);\n        }\n      }\n      function step(result) {\n        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);\n      }\n      step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n  }\n  var ENTRIES = "ENTRIES";\n  var KEYS = "KEYS";\n  var VALUES = "VALUES";\n  var LEAF = "";\n  var TreeIterator = class {\n    constructor(set, type) {\n      const node = set._tree;\n      const keys = Array.from(node.keys());\n      this.set = set;\n      this._type = type;\n      this._path = keys.length > 0 ? [{ node, keys }] : [];\n    }\n    next() {\n      const value = this.dive();\n      this.backtrack();\n      return value;\n    }\n    dive() {\n      if (this._path.length === 0) {\n        return { done: true, value: void 0 };\n      }\n      const { node, keys } = last$1(this._path);\n      if (last$1(keys) === LEAF) {\n        return { done: false, value: this.result() };\n      }\n      const child = node.get(last$1(keys));\n      this._path.push({ node: child, keys: Array.from(child.keys()) });\n      return this.dive();\n    }\n    backtrack() {\n      if (this._path.length === 0) {\n        return;\n      }\n      const keys = last$1(this._path).keys;\n      keys.pop();\n      if (keys.length > 0) {\n        return;\n      }\n      this._path.pop();\n      this.backtrack();\n    }\n    key() {\n      return this.set._prefix + this._path.map(({ keys }) => last$1(keys)).filter((key) => key !== LEAF).join("");\n    }\n    value() {\n      return last$1(this._path).node.get(LEAF);\n    }\n    result() {\n      switch (this._type) {\n        case VALUES:\n          return this.value();\n        case KEYS:\n          return this.key();\n        default:\n          return [this.key(), this.value()];\n      }\n    }\n    [Symbol.iterator]() {\n      return this;\n    }\n  };\n  var last$1 = (array) => {\n    return array[array.length - 1];\n  };\n  var fuzzySearch = (node, query, maxDistance) => {\n    const results = /* @__PURE__ */ new Map();\n    if (query === void 0)\n      return results;\n    const n = query.length + 1;\n    const m = n + maxDistance;\n    const matrix = new Uint8Array(m * n).fill(maxDistance + 1);\n    for (let j = 0; j < n; ++j)\n      matrix[j] = j;\n    for (let i = 1; i < m; ++i)\n      matrix[i * n] = i;\n    recurse(node, query, maxDistance, results, matrix, 1, n, "");\n    return results;\n  };\n  var recurse = (node, query, maxDistance, results, matrix, m, n, prefix) => {\n    const offset = m * n;\n    key:\n      for (const key of node.keys()) {\n        if (key === LEAF) {\n          const distance = matrix[offset - 1];\n          if (distance <= maxDistance) {\n            results.set(prefix, [node.get(key), distance]);\n          }\n        } else {\n          let i = m;\n          for (let pos = 0; pos < key.length; ++pos, ++i) {\n            const char = key[pos];\n            const thisRowOffset = n * i;\n            const prevRowOffset = thisRowOffset - n;\n            let minDistance = matrix[thisRowOffset];\n            const jmin = Math.max(0, i - maxDistance - 1);\n            const jmax = Math.min(n - 1, i + maxDistance);\n            for (let j = jmin; j < jmax; ++j) {\n              const different = char !== query[j];\n              const rpl = matrix[prevRowOffset + j] + +different;\n              const del = matrix[prevRowOffset + j + 1] + 1;\n              const ins = matrix[thisRowOffset + j] + 1;\n              const dist = matrix[thisRowOffset + j + 1] = Math.min(rpl, del, ins);\n              if (dist < minDistance)\n                minDistance = dist;\n            }\n            if (minDistance > maxDistance) {\n              continue key;\n            }\n          }\n          recurse(node.get(key), query, maxDistance, results, matrix, i, n, prefix + key);\n        }\n      }\n  };\n  var SearchableMap = class {\n    constructor(tree = /* @__PURE__ */ new Map(), prefix = "") {\n      this._size = void 0;\n      this._tree = tree;\n      this._prefix = prefix;\n    }\n    atPrefix(prefix) {\n      if (!prefix.startsWith(this._prefix)) {\n        throw new Error("Mismatched prefix");\n      }\n      const [node, path] = trackDown(this._tree, prefix.slice(this._prefix.length));\n      if (node === void 0) {\n        const [parentNode, key] = last(path);\n        for (const k of parentNode.keys()) {\n          if (k !== LEAF && k.startsWith(key)) {\n            const node2 = /* @__PURE__ */ new Map();\n            node2.set(k.slice(key.length), parentNode.get(k));\n            return new SearchableMap(node2, prefix);\n          }\n        }\n      }\n      return new SearchableMap(node, prefix);\n    }\n    clear() {\n      this._size = void 0;\n      this._tree.clear();\n    }\n    delete(key) {\n      this._size = void 0;\n      return remove(this._tree, key);\n    }\n    entries() {\n      return new TreeIterator(this, ENTRIES);\n    }\n    forEach(fn) {\n      for (const [key, value] of this) {\n        fn(key, value, this);\n      }\n    }\n    fuzzyGet(key, maxEditDistance) {\n      return fuzzySearch(this._tree, key, maxEditDistance);\n    }\n    get(key) {\n      const node = lookup(this._tree, key);\n      return node !== void 0 ? node.get(LEAF) : void 0;\n    }\n    has(key) {\n      const node = lookup(this._tree, key);\n      return node !== void 0 && node.has(LEAF);\n    }\n    keys() {\n      return new TreeIterator(this, KEYS);\n    }\n    set(key, value) {\n      if (typeof key !== "string") {\n        throw new Error("key must be a string");\n      }\n      this._size = void 0;\n      const node = createPath(this._tree, key);\n      node.set(LEAF, value);\n      return this;\n    }\n    get size() {\n      if (this._size) {\n        return this._size;\n      }\n      this._size = 0;\n      const iter = this.entries();\n      while (!iter.next().done)\n        this._size += 1;\n      return this._size;\n    }\n    update(key, fn) {\n      if (typeof key !== "string") {\n        throw new Error("key must be a string");\n      }\n      this._size = void 0;\n      const node = createPath(this._tree, key);\n      node.set(LEAF, fn(node.get(LEAF)));\n      return this;\n    }\n    fetch(key, initial) {\n      if (typeof key !== "string") {\n        throw new Error("key must be a string");\n      }\n      this._size = void 0;\n      const node = createPath(this._tree, key);\n      let value = node.get(LEAF);\n      if (value === void 0) {\n        node.set(LEAF, value = initial());\n      }\n      return value;\n    }\n    values() {\n      return new TreeIterator(this, VALUES);\n    }\n    [Symbol.iterator]() {\n      return this.entries();\n    }\n    static from(entries) {\n      const tree = new SearchableMap();\n      for (const [key, value] of entries) {\n        tree.set(key, value);\n      }\n      return tree;\n    }\n    static fromObject(object) {\n      return SearchableMap.from(Object.entries(object));\n    }\n  };\n  var trackDown = (tree, key, path = []) => {\n    if (key.length === 0 || tree == null) {\n      return [tree, path];\n    }\n    for (const k of tree.keys()) {\n      if (k !== LEAF && key.startsWith(k)) {\n        path.push([tree, k]);\n        return trackDown(tree.get(k), key.slice(k.length), path);\n      }\n    }\n    path.push([tree, key]);\n    return trackDown(void 0, "", path);\n  };\n  var lookup = (tree, key) => {\n    if (key.length === 0 || tree == null) {\n      return tree;\n    }\n    for (const k of tree.keys()) {\n      if (k !== LEAF && key.startsWith(k)) {\n        return lookup(tree.get(k), key.slice(k.length));\n      }\n    }\n  };\n  var createPath = (node, key) => {\n    const keyLength = key.length;\n    outer:\n      for (let pos = 0; node && pos < keyLength; ) {\n        for (const k of node.keys()) {\n          if (k !== LEAF && key[pos] === k[0]) {\n            const len = Math.min(keyLength - pos, k.length);\n            let offset = 1;\n            while (offset < len && key[pos + offset] === k[offset])\n              ++offset;\n            const child2 = node.get(k);\n            if (offset === k.length) {\n              node = child2;\n            } else {\n              const intermediate = /* @__PURE__ */ new Map();\n              intermediate.set(k.slice(offset), child2);\n              node.set(key.slice(pos, pos + offset), intermediate);\n              node.delete(k);\n              node = intermediate;\n            }\n            pos += offset;\n            continue outer;\n          }\n        }\n        const child = /* @__PURE__ */ new Map();\n        node.set(key.slice(pos), child);\n        return child;\n      }\n    return node;\n  };\n  var remove = (tree, key) => {\n    const [node, path] = trackDown(tree, key);\n    if (node === void 0) {\n      return;\n    }\n    node.delete(LEAF);\n    if (node.size === 0) {\n      cleanup(path);\n    } else if (node.size === 1) {\n      const [key2, value] = node.entries().next().value;\n      merge(path, key2, value);\n    }\n  };\n  var cleanup = (path) => {\n    if (path.length === 0) {\n      return;\n    }\n    const [node, key] = last(path);\n    node.delete(key);\n    if (node.size === 0) {\n      cleanup(path.slice(0, -1));\n    } else if (node.size === 1) {\n      const [key2, value] = node.entries().next().value;\n      if (key2 !== LEAF) {\n        merge(path.slice(0, -1), key2, value);\n      }\n    }\n  };\n  var merge = (path, key, value) => {\n    if (path.length === 0) {\n      return;\n    }\n    const [node, nodeKey] = last(path);\n    node.set(nodeKey + key, value);\n    node.delete(nodeKey);\n  };\n  var last = (array) => {\n    return array[array.length - 1];\n  };\n  var OR = "or";\n  var AND = "and";\n  var AND_NOT = "and_not";\n  var MiniSearch = class {\n    constructor(options) {\n      if ((options === null || options === void 0 ? void 0 : options.fields) == null) {\n        throw new Error(\'MiniSearch: option "fields" must be provided\');\n      }\n      const autoVacuum = options.autoVacuum == null || options.autoVacuum === true ? defaultAutoVacuumOptions : options.autoVacuum;\n      this._options = Object.assign(Object.assign(Object.assign({}, defaultOptions), options), { autoVacuum, searchOptions: Object.assign(Object.assign({}, defaultSearchOptions), options.searchOptions || {}), autoSuggestOptions: Object.assign(Object.assign({}, defaultAutoSuggestOptions), options.autoSuggestOptions || {}) });\n      this._index = new SearchableMap();\n      this._documentCount = 0;\n      this._documentIds = /* @__PURE__ */ new Map();\n      this._idToShortId = /* @__PURE__ */ new Map();\n      this._fieldIds = {};\n      this._fieldLength = /* @__PURE__ */ new Map();\n      this._avgFieldLength = [];\n      this._nextId = 0;\n      this._storedFields = /* @__PURE__ */ new Map();\n      this._dirtCount = 0;\n      this._currentVacuum = null;\n      this._enqueuedVacuum = null;\n      this._enqueuedVacuumConditions = defaultVacuumConditions;\n      this.addFields(this._options.fields);\n    }\n    add(document2) {\n      const { extractField, tokenize, processTerm, fields, idField } = this._options;\n      const id = extractField(document2, idField);\n      if (id == null) {\n        throw new Error(`MiniSearch: document does not have ID field "${idField}"`);\n      }\n      if (this._idToShortId.has(id)) {\n        throw new Error(`MiniSearch: duplicate ID ${id}`);\n      }\n      const shortDocumentId = this.addDocumentId(id);\n      this.saveStoredFields(shortDocumentId, document2);\n      for (const field of fields) {\n        const fieldValue = extractField(document2, field);\n        if (fieldValue == null)\n          continue;\n        const tokens = tokenize(fieldValue.toString(), field);\n        const fieldId = this._fieldIds[field];\n        const uniqueTerms = new Set(tokens).size;\n        this.addFieldLength(shortDocumentId, fieldId, this._documentCount - 1, uniqueTerms);\n        for (const term of tokens) {\n          const processedTerm = processTerm(term, field);\n          if (Array.isArray(processedTerm)) {\n            for (const t of processedTerm) {\n              this.addTerm(fieldId, shortDocumentId, t);\n            }\n          } else if (processedTerm) {\n            this.addTerm(fieldId, shortDocumentId, processedTerm);\n          }\n        }\n      }\n    }\n    addAll(documents) {\n      for (const document2 of documents)\n        this.add(document2);\n    }\n    addAllAsync(documents, options = {}) {\n      const { chunkSize = 10 } = options;\n      const acc = { chunk: [], promise: Promise.resolve() };\n      const { chunk, promise } = documents.reduce(({ chunk: chunk2, promise: promise2 }, document2, i) => {\n        chunk2.push(document2);\n        if ((i + 1) % chunkSize === 0) {\n          return {\n            chunk: [],\n            promise: promise2.then(() => new Promise((resolve) => setTimeout(resolve, 0))).then(() => this.addAll(chunk2))\n          };\n        } else {\n          return { chunk: chunk2, promise: promise2 };\n        }\n      }, acc);\n      return promise.then(() => this.addAll(chunk));\n    }\n    remove(document2) {\n      const { tokenize, processTerm, extractField, fields, idField } = this._options;\n      const id = extractField(document2, idField);\n      if (id == null) {\n        throw new Error(`MiniSearch: document does not have ID field "${idField}"`);\n      }\n      const shortId = this._idToShortId.get(id);\n      if (shortId == null) {\n        throw new Error(`MiniSearch: cannot remove document with ID ${id}: it is not in the index`);\n      }\n      for (const field of fields) {\n        const fieldValue = extractField(document2, field);\n        if (fieldValue == null)\n          continue;\n        const tokens = tokenize(fieldValue.toString(), field);\n        const fieldId = this._fieldIds[field];\n        const uniqueTerms = new Set(tokens).size;\n        this.removeFieldLength(shortId, fieldId, this._documentCount, uniqueTerms);\n        for (const term of tokens) {\n          const processedTerm = processTerm(term, field);\n          if (Array.isArray(processedTerm)) {\n            for (const t of processedTerm) {\n              this.removeTerm(fieldId, shortId, t);\n            }\n          } else if (processedTerm) {\n            this.removeTerm(fieldId, shortId, processedTerm);\n          }\n        }\n      }\n      this._storedFields.delete(shortId);\n      this._documentIds.delete(shortId);\n      this._idToShortId.delete(id);\n      this._fieldLength.delete(shortId);\n      this._documentCount -= 1;\n    }\n    removeAll(documents) {\n      if (documents) {\n        for (const document2 of documents)\n          this.remove(document2);\n      } else if (arguments.length > 0) {\n        throw new Error("Expected documents to be present. Omit the argument to remove all documents.");\n      } else {\n        this._index = new SearchableMap();\n        this._documentCount = 0;\n        this._documentIds = /* @__PURE__ */ new Map();\n        this._idToShortId = /* @__PURE__ */ new Map();\n        this._fieldLength = /* @__PURE__ */ new Map();\n        this._avgFieldLength = [];\n        this._storedFields = /* @__PURE__ */ new Map();\n        this._nextId = 0;\n      }\n    }\n    discard(id) {\n      const shortId = this._idToShortId.get(id);\n      if (shortId == null) {\n        throw new Error(`MiniSearch: cannot discard document with ID ${id}: it is not in the index`);\n      }\n      this._idToShortId.delete(id);\n      this._documentIds.delete(shortId);\n      this._storedFields.delete(shortId);\n      (this._fieldLength.get(shortId) || []).forEach((fieldLength, fieldId) => {\n        this.removeFieldLength(shortId, fieldId, this._documentCount, fieldLength);\n      });\n      this._fieldLength.delete(shortId);\n      this._documentCount -= 1;\n      this._dirtCount += 1;\n      this.maybeAutoVacuum();\n    }\n    maybeAutoVacuum() {\n      if (this._options.autoVacuum === false) {\n        return;\n      }\n      const { minDirtFactor, minDirtCount, batchSize, batchWait } = this._options.autoVacuum;\n      this.conditionalVacuum({ batchSize, batchWait }, { minDirtCount, minDirtFactor });\n    }\n    discardAll(ids) {\n      const autoVacuum = this._options.autoVacuum;\n      try {\n        this._options.autoVacuum = false;\n        for (const id of ids) {\n          this.discard(id);\n        }\n      } finally {\n        this._options.autoVacuum = autoVacuum;\n      }\n      this.maybeAutoVacuum();\n    }\n    replace(updatedDocument) {\n      const { idField, extractField } = this._options;\n      const id = extractField(updatedDocument, idField);\n      this.discard(id);\n      this.add(updatedDocument);\n    }\n    vacuum(options = {}) {\n      return this.conditionalVacuum(options);\n    }\n    conditionalVacuum(options, conditions) {\n      if (this._currentVacuum) {\n        this._enqueuedVacuumConditions = this._enqueuedVacuumConditions && conditions;\n        if (this._enqueuedVacuum != null) {\n          return this._enqueuedVacuum;\n        }\n        this._enqueuedVacuum = this._currentVacuum.then(() => {\n          const conditions2 = this._enqueuedVacuumConditions;\n          this._enqueuedVacuumConditions = defaultVacuumConditions;\n          return this.performVacuuming(options, conditions2);\n        });\n        return this._enqueuedVacuum;\n      }\n      if (this.vacuumConditionsMet(conditions) === false) {\n        return Promise.resolve();\n      }\n      this._currentVacuum = this.performVacuuming(options);\n      return this._currentVacuum;\n    }\n    performVacuuming(options, conditions) {\n      return __awaiter(this, void 0, void 0, function* () {\n        const initialDirtCount = this._dirtCount;\n        if (this.vacuumConditionsMet(conditions)) {\n          const batchSize = options.batchSize || defaultVacuumOptions.batchSize;\n          const batchWait = options.batchWait || defaultVacuumOptions.batchWait;\n          let i = 1;\n          for (const [term, fieldsData] of this._index) {\n            for (const [fieldId, fieldIndex] of fieldsData) {\n              for (const [shortId] of fieldIndex) {\n                if (this._documentIds.has(shortId)) {\n                  continue;\n                }\n                if (fieldIndex.size <= 1) {\n                  fieldsData.delete(fieldId);\n                } else {\n                  fieldIndex.delete(shortId);\n                }\n              }\n            }\n            if (this._index.get(term).size === 0) {\n              this._index.delete(term);\n            }\n            if (i % batchSize === 0) {\n              yield new Promise((resolve) => setTimeout(resolve, batchWait));\n            }\n            i += 1;\n          }\n          this._dirtCount -= initialDirtCount;\n        }\n        yield null;\n        this._currentVacuum = this._enqueuedVacuum;\n        this._enqueuedVacuum = null;\n      });\n    }\n    vacuumConditionsMet(conditions) {\n      if (conditions == null) {\n        return true;\n      }\n      let { minDirtCount, minDirtFactor } = conditions;\n      minDirtCount = minDirtCount || defaultAutoVacuumOptions.minDirtCount;\n      minDirtFactor = minDirtFactor || defaultAutoVacuumOptions.minDirtFactor;\n      return this.dirtCount >= minDirtCount && this.dirtFactor >= minDirtFactor;\n    }\n    get isVacuuming() {\n      return this._currentVacuum != null;\n    }\n    get dirtCount() {\n      return this._dirtCount;\n    }\n    get dirtFactor() {\n      return this._dirtCount / (1 + this._documentCount + this._dirtCount);\n    }\n    has(id) {\n      return this._idToShortId.has(id);\n    }\n    getStoredFields(id) {\n      const shortId = this._idToShortId.get(id);\n      if (shortId == null) {\n        return void 0;\n      }\n      return this._storedFields.get(shortId);\n    }\n    search(query, searchOptions = {}) {\n      const rawResults = this.executeQuery(query, searchOptions);\n      const results = [];\n      for (const [docId, { score, terms, match }] of rawResults) {\n        const quality = terms.length || 1;\n        const result = {\n          id: this._documentIds.get(docId),\n          score: score * quality,\n          terms: Object.keys(match),\n          queryTerms: terms,\n          match\n        };\n        Object.assign(result, this._storedFields.get(docId));\n        if (searchOptions.filter == null || searchOptions.filter(result)) {\n          results.push(result);\n        }\n      }\n      if (query === MiniSearch.wildcard && searchOptions.boostDocument == null && this._options.searchOptions.boostDocument == null) {\n        return results;\n      }\n      results.sort(byScore);\n      return results;\n    }\n    autoSuggest(queryString, options = {}) {\n      options = Object.assign(Object.assign({}, this._options.autoSuggestOptions), options);\n      const suggestions = /* @__PURE__ */ new Map();\n      for (const { score, terms } of this.search(queryString, options)) {\n        const phrase = terms.join(" ");\n        const suggestion = suggestions.get(phrase);\n        if (suggestion != null) {\n          suggestion.score += score;\n          suggestion.count += 1;\n        } else {\n          suggestions.set(phrase, { score, terms, count: 1 });\n        }\n      }\n      const results = [];\n      for (const [suggestion, { score, terms, count }] of suggestions) {\n        results.push({ suggestion, terms, score: score / count });\n      }\n      results.sort(byScore);\n      return results;\n    }\n    get documentCount() {\n      return this._documentCount;\n    }\n    get termCount() {\n      return this._index.size;\n    }\n    static loadJSON(json, options) {\n      if (options == null) {\n        throw new Error("MiniSearch: loadJSON should be given the same options used when serializing the index");\n      }\n      return this.loadJS(JSON.parse(json), options);\n    }\n    static loadJSONAsync(json, options) {\n      return __awaiter(this, void 0, void 0, function* () {\n        if (options == null) {\n          throw new Error("MiniSearch: loadJSON should be given the same options used when serializing the index");\n        }\n        return this.loadJSAsync(JSON.parse(json), options);\n      });\n    }\n    static getDefault(optionName) {\n      if (defaultOptions.hasOwnProperty(optionName)) {\n        return getOwnProperty(defaultOptions, optionName);\n      } else {\n        throw new Error(`MiniSearch: unknown option "${optionName}"`);\n      }\n    }\n    static loadJS(js, options) {\n      const { index, documentIds, fieldLength, storedFields, serializationVersion } = js;\n      const miniSearch = this.instantiateMiniSearch(js, options);\n      miniSearch._documentIds = objectToNumericMap(documentIds);\n      miniSearch._fieldLength = objectToNumericMap(fieldLength);\n      miniSearch._storedFields = objectToNumericMap(storedFields);\n      for (const [shortId, id] of miniSearch._documentIds) {\n        miniSearch._idToShortId.set(id, shortId);\n      }\n      for (const [term, data] of index) {\n        const dataMap = /* @__PURE__ */ new Map();\n        for (const fieldId of Object.keys(data)) {\n          let indexEntry = data[fieldId];\n          if (serializationVersion === 1) {\n            indexEntry = indexEntry.ds;\n          }\n          dataMap.set(parseInt(fieldId, 10), objectToNumericMap(indexEntry));\n        }\n        miniSearch._index.set(term, dataMap);\n      }\n      return miniSearch;\n    }\n    static loadJSAsync(js, options) {\n      return __awaiter(this, void 0, void 0, function* () {\n        const { index, documentIds, fieldLength, storedFields, serializationVersion } = js;\n        const miniSearch = this.instantiateMiniSearch(js, options);\n        miniSearch._documentIds = yield objectToNumericMapAsync(documentIds);\n        miniSearch._fieldLength = yield objectToNumericMapAsync(fieldLength);\n        miniSearch._storedFields = yield objectToNumericMapAsync(storedFields);\n        for (const [shortId, id] of miniSearch._documentIds) {\n          miniSearch._idToShortId.set(id, shortId);\n        }\n        let count = 0;\n        for (const [term, data] of index) {\n          const dataMap = /* @__PURE__ */ new Map();\n          for (const fieldId of Object.keys(data)) {\n            let indexEntry = data[fieldId];\n            if (serializationVersion === 1) {\n              indexEntry = indexEntry.ds;\n            }\n            dataMap.set(parseInt(fieldId, 10), yield objectToNumericMapAsync(indexEntry));\n          }\n          if (++count % 1e3 === 0)\n            yield wait(0);\n          miniSearch._index.set(term, dataMap);\n        }\n        return miniSearch;\n      });\n    }\n    static instantiateMiniSearch(js, options) {\n      const { documentCount, nextId, fieldIds, averageFieldLength, dirtCount, serializationVersion } = js;\n      if (serializationVersion !== 1 && serializationVersion !== 2) {\n        throw new Error("MiniSearch: cannot deserialize an index created with an incompatible version");\n      }\n      const miniSearch = new MiniSearch(options);\n      miniSearch._documentCount = documentCount;\n      miniSearch._nextId = nextId;\n      miniSearch._idToShortId = /* @__PURE__ */ new Map();\n      miniSearch._fieldIds = fieldIds;\n      miniSearch._avgFieldLength = averageFieldLength;\n      miniSearch._dirtCount = dirtCount || 0;\n      miniSearch._index = new SearchableMap();\n      return miniSearch;\n    }\n    executeQuery(query, searchOptions = {}) {\n      if (query === MiniSearch.wildcard) {\n        return this.executeWildcardQuery(searchOptions);\n      }\n      if (typeof query !== "string") {\n        const options2 = Object.assign(Object.assign(Object.assign({}, searchOptions), query), { queries: void 0 });\n        const results2 = query.queries.map((subquery) => this.executeQuery(subquery, options2));\n        return this.combineResults(results2, options2.combineWith);\n      }\n      const { tokenize, processTerm, searchOptions: globalSearchOptions } = this._options;\n      const options = Object.assign(Object.assign({ tokenize, processTerm }, globalSearchOptions), searchOptions);\n      const { tokenize: searchTokenize, processTerm: searchProcessTerm } = options;\n      const terms = searchTokenize(query).flatMap((term) => searchProcessTerm(term)).filter((term) => !!term);\n      const queries = terms.map(termToQuerySpec(options));\n      const results = queries.map((query2) => this.executeQuerySpec(query2, options));\n      return this.combineResults(results, options.combineWith);\n    }\n    executeQuerySpec(query, searchOptions) {\n      const options = Object.assign(Object.assign({}, this._options.searchOptions), searchOptions);\n      const boosts = (options.fields || this._options.fields).reduce((boosts2, field) => Object.assign(Object.assign({}, boosts2), { [field]: getOwnProperty(options.boost, field) || 1 }), {});\n      const { boostDocument, weights, maxFuzzy, bm25: bm25params } = options;\n      const { fuzzy: fuzzyWeight, prefix: prefixWeight } = Object.assign(Object.assign({}, defaultSearchOptions.weights), weights);\n      const data = this._index.get(query.term);\n      const results = this.termResults(query.term, query.term, 1, query.termBoost, data, boosts, boostDocument, bm25params);\n      let prefixMatches;\n      let fuzzyMatches;\n      if (query.prefix) {\n        prefixMatches = this._index.atPrefix(query.term);\n      }\n      if (query.fuzzy) {\n        const fuzzy = query.fuzzy === true ? 0.2 : query.fuzzy;\n        const maxDistance = fuzzy < 1 ? Math.min(maxFuzzy, Math.round(query.term.length * fuzzy)) : fuzzy;\n        if (maxDistance)\n          fuzzyMatches = this._index.fuzzyGet(query.term, maxDistance);\n      }\n      if (prefixMatches) {\n        for (const [term, data2] of prefixMatches) {\n          const distance = term.length - query.term.length;\n          if (!distance) {\n            continue;\n          }\n          fuzzyMatches === null || fuzzyMatches === void 0 ? void 0 : fuzzyMatches.delete(term);\n          const weight = prefixWeight * term.length / (term.length + 0.3 * distance);\n          this.termResults(query.term, term, weight, query.termBoost, data2, boosts, boostDocument, bm25params, results);\n        }\n      }\n      if (fuzzyMatches) {\n        for (const term of fuzzyMatches.keys()) {\n          const [data2, distance] = fuzzyMatches.get(term);\n          if (!distance) {\n            continue;\n          }\n          const weight = fuzzyWeight * term.length / (term.length + distance);\n          this.termResults(query.term, term, weight, query.termBoost, data2, boosts, boostDocument, bm25params, results);\n        }\n      }\n      return results;\n    }\n    executeWildcardQuery(searchOptions) {\n      const results = /* @__PURE__ */ new Map();\n      const options = Object.assign(Object.assign({}, this._options.searchOptions), searchOptions);\n      for (const [shortId, id] of this._documentIds) {\n        const score = options.boostDocument ? options.boostDocument(id, "", this._storedFields.get(shortId)) : 1;\n        results.set(shortId, {\n          score,\n          terms: [],\n          match: {}\n        });\n      }\n      return results;\n    }\n    combineResults(results, combineWith = OR) {\n      if (results.length === 0) {\n        return /* @__PURE__ */ new Map();\n      }\n      const operator = combineWith.toLowerCase();\n      const combinator = combinators[operator];\n      if (!combinator) {\n        throw new Error(`Invalid combination operator: ${combineWith}`);\n      }\n      return results.reduce(combinator) || /* @__PURE__ */ new Map();\n    }\n    toJSON() {\n      const index = [];\n      for (const [term, fieldIndex] of this._index) {\n        const data = {};\n        for (const [fieldId, freqs] of fieldIndex) {\n          data[fieldId] = Object.fromEntries(freqs);\n        }\n        index.push([term, data]);\n      }\n      return {\n        documentCount: this._documentCount,\n        nextId: this._nextId,\n        documentIds: Object.fromEntries(this._documentIds),\n        fieldIds: this._fieldIds,\n        fieldLength: Object.fromEntries(this._fieldLength),\n        averageFieldLength: this._avgFieldLength,\n        storedFields: Object.fromEntries(this._storedFields),\n        dirtCount: this._dirtCount,\n        index,\n        serializationVersion: 2\n      };\n    }\n    termResults(sourceTerm, derivedTerm, termWeight, termBoost, fieldTermData, fieldBoosts, boostDocumentFn, bm25params, results = /* @__PURE__ */ new Map()) {\n      if (fieldTermData == null)\n        return results;\n      for (const field of Object.keys(fieldBoosts)) {\n        const fieldBoost = fieldBoosts[field];\n        const fieldId = this._fieldIds[field];\n        const fieldTermFreqs = fieldTermData.get(fieldId);\n        if (fieldTermFreqs == null)\n          continue;\n        let matchingFields = fieldTermFreqs.size;\n        const avgFieldLength = this._avgFieldLength[fieldId];\n        for (const docId of fieldTermFreqs.keys()) {\n          if (!this._documentIds.has(docId)) {\n            this.removeTerm(fieldId, docId, derivedTerm);\n            matchingFields -= 1;\n            continue;\n          }\n          const docBoost = boostDocumentFn ? boostDocumentFn(this._documentIds.get(docId), derivedTerm, this._storedFields.get(docId)) : 1;\n          if (!docBoost)\n            continue;\n          const termFreq = fieldTermFreqs.get(docId);\n          const fieldLength = this._fieldLength.get(docId)[fieldId];\n          const rawScore = calcBM25Score(termFreq, matchingFields, this._documentCount, fieldLength, avgFieldLength, bm25params);\n          const weightedScore = termWeight * termBoost * fieldBoost * docBoost * rawScore;\n          const result = results.get(docId);\n          if (result) {\n            result.score += weightedScore;\n            assignUniqueTerm(result.terms, sourceTerm);\n            const match = getOwnProperty(result.match, derivedTerm);\n            if (match) {\n              match.push(field);\n            } else {\n              result.match[derivedTerm] = [field];\n            }\n          } else {\n            results.set(docId, {\n              score: weightedScore,\n              terms: [sourceTerm],\n              match: { [derivedTerm]: [field] }\n            });\n          }\n        }\n      }\n      return results;\n    }\n    addTerm(fieldId, documentId, term) {\n      const indexData = this._index.fetch(term, createMap);\n      let fieldIndex = indexData.get(fieldId);\n      if (fieldIndex == null) {\n        fieldIndex = /* @__PURE__ */ new Map();\n        fieldIndex.set(documentId, 1);\n        indexData.set(fieldId, fieldIndex);\n      } else {\n        const docs = fieldIndex.get(documentId);\n        fieldIndex.set(documentId, (docs || 0) + 1);\n      }\n    }\n    removeTerm(fieldId, documentId, term) {\n      if (!this._index.has(term)) {\n        this.warnDocumentChanged(documentId, fieldId, term);\n        return;\n      }\n      const indexData = this._index.fetch(term, createMap);\n      const fieldIndex = indexData.get(fieldId);\n      if (fieldIndex == null || fieldIndex.get(documentId) == null) {\n        this.warnDocumentChanged(documentId, fieldId, term);\n      } else if (fieldIndex.get(documentId) <= 1) {\n        if (fieldIndex.size <= 1) {\n          indexData.delete(fieldId);\n        } else {\n          fieldIndex.delete(documentId);\n        }\n      } else {\n        fieldIndex.set(documentId, fieldIndex.get(documentId) - 1);\n      }\n      if (this._index.get(term).size === 0) {\n        this._index.delete(term);\n      }\n    }\n    warnDocumentChanged(shortDocumentId, fieldId, term) {\n      for (const fieldName of Object.keys(this._fieldIds)) {\n        if (this._fieldIds[fieldName] === fieldId) {\n          this._options.logger("warn", `MiniSearch: document with ID ${this._documentIds.get(shortDocumentId)} has changed before removal: term "${term}" was not present in field "${fieldName}". Removing a document after it has changed can corrupt the index!`, "version_conflict");\n          return;\n        }\n      }\n    }\n    addDocumentId(documentId) {\n      const shortDocumentId = this._nextId;\n      this._idToShortId.set(documentId, shortDocumentId);\n      this._documentIds.set(shortDocumentId, documentId);\n      this._documentCount += 1;\n      this._nextId += 1;\n      return shortDocumentId;\n    }\n    addFields(fields) {\n      for (let i = 0; i < fields.length; i++) {\n        this._fieldIds[fields[i]] = i;\n      }\n    }\n    addFieldLength(documentId, fieldId, count, length) {\n      let fieldLengths = this._fieldLength.get(documentId);\n      if (fieldLengths == null)\n        this._fieldLength.set(documentId, fieldLengths = []);\n      fieldLengths[fieldId] = length;\n      const averageFieldLength = this._avgFieldLength[fieldId] || 0;\n      const totalFieldLength = averageFieldLength * count + length;\n      this._avgFieldLength[fieldId] = totalFieldLength / (count + 1);\n    }\n    removeFieldLength(documentId, fieldId, count, length) {\n      if (count === 1) {\n        this._avgFieldLength[fieldId] = 0;\n        return;\n      }\n      const totalFieldLength = this._avgFieldLength[fieldId] * count - length;\n      this._avgFieldLength[fieldId] = totalFieldLength / (count - 1);\n    }\n    saveStoredFields(documentId, doc) {\n      const { storeFields, extractField } = this._options;\n      if (storeFields == null || storeFields.length === 0) {\n        return;\n      }\n      let documentFields = this._storedFields.get(documentId);\n      if (documentFields == null)\n        this._storedFields.set(documentId, documentFields = {});\n      for (const fieldName of storeFields) {\n        const fieldValue = extractField(doc, fieldName);\n        if (fieldValue !== void 0)\n          documentFields[fieldName] = fieldValue;\n      }\n    }\n  };\n  MiniSearch.wildcard = Symbol("*");\n  var getOwnProperty = (object, property) => Object.prototype.hasOwnProperty.call(object, property) ? object[property] : void 0;\n  var combinators = {\n    [OR]: (a, b) => {\n      for (const docId of b.keys()) {\n        const existing = a.get(docId);\n        if (existing == null) {\n          a.set(docId, b.get(docId));\n        } else {\n          const { score, terms, match } = b.get(docId);\n          existing.score = existing.score + score;\n          existing.match = Object.assign(existing.match, match);\n          assignUniqueTerms(existing.terms, terms);\n        }\n      }\n      return a;\n    },\n    [AND]: (a, b) => {\n      const combined = /* @__PURE__ */ new Map();\n      for (const docId of b.keys()) {\n        const existing = a.get(docId);\n        if (existing == null)\n          continue;\n        const { score, terms, match } = b.get(docId);\n        assignUniqueTerms(existing.terms, terms);\n        combined.set(docId, {\n          score: existing.score + score,\n          terms: existing.terms,\n          match: Object.assign(existing.match, match)\n        });\n      }\n      return combined;\n    },\n    [AND_NOT]: (a, b) => {\n      for (const docId of b.keys())\n        a.delete(docId);\n      return a;\n    }\n  };\n  var defaultBM25params = { k: 1.2, b: 0.7, d: 0.5 };\n  var calcBM25Score = (termFreq, matchingCount, totalCount, fieldLength, avgFieldLength, bm25params) => {\n    const { k, b, d } = bm25params;\n    const invDocFreq = Math.log(1 + (totalCount - matchingCount + 0.5) / (matchingCount + 0.5));\n    return invDocFreq * (d + termFreq * (k + 1) / (termFreq + k * (1 - b + b * fieldLength / avgFieldLength)));\n  };\n  var termToQuerySpec = (options) => (term, i, terms) => {\n    const fuzzy = typeof options.fuzzy === "function" ? options.fuzzy(term, i, terms) : options.fuzzy || false;\n    const prefix = typeof options.prefix === "function" ? options.prefix(term, i, terms) : options.prefix === true;\n    const termBoost = typeof options.boostTerm === "function" ? options.boostTerm(term, i, terms) : 1;\n    return { term, fuzzy, prefix, termBoost };\n  };\n  var defaultOptions = {\n    idField: "id",\n    extractField: (document2, fieldName) => document2[fieldName],\n    tokenize: (text) => text.split(SPACE_OR_PUNCTUATION),\n    processTerm: (term) => term.toLowerCase(),\n    fields: void 0,\n    searchOptions: void 0,\n    storeFields: [],\n    logger: (level, message) => {\n      if (typeof (console === null || console === void 0 ? void 0 : console[level]) === "function")\n        console[level](message);\n    },\n    autoVacuum: true\n  };\n  var defaultSearchOptions = {\n    combineWith: OR,\n    prefix: false,\n    fuzzy: false,\n    maxFuzzy: 6,\n    boost: {},\n    weights: { fuzzy: 0.45, prefix: 0.375 },\n    bm25: defaultBM25params\n  };\n  var defaultAutoSuggestOptions = {\n    combineWith: AND,\n    prefix: (term, i, terms) => i === terms.length - 1\n  };\n  var defaultVacuumOptions = { batchSize: 1e3, batchWait: 10 };\n  var defaultVacuumConditions = { minDirtFactor: 0.1, minDirtCount: 20 };\n  var defaultAutoVacuumOptions = Object.assign(Object.assign({}, defaultVacuumOptions), defaultVacuumConditions);\n  var assignUniqueTerm = (target, term) => {\n    if (!target.includes(term))\n      target.push(term);\n  };\n  var assignUniqueTerms = (target, source) => {\n    for (const term of source) {\n      if (!target.includes(term))\n        target.push(term);\n    }\n  };\n  var byScore = ({ score: a }, { score: b }) => b - a;\n  var createMap = () => /* @__PURE__ */ new Map();\n  var objectToNumericMap = (object) => {\n    const map = /* @__PURE__ */ new Map();\n    for (const key of Object.keys(object)) {\n      map.set(parseInt(key, 10), object[key]);\n    }\n    return map;\n  };\n  var objectToNumericMapAsync = (object) => __awaiter(void 0, void 0, void 0, function* () {\n    const map = /* @__PURE__ */ new Map();\n    let count = 0;\n    for (const key of Object.keys(object)) {\n      map.set(parseInt(key, 10), object[key]);\n      if (++count % 1e3 === 0) {\n        yield wait(0);\n      }\n    }\n    return map;\n  });\n  var wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));\n  var SPACE_OR_PUNCTUATION = /[\\n\\r\\p{Z}\\p{P}]+/u;\n\n  // src/frontend/main/search.ts\n  var allSearch = 1 /* Title */ | 2 /* Aliases */ | 4 /* Headers */ | 8 /* Tags */ | 16 /* Path */ | 32 /* Content */;\n  var Search = class {\n    search(query, type = allSearch) {\n      if (query.length == 0) {\n        this.clear();\n        return;\n      }\n      this.input.value = query;\n      if (type != allSearch) {\n        this.input.style.color = "var(--text-accent)";\n      } else {\n        this.input.style.color = "";\n      }\n      const searchFields = [];\n      if (type & 1 /* Title */)\n        searchFields.push("title");\n      if (type & 2 /* Aliases */)\n        searchFields.push("aliases");\n      if (type & 4 /* Headers */)\n        searchFields.push("headers");\n      if (type & 8 /* Tags */)\n        searchFields.push("tags");\n      if (type & 16 /* Path */)\n        searchFields.push("path");\n      if (type & 32 /* Content */)\n        searchFields.push("content");\n      console.log(type & 1 /* Title */, type & 2 /* Aliases */, type & 4 /* Headers */, type & 8 /* Tags */, type & 16 /* Path */, type & 32 /* Content */);\n      const results = this.index.search(query, {\n        prefix: true,\n        fuzzy: 0.2,\n        boost: { title: 2, aliases: 1.8, headers: 1.5, tags: 1.3, path: 1.1 },\n        fields: searchFields\n      });\n      console.log("Search results", results);\n      if (results.length > 50)\n        results.splice(50);\n      const showPaths = [];\n      const headerLinks = /* @__PURE__ */ new Map();\n      for (const result of results) {\n        if (result.score < results[0].score * 0.3 && showPaths.length > 4 || result.score < results[0].score * 0.1)\n          break;\n        showPaths.push(result.path);\n        if (query.length > 2) {\n          const headers = [];\n          let breakEarly = false;\n          for (const match in result.match) {\n            if (result.match[match].includes("headers")) {\n              for (const header of result.headers) {\n                if (header.toLowerCase().includes(match.toLowerCase())) {\n                  if (!headers.includes(header))\n                    headers.push(header);\n                  if (query.toLowerCase() != match.toLowerCase()) {\n                    breakEarly = true;\n                    break;\n                  }\n                }\n              }\n            }\n            if (breakEarly)\n              break;\n          }\n          headerLinks.set(result.path, headers);\n        }\n      }\n      ObsidianSite.fileTree?.filter(showPaths);\n      ObsidianSite.fileTree?.setSubHeadings(headerLinks);\n      ObsidianSite.fileTree?.sort((a, b) => {\n        if (!a || !b)\n          return 0;\n        return showPaths.findIndex((path) => a.path == path) - showPaths.findIndex((path) => b.path == path);\n      });\n      if (!ObsidianSite.fileTree) {\n        const list = document.createElement("div");\n        results.filter((result) => result.path.endsWith(".html")).slice(0, 20).forEach((result) => {\n          const item = document.createElement("div");\n          item.classList.add("search-result");\n          const link = document.createElement("a");\n          link.classList.add("tree-item-self");\n          const searchURL = result.path + "?mark=" + encodeURIComponent(query);\n          link.setAttribute("href", searchURL);\n          link.appendChild(document.createTextNode(result.title));\n          item.appendChild(link);\n          list.append(item);\n        });\n        this.dedicatedSearchResultsList.replaceChildren(list);\n        this.container.after(this.dedicatedSearchResultsList);\n        LinkHandler.initializeLinks(this.dedicatedSearchResultsList);\n      }\n    }\n    searchParseFilters(queryString) {\n      if (queryString.startsWith("?"))\n        queryString = queryString.substring(1);\n      let filterName = queryString.split(":")[0];\n      if (!queryString.includes(":"))\n        filterName = "";\n      if (filterName == "content" || filterName == "text" || filterName == "body") {\n        this.search(queryString, 32 /* Content */);\n      } else if (filterName == "title" || filterName == "name") {\n        this.search(queryString, 1 /* Title */);\n      } else if (filterName == "path") {\n        this.search(queryString, 16 /* Path */);\n      } else if (filterName == "header" || filterName == "headers") {\n        this.search(queryString, 4 /* Headers */);\n      } else if (filterName == "tag" || filterName == "tags" || queryString.startsWith("#")) {\n        this.search(queryString, 8 /* Tags */);\n      } else if (filterName == "alias" || filterName == "aliases") {\n        this.search(queryString, 2 /* Aliases */);\n      } else {\n        this.search(queryString);\n      }\n    }\n    clear() {\n      this.container?.classList.remove("has-content");\n      this.input.value = "";\n      this.clearCurrentDocumentSearch();\n      ObsidianSite.fileTree?.unfilter();\n      ObsidianSite.fileTree?.removeSubHeadings();\n    }\n    async init() {\n      this.input = document.querySelector(\'input[type="search"]\');\n      this.container = this.input?.closest("#search-container");\n      if (!this.input || !this.container)\n        return;\n      const indexResp = await ObsidianSite.fetch(Shared.libFolderName + "/search-index.json");\n      if (!indexResp?.ok) {\n        console.error("Failed to fetch search index");\n        return;\n      }\n      const indexJSON = await indexResp.json();\n      try {\n        this.index = MiniSearch.loadJS(indexJSON, { fields: ["title", "path", "tags", "headers"] });\n      } catch (e) {\n        console.error("Failed to load search index: ", e);\n        return;\n      }\n      const inputClear = document.querySelector("#search-clear-button");\n      inputClear?.addEventListener("click", (event) => {\n        this.clear();\n      });\n      this.input.addEventListener("input", (event) => {\n        const query = event.target?.value ?? "";\n        if (query.length == 0) {\n          this.clear();\n          return;\n        }\n        this.searchParseFilters(query);\n      });\n      if (!ObsidianSite.fileTree) {\n        this.dedicatedSearchResultsList = document.createElement("div");\n        this.dedicatedSearchResultsList.setAttribute("id", "search-results");\n      }\n      return this;\n    }\n    async searchCurrentDocument(query) {\n      this.clearCurrentDocumentSearch();\n      const textNodes = getTextNodes(ObsidianSite.document.sizerEl ?? ObsidianSite.document.documentEl);\n      textNodes.forEach(async (node) => {\n        const content = node.nodeValue;\n        const newContent = content?.replace(new RegExp(query, "gi"), (match) => `<mark>${match}</mark>`);\n        if (newContent && newContent !== content) {\n          const tempDiv = document.createElement("div");\n          tempDiv.innerHTML = newContent;\n          const newNodes = Array.from(tempDiv.childNodes);\n          newNodes.forEach((newNode) => {\n            if (newNode.nodeType != Node.TEXT_NODE) {\n              newNode?.setAttribute("class", "search-mark");\n            }\n            node?.parentNode?.insertBefore(newNode, node);\n          });\n          node?.parentNode?.removeChild(node);\n        }\n      });\n      const firstMark = document.querySelector(".search-mark");\n      setTimeout(() => {\n        if (firstMark)\n          ObsidianSite.scrollTo(firstMark);\n      }, 500);\n    }\n    clearCurrentDocumentSearch() {\n      document.querySelectorAll(".search-mark").forEach((node) => {\n        node.outerHTML = node.innerHTML;\n      });\n    }\n  };\n\n  // src/frontend/main/sidebars.ts\n  var Sidebar = class {\n    constructor(container) {\n      this.minWidthEm = 15;\n      if (!container.classList.contains("sidebar"))\n        throw new Error("Invalid sidebar container");\n      this.containerEl = container;\n      this.contentEl = container.querySelector(".leaf-content");\n      this.topbarEl = container.querySelector(".sidebar-topbar");\n      this.collapseEl = container.querySelector(".sidebar-collapse-icon");\n      this.topbarContentEl = container.querySelector(".topbar-content");\n      this.resizeHandleEl = container.querySelector(".sidebar-handle") ?? void 0;\n      this._isLeft = container.id == "left-sidebar";\n      this._sidebarID = container.id;\n      this.collapseEl.addEventListener("click", () => {\n        this.collapsed = !this.collapsed;\n      });\n      this.minResizeWidth = parseFloat(getComputedStyle(this.resizeHandleEl.parentElement ?? this.resizeHandleEl).fontSize) * this.minWidthEm;\n      this.collapseWidth = this.minResizeWidth / 4;\n      this.setupSidebarResize();\n    }\n    get sidebarID() {\n      return this._sidebarID;\n    }\n    get isLeft() {\n      return this._isLeft;\n    }\n    get resizing() {\n      return this._resizing;\n    }\n    get collapsed() {\n      return this._collapsed;\n    }\n    set collapsed(collapse) {\n      this._collapsed = collapse;\n      if (!collapse && this.floating) {\n        document.body.addEventListener("click", this.clickOutsideCollapse);\n      }\n      if (collapse)\n        document.body.removeEventListener("click", this.clickOutsideCollapse);\n      this.containerEl.classList.toggle("is-collapsed", collapse);\n    }\n    get floating() {\n      return this._floating;\n    }\n    set floating(floating) {\n      this._floating = floating;\n      this.containerEl.classList.toggle("floating", floating);\n    }\n    get width() {\n      return this.containerEl.offsetWidth;\n    }\n    set width(width) {\n      const newWidth = `min(max(${width}px, ${this.minWidthEm}em), 40vw)`;\n      if (width < this.collapseWidth) {\n        this.collapsed = true;\n        this.containerEl.style.removeProperty("transition-duration");\n      } else {\n        this.collapsed = false;\n        this.containerEl.style.setProperty("--sidebar-width", newWidth);\n        if (width > this.minResizeWidth)\n          this.containerEl.style.transitionDuration = "0s";\n      }\n      if (ObsidianSite.graphView)\n        ObsidianSite.graphView.graphRenderer.autoResizeCanvas();\n    }\n    setupSidebarResize() {\n      if (!this.resizeHandleEl)\n        return;\n      const savedWidth = localStorage.getItem(`${this.sidebarID}-width`);\n      if (savedWidth)\n        this.containerEl.style.setProperty("--sidebar-width", savedWidth);\n      const localThis = this;\n      function resizeMove(e) {\n        if (!localThis.resizing)\n          return;\n        const distance = localThis.isLeft ? e.clientX : window.innerWidth - e.clientX;\n        localThis.width = distance;\n      }\n      function handleClick(e) {\n        localThis._resizing = true;\n        localThis.containerEl.classList.add("is-resizing");\n        document.addEventListener("pointermove", resizeMove);\n        document.addEventListener("pointerup", function() {\n          document.removeEventListener("pointermove", resizeMove);\n          const finalWidth = getComputedStyle(localThis.containerEl).getPropertyValue("--sidebar-width");\n          localStorage.setItem(`${localThis.sidebarID}-width`, finalWidth);\n          localThis.containerEl.classList.remove("is-resizing");\n          localThis.containerEl.style.removeProperty("transition-duration");\n        });\n      }\n      this.resizeHandleEl.addEventListener("pointerdown", handleClick);\n      function resetSidebarEvent(e) {\n        localThis.resetWidth();\n      }\n      this.resizeHandleEl.addEventListener("dblclick", resetSidebarEvent);\n    }\n    resetWidth() {\n      this.containerEl.style.removeProperty("transition-duration");\n      this.containerEl.style.removeProperty("--sidebar-width");\n      localStorage.removeItem(`${this.sidebarID}-width`);\n      setTimeout(() => {\n        console.log("Resizing canvas");\n        if (ObsidianSite.graphView) {\n          ObsidianSite.graphView.graphRenderer.autoResizeCanvas();\n          ObsidianSite.graphView.graphRenderer.centerCamera();\n        }\n      }, 500);\n    }\n    clickOutsideCollapse(event) {\n      if (event.target?.closest(".sidebar"))\n        return;\n      this.collapsed = true;\n    }\n  };\n\n  // src/frontend/graph-view/graph-wasm-helper.ts\n  var _positionsPtr, _positionsByteLength, _radiiPtr, _linkSourcesPtr, _linkTargetsPtr;\n  var GraphWASMHelper = class {\n    constructor() {\n      this.nodeCount = 0;\n      this.linkCount = 0;\n      this.hoveredNode = -1;\n      __privateAdd(this, _positionsPtr, 0);\n      __privateAdd(this, _positionsByteLength, 0);\n      __privateAdd(this, _radiiPtr, 0);\n      __privateAdd(this, _linkSourcesPtr, 0);\n      __privateAdd(this, _linkTargetsPtr, 0);\n      this.startPositions = new Float32Array(0);\n      this.linkSources = new Int32Array(0);\n      this.linkTargets = new Int32Array(0);\n      this.radii = new Float32Array(0);\n      this.maxRadius = 0;\n      this.averageRadius = 0;\n      this.minRadius = 0;\n    }\n    init(graph, positions) {\n      this.free();\n      this.graphView = graph;\n      this.nodeCount = graph.nodeCount;\n      this.linkCount = graph.linkCount;\n      if (positions?.length != this.nodeCount * 2) {\n        throw new Error("Invalid positions array length");\n      }\n      this.radii = new Float32Array(graph.radii);\n      this.linkSources = new Int32Array(graph.linkSources);\n      this.linkTargets = new Int32Array(graph.linkTargets);\n      this.maxRadius = this.radii.reduce((a, b) => Math.max(a, b));\n      this.averageRadius = this.radii.reduce((a, b) => a + b) / this.radii.length;\n      this.minRadius = this.radii.reduce((a, b) => Math.min(a, b));\n      this.startPositions = new Float32Array(this.nodeCount * 2);\n      this.startPositions = this.generatePositions(positions);\n      __privateSet(this, _positionsPtr, Module._malloc(this.startPositions.byteLength));\n      __privateSet(this, _positionsByteLength, this.startPositions.byteLength);\n      __privateSet(this, _radiiPtr, Module._malloc(this.radii.byteLength));\n      __privateSet(this, _linkSourcesPtr, Module._malloc(this.linkSources.byteLength));\n      __privateSet(this, _linkTargetsPtr, Module._malloc(this.linkTargets.byteLength));\n      Module.HEAP32.set(new Int32Array(this.startPositions.buffer), __privateGet(this, _positionsPtr) / this.startPositions.BYTES_PER_ELEMENT);\n      Module.HEAP32.set(new Int32Array(this.radii.buffer), __privateGet(this, _radiiPtr) / this.radii.BYTES_PER_ELEMENT);\n      Module.HEAP32.set(new Int32Array(this.linkSources.buffer), __privateGet(this, _linkSourcesPtr) / this.linkSources.BYTES_PER_ELEMENT);\n      Module.HEAP32.set(new Int32Array(this.linkTargets.buffer), __privateGet(this, _linkTargetsPtr) / this.linkTargets.BYTES_PER_ELEMENT);\n      Module._Init(__privateGet(this, _positionsPtr), __privateGet(this, _radiiPtr), __privateGet(this, _linkSourcesPtr), __privateGet(this, _linkTargetsPtr), this.nodeCount, this.linkCount, graph.batchFraction, graph.ticker.deltaTime, graph.options.attractionForce, graph.options.linkLength, graph.options.repulsionForce, graph.options.centralForce);\n    }\n    get positions() {\n      return Module.HEAP32.buffer.slice(__privateGet(this, _positionsPtr), __privateGet(this, _positionsPtr) + __privateGet(this, _positionsByteLength));\n    }\n    get positionsF() {\n      return new Float32Array(this.positions);\n    }\n    generatePositions(defaultPositions) {\n      let positions = new Float32Array(defaultPositions ?? new Array(this.nodeCount * 2).fill(0));\n      const spawnRadius = this.averageRadius * 2 * Math.sqrt(this.nodeCount) * 2;\n      for (let i = 0; i < this.nodeCount; i++) {\n        const value = positions[i * 2];\n        if (value != 0 && !isNaN(value) && value != void 0) {\n          continue;\n        }\n        const distance = (1 - this.radii[i] / this.maxRadius) * spawnRadius;\n        positions[i * 2] = Math.cos(i / this.nodeCount * 7.41 * 2 * Math.PI) * distance;\n        positions[i * 2 + 1] = Math.sin(i / this.nodeCount * 7.41 * 2 * Math.PI) * distance;\n      }\n      return positions;\n    }\n    getBounds() {\n      let bounds = new Bounds(0, 0, 0, 0);\n      const positions = new Float32Array(this.positions);\n      for (let i = 0; i < this.nodeCount - 1; i += 2) {\n        const pos = new Vector2(positions[i], positions[i + 1]);\n        bounds.encapsulatePoint(pos.scale(2));\n      }\n      const centerDelta = bounds.center;\n      const centerDist = centerDelta.magnitude;\n      bounds = bounds.expand(50 + centerDist);\n      bounds.translate(centerDelta.inverse);\n      return bounds;\n    }\n    update(mousePosition, grabbedNode, cameraScale) {\n      this.hoveredNode = Module._Update(mousePosition.x, mousePosition.y, grabbedNode, cameraScale);\n    }\n    free() {\n      Module._free(__privateGet(this, _positionsPtr));\n      Module._free(__privateGet(this, _radiiPtr));\n      Module._free(__privateGet(this, _linkSourcesPtr));\n      Module._free(__privateGet(this, _linkTargetsPtr));\n      Module._FreeMemory();\n    }\n    set batchFraction(value) {\n      Module._SetBatchFractionSize(value);\n    }\n    set attractionForce(value) {\n      Module._SetAttractionForce(value);\n    }\n    set repulsionForce(value) {\n      Module._SetRepulsionForce(value);\n    }\n    set centralForce(value) {\n      Module._SetCentralForce(value);\n    }\n    set linkLength(value) {\n      Module._SetLinkLength(value);\n    }\n    set dt(value) {\n      Module._SetDt(value);\n    }\n    set settleness(value) {\n      Module._SetSettleness(value);\n    }\n  };\n  _positionsPtr = new WeakMap();\n  _positionsByteLength = new WeakMap();\n  _radiiPtr = new WeakMap();\n  _linkSourcesPtr = new WeakMap();\n  _linkTargetsPtr = new WeakMap();\n\n  // src/frontend/graph-view/graph-worker-helper.ts\n  var _pixiInit, pixiInit_fn, _pixiSetInteraction, pixiSetInteraction_fn, _pixiSetCamera, pixiSetCamera_fn, _pixiSetColors, pixiSetColors_fn;\n  var GraphRenderWorker = class {\n    constructor(graph) {\n      __privateAdd(this, _pixiInit);\n      __privateAdd(this, _pixiSetInteraction);\n      __privateAdd(this, _pixiSetCamera);\n      __privateAdd(this, _pixiSetColors);\n      this.graph = graph;\n      this.canvas = document.querySelector("#graph-canvas");\n      this.canvasSidebar = this.canvas.closest(".sidebar");\n      console.log("Creating graph worker");\n      try {\n        this.view = this.canvas.transferControlToOffscreen();\n      } catch (e) {\n        console.log("Failed to transfer control to offscreen canvas");\n      }\n      var workerPath = `${ObsidianSite.document.info.pathToRoot}/${Shared.libFolderName}/${Shared.scriptsFolderName}/graph-render-worker.js`;\n      if (window.location.protocol === "file:") {\n        var fileInfo = ObsidianSite.getLocalDataFromId(LinkHandler.getFileDataIdFromURL(workerPath));\n        const data = Uint8Array.from(Array.from(fileInfo.data).map((s) => s.charCodeAt(0)));\n        this.worker = new Worker(URL.createObjectURL(new Blob([data], { type: "application/javascript" })));\n      } else {\n        this.worker = new Worker(new URL(workerPath, window.location.href).pathname);\n      }\n      this._cameraOffset = new Vector2(0, 0);\n      this._cameraScale = 1;\n      this._hoveredNode = -1;\n      this._grabbedNode = -1;\n      this._colors = {\n        background: 0,\n        link: 0,\n        node: 0,\n        outline: 0,\n        text: 0,\n        accent: 0\n      };\n      this._width = 0;\n      this._height = 0;\n      this.cameraOffset = new Vector2(this.canvas.width, this.canvas.height).scale(0.5);\n      this.cameraScale = 1;\n      this.hoveredNode = -1;\n      this.grabbedNode = -1;\n      this.resampleColors();\n      __privateMethod(this, _pixiInit, pixiInit_fn).call(this, true);\n      this.width = this.canvas.width;\n      this.height = this.canvas.height;\n      this.autoResizeCanvas();\n    }\n    get cameraOffset() {\n      return this._cameraOffset;\n    }\n    set cameraOffset(offset) {\n      this._cameraOffset = offset;\n      __privateMethod(this, _pixiSetCamera, pixiSetCamera_fn).call(this, offset, this.cameraScale);\n    }\n    get cameraScale() {\n      return this._cameraScale;\n    }\n    set cameraScale(scale) {\n      this._cameraScale = scale;\n      __privateMethod(this, _pixiSetCamera, pixiSetCamera_fn).call(this, this.cameraOffset, scale);\n    }\n    get hoveredNode() {\n      return this._hoveredNode;\n    }\n    set hoveredNode(node) {\n      this._hoveredNode = node;\n      __privateMethod(this, _pixiSetInteraction, pixiSetInteraction_fn).call(this, node, this._grabbedNode);\n    }\n    get grabbedNode() {\n      return this._grabbedNode;\n    }\n    set grabbedNode(node) {\n      this._grabbedNode = node;\n      __privateMethod(this, _pixiSetInteraction, pixiSetInteraction_fn).call(this, this._hoveredNode, node);\n    }\n    get colors() {\n      return this._colors;\n    }\n    set colors(colors) {\n      this._colors = colors;\n      __privateMethod(this, _pixiSetColors, pixiSetColors_fn).call(this, colors);\n    }\n    get width() {\n      return this._width;\n    }\n    set width(width) {\n      this._width = width;\n      this.resizeCanvas(width, this._height);\n    }\n    get height() {\n      return this._height;\n    }\n    set height(height) {\n      this._height = height;\n      this.resizeCanvas(this._width, height);\n    }\n    set activeNode(node) {\n      this.worker.postMessage({\n        type: "set_active",\n        active: node\n      });\n    }\n    updateData(graph) {\n      this.graph = graph;\n      __privateMethod(this, _pixiInit, pixiInit_fn).call(this);\n    }\n    sampleColor(variable) {\n      const testEl = document.createElement("div");\n      document.body.appendChild(testEl);\n      testEl.style.setProperty("display", "none");\n      testEl.style.setProperty("color", "var(" + variable + ")");\n      const col = getComputedStyle(testEl).color;\n      const opacity = getComputedStyle(testEl).opacity;\n      testEl.remove();\n      function toColorObject(str) {\n        const match = str.match(/rgb?\\((\\d+),\\s*(\\d+),\\s*(\\d+)\\)/);\n        return match ? {\n          red: parseInt(match[1]),\n          green: parseInt(match[2]),\n          blue: parseInt(match[3]),\n          alpha: 1\n        } : null;\n      }\n      const color = toColorObject(col);\n      const alpha = parseFloat(opacity);\n      const result = {\n        a: alpha * (color?.alpha ?? 1),\n        rgb: (color?.red ?? 8912896) << 16 | (color?.green ?? 34816) << 8 | (color?.blue ?? 136)\n      };\n      return result;\n    }\n    resampleColors() {\n      this.colors = {\n        background: this.sampleColor("--background-secondary").rgb,\n        link: this.sampleColor("--graph-line").rgb,\n        node: this.sampleColor("--graph-node").rgb,\n        outline: this.sampleColor("--graph-line").rgb,\n        text: this.sampleColor("--graph-text").rgb,\n        accent: this.sampleColor("--interactive-accent").rgb\n      };\n    }\n    draw(_positions) {\n      this.worker.postMessage({\n        type: "draw",\n        positions: _positions\n      }, [_positions]);\n    }\n    resizeCanvas(width, height) {\n      this.worker.postMessage({\n        type: "resize",\n        width,\n        height\n      });\n      this._width = width;\n      this._height = height;\n    }\n    autoResizeCanvas() {\n      let canvasWidth = this.canvas.offsetWidth;\n      let canvasHeight = this.canvas.offsetHeight;\n      if (this.width != canvasWidth || this.height != canvasHeight) {\n        this.centerCamera();\n        this.resizeCanvas(canvasWidth, canvasHeight);\n      }\n    }\n    centerCamera() {\n      this.cameraOffset = new Vector2(this.width, this.height).scale(0.5);\n    }\n    toScreenSpace(x, y, floor = true) {\n      let xScreen = x * this.cameraScale + this.cameraOffset.x;\n      let yScreen = y * this.cameraScale + this.cameraOffset.y;\n      if (floor) {\n        xScreen = Math.floor(xScreen);\n        yScreen = Math.floor(yScreen);\n      }\n      return new Vector2(xScreen, yScreen);\n    }\n    vecToScreenSpace(vector, floor = true) {\n      return this.toScreenSpace(vector.x, vector.y, floor);\n    }\n    toWorldspace(x, y) {\n      const xWorld = (x - this.cameraOffset.x) / this.cameraScale;\n      const yWorld = (y - this.cameraOffset.y) / this.cameraScale;\n      return new Vector2(xWorld, yWorld);\n    }\n    vecToWorldspace(vector) {\n      return this.toWorldspace(vector.x, vector.y);\n    }\n    setCameraCenterWorldspace(position) {\n      this.cameraOffset = new Vector2(this.width / 2 - position.x * this.cameraScale, this.height / 2 - position.y * this.cameraScale);\n    }\n    getCameraCenterWorldspace() {\n      return this.toWorldspace(this.width / 2, this.height / 2);\n    }\n  };\n  _pixiInit = new WeakSet();\n  pixiInit_fn = function(initial = false) {\n    const { width, height } = this.view;\n    let options = { width, height, view: this.view };\n    let objects = [this.view];\n    if (!initial) {\n      options = { width, height };\n      objects = [];\n    }\n    this.worker.postMessage({\n      type: "init",\n      linkCount: this.graph.graphSim.linkCount,\n      linkSources: this.graph.graphSim.linkSources,\n      linkTargets: this.graph.graphSim.linkTargets,\n      nodeCount: this.graph.graphSim.nodeCount,\n      radii: this.graph.graphSim.radii,\n      labels: this.graph.labels,\n      linkLength: this.graph.options.linkLength,\n      edgePruning: this.graph.options.edgePruning,\n      options\n    }, objects);\n  };\n  _pixiSetInteraction = new WeakSet();\n  pixiSetInteraction_fn = function(hoveredNodeIndex, grabbedNodeIndex) {\n    const obj = {\n      type: "update_interaction",\n      hoveredNode: hoveredNodeIndex,\n      grabbedNode: grabbedNodeIndex\n    };\n    this.worker.postMessage(obj);\n  };\n  _pixiSetCamera = new WeakSet();\n  pixiSetCamera_fn = function(cameraOffset, cameraScale) {\n    this.worker.postMessage({\n      type: "update_camera",\n      cameraOffset,\n      cameraScale\n    });\n  };\n  _pixiSetColors = new WeakSet();\n  pixiSetColors_fn = function(colors) {\n    this.worker.postMessage({\n      type: "update_colors",\n      colors\n    });\n  };\n\n  // src/frontend/main/graph-view.ts\n  var GraphView = class extends InsertedFeature {\n    constructor(featureEl) {\n      super(ObsidianSite.metadata.featureOptions.graphView, featureEl);\n      this.batchFraction = 1;\n      this.graphExpanded = false;\n      this._paused = false;\n      this._isGlobalGraph = false;\n      this.eventsInitialized = false;\n      this.updateRunning = false;\n      this.mouseWorldPos = new Vector2(0, 0);\n      this.scrollVelocity = 0;\n      this.firstUpdate = true;\n      this.drawLastTime = 0;\n      this.graphSim = new GraphWASMHelper();\n      this.graphContainer = document.querySelector(".graph-view-container");\n      this.globalGraphButton = document.querySelector(".graph-global.graph-icon");\n      this.expandGraphButton = document.querySelector(".graph-expand.graph-icon");\n      this.ticker = new Ticker(60);\n      this.ticker.add(this.update.bind(this));\n      this.ticker.start();\n      requestAnimationFrame(this.draw.bind(this));\n    }\n    set options(value) {\n      this._options = value;\n      if (!this.graphSim)\n        return;\n      this.graphSim.attractionForce = value.attractionForce;\n      this.graphSim.centralForce = value.centralForce;\n      this.graphSim.linkLength = value.linkLength;\n      this.graphSim.repulsionForce = value.repulsionForce / this.batchFraction;\n    }\n    get options() {\n      return this._options;\n    }\n    set attractionForce(value) {\n      if (value == this.options.attractionForce)\n        return;\n      this.options.attractionForce = value;\n      if (this.graphSim) {\n        this.graphSim.attractionForce = value;\n        this.graphSim.settleness = 1;\n      }\n    }\n    get attractionForce() {\n      return this.options.attractionForce;\n    }\n    set centralForce(value) {\n      if (value == this.options.centralForce)\n        return;\n      this.options.centralForce = value;\n      if (this.graphSim) {\n        this.graphSim.centralForce = value;\n        this.graphSim.settleness = 1;\n      }\n    }\n    get centralForce() {\n      return this.options.centralForce;\n    }\n    set linkLength(value) {\n      if (value == this.options.linkLength)\n        return;\n      this.options.linkLength = value;\n      if (this.graphSim) {\n        this.graphSim.linkLength = value;\n        this.graphSim.settleness = 1;\n      }\n    }\n    get linkLength() {\n      return this.options.linkLength;\n    }\n    set repulsionForce(value) {\n      if (value == this.options.repulsionForce)\n        return;\n      this.options.repulsionForce = value;\n      if (this.graphSim) {\n        this.graphSim.repulsionForce = value / this.batchFraction;\n        this.graphSim.settleness = 1;\n      }\n    }\n    get repulsionForce() {\n      return this.options.repulsionForce;\n    }\n    get paused() {\n      return this._paused;\n    }\n    set paused(value) {\n      this._paused = value;\n    }\n    get isGlobalGraph() {\n      return this._isGlobalGraph;\n    }\n    set isGlobalGraph(value) {\n      this._isGlobalGraph = value;\n    }\n    initEvents() {\n      const localThis = this;\n      function getMousePositionOnCanvas(event) {\n        const rect = localThis.graphRenderer.canvas.getBoundingClientRect();\n        const pos = getPointerPosition(event);\n        return new Vector2(pos.x - rect.left, pos.y - rect.top);\n      }\n      function getTouchPositionOnCanvas(event) {\n        const rect = localThis.graphRenderer.canvas.getBoundingClientRect();\n        const pos = getTouchPosition(event);\n        return new Vector2(pos.x - rect.left, pos.y - rect.top);\n      }\n      let pointerPos = new Vector2(0, 0);\n      let lastPointerPos = new Vector2(0, 0);\n      let pointerDelta = new Vector2(0, 0);\n      let dragDisplacement = new Vector2(0, 0);\n      let startDragTime = 0;\n      let pointerDown = false;\n      let middleDown = false;\n      let startPointerPos = new Vector2(0, 0);\n      let firstPointerDownId = -1;\n      let pointerInside = false;\n      const graphContainer = this.graphContainer;\n      const graphRenderer = this.graphRenderer;\n      function handlePointerEnter(enter) {\n        let lastDistance = 0;\n        let startZoom = false;\n        function handleMouseMove(move) {\n          pointerPos = getMousePositionOnCanvas(move);\n          localThis.mouseWorldPos = graphRenderer.vecToWorldspace(pointerPos);\n          pointerDelta = new Vector2(pointerPos.x - lastPointerPos.x, pointerPos.y - lastPointerPos.y);\n          lastPointerPos = pointerPos;\n          if (graphRenderer.grabbedNode != -1)\n            dragDisplacement = new Vector2(pointerPos.x - startPointerPos.x, pointerPos.y - startPointerPos.y);\n          if (pointerDown && graphRenderer.hoveredNode != -1 && graphRenderer.grabbedNode == -1 && graphRenderer.hoveredNode != graphRenderer.grabbedNode) {\n            graphRenderer.grabbedNode = graphRenderer.hoveredNode;\n          }\n          if (pointerDown && graphRenderer.hoveredNode == -1 && graphRenderer.grabbedNode == -1 || middleDown) {\n            graphRenderer.cameraOffset = new Vector2(graphRenderer.cameraOffset.x + pointerDelta.x, graphRenderer.cameraOffset.y + pointerDelta.y);\n          } else {\n            if (graphRenderer.hoveredNode != -1)\n              graphRenderer.canvas.style.cursor = "pointer";\n            else\n              graphRenderer.canvas.style.cursor = "default";\n          }\n        }\n        function handleTouchMove(move) {\n          if (move.touches?.length == 1) {\n            if (startZoom) {\n              lastPointerPos = getTouchPositionOnCanvas(move);\n              startZoom = false;\n            }\n            handleMouseMove(move);\n            return;\n          }\n          if (move.touches?.length == 2) {\n            const touch1 = getTouchPositionVector(move.touches[0]);\n            const touch2 = getTouchPositionVector(move.touches[1]);\n            pointerPos = getTouchPositionOnCanvas(move);\n            pointerDelta = new Vector2(pointerPos.x - lastPointerPos.x, pointerPos.y - lastPointerPos.y);\n            lastPointerPos = pointerPos;\n            const distance = Math.sqrt(Math.pow(touch1.x - touch2.x, 2) + Math.pow(touch1.y - touch2.y, 2));\n            if (!startZoom) {\n              startZoom = true;\n              lastDistance = distance;\n              pointerDelta = new Vector2(0, 0);\n              localThis.mouseWorldPos = Vector2.Undefined;\n              graphRenderer.grabbedNode = -1;\n              graphRenderer.hoveredNode = -1;\n            }\n            const distanceDelta = distance - lastDistance;\n            const scaleDelta = distanceDelta / lastDistance;\n            localThis.scaleAround(graphRenderer.vecToWorldspace(pointerPos), 1 + scaleDelta, 0.15, 15);\n            graphRenderer.cameraOffset = new Vector2(graphRenderer.cameraOffset.x + pointerDelta.x, graphRenderer.cameraOffset.y + pointerDelta.y);\n            lastDistance = distance;\n          }\n        }\n        function handlePointerUp(up) {\n          document.removeEventListener("pointerup", handlePointerUp);\n          const pointerUpTime = Date.now();\n          setTimeout(() => {\n            if (pointerDown && graphRenderer.hoveredNode != -1 && Math.abs(dragDisplacement.x) <= 4 && Math.abs(dragDisplacement.y) <= 4 && pointerUpTime - startDragTime < 300) {\n              localThis.navigateToNode(graphRenderer.hoveredNode);\n            }\n            if (pointerDown && graphRenderer.grabbedNode != -1) {\n              graphRenderer.grabbedNode = -1;\n            }\n            if (up.button == 0)\n              pointerDown = false;\n            if (up.pointerType == "touch" && firstPointerDownId == up.pointerId) {\n              firstPointerDownId = -1;\n              pointerDown = false;\n            }\n            if (up.button == 1)\n              middleDown = false;\n            if (!pointerInside) {\n              document.removeEventListener("mousemove", handleMouseMove);\n              document.removeEventListener("touchmove", handleTouchMove);\n            }\n          }, 0);\n        }\n        function handlePointerDown(down) {\n          document.addEventListener("pointerup", handlePointerUp);\n          localThis.mouseWorldPos = graphRenderer.vecToWorldspace(pointerPos);\n          dragDisplacement = new Vector2(0, 0);\n          if (down.button == 0)\n            pointerDown = true;\n          if (down.pointerType == "touch" && firstPointerDownId == -1) {\n            firstPointerDownId = down.pointerId;\n            pointerDown = true;\n          }\n          if (down.button == 1)\n            middleDown = true;\n          startPointerPos = pointerPos;\n          startDragTime = Date.now();\n        }\n        function handlePointerLeave(leave) {\n          setTimeout(() => {\n            pointerInside = false;\n            if (!pointerDown) {\n              document.removeEventListener("mousemove", handleMouseMove);\n              document.removeEventListener("touchmove", handleTouchMove);\n              localThis.mouseWorldPos = Vector2.Undefined;\n            }\n            graphContainer.removeEventListener("pointerdown", handlePointerDown);\n            graphContainer.removeEventListener("pointerleave", handlePointerLeave);\n          }, 1);\n        }\n        pointerPos = getMousePositionOnCanvas(enter);\n        localThis.mouseWorldPos = graphRenderer.vecToWorldspace(pointerPos);\n        lastPointerPos = getMousePositionOnCanvas(enter);\n        pointerInside = true;\n        document.addEventListener("mousemove", handleMouseMove);\n        document.addEventListener("touchmove", handleTouchMove);\n        graphContainer.addEventListener("pointerdown", handlePointerDown);\n        graphContainer.addEventListener("pointerleave", handlePointerLeave);\n      }\n      this.graphRenderer.canvas.addEventListener("pointerenter", handlePointerEnter);\n      this.expandGraphButton?.addEventListener("click", (event) => {\n        event.stopPropagation();\n        localThis.toggleExpandedGraph();\n      });\n      this.globalGraphButton?.addEventListener("click", (event) => {\n        event.stopPropagation();\n        if (!localThis.isGlobalGraph) {\n          localThis.showGraph();\n        } else {\n          localThis.showGraph([ObsidianSite.document.pathname]);\n        }\n      });\n      graphContainer.addEventListener("wheel", function(e) {\n        const startingScrollVelocity = 0.065;\n        const delta = e.deltaY;\n        if (delta > 0) {\n          if (localThis.scrollVelocity >= -startingScrollVelocity) {\n            localThis.scrollVelocity = -startingScrollVelocity;\n          }\n          localThis.scrollVelocity *= 1.16;\n        } else {\n          if (localThis.scrollVelocity <= startingScrollVelocity) {\n            localThis.scrollVelocity = startingScrollVelocity;\n          }\n          localThis.scrollVelocity *= 1.16;\n        }\n      });\n      graphContainer.addEventListener("dblclick", function(e) {\n        localThis.fitToNodes();\n      });\n      document.querySelector(".theme-toggle-input")?.addEventListener("change", (event) => {\n        setTimeout(() => graphRenderer.resampleColors(), 0);\n      });\n    }\n    async generate(paths) {\n      this.paths = paths;\n      this.nodeCount = this.paths.length;\n      this.linkSources = [];\n      this.linkTargets = [];\n      this.labels = [];\n      this.radii = [];\n      this.colors = [];\n      const linkCounts = [];\n      for (let i = 0; i < this.nodeCount; i++) {\n        linkCounts.push(0);\n      }\n      let pathIndex = 0;\n      for (const source of this.paths) {\n        const fileInfo = ObsidianSite.getWebpageData(source);\n        if (!fileInfo)\n          continue;\n        this.labels.push(fileInfo.title);\n        const links = fileInfo.links.map((l) => LinkHandler.getPathnameFromURL(l)).concat(fileInfo.attachments).concat(fileInfo.backlinks);\n        let uniqueLinks = [...new Set(links)];\n        uniqueLinks.push(source);\n        for (const link of uniqueLinks) {\n          const targetIndex = this.paths.indexOf(link);\n          if (targetIndex != -1) {\n            this.linkSources.push(targetIndex);\n            this.linkTargets.push(pathIndex);\n            linkCounts[pathIndex]++;\n            linkCounts[targetIndex]++;\n          }\n        }\n        pathIndex++;\n      }\n      const maxLinks = Math.max(...linkCounts);\n      this.radii = linkCounts.map((l) => inOutQuadBlend(this.options.minNodeRadius, this.options.maxNodeRadius, Math.min(l / (maxLinks * 0.8), 1)));\n      this.linkCount = this.linkSources.length;\n    }\n    async showGraph(paths) {\n      this.paused = true;\n      let linked = [];\n      if (paths) {\n        for (const element of paths) {\n          const fileInfo = ObsidianSite.getWebpageData(element);\n          if (fileInfo?.backlinks)\n            linked.push(...fileInfo.backlinks);\n          if (fileInfo?.links)\n            linked.push(...fileInfo.links.map((l) => LinkHandler.getPathnameFromURL(l)));\n          if (fileInfo?.attachments)\n            linked.push(...fileInfo.attachments);\n        }\n        linked.push(...paths);\n      } else {\n        linked = ObsidianSite.metadata.allFiles;\n      }\n      if (linked.length == ObsidianSite.metadata.allFiles.length)\n        this.isGlobalGraph = true;\n      else\n        this.isGlobalGraph = false;\n      linked = linked.filter((l) => {\n        let data = ObsidianSite.getWebpageData(l);\n        if (!data?.backlinks || !data?.links || !data?.type)\n          return false;\n        if (data.backlinks.length == 0) {\n          console.log("No backlinks for", l);\n        }\n        if (!this.options.showOrphanNodes && data.backlinks.length == 0 && data.links.length == 0)\n          return false;\n        if (!this.options.showAttachments && (data.type == "attachment" || data.type == "media" || data.type == "other"))\n          return false;\n        return true;\n      });\n      if (linked.length == 0) {\n        console.log("No nodes to display.");\n        return;\n      }\n      const uniquePaths = [...new Set(linked)];\n      const newPositions = new Array(uniquePaths.length * 2).fill(0);\n      if (this.paths?.length > 0) {\n        const oldPositions = this.graphSim.positionsF;\n        for (let i = 0; i < uniquePaths.length; i++) {\n          const path = uniquePaths[i];\n          const index = this.paths.indexOf(path);\n          if (index == -1)\n            continue;\n          newPositions[i * 2] = oldPositions[index * 2];\n          newPositions[i * 2 + 1] = oldPositions[index * 2 + 1];\n        }\n      }\n      await this.generate(uniquePaths);\n      this.graphSim.init(this, newPositions);\n      if (!this.graphRenderer)\n        this.graphRenderer = new GraphRenderWorker(this);\n      else\n        this.graphRenderer.updateData(this);\n      this.fitToNodes();\n      if (!this.eventsInitialized) {\n        this.initEvents();\n        this.eventsInitialized = true;\n      }\n      this.paused = false;\n      const localSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-circle-dot"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg>`;\n      const globalSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-git-fork"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>`;\n      this.globalGraphButton.innerHTML = this.isGlobalGraph ? localSVG : globalSVG;\n      this.setActiveNodeByPath(ObsidianSite.document.pathname);\n    }\n    fitToNodes() {\n      this.graphRenderer.centerCamera();\n      this.graphRenderer.cameraScale = 1 / Math.sqrt(this.nodeCount) * this.graphRenderer.canvas.width / 200;\n      this.graphSim.settleness = 1;\n    }\n    update(dt) {\n      if (this.paused || !this.graphRenderer || !this.graphSim) {\n        return;\n      }\n      if (this.firstUpdate) {\n        setTimeout(() => this.graphRenderer?.canvas?.classList.remove("hide"), 500);\n        this.firstUpdate = false;\n      }\n      this.graphSim.dt = dt;\n      this.graphSim.update(this.mouseWorldPos, this.graphRenderer.grabbedNode, this.graphRenderer.cameraScale);\n      if (this.graphSim.hoveredNode != this.graphRenderer.hoveredNode) {\n        this.graphRenderer.hoveredNode = this.graphSim.hoveredNode;\n        this.graphRenderer.canvas.style.cursor = this.graphSim.hoveredNode == -1 ? "default" : "pointer";\n      }\n    }\n    async draw(time) {\n      if (!this.graphRenderer || !this.graphSim || this.paths.length == 0)\n        return;\n      const dt = (time - this.drawLastTime) / 1e3;\n      this.drawLastTime = time;\n      this.graphRenderer.draw(this.graphSim.positions);\n      if (this.scrollVelocity != 0) {\n        if (Math.abs(this.scrollVelocity) < 1e-3) {\n          this.scrollVelocity = 0;\n        }\n        this.zoomAround(this.mouseWorldPos, this.scrollVelocity);\n        this.scrollVelocity *= 1 - dt * 15;\n      }\n      requestAnimationFrame(this.draw.bind(this));\n    }\n    zoomAround(point, zoom, minScale = 0.15, maxScale = 15) {\n      const cameraCenter = this.graphRenderer.getCameraCenterWorldspace();\n      this.graphRenderer.cameraScale = Math.max(Math.min(this.graphRenderer.cameraScale + zoom * this.graphRenderer.cameraScale, maxScale), minScale);\n      if (this.graphRenderer.cameraScale != minScale && this.graphRenderer.cameraScale != maxScale && this.scrollVelocity > 0 && !this.mouseWorldPos.isUndefined) {\n        const aroundDiff = new Vector2(point.x - cameraCenter.x, point.y - cameraCenter.y);\n        const movePos = new Vector2(cameraCenter.x + aroundDiff.x * zoom, cameraCenter.y + aroundDiff.y * zoom);\n        this.graphRenderer.setCameraCenterWorldspace(movePos);\n      } else\n        this.graphRenderer.setCameraCenterWorldspace(cameraCenter);\n    }\n    scaleAround(point, scale, minScale = 0.15, maxScale = 15) {\n      const cameraCenter = this.graphRenderer.getCameraCenterWorldspace();\n      const scaleBefore = this.graphRenderer.cameraScale;\n      this.graphRenderer.cameraScale = Math.max(Math.min(scale * this.graphRenderer.cameraScale, maxScale), minScale);\n      const diff = (scaleBefore - this.graphRenderer.cameraScale) / scaleBefore;\n      if (this.graphRenderer.cameraScale != minScale && this.graphRenderer.cameraScale != maxScale && scale != 0) {\n        const aroundDiff = new Vector2(point.x - cameraCenter.x, point.y - cameraCenter.y);\n        const movePos = new Vector2(cameraCenter.x - aroundDiff.x * diff, cameraCenter.y - aroundDiff.y * diff);\n        this.graphRenderer.setCameraCenterWorldspace(movePos);\n      } else\n        this.graphRenderer.setCameraCenterWorldspace(cameraCenter);\n    }\n    async navigateToNode(nodeIndex) {\n      if (nodeIndex < 0 || nodeIndex >= this.nodeCount)\n        return;\n      if (this.graphExpanded)\n        this.toggleExpandedGraph();\n      const url = this.paths[nodeIndex];\n      await ObsidianSite.loadURL(url);\n    }\n    toggleExpandedGraph() {\n      const initialWidth = this.graphContainer.clientWidth;\n      const initialHeight = this.graphContainer.clientHeight;\n      this.graphContainer.classList.add("scale-down");\n      const fadeOutAnimation = this.graphContainer.animate({ opacity: 0 }, { duration: 100, easing: "ease-in", fill: "forwards" });\n      const localThis = this;\n      fadeOutAnimation.addEventListener("finish", function() {\n        localThis.graphContainer.classList.toggle("expanded");\n        localThis.graphRenderer.autoResizeCanvas();\n        localThis.graphRenderer.centerCamera();\n        const finalWidth = localThis.graphContainer.clientWidth;\n        const finalHeight = localThis.graphContainer.clientHeight;\n        localThis.graphRenderer.cameraScale *= (finalWidth / initialWidth + finalHeight / initialHeight) / 2;\n        localThis.graphContainer.classList.remove("scale-down");\n        localThis.graphContainer.classList.add("scale-up");\n        const fadeInAnimation = localThis.graphContainer.animate({ opacity: 1 }, { duration: 200, easing: "ease-out", fill: "forwards" });\n        fadeInAnimation.addEventListener("finish", function() {\n          localThis.graphContainer.classList.remove("scale-up");\n        });\n      });\n      this.graphExpanded = !this.graphExpanded;\n      if (this.graphExpanded) {\n        document.addEventListener("pointerdown", handleOutsideClick, { once: true });\n      } else {\n        document.removeEventListener("pointerdown", handleOutsideClick);\n      }\n      function handleOutsideClick(event) {\n        if (!localThis.graphExpanded)\n          return;\n        if (event.composedPath().includes(localThis.graphContainer)) {\n          document.addEventListener("pointerdown", handleOutsideClick, { once: true });\n          return;\n        }\n        localThis.toggleExpandedGraph();\n      }\n      this.graphRenderer.autoResizeCanvas();\n    }\n    getNodeByPath(path) {\n      return this.paths.indexOf(path);\n    }\n    setActiveNode(nodeIndex) {\n      if (nodeIndex < 0 || nodeIndex >= this.nodeCount)\n        return;\n      this.graphRenderer.activeNode = nodeIndex;\n    }\n    setActiveNodeByPath(path) {\n      this.setActiveNode(this.getNodeByPath(path));\n    }\n  };\n\n  // src/frontend/main/theme.ts\n  var Theme = class {\n    constructor() {\n      this.themeToggle = document.querySelector(".theme-toggle-input");\n      this.themeToggle?.addEventListener("change", (event) => {\n        this.switchTheme();\n      });\n    }\n    switchTheme() {\n      const current = localStorage.getItem("theme");\n      let opposite = current == "light" /* Light */ ? "dark" /* Dark */ : "light" /* Light */;\n      this.setTheme(opposite, false);\n    }\n    setTheme(theme, instant = false) {\n      let state = theme == "light" /* Light */;\n      this.themeToggle.checked = state;\n      let oldTransition = "";\n      if (instant) {\n        oldTransition = document.body.style.transition;\n        document.body.style.transition = "none";\n      }\n      if (!this.themeToggle.classList.contains("is-checked") && state) {\n        this.themeToggle.classList.add("is-checked");\n      } else if (this.themeToggle.classList.contains("is-checked") && !state) {\n        this.themeToggle.classList.remove("is-checked");\n      }\n      if (!state) {\n        if (document.body.classList.contains("theme-light")) {\n          document.body.classList.remove("theme-light");\n        }\n        if (!document.body.classList.contains("theme-dark")) {\n          document.body.classList.add("theme-dark");\n        }\n      } else {\n        if (document.body.classList.contains("theme-dark")) {\n          document.body.classList.remove("theme-dark");\n        }\n        if (!document.body.classList.contains("theme-light")) {\n          document.body.classList.add("theme-light");\n        }\n      }\n      if (instant) {\n        setTimeout(function() {\n          document.body.style.transition = oldTransition;\n        }, 100);\n      }\n      localStorage.setItem("theme", state ? "light" : "dark");\n    }\n  };\n\n  // src/frontend/main/website.ts\n  var ObsidianWebsite = class {\n    constructor() {\n      this.LinkHandler = LinkHandler;\n      this.LinkPreview = FilePreviewPopover;\n      this.isLoaded = false;\n      this.isHttp = window.location.protocol != "file:";\n      this.fileTree = void 0;\n      this.outlineTree = void 0;\n      this.search = void 0;\n      this.leftSidebar = void 0;\n      this.rightSidebar = void 0;\n      this.graphView = void 0;\n      this.onloadCallbacks = [];\n      this.cachedWebpageDataMap = /* @__PURE__ */ new Map();\n      this.cachedFileDataMap = /* @__PURE__ */ new Map();\n      this.lastScreenWidth = void 0;\n      this.isResizing = false;\n      this.checkStillResizingTimeout = void 0;\n      this.deviceSize = "large-screen";\n    }\n    onDocumentLoad(callback) {\n      this.onloadCallbacks.push(callback);\n    }\n    async init() {\n      window.addEventListener("load", () => ObsidianSite.onInit());\n      if (this.isHttp) {\n        this.metadata = await this.loadWebsiteData();\n        if (!this.metadata) {\n          console.error("Failed to load website data.");\n          return;\n        }\n      }\n    }\n    async onInit() {\n      if (!this.isHttp) {\n        this.metadata = await this.loadWebsiteData();\n        if (!this.metadata) {\n          console.error("Failed to load website data.");\n          this.metadata = new WebsiteData();\n          this.metadata.ignoreMetadata = true;\n        }\n      }\n      await waitUntil(() => this.metadata != void 0, 10);\n      console.log("Website init");\n      if (window.location.protocol != "file:") {\n        await loadIncludes();\n      }\n      this.theme = new Theme();\n      this.bodyEl = document.body;\n      this.websiteEl = document.querySelector("#layout");\n      this.centerContentEl = document.querySelector("#center-content");\n      const fileTreeEl = document.querySelector("#file-explorer");\n      const outlineTreeEl = document.querySelector("#outline");\n      const leftSidebarEl = document.querySelector(".sidebar#left-sidebar");\n      const rightSidebarEl = document.querySelector(".sidebar#right-sidebar");\n      this.bodyEl.className += " " + this.metadata.bodyClasses;\n      this.createLoadingEl();\n      if (fileTreeEl)\n        this.fileTree = new Tree(fileTreeEl);\n      if (outlineTreeEl)\n        this.outlineTree = new Tree(outlineTreeEl);\n      if (leftSidebarEl)\n        this.leftSidebar = new Sidebar(leftSidebarEl);\n      if (rightSidebarEl)\n        this.rightSidebar = new Sidebar(rightSidebarEl);\n      this.search = await new Search().init();\n      const pathname = document.querySelector("meta[name=\'pathname\']")?.getAttribute("content") ?? "unknown";\n      this.entryPage = pathname;\n      this.document = await new WebpageDocument(pathname);\n      await this.document.loadChildDocuments();\n      await this.document.postLoadInit();\n      if (!ObsidianSite.metadata.ignoreMetadata && ObsidianSite.metadata.featureOptions.graphView.enabled) {\n        this.loadGraphView().then(() => this.graphView?.showGraph([pathname]));\n      }\n      this.initEvents();\n      FilePreviewPopover.loadPinnedPreviews();\n      this.isLoaded = true;\n      this.onloadCallbacks.forEach((cb) => cb(this.document));\n    }\n    initEvents() {\n      window.addEventListener("popstate", async (e) => {\n        console.log("popstate", e);\n        if (!e.state)\n          return;\n        const pathname = e.state.pathname;\n        ObsidianSite.loadURL(pathname);\n      });\n      let localThis = this;\n      window.addEventListener("resize", (e) => {\n        localThis.onResize();\n      });\n      this.onResize(true);\n    }\n    async loadURL(url) {\n      const header = LinkHandler.getHashFromURL(url);\n      const query = LinkHandler.getQueryFromURL(url);\n      url = LinkHandler.getPathnameFromURL(url);\n      console.log("Loading URL", url, header, query);\n      if (query && query.startsWith("query=")) {\n        this.search?.searchParseFilters(query.substring(6));\n      }\n      if (this.document.pathname == url) {\n        if (header)\n          this.document.scrollToHeader(header);\n        return this.document;\n      }\n      let data = ObsidianSite.getWebpageData(url);\n      if (!data) {\n        new Notice("This page does not exist yet.");\n        console.warn("Page does not exist", url);\n        return void 0;\n      }\n      let page = await new WebpageDocument(url).load();\n      setTimeout(() => {\n        this.onloadCallbacks.forEach((cb) => cb(page));\n        if (header) {\n          page.scrollToHeader(header);\n        }\n      }, 100);\n      return page;\n    }\n    async fetch(url) {\n      url = LinkHandler.getPathnameFromURL(url);\n      if (this.isHttp || url.startsWith("http")) {\n        const req = await fetch(url);\n        if (req.ok) {\n          return req;\n        } else {\n          console.error("Failed to fetch", url);\n          return;\n        }\n      } else {\n        let file = this.getFileData(url);\n        if (!file?.data) {\n          console.error("Failed to fetch", url);\n          return;\n        }\n        let req = new Response(file.data, { status: 200 });\n        return req;\n      }\n    }\n    documentExists(url) {\n      url = LinkHandler.getPathnameFromURL(url);\n      if (this.isHttp) {\n        return !!this.metadata.webpages[url];\n      } else {\n        return !!this.getFileData(url)?.data;\n      }\n    }\n    async loadWebsiteData() {\n      if (this.isHttp) {\n        try {\n          const dataReq = await fetch(Shared.libFolderName + "/metadata.json");\n          if (dataReq.ok) {\n            return await dataReq.json();\n          } else {\n            new Notice("Failed to load website metadata.");\n            console.error("Failed to load website metadata.");\n          }\n        } catch (e) {\n          new Notice("Failed to load website metadata.");\n          console.error("Failed to load website metadata.", e);\n        }\n      } else {\n        return this.getLocalDataFromId("website-metadata");\n      }\n      return void 0;\n    }\n    async loadGraphView() {\n      const graphViewFeature = document.querySelector(".graph-view-wrapper");\n      if (!graphViewFeature)\n        return;\n      const localThis = this;\n      waitLoadScripts(["graph-render-worker", "graph-wasm"], () => {\n        console.log("scripts loaded");\n        async function initGraphView() {\n          console.log("Initializing graph view");\n          const graphView = new GraphView(graphViewFeature);\n          localThis.graphView = graphView;\n          console.log("Graph view initialized");\n        }\n        Module["onRuntimeInitialized"] = () => {\n          console.log("Wasm loaded");\n          initGraphView();\n        };\n        run();\n        setTimeout(() => {\n          if (localThis.graphView == void 0) {\n            initGraphView();\n          }\n        }, 100);\n      });\n      await waitUntil(() => this.graphView != void 0);\n    }\n    getLocalDataFromId(id) {\n      var el = document.getElementById(id);\n      if (!el)\n        return;\n      return JSON.parse(decodeURI(atob(el.getAttribute("value") ?? "")));\n    }\n    getWebpageData(url) {\n      if (!this.isHttp) {\n        if (this.cachedWebpageDataMap.has(url)) {\n          return this.cachedWebpageDataMap.get(url);\n        } else {\n          const data = this.getLocalDataFromId(LinkHandler.getFileDataIdFromURL(url));\n          this.cachedWebpageDataMap.set(url, data);\n          return data;\n        }\n      }\n      if (this.metadata) {\n        const data = this.metadata.webpages[url];\n        if (data) {\n          return data;\n        }\n      }\n      return;\n    }\n    getFileData(url) {\n      if (!this.isHttp) {\n        if (this.cachedFileDataMap.has(url)) {\n          return this.cachedFileDataMap.get(url);\n        } else {\n          const data = this.getLocalDataFromId(LinkHandler.getFileDataIdFromURL(url));\n          this.cachedFileDataMap.set(url, data);\n          return data;\n        }\n      }\n      if (this.metadata) {\n        const data = this.metadata.fileInfo[url];\n        if (data) {\n          return data;\n        }\n      }\n      return {};\n    }\n    scrollTo(element) {\n      element.scrollIntoView();\n    }\n    async showLoading(loading, inside = this.centerContentEl) {\n      inside.style.transitionDuration = "";\n      inside.classList.toggle("hide", loading);\n      this.loadingEl.classList.toggle("show", loading);\n      if (loading) {\n        const viewBounds = Bounds.fromElement(inside);\n        this.loadingEl.style.left = viewBounds.center.x - this.loadingEl.offsetWidth / 2 + "px";\n        this.loadingEl.style.top = viewBounds.center.y - this.loadingEl.offsetHeight / 2 + "px";\n      }\n      await delay(200);\n    }\n    createLoadingEl() {\n      this.loadingEl = document.createElement("div");\n      this.loadingEl.classList.add("loading-icon");\n      document.body.appendChild(this.loadingEl);\n      this.loadingEl.innerHTML = `<div></div><div></div><div></div><div></div>`;\n    }\n    get documentBounds() {\n      return Bounds.fromElement(this.centerContentEl);\n    }\n    onEndResize() {\n      this.graphView?.graphRenderer?.autoResizeCanvas();\n      document.body.classList.toggle("resizing", false);\n    }\n    onStartResize() {\n      document.body.classList.toggle("resizing", true);\n    }\n    onResize(isInitial = false) {\n      if (!this.isResizing) {\n        this.onStartResize();\n        this.isResizing = true;\n      }\n      let localThis = this;\n      function widthNowInRange(low, high) {\n        let w = window.innerWidth;\n        return w > low && w < high && localThis.lastScreenWidth == void 0 || w > low && w < high && ((localThis.lastScreenWidth ?? 0) <= low || (localThis.lastScreenWidth ?? 0) >= high);\n      }\n      function widthNowGreaterThan(value) {\n        let w = window.innerWidth;\n        return w > value && localThis.lastScreenWidth == void 0 || w > value && (localThis.lastScreenWidth ?? 0) < value;\n      }\n      function widthNowLessThan(value) {\n        let w = window.innerWidth;\n        return w < value && localThis.lastScreenWidth == void 0 || w < value && (localThis.lastScreenWidth ?? 0) > value;\n      }\n      let docWidthCSS = this.metadata.featureOptions.document?.documentWidth ?? "45em";\n      let leftWdithCSS = this.metadata.featureOptions.sidebar?.leftDefaultWidth ?? "20em";\n      let rightWidthCSS = this.metadata.featureOptions.sidebar?.rightDefaultWidth ?? "20em";\n      let docWidth = getLengthInPixels(docWidthCSS, this.centerContentEl);\n      let leftWidth = this.leftSidebar ? getLengthInPixels(leftWdithCSS, this.leftSidebar?.containerEl) : 0;\n      let rightWidth = this.rightSidebar ? getLengthInPixels(rightWidthCSS, this.rightSidebar?.containerEl) : 0;\n      if (widthNowGreaterThan(docWidth + leftWidth + rightWidth) || widthNowGreaterThan(1025)) {\n        this.deviceSize = "large-screen";\n        document.body.classList.toggle("floating-sidebars", false);\n        document.body.classList.toggle("is-large-screen", true);\n        document.body.classList.toggle("is-small-screen", false);\n        document.body.classList.toggle("is-tablet", false);\n        document.body.classList.toggle("is-phone", false);\n        if (this.leftSidebar)\n          this.leftSidebar.collapsed = false;\n        if (this.rightSidebar)\n          this.rightSidebar.collapsed = false;\n      } else if (widthNowInRange(docWidth + leftWidth, docWidth + leftWidth + rightWidth) || widthNowInRange(769, 1024)) {\n        this.deviceSize = "small screen";\n        document.body.classList.toggle("floating-sidebars", false);\n        document.body.classList.toggle("is-large-screen", false);\n        document.body.classList.toggle("is-small-screen", true);\n        document.body.classList.toggle("is-tablet", false);\n        document.body.classList.toggle("is-phone", false);\n        if (this.leftSidebar && this.rightSidebar && !this.leftSidebar.collapsed) {\n          this.rightSidebar.collapsed = true;\n        }\n      } else if (widthNowInRange(leftWidth + rightWidth, docWidth + leftWidth) || widthNowInRange(481, 768)) {\n        this.deviceSize = "tablet";\n        document.body.classList.toggle("floating-sidebars", true);\n        document.body.classList.toggle("is-large-screen", false);\n        document.body.classList.toggle("is-small-screen", false);\n        document.body.classList.toggle("is-tablet", true);\n        document.body.classList.toggle("is-phone", false);\n        if (this.leftSidebar && this.rightSidebar && !this.leftSidebar.collapsed) {\n          this.rightSidebar.collapsed = true;\n        }\n      } else if (widthNowLessThan(leftWidth + rightWidth) || widthNowLessThan(480)) {\n        this.deviceSize = "phone";\n        document.body.classList.toggle("floating-sidebars", true);\n        document.body.classList.toggle("is-large-screen", false);\n        document.body.classList.toggle("is-small-screen", false);\n        document.body.classList.toggle("is-tablet", false);\n        document.body.classList.toggle("is-phone", true);\n        if (this.leftSidebar)\n          this.leftSidebar.collapsed = true;\n        if (this.rightSidebar)\n          this.rightSidebar.collapsed = true;\n      }\n      this.lastScreenWidth = window.innerWidth;\n      if (this.checkStillResizingTimeout != void 0)\n        clearTimeout(this.checkStillResizingTimeout);\n      let screenWidthSnapshot = window.innerWidth;\n      this.checkStillResizingTimeout = setTimeout(function() {\n        if (window.innerWidth == screenWidthSnapshot) {\n          localThis.checkStillResizingTimeout = void 0;\n          localThis.isResizing = false;\n          localThis.onEndResize();\n        }\n      }, 200);\n    }\n  };\n\n  // src/frontend/main/index.txt.ts\n  if (window && window.location) {\n    window.ObsidianSite = new ObsidianWebsite();\n    ObsidianSite = window.ObsidianSite;\n    window.WebpageDocument = WebpageDocument;\n    window.Canvas = Canvas;\n    window.Bounds = Bounds;\n    window.Vector2 = Vector2;\n    window.LinkHandler = LinkHandler;\n    window.FilePreviewPopover = FilePreviewPopover;\n    ObsidianSite.init();\n  }\n})();\n';
+var index_txt_default = '/*\nTHIS IS A GENERATED/BUNDLED FILE BY ESBUILD\nif you want to view the source, please visit the github repository of this plugin\n*/\n\n"use strict";\n(() => {\n  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {\n    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]\n  }) : x)(function(x) {\n    if (typeof require !== "undefined")\n      return require.apply(this, arguments);\n    throw new Error(\'Dynamic require of "\' + x + \'" is not supported\');\n  });\n  var __accessCheck = (obj, member, msg) => {\n    if (!member.has(obj))\n      throw TypeError("Cannot " + msg);\n  };\n  var __privateGet = (obj, member, getter) => {\n    __accessCheck(obj, member, "read from private field");\n    return getter ? getter.call(obj) : member.get(obj);\n  };\n  var __privateAdd = (obj, member, value) => {\n    if (member.has(obj))\n      throw TypeError("Cannot add the same private member more than once");\n    member instanceof WeakSet ? member.add(obj) : member.set(obj, value);\n  };\n  var __privateSet = (obj, member, value, setter) => {\n    __accessCheck(obj, member, "write to private field");\n    setter ? setter.call(obj, value) : member.set(obj, value);\n    return value;\n  };\n  var __privateMethod = (obj, member, method) => {\n    __accessCheck(obj, member, "access private method");\n    return method;\n  };\n\n  // src/frontend/main/utils.ts\n  async function delay(ms) {\n    return new Promise((resolve) => setTimeout(resolve, ms));\n  }\n  async function waitUntil(predicate, interval = 100) {\n    while (!predicate())\n      await delay(interval);\n  }\n  function getTextNodes(element) {\n    const textNodes = [];\n    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);\n    let node;\n    while (node = walker.nextNode()) {\n      textNodes.push(node);\n    }\n    return textNodes;\n  }\n  function getLengthInPixels(cssString, contextElement) {\n    const tempElement = document.createElement("div");\n    tempElement.style.position = "absolute";\n    tempElement.style.visibility = "hidden";\n    tempElement.style.width = cssString;\n    contextElement.appendChild(tempElement);\n    const lengthInPixels = tempElement.offsetWidth;\n    contextElement.removeChild(tempElement);\n    return lengthInPixels;\n  }\n  var Bounds = class {\n    get width() {\n      return this.right - this.left;\n    }\n    set width(value) {\n      this.right = this.left + value;\n    }\n    get height() {\n      return this.bottom - this.top;\n    }\n    set height(value) {\n      this.bottom = this.top + value;\n    }\n    get center() {\n      return new Vector2(this.left + this.width / 2, this.top + this.height / 2);\n    }\n    get min() {\n      return new Vector2(this.left, this.top);\n    }\n    set min(value) {\n      this.left = value.x;\n      this.top = value.y;\n    }\n    set position(value) {\n      this.min = value;\n    }\n    get max() {\n      return new Vector2(this.right, this.bottom);\n    }\n    set max(value) {\n      this.right = value.x;\n      this.bottom = value.y;\n    }\n    get size() {\n      return new Vector2(this.width, this.height);\n    }\n    set size(value) {\n      this.width = value.x;\n      this.height = value.y;\n    }\n    constructor(left, top, width, height) {\n      this.left = left;\n      this.top = top;\n      this.right = left + width;\n      this.bottom = top + height;\n    }\n    containsPoint(point) {\n      return point.x >= this.left && point.x <= this.right && point.y >= this.top && point.y <= this.bottom;\n    }\n    containsBounds(bounds) {\n      return bounds.left >= this.left && bounds.right <= this.right && bounds.top >= this.top && bounds.bottom <= this.bottom;\n    }\n    encapsulate(bounds) {\n      this.left = Math.min(this.left, bounds.left);\n      this.top = Math.min(this.top, bounds.top);\n      this.right = Math.max(this.right, bounds.right);\n      this.bottom = Math.max(this.bottom, bounds.bottom);\n      return this;\n    }\n    encapsulatePoint(point) {\n      if (point.isUndefined)\n        return;\n      this.left = Math.min(this.left, point.x);\n      this.top = Math.min(this.top, point.y);\n      this.right = Math.max(this.right, point.x);\n      this.bottom = Math.max(this.bottom, point.y);\n      return this;\n    }\n    expand(by) {\n      this.left -= by;\n      this.right += by;\n      this.top -= by;\n      this.bottom += by;\n      return this;\n    }\n    translate(by) {\n      this.left += by.x;\n      this.right += by.x;\n      this.top += by.y;\n      this.bottom += by.y;\n      return this;\n    }\n    scale(by) {\n      let width = this.width;\n      let height = this.height;\n      this.left += width * (1 - by) / 2;\n      this.right -= width * (1 - by) / 2;\n      this.top += height * (1 - by) / 2;\n      this.bottom -= height * (1 - by) / 2;\n      return this;\n    }\n    overlaps(bounds) {\n      return this.left < bounds.right && this.right > bounds.left && this.top < bounds.bottom && this.bottom > bounds.top;\n    }\n    static fromElement(el) {\n      const rect = el.getBoundingClientRect();\n      return new Bounds(rect.x, rect.y, rect.width, rect.height);\n    }\n    static get screenBounds() {\n      return new Bounds(0, 0, window.innerWidth, window.innerHeight);\n    }\n  };\n  var _Vector2 = class {\n    constructor(x, y) {\n      this.x = x;\n      this.y = y;\n    }\n    add(point) {\n      return new _Vector2(this.x + point.x, this.y + point.y);\n    }\n    sub(point) {\n      return new _Vector2(this.x - point.x, this.y - point.y);\n    }\n    scale(scalar) {\n      return new _Vector2(this.x * scalar, this.y * scalar);\n    }\n    divide(scalar) {\n      return new _Vector2(this.x / scalar, this.y / scalar);\n    }\n    get isUndefined() {\n      return isNaN(this.x) || isNaN(this.y);\n    }\n    get magnitude() {\n      return Math.sqrt(this.sqrMagnitude);\n    }\n    get sqrMagnitude() {\n      return this.x * this.x + this.y * this.y;\n    }\n    get normalized() {\n      const mag = this.magnitude;\n      return new _Vector2(this.x / mag, this.y / mag);\n    }\n    get inverse() {\n      return new _Vector2(-this.x, -this.y);\n    }\n    static distance(a, b) {\n      return a.sub(b).magnitude;\n    }\n    static dot(a, b) {\n      return a.x * b.x + a.y * b.y;\n    }\n  };\n  var Vector2 = _Vector2;\n  Vector2.Undefined = new _Vector2(NaN, NaN);\n  var Ticker = class {\n    constructor(targetFPS) {\n      this.callbacks = [];\n      this.targetFPS = targetFPS;\n      this.measuredFPS = targetFPS;\n      this._lastTime = performance.now();\n      this._deltaTime = 1 / targetFPS;\n      this._time = this._lastTime;\n    }\n    get deltaTime() {\n      return this._deltaTime / 1e3;\n    }\n    get time() {\n      return this._time;\n    }\n    async start() {\n      while (true) {\n        this._time = performance.now();\n        requestAnimationFrame(() => {\n          for (let callback of this.callbacks) {\n            callback(this.deltaTime);\n          }\n        });\n        const dt = this._time - this._lastTime;\n        let deltaDiff = dt - 1e3 / this.targetFPS;\n        this._lastTime = this._time + Math.max(deltaDiff, 0);\n        await delay(Math.max(0, deltaDiff));\n        this._deltaTime = Math.min(dt + Math.max(deltaDiff, 0), 1e3 / this.targetFPS * 3);\n        this.measuredFPS = 1 / this.deltaTime * 0.1 + this.measuredFPS * 0.9;\n      }\n    }\n    add(callback) {\n      this.callbacks.push(callback);\n    }\n  };\n  function slideUp(target, duration = 500) {\n    if (target.style.display === "none")\n      return;\n    target.style.transitionProperty = "height, margin, padding";\n    target.style.transitionTimingFunction = "ease-in-out";\n    target.style.transitionDuration = duration + "ms";\n    target.style.boxSizing = "border-box";\n    target.style.height = target.offsetHeight + "px";\n    target.offsetHeight;\n    target.style.overflow = "hidden";\n    target.style.height = "0";\n    target.style.paddingTop = "0";\n    target.style.paddingBottom = "0";\n    target.style.marginTop = "0";\n    target.style.marginBottom = "0";\n    window.setTimeout(async () => {\n      target.style.display = "none";\n      target.style.removeProperty("height");\n      target.style.removeProperty("padding-top");\n      target.style.removeProperty("padding-bottom");\n      target.style.removeProperty("margin-top");\n      target.style.removeProperty("margin-bottom");\n      target.style.removeProperty("overflow");\n      target.style.removeProperty("transition-duration");\n      target.style.removeProperty("transition-property");\n    }, duration);\n  }\n  function slideDown(target, duration = 500) {\n    if (window.getComputedStyle(target).display !== "none")\n      return;\n    target.style.removeProperty("display");\n    let display = window.getComputedStyle(target).display;\n    if (display === "none")\n      display = "block";\n    target.style.display = display;\n    const height = target.offsetHeight;\n    target.style.overflow = "hidden";\n    target.style.height = "0";\n    target.style.paddingTop = "0";\n    target.style.paddingBottom = "0";\n    target.style.marginTop = "0";\n    target.style.marginBottom = "0";\n    target.offsetHeight;\n    target.style.boxSizing = "border-box";\n    target.style.transitionProperty = "height, margin, padding";\n    target.style.transitionTimingFunction = "ease-in-out";\n    target.style.transitionDuration = duration + "ms";\n    target.style.height = height + "px";\n    target.style.removeProperty("padding-top");\n    target.style.removeProperty("padding-bottom");\n    target.style.removeProperty("margin-top");\n    target.style.removeProperty("margin-bottom");\n    window.setTimeout(async () => {\n      target.style.removeProperty("height");\n      target.style.removeProperty("overflow");\n      target.style.removeProperty("transition-duration");\n      target.style.removeProperty("transition-property");\n    }, duration);\n  }\n  function getTouchPosition(event) {\n    const touches = Array.from(event.touches);\n    const x = touches.reduce((acc, cur) => acc + cur.clientX, 0) / touches.length;\n    const y = touches.reduce((acc, cur) => acc + cur.clientY, 0) / touches.length;\n    return new Vector2(x, y);\n  }\n  function getPointerPosition(event) {\n    return new Vector2(event.clientX, event.clientY);\n  }\n  function getTouchPositionVector(touch) {\n    return { x: touch.clientX, y: touch.clientY };\n  }\n  function inOutQuadBlend(start, end, t) {\n    t /= 2;\n    let t2 = 2 * t * (1 - t) + 0.5;\n    t2 -= 0.5;\n    t2 *= 2;\n    return start + (end - start) * t2;\n  }\n  function inOutQuadBlendv(start, end, t) {\n    return new Vector2(inOutQuadBlend(start.x, end.x, t), inOutQuadBlend(start.y, end.y, t));\n  }\n  function clamp(value, min, max) {\n    return Math.max(min, Math.min(value, max));\n  }\n  function mapRange(value, low1, high1, low2, high2) {\n    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);\n  }\n  function mapRangeClamped(value, low1, high1, low2, high2) {\n    return clamp(mapRange(value, low1, high1, low2, high2), low2, high2);\n  }\n\n  // src/frontend/main/canvas.ts\n  var CanvasNode = class {\n    constructor(canvas, nodeEl) {\n      this.isFocused = false;\n      this.canvas = canvas;\n      this.nodeEl = nodeEl;\n      this.nodeEl.nodeObj = this;\n      this.labelEl = nodeEl.querySelector(".canvas-node-label");\n      this.containerEl = nodeEl.querySelector(".canvas-node-container");\n      this.contentEl = nodeEl.querySelector(".canvas-node-content");\n      if (!this.labelEl || !this.containerEl || !this.contentEl) {\n        console.error("Failed to find all required elements for canvas node", this);\n        return;\n      }\n      const contentClasses = this.contentEl.classList;\n      if (contentClasses.contains("image-embed"))\n        this.type = "image" /* Image */;\n      else if (contentClasses.contains("video-embed"))\n        this.type = "video" /* Video */;\n      else if (contentClasses.contains("audio-embed"))\n        this.type = "audio" /* Audio */;\n      else if (contentClasses.contains("markdown-embed") && contentClasses.contains("external-markdown-embed"))\n        this.type = "external-markdown" /* ExternalMarkdown */;\n      else if (contentClasses.contains("markdown-embed"))\n        this.type = "markdown" /* Markdown */;\n      else if (contentClasses.contains("canvas-embed"))\n        this.type = "canvas" /* Canvas */;\n      else if (this.contentEl.firstElementChild?.tagName === "IFRAME")\n        this.type = "website" /* Website */;\n      else if (this.nodeEl.classList.contains("canvas-node-group"))\n        this.type = "group" /* Group */;\n      else\n        this.type = "none" /* None */;\n      if (this.type == "external-markdown" /* ExternalMarkdown */) {\n        const documentEl = this.contentEl.querySelector(".obsidian-document");\n        console.log(documentEl);\n        const documentObj = canvas.document.children.find((doc) => doc.documentEl == documentEl);\n        if (documentObj)\n          this.document = documentObj;\n        else\n          console.error("Failed to find document object for external markdown node", this);\n      }\n      this.initEvents();\n    }\n    get size() {\n      return new Vector2(parseFloat(this.nodeEl.style.width.replace("px", "")), parseFloat(this.nodeEl.style.height.replace("px", "")));\n    }\n    set size(newSize) {\n      this.nodeEl.style.width = newSize.x + "px";\n      this.nodeEl.style.height = newSize.y + "px";\n      this.nodeEl.style.setProperty("--canvas-node-width", newSize.x + "px");\n      this.nodeEl.style.setProperty("--canvas-node-height", newSize.y + "px");\n    }\n    get position() {\n      const transform = this.nodeEl.style.transform;\n      const match = transform.match(/translate\\(([^,]+)px, ([^,]+)px\\)/);\n      const translate = this.nodeEl.style.translate;\n      const match2 = translate.match(/([^,]+)px ([^,]+)px/);\n      let x = 0;\n      let y = 0;\n      if (match) {\n        x += parseFloat(match[1]);\n        y += parseFloat(match[2]);\n      }\n      if (match2) {\n        x += parseFloat(match2[1]);\n        y += parseFloat(match2[2]);\n      }\n      return new Vector2(x, y);\n    }\n    set position(newPos) {\n      this.nodeEl.style.transform = `translate(${newPos.x}px, ${newPos.y}px)`;\n    }\n    get bounds() {\n      let bounds = new Bounds(0, 0, 0, 0);\n      let size = this.size.scale(this.canvas.scale);\n      let position = this.position.scale(this.canvas.scale).add(this.canvas.position);\n      bounds.position = position;\n      bounds.size = size;\n      return bounds;\n    }\n    get label() {\n      return this.labelEl.textContent ?? "";\n    }\n    set label(newLabel) {\n      this.labelEl.textContent = newLabel;\n    }\n    get isScrollable() {\n      if (!this.document)\n        return false;\n      return this.document?.documentEl.scrollHeight > this.document?.documentEl.clientHeight;\n    }\n    get scrollContainer() {\n      return this.document?.documentEl;\n    }\n    focus(force = true) {\n      if (this.isFocused && force)\n        return;\n      if (this.canvas.focusedNode != this)\n        this.canvas.focusedNode?.focus(false);\n      this.nodeEl.classList.toggle("is-focused", force);\n      this.canvas.focusedNode = force ? this : null;\n      this.isFocused = force;\n    }\n    initEvents() {\n      const node = this;\n      this.nodeEl.addEventListener("dblclick", (e) => {\n        node.fitToView(false);\n      });\n      function onEnter(event) {\n        node.focus(true);\n        node.nodeEl.addEventListener("mouseleave", onLeave);\n        node.nodeEl.addEventListener("touchend", onLeave);\n        event.stopPropagation();\n      }\n      function onLeave() {\n        console.log("leave");\n        node.focus(false);\n        node.nodeEl.removeEventListener("mouseleave", onLeave);\n        node.nodeEl.removeEventListener("touchend", onLeave);\n      }\n      this.nodeEl.addEventListener("pointerenter", onEnter);\n    }\n    fitToView(instant = false) {\n      this.canvas.fitToBounds(this.bounds, 0.9, instant);\n    }\n  };\n  var Canvas = class {\n    constructor(document2) {\n      this.hiddenNodes = [];\n      this.focusedNode = null;\n      this._renderScale = 1;\n      this._minScale = 0.1;\n      this._maxScale = 5;\n      this._targetScale = 1;\n      this._scale = 1;\n      this._targetPosition = new Vector2(0, 0);\n      this._position = new Vector2(0, 0);\n      this._backgroundBaseScale = 20;\n      this._invisibleBackgroundScale = 2;\n      this._backgroundScale = this._backgroundBaseScale;\n      this._backgroundDotSize = 1;\n      this._backgroundPosition = new Vector2(0, 0);\n      this.lastTime = 0;\n      this.document = document2;\n      this.nodes = Array.from(document2.documentEl.querySelectorAll(".canvas-node")).map((nodeEl) => new CanvasNode(this, nodeEl));\n      this.document.documentEl.style.position = "absolute";\n      this.document.documentEl.style.width = "100%";\n      this.document.documentEl.style.height = "100%";\n      this.document.documentEl.style.overflow = "hidden";\n      this.document.documentEl.style.top = "0";\n      this.document.documentEl.style.left = "0";\n      this.canvasEl = document2.documentEl.querySelector(".canvas");\n      this.wrapperEl = document2.documentEl.querySelector(".canvas-wrapper");\n      this.backgroundEl = document2.documentEl.querySelector(".canvas-background pattern");\n      this.backgroundDotEl = this.backgroundEl?.querySelector("circle");\n      this.canvasEl.setAttribute("style", `translate: 0px 1px; scale: 1;`);\n      this.backgroundScale = this._backgroundScale;\n      this.backgroundDotSize = this._backgroundDotSize;\n      this.renderScale = this._renderScale;\n      const nodespaceOffset = Bounds.fromElement(this.canvasEl).min.sub(this.nodeBounds.min);\n      Array.from(this.canvasEl.children).forEach((el) => {\n        el.style.translate = `${nodespaceOffset.x}px ${nodespaceOffset.y}px`;\n      });\n      this.forcePosition = this.nodeBounds.min.sub(this.wrapperBounds.min);\n      requestAnimationFrame(this.updateScale.bind(this));\n      this.initEvents();\n      this.wrapperEl.style.transition = "opacity 0.0s";\n      this.wrapperEl.classList.add("hide");\n      this.wrapperEl.style.transition = "opacity 3s";\n      this.wrapperEl.classList.remove("hide");\n      this.fitToBounds(this.nodeBounds, 3, true);\n      setTimeout(() => {\n        this.fitToBounds(this.nodeBounds, 0.9, false);\n      }, 100);\n    }\n    get renderScale() {\n      return this._renderScale;\n    }\n    set renderScale(scale) {\n      this._renderScale = scale;\n      this.canvasEl.style.zoom = scale * 100 + "%";\n      this.scale = this._scale;\n      this.position = this._position;\n    }\n    get nodeBounds() {\n      if (this.nodes.length == 0)\n        return new Bounds(0, 0, 0, 0);\n      const bounds = this.nodes[0].bounds;\n      for (const node of this.nodes) {\n        bounds.encapsulate(node.bounds);\n      }\n      ;\n      return bounds;\n    }\n    get wrapperBounds() {\n      return Bounds.fromElement(this.wrapperEl);\n    }\n    get minScale() {\n      return this._minScale;\n    }\n    get maxScale() {\n      return this._maxScale;\n    }\n    get targetScale() {\n      return this._targetScale;\n    }\n    set targetScale(newScale) {\n      newScale = Math.min(Math.max(newScale, this.minScale), this.maxScale);\n      this._targetScale = newScale;\n    }\n    get scale() {\n      return this._scale;\n    }\n    set scale(newScale) {\n      let ratio = newScale / this._scale;\n      this._scale = newScale;\n      let scaled = newScale / this.renderScale;\n      const scaleStr = scaled.toString() ?? "1";\n      this.canvasEl.style.scale = scaleStr;\n      const zoomStr = (1 / Math.sqrt(newScale)).toString() ?? "1";\n      this.wrapperEl.style.setProperty("--zoom-multiplier", zoomStr);\n      this.canvasEl.classList.toggle("small-scale", this.scale < 0.15);\n      this.backgroundScale = this.backgroundScale * ratio;\n    }\n    get targetPosition() {\n      return this._targetPosition;\n    }\n    set targetPosition(screenPos) {\n      this._targetPosition = screenPos;\n    }\n    get position() {\n      return this._position;\n    }\n    set position(screenPos) {\n      this._position = screenPos;\n      let scaled = screenPos.divide(this.renderScale);\n      this.canvasEl.style.translate = `${scaled.x}px ${scaled.y}px`;\n      this.backgroundPosition = this.position;\n    }\n    set forcePosition(screenPos) {\n      this.targetPosition = screenPos;\n      this.position = screenPos;\n    }\n    get forcePosition() {\n      return this.position;\n    }\n    get backgroundScale() {\n      return this._backgroundScale;\n    }\n    set backgroundScale(newScale) {\n      const scaleStr = newScale.toString() ?? "20";\n      this.backgroundEl?.setAttribute("width", scaleStr);\n      this.backgroundEl?.setAttribute("height", scaleStr);\n      this._backgroundScale = newScale;\n      if (this.backgroundEl?.parentElement)\n        this.backgroundEl.parentElement.style.opacity = (1 - mapRangeClamped(this._backgroundScale, this._backgroundBaseScale / 2, this._invisibleBackgroundScale, 0, 1)).toString();\n    }\n    get backgroundDotSize() {\n      return this._backgroundDotSize;\n    }\n    set backgroundDotSize(newSize) {\n      const sizeStr = newSize.toString() ?? "0.7";\n      this.backgroundDotEl?.setAttribute("r", sizeStr);\n      this.backgroundDotEl?.setAttribute("cx", sizeStr);\n      this.backgroundDotEl?.setAttribute("cy", sizeStr);\n      this._backgroundDotSize = newSize;\n    }\n    get backgroundPosition() {\n      return this._backgroundPosition;\n    }\n    set backgroundPosition(newPosition) {\n      if (!this.backgroundEl)\n        return;\n      this.backgroundEl?.setAttribute("x", newPosition.x.toString());\n      this.backgroundEl?.setAttribute("y", newPosition.y.toString());\n      this._backgroundPosition = newPosition;\n    }\n    updateScale(time) {\n      if (this.lastTime == 0)\n        this.lastTime = time;\n      const deltaTime = (time - this.lastTime) / 1e3;\n      this.lastTime = time;\n      if (Math.abs(this.targetScale - this.scale) > 1e-4)\n        this.scale = inOutQuadBlend(this.scale, this.targetScale, 6 * deltaTime);\n      if (this.targetPosition.sub(this.position).magnitude > 1e-3)\n        this.position = inOutQuadBlendv(this.position, this.targetPosition, 6 * deltaTime);\n      let screenBounds = Bounds.screenBounds;\n      this.hiddenNodes.sort((a, b) => {\n        const aCenter = a.bounds.center;\n        const bCenter = b.bounds.center;\n        const aDist = aCenter.sub(screenBounds.center).magnitude;\n        const bDist = bCenter.sub(screenBounds.center).magnitude;\n        return aDist - bDist;\n      });\n      for (let i = 0; i < 50; i++) {\n        if (i >= this.hiddenNodes.length)\n          break;\n        const node = this.hiddenNodes[i];\n        if (!node) {\n          this.hiddenNodes.splice(i, 1);\n          continue;\n        }\n        const bounds = node.bounds.expand(100);\n        const isVisible = bounds.overlaps(screenBounds);\n        node.nodeEl.style.display = isVisible ? "" : "none";\n        if (isVisible)\n          this.hiddenNodes.splice(i, 1);\n      }\n      requestAnimationFrame(this.updateScale.bind(this));\n    }\n    initEvents() {\n      const observer = new IntersectionObserver((entries) => {\n        entries.forEach((entry) => {\n          entry.target.style.display = entry.isIntersecting ? "" : "none";\n          if (!entry.isIntersecting)\n            this.hiddenNodes.push(entry.target.nodeObj);\n        });\n      }, { root: null, rootMargin: "0px", threshold: 0 });\n      this.nodes.forEach((node) => observer.observe(node.nodeEl));\n      const localThis = this;\n      const isWindows = navigator.userAgent.includes("Windows");\n      function getRelativePointerPosition(event) {\n        const rect = localThis.wrapperEl.getBoundingClientRect();\n        const x = event.clientX - rect.left;\n        const y = event.clientY - rect.top;\n        return new Vector2(x, y);\n      }\n      function dragStart(event) {\n        if (event.pointerType != "mouse" && event.pointerType != "pen")\n          return;\n        const startPointerPos = getRelativePointerPosition(event);\n        const startCanvasPos = localThis.position;\n        const startingNode = localThis.focusedNode;\n        function drag(dragEvent) {\n          if (isWindows && startingNode?.isScrollable && dragEvent.buttons == 4)\n            return;\n          dragEvent.preventDefault();\n          const pointer = getRelativePointerPosition(dragEvent);\n          const delta = pointer.sub(startPointerPos);\n          localThis.forcePosition = startCanvasPos.add(delta);\n        }\n        function dragEnd(e) {\n          document.removeEventListener("mousemove", drag);\n          document.removeEventListener("mouseup", dragEnd);\n        }\n        document.addEventListener("mousemove", drag);\n        document.addEventListener("mouseup", dragEnd);\n      }\n      this.wrapperEl.addEventListener("pointerdown", dragStart);\n      function shouldOverrideScroll(deltaY, deltaX, node) {\n        const scrollContainer = node?.scrollContainer;\n        if (scrollContainer) {\n          if (scrollContainer.scrollTop != 0 && deltaY < 0 && Math.abs(deltaY / (deltaX + 0.01)) > 2)\n            return false;\n          if (scrollContainer.scrollHeight - scrollContainer.scrollTop > scrollContainer.clientHeight + 1 && deltaY > 0 && Math.abs(deltaY / (deltaX + 0.01)) > 2)\n            return false;\n          if (scrollContainer.scrollLeft != 0 && deltaX < 0 && Math.abs(deltaX / (deltaY + 0.01)) > 2)\n            return false;\n          if (scrollContainer.scrollWidth - scrollContainer.scrollLeft > scrollContainer.clientWidth + 1 && deltaX > 0 && Math.abs(deltaX / (deltaY + 0.01)) > 2)\n            return false;\n        }\n        return true;\n      }\n      this.wrapperEl.addEventListener("wheel", function(event) {\n        if (!shouldOverrideScroll(event.deltaY, event.deltaX, localThis.focusedNode))\n          return;\n        let scale = 1;\n        scale -= event.deltaY / 700 * scale;\n        localThis.scaleAround(scale, getRelativePointerPosition(event));\n      }, { passive: true });\n      let touching = false;\n      this.wrapperEl.addEventListener("touchstart", function(event) {\n        if (touching)\n          return;\n        touching = true;\n        const touches = event.touches;\n        function getTouchData(touches2) {\n          const touch1 = getRelativePointerPosition(touches2[0]);\n          const touch2 = touches2.length == 2 ? getRelativePointerPosition(touches2[1]) : null;\n          const center = touch2 ? touch1.add(touch2).scale(0.5) : touch1;\n          const distance = touch2 ? Vector2.distance(touch1, touch2) : 0;\n          return { touch1, touch2, center, distance };\n        }\n        let lastTouchData = getTouchData(touches);\n        let isTwoFingerDrag = touches.length == 2;\n        const startingNode = localThis.focusedNode;\n        function touchMove(event2) {\n          const touches2 = event2.touches;\n          const touchData = getTouchData(touches2);\n          if (touches2.length == 2) {\n            if (!isTwoFingerDrag) {\n              lastTouchData = getTouchData(touches2);\n              isTwoFingerDrag = true;\n            }\n            const scaleDelta = (touchData.distance - lastTouchData.distance) / lastTouchData.distance;\n            localThis.scaleAround(1 + scaleDelta, touchData.center);\n          }\n          const delta = touchData.center.sub(lastTouchData.center);\n          if (!isTwoFingerDrag && !shouldOverrideScroll(-delta.y, delta.x, startingNode)) {\n            lastTouchData = getTouchData(touches2);\n            return;\n          }\n          event2.preventDefault();\n          localThis.targetPosition = localThis.targetPosition.add(delta);\n          lastTouchData = getTouchData(touches2);\n        }\n        function touchEnd(event2) {\n          document.removeEventListener("touchmove", touchMove);\n          document.removeEventListener("touchend", touchEnd);\n          touching = false;\n        }\n        document.addEventListener("touchmove", touchMove);\n        document.addEventListener("touchend", touchEnd);\n      });\n    }\n    scaleAround(scaleBy, point, instantScale = false) {\n      const currentScale = this.targetScale;\n      let newScale = currentScale * scaleBy;\n      newScale = Math.min(Math.max(newScale, this.minScale), this.maxScale);\n      scaleBy = newScale / currentScale;\n      const centerToPoint = point.sub(this.targetPosition);\n      const centerPin = centerToPoint.scale(scaleBy).add(this.targetPosition);\n      const offset = point.sub(centerPin);\n      if (instantScale) {\n        this.scale *= scaleBy;\n        this.targetScale = this.scale;\n        this.forcePosition = this.forcePosition.add(offset);\n      } else {\n        this.targetScale *= scaleBy;\n        this.targetPosition = this.targetPosition.add(offset);\n      }\n      return offset;\n    }\n    setScaleAround(scale, point, instant = false) {\n      this.scaleAround(scale / this.targetScale, point, instant);\n    }\n    fitToBounds(bounds = this.nodeBounds, scaleMultiplier = 0.9, instant = false) {\n      this.hideNodesOutsideBounds(bounds.scale(2));\n      const documentWidth = this.document.containerEl.clientWidth;\n      const documentHeight = this.document.containerEl.clientHeight;\n      const xRatio = documentWidth / bounds.width;\n      const yRatio = documentHeight / bounds.height;\n      const scale = scaleMultiplier * Math.min(xRatio, yRatio);\n      this.scaleAround(scale, bounds.center, instant);\n      this.centerView(bounds.center, instant);\n    }\n    hideNodesOutsideBounds(bounds) {\n      for (const node of this.nodes) {\n        if (!bounds.overlaps(node.bounds)) {\n          node.nodeEl.style.display = "none";\n          this.hiddenNodes.push(node);\n        }\n      }\n    }\n    centerView(center, instant = false) {\n      const offset = this.wrapperBounds.center.sub(center);\n      if (instant)\n        this.forcePosition = this.forcePosition.add(offset);\n      else\n        this.targetPosition = this.targetPosition.add(offset);\n    }\n  };\n\n  // src/shared/features/feature-options-base.ts\n  \n  var RelationType = /* @__PURE__ */ ((RelationType2) => {\n    RelationType2["Before"] = "before";\n    RelationType2["After"] = "after";\n    RelationType2["Start"] = "start";\n    RelationType2["End"] = "end";\n    return RelationType2;\n  })(RelationType || {});\n  var FeatureRelation = class {\n    constructor(selector = "#right-sidebar-content", type = "start" /* Start */) {\n      this.selector = "#right-sidebar-content";\n      this.type = "start" /* Start */;\n      \n      \n      this.selector = selector;\n      this.type = type;\n    }\n  };\n  var FeatureSettingInfo = class {\n    constructor(options) {\n      this.show = true;\n      this.name = "";\n      this.description = "";\n      this.placeholder = "";\n      this.fileInputOptions = void 0;\n      this.dropdownOptions = void 0;\n      if (options) {\n        this.show = options.show ?? this.show;\n        this.name = options.name ?? this.name;\n        this.description = options.description ?? this.description;\n        this.placeholder = options.placeholder ?? this.placeholder;\n        this.fileInputOptions = options.fileInputOptions ?? this.fileInputOptions;\n        this.dropdownOptions = options.dropdownTypes ?? this.dropdownOptions;\n      }\n    }\n  };\n  var FeatureOptions = class {\n    constructor() {\n      this.featureId = "feature";\n      this.enabled = true;\n      this.unavailable = false;\n      this.alwaysEnabled = false;\n      this.hideSettingsButton = false;\n    }\n    setAvailable(value) {\n      this.unavailable = !value;\n      this.enabled = value;\n    }\n  };\n  var InsertedFeatureOptions = class extends FeatureOptions {\n    constructor(featureId, featurePlacement) {\n      super();\n      this.featurePlacement = new FeatureRelation();\n      \n      this.featureId = featureId ?? "inserted-feature";\n      this.featurePlacement = featurePlacement ?? new FeatureRelation();\n    }\n    insertFeature(container, feature) {\n      if (!container)\n        return false;\n      let relation = container.querySelector(this.featurePlacement.selector);\n      if (relation) {\n        switch (this.featurePlacement.type) {\n          case "before" /* Before */:\n            relation.before(feature);\n            return true;\n          case "after" /* After */:\n            relation.after(feature);\n            return true;\n          case "start" /* Start */:\n            relation.prepend(feature);\n            return true;\n          case "end" /* End */:\n            relation.append(feature);\n            return true;\n          default:\n            return false;\n        }\n      }\n      return false;\n    }\n  };\n  var InsertedFeatureOptionsWithTitle = class extends InsertedFeatureOptions {\n    constructor() {\n      super(...arguments);\n      this.displayTitle = "Feature";\n      \n    }\n  };\n  var FetchedFeatureOptions = class extends InsertedFeatureOptions {\n    constructor() {\n      super(...arguments);\n      \n    }\n  };\n\n  // src/shared/features/aliases.ts\n  var AliasesOptions = class extends InsertedFeatureOptionsWithTitle {\n    constructor() {\n      super();\n      this.featureId = "aliases";\n      this.displayTitle = "Aliases";\n      this.featurePlacement = new FeatureRelation(".header .data-bar", "start" /* Start */);\n    }\n  };\n\n  // src/shared/features/backlinks.ts\n  \n  var BacklinksOptions = class extends InsertedFeatureOptionsWithTitle {\n    constructor() {\n      super();\n      this.featureId = "backlinks";\n      this.displayTitle = \'\';\n      this.featurePlacement = new FeatureRelation(".footer", "start" /* Start */);\n    }\n  };\n\n  // src/shared/shared.ts\n  var Shared = class {\n  };\n  Shared.libFolderName = "site-lib";\n  Shared.mediaFolderName = "media";\n  Shared.scriptsFolderName = "scripts";\n  Shared.cssFolderName = "styles";\n  Shared.fontFolderName = "fonts";\n  Shared.htmlFolderName = "html";\n  Shared.metadataFileName = "metadata.json";\n  Shared.searchIndexFileName = "search-index.json";\n\n  // src/shared/features/custom-head.ts\n  \n  var CustomHeadOptions = class extends FetchedFeatureOptions {\n    constructor() {\n      super();\n      this.sourcePath = "";\n      \n      this.featureId = "custom-head";\n      this.featurePlacement = new FeatureRelation("head", "end" /* End */);\n      this.includePath = `${Shared.libFolderName}/${Shared.htmlFolderName}/custom-head.html`;\n    }\n  };\n\n  // src/shared/features/document.ts\n  \n  var DocumentOptions = class extends FeatureOptions {\n    constructor() {\n      super();\n      this.allowFoldingLists = true;\n      this.allowFoldingHeadings = true;\n      this.documentWidth = "40em";\n      \n      \n      \n      this.featureId = "obsidian-document";\n      this.alwaysEnabled = true;\n    }\n  };\n\n  // src/shared/features/file-navigation.ts\n  \n  var FileNavigationOptions = class extends FetchedFeatureOptions {\n    constructor() {\n      super();\n      this.showCustomIcons = false;\n      this.showDefaultFolderIcons = false;\n      this.showDefaultFileIcons = false;\n      this.defaultFolderIcon = "lucide//folder";\n      this.defaultFileIcon = "lucide//file";\n      this.defaultMediaIcon = "lucide//file-image";\n      this.exposeStartingPath = true;\n      \n      \n      \n      \n      \n      \n      \n      this.featureId = "file-navigation";\n      this.featurePlacement = new FeatureRelation("#left-sidebar-content", "end" /* End */);\n      this.includePath = `${Shared.libFolderName}/${Shared.htmlFolderName}/file-tree.html`;\n    }\n  };\n\n  // src/shared/features/graph-view.ts\n  \n  var GraphViewOptions = class extends InsertedFeatureOptionsWithTitle {\n    constructor() {\n      super();\n      this.showOrphanNodes = true;\n      this.showAttachments = false;\n      this.allowGlobalGraph = true;\n      this.allowExpand = true;\n      this.attractionForce = 1;\n      this.linkLength = 15;\n      this.repulsionForce = 80;\n      this.centralForce = 2;\n      this.edgePruning = 100;\n      this.minNodeRadius = 3;\n      this.maxNodeRadius = 7;\n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      this.featureId = "graph-view";\n      this.displayTitle = \'\';\n      this.featurePlacement = new FeatureRelation("#right-sidebar-content", "start" /* Start */);\n    }\n  };\n\n  // src/shared/features/link-preview.ts\n  var LinkPreviewOptions = class extends FeatureOptions {\n    constructor() {\n      super();\n      this.featureId = "link-preview";\n      this.hideSettingsButton = true;\n    }\n  };\n\n  // src/shared/features/outline.ts\n  \n  var OutlineOptions = class extends InsertedFeatureOptionsWithTitle {\n    constructor() {\n      super();\n      this.startCollapsed = false;\n      this.minCollapseDepth = 0;\n      \n      \n      this.featureId = "outline";\n      this.displayTitle = \'\';\n      this.featurePlacement = new FeatureRelation("#right-sidebar-content", "end" /* End */);\n    }\n  };\n\n  // src/shared/features/properties.ts\n  \n  var PropertiesOptions = class extends InsertedFeatureOptionsWithTitle {\n    constructor() {\n      super();\n      \n      this.featureId = "properties";\n      this.displayTitle = \'\';\n      this.featurePlacement = new FeatureRelation(".header", "start" /* Start */);\n    }\n  };\n\n  // src/shared/features/rss.ts\n  \n  var RssOptions = class extends FeatureOptions {\n    constructor() {\n      super();\n      this.siteUrl = "";\n      this.authorName = "";\n      \n      \n      this.featureId = "rss";\n    }\n  };\n\n  // src/shared/features/search.ts\n  \n  var SearchOptions = class extends InsertedFeatureOptionsWithTitle {\n    constructor() {\n      super();\n      this.featureId = "search";\n      this.displayTitle = \'\';\n      this.featurePlacement = new FeatureRelation("#left-sidebar .topbar-content", "start" /* Start */);\n    }\n  };\n\n  // src/shared/features/sidebar.ts\n  \n  var SidebarOptions = class extends FeatureOptions {\n    constructor() {\n      super();\n      this.allowResizing = true;\n      this.allowCollapsing = true;\n      this.rightDefaultWidth = "20em";\n      this.leftDefaultWidth = "20em";\n      \n      \n      \n      \n      this.featureId = "sidebar";\n    }\n  };\n\n  // src/shared/features/tags.ts\n  \n  var TagsOptions = class extends InsertedFeatureOptionsWithTitle {\n    constructor() {\n      super();\n      this.showInlineTags = true;\n      this.showFrontmatterTags = true;\n      \n      \n      this.featureId = "tags";\n      this.displayTitle = "";\n      this.featurePlacement = new FeatureRelation(".header .data-bar", "end" /* End */);\n    }\n  };\n\n  // src/shared/features/theme-toggle.ts\n  var ThemeToggleOptions = class extends InsertedFeatureOptionsWithTitle {\n    constructor() {\n      super();\n      this.featureId = "theme-toggle";\n      this.displayTitle = "";\n      this.featurePlacement = new FeatureRelation("#right-sidebar .topbar-content", "start" /* Start */);\n    }\n  };\n\n  // src/shared/website-data.ts\n  var WebsiteOptions = class {\n    static fromJSON(json) {\n      let data = Object.assign(new WebsiteOptions(), JSON.parse(json));\n      data.backlinks = Object.assign(new BacklinksOptions(), data.backlinks);\n      data.tags = Object.assign(new TagsOptions(), data.tags);\n      data.alias = Object.assign(new AliasesOptions(), data.alias);\n      data.properties = Object.assign(new PropertiesOptions(), data.properties);\n      data.fileNavigation = Object.assign(new FileNavigationOptions(), data.fileNavigation);\n      data.search = Object.assign(new SearchOptions(), data.search);\n      data.outline = Object.assign(new OutlineOptions(), data.outline);\n      data.themeToggle = Object.assign(new ThemeToggleOptions(), data.themeToggle);\n      data.graphView = Object.assign(new GraphViewOptions(), data.graphView);\n      data.sidebar = Object.assign(new SidebarOptions(), data.sidebar);\n      data.customHead = Object.assign(new CustomHeadOptions(), data.customHead);\n      data.document = Object.assign(new DocumentOptions(), data.document);\n      data.rss = Object.assign(new RssOptions(), data.rss);\n      data.linkPreview = Object.assign(new LinkPreviewOptions(), data.linkPreview);\n      return data;\n    }\n  };\n  var WebsiteData = class {\n    constructor() {\n      this.ignoreMetadata = false;\n      this.webpages = {};\n      this.fileInfo = {};\n      this.sourceToTarget = {};\n      this.attachments = [];\n      this.shownInTree = [];\n      this.allFiles = [];\n      this.siteName = "";\n      this.vaultName = "";\n      this.createdTime = 0;\n      this.modifiedTime = 0;\n      this.pluginVersion = "";\n      this.exportRoot = "";\n      this.baseURL = "";\n      this.themeName = "";\n      this.bodyClasses = "";\n      this.hasFavicon = false;\n      this.featureOptions = new WebsiteOptions();\n    }\n    static fromJSON(json) {\n      let data = Object.assign(new WebsiteData(), JSON.parse(json));\n      data.featureOptions = WebsiteOptions.fromJSON(JSON.stringify(data.featureOptions));\n      return data;\n    }\n  };\n\n  // src/frontend/main/callouts.ts\n  var Callout = class {\n    constructor(calloutEl, initEvents = true) {\n      this._collapsed = false;\n      this.calloutEl = calloutEl;\n      this.titleEl = calloutEl.querySelector(".callout-title-inner");\n      this.contentEl = calloutEl.querySelector(".callout-content");\n      this.iconEl = calloutEl.querySelector(".callout-icon");\n      this.foldIconEl = calloutEl.querySelector(".callout-fold");\n      const fold = calloutEl.getAttribute("data-callout-fold");\n      switch (fold) {\n        case "+":\n          this.foldType = 0 /* StartOpen */;\n          this._collapsed = false;\n          break;\n        case "-":\n          this.foldType = 1 /* StartClosed */;\n          this._collapsed = true;\n          break;\n        default:\n          this.foldType = 2 /* Static */;\n          this._collapsed = false;\n          break;\n      }\n      this.type = calloutEl.getAttribute("data-callout") ?? "";\n      this.metadata = calloutEl.getAttribute("data-callout-metadata") ?? "";\n      if (initEvents)\n        this.init();\n    }\n    get title() {\n      return this.titleEl?.textContent ?? "";\n    }\n    set title(title) {\n      this.titleEl.textContent = title;\n    }\n    get collapsed() {\n      return this._collapsed;\n    }\n    set collapsed(collapse) {\n      this.toggle(collapse);\n    }\n    toggle(force) {\n      if (this.foldType == 2 /* Static */)\n        return;\n      if (force === void 0)\n        force = !this._collapsed;\n      this.calloutEl?.classList.toggle("is-collapsed", force);\n      this.foldIconEl?.classList.toggle("is-collapsed", force);\n      if (force)\n        slideUp(this.contentEl, 150);\n      else\n        slideDown(this.contentEl, 150);\n      this._collapsed = force;\n    }\n    collapse() {\n      this.toggle(true);\n    }\n    expand() {\n      this.toggle(false);\n    }\n    init() {\n      if (this.foldIconEl) {\n        this.foldIconEl.addEventListener("click", () => {\n          this.toggle();\n        });\n      }\n    }\n  };\n\n  // src/frontend/main/headers.ts\n  var _Header = class {\n    constructor(element) {\n      this._children = [];\n      this._isCollapsed = false;\n      this._content = [];\n      this._divParent = element.parentElement;\n      this._headerElement = element;\n      this._collapseIndicatorElement = this._headerElement.querySelector(".heading-collapse-indicator");\n      this._id = element.id;\n      this._level = parseInt(element.tagName.replace("H", ""));\n      _Header.headerMap.set(element, this);\n      if (this._collapseIndicatorElement) {\n        this._collapseIndicatorElement.addEventListener("click", () => {\n          this.toggleCollapse();\n        });\n      }\n    }\n    get id() {\n      return this._id;\n    }\n    get text() {\n      return this._headerElement.textContent ?? "";\n    }\n    set text(value) {\n      this._headerElement.textContent = value;\n    }\n    get level() {\n      return this._level;\n    }\n    get headerElement() {\n      return this._headerElement;\n    }\n    get collapseIndicatorElement() {\n      return this._collapseIndicatorElement;\n    }\n    get children() {\n      return this._children;\n    }\n    get isCollapsed() {\n      return this._isCollapsed;\n    }\n    scrollTo(options = { behavior: "smooth", block: "start" }) {\n      this._headerElement.scrollIntoView(options);\n    }\n    find(predicate) {\n      if (predicate(this)) {\n        return this;\n      }\n      for (const child of this.children) {\n        const result = child.find(predicate);\n        if (result) {\n          return result;\n        }\n      }\n      return void 0;\n    }\n    findByID(id) {\n      if (id.startsWith("#")) {\n        id = id.substring(1);\n      }\n      return this.find((header) => header.id === id);\n    }\n    getFlatChildren() {\n      let headers = [this];\n      for (const child of this._children) {\n        headers = headers.concat(child.getFlatChildren());\n      }\n      return headers;\n    }\n    toggleCollapse() {\n      this._isCollapsed = !this._isCollapsed;\n      this._collapseIndicatorElement?.classList.toggle("is-collapsed", this._isCollapsed);\n      this._headerElement.classList.toggle("is-collapsed", this._isCollapsed);\n      this.updateVisibility(this._isCollapsed);\n    }\n    updateVisibility(collapse) {\n      this._collapseIndicatorElement?.classList.toggle("is-collapsed", collapse);\n      this._headerElement.classList.toggle("is-collapsed", collapse);\n      for (const element of this._content) {\n        element.style.display = collapse ? "none" : "";\n      }\n      for (const child of this._children) {\n        child.headerElement.style.display = collapse ? "none" : "";\n        if (collapse) {\n          child.updateVisibility(true);\n        } else {\n          child.updateVisibility(child._isCollapsed);\n        }\n      }\n    }\n    getHeaderWithContentRecursive() {\n      let content = [];\n      content.push(this._divParent);\n      for (const element of this._content) {\n        content.push(element);\n      }\n      for (const child of this._children) {\n        content = content.concat(child.getHeaderWithContentRecursive());\n      }\n      return content;\n    }\n    static createHeaderTree(html) {\n      const headers = Array.from(html.querySelectorAll("h1, h2, h3, h4, h5, h6"));\n      const headerObjects = headers.map((el) => new _Header(el));\n      const rootHeaders = [];\n      const stack = [];\n      for (let i = 0; i < headerObjects.length; i++) {\n        const currentHeader = headerObjects[i];\n        while (stack.length > 0 && stack[stack.length - 1].level >= currentHeader.level) {\n          stack.pop();\n        }\n        if (stack.length > 0) {\n          stack[stack.length - 1].children.push(currentHeader);\n        } else {\n          rootHeaders.push(currentHeader);\n        }\n        stack.push(currentHeader);\n        let nextElement = currentHeader.headerElement.nextElementSibling;\n        while (nextElement && !(nextElement instanceof HTMLHeadingElement)) {\n          if (nextElement instanceof HTMLElement) {\n            currentHeader._content.push(nextElement);\n          }\n          nextElement = nextElement.nextElementSibling;\n        }\n        nextElement = currentHeader.headerElement.parentElement?.nextElementSibling ?? null;\n        while (nextElement && !nextElement.querySelector("h1, h2, h3, h4, h5, h6")) {\n          if (nextElement instanceof HTMLElement && !nextElement.classList.contains("footer")) {\n            currentHeader._content.push(nextElement);\n          }\n          nextElement = nextElement.nextElementSibling;\n        }\n      }\n      return rootHeaders;\n    }\n  };\n  var Header = _Header;\n  Header.headerMap = /* @__PURE__ */ new WeakMap();\n\n  // src/frontend/main/link-preview.ts\n  var _FilePreviewPopover = class {\n    constructor(link, target, onRemove) {\n      this.isPinned = false;\n      this.resizeObserver = null;\n      this.hoverTimeout = null;\n      this.showTimeout = null;\n      this.link = link;\n      this.target = target;\n      this.onRemove = onRemove;\n      this.createPreviewElements();\n      this.setupEventListeners();\n      this.positionPreview();\n      this.setupOutsideClickListener();\n    }\n    static savePinnedPreviews() {\n      const previewDatas = _FilePreviewPopover.pinnedPreviews.map((preview) => {\n        return {\n          target: preview.target,\n          top: preview.filePreviewPopover.style.top,\n          left: preview.filePreviewPopover.style.left,\n          width: preview.filePreviewPopover.style.width,\n          height: preview.filePreviewPopover.style.height,\n          zIndex: preview.filePreviewPopover.style.zIndex\n        };\n      });\n      localStorage.setItem("pinnedPreviews", JSON.stringify(previewDatas));\n    }\n    static loadPinnedPreviews() {\n      const previewDatas = JSON.parse(localStorage.getItem("pinnedPreviews") ?? "[]");\n      previewDatas.forEach(async (previewData) => {\n        const preview = new _FilePreviewPopover(null, previewData.target, () => {\n        });\n        preview.setPinned(true);\n        preview.filePreviewPopover.style.top = previewData.top;\n        preview.filePreviewPopover.style.left = previewData.left;\n        preview.filePreviewPopover.style.width = previewData.width;\n        preview.filePreviewPopover.style.height = previewData.height;\n        preview.filePreviewPopover.style.zIndex = previewData.zIndex || _FilePreviewPopover.baseZIndex.toString();\n        preview.show();\n      });\n    }\n    static create(target, x, y, pinned = true) {\n      const preview = new _FilePreviewPopover(null, target, () => {\n      });\n      preview.setPinned(pinned);\n      preview.filePreviewPopover.style.top = y + "px";\n      preview.filePreviewPopover.style.left = x + "px";\n      preview.show();\n    }\n    static initializeLink(link, target) {\n      let preview = null;\n      link.addEventListener("pointerenter", function() {\n        if (!preview) {\n          preview = new _FilePreviewPopover(link, target, () => {\n            preview = null;\n          });\n          preview.startShowTimeout();\n        }\n      });\n      link.addEventListener("pointerleave", function() {\n        if (preview) {\n          if (!preview.isPinned) {\n            preview.startRemoveTimeout();\n          }\n          preview.clearShowTimeout();\n        }\n      });\n      link.addEventListener("click", function(event) {\n        if (preview) {\n          if (!preview.isPinned) {\n            preview.startRemoveTimeout();\n          }\n          preview.clearShowTimeout();\n        }\n      });\n    }\n    createPreviewElements() {\n      this.filePreviewPopover = document.createElement("div");\n      this.filePreviewPopover.className = "file-preview popover hover-popover hide";\n      document.body.appendChild(this.filePreviewPopover);\n      this.markdownEmbed = document.createElement("div");\n      this.markdownEmbed.className = "markdown-embed";\n      this.filePreviewPopover.appendChild(this.markdownEmbed);\n      this.markdownEmbedContent = document.createElement("div");\n      this.markdownEmbedContent.className = "markdown-embed-content";\n      this.markdownEmbed.appendChild(this.markdownEmbedContent);\n      this.actionContainer = document.createElement("div");\n      this.actionContainer.className = "preview-action-container";\n      this.filePreviewPopover.appendChild(this.actionContainer);\n      this.dragHandle = document.createElement("div");\n      this.dragHandle.className = "drag-handle clickable-icon popover-action";\n      this.actionContainer.appendChild(this.dragHandle);\n      this.pinButton = document.createElement("button");\n      this.pinButton.className = "pin-button clickable-icon popover-action";\n      this.actionContainer.appendChild(this.pinButton);\n      this.goToButton = document.createElement("button");\n      this.goToButton.className = "go-to-button clickable-icon popover-action";\n      this.actionContainer.appendChild(this.goToButton);\n      this.filePreviewPopover.style.zIndex = _FilePreviewPopover.baseZIndex.toString();\n      this.bringToFront();\n    }\n    setPinned(pinned) {\n      this.isPinned = pinned;\n      this.pinButton.classList.toggle("pinned", this.isPinned);\n      this.filePreviewPopover.classList.toggle("pinned", this.isPinned);\n      if (this.isPinned) {\n        _FilePreviewPopover.pinnedPreviews.push(this);\n      } else {\n        _FilePreviewPopover.pinnedPreviews = _FilePreviewPopover.pinnedPreviews.filter((preview) => preview !== this);\n      }\n    }\n    setupEventListeners() {\n      this.pinButton.addEventListener("click", () => {\n        this.setPinned(!this.isPinned);\n        _FilePreviewPopover.savePinnedPreviews();\n      });\n      this.goToButton.addEventListener("click", () => {\n        ObsidianSite.loadURL(this.target);\n      });\n      this.setupDragHandleListeners();\n      this.filePreviewPopover.addEventListener("pointerenter", () => {\n        this.clearRemoveTimeout();\n      });\n      this.filePreviewPopover.addEventListener("pointerleave", () => {\n        if (!this.isPinned) {\n          this.startRemoveTimeout();\n        }\n      });\n      this.setupResizeObserver();\n    }\n    updateMaxSize() {\n      const viewportWidth = window.innerWidth;\n      const viewportHeight = window.innerHeight;\n      const rect = this.filePreviewPopover.getBoundingClientRect();\n      const margin = 10;\n      const maxWidth = viewportWidth - rect.left - margin;\n      const maxHeight = viewportHeight - rect.top - margin;\n      this.filePreviewPopover.style.maxWidth = `${maxWidth}px`;\n      this.filePreviewPopover.style.maxHeight = `${maxHeight}px`;\n      const newLeft = Math.max(margin, rect.left);\n      const newTop = Math.max(margin, rect.top);\n      if (newLeft !== rect.left) {\n        this.filePreviewPopover.style.left = `${newLeft}px`;\n      }\n      if (newTop !== rect.top) {\n        this.filePreviewPopover.style.top = `${newTop}px`;\n      }\n      _FilePreviewPopover.savePinnedPreviews();\n    }\n    setupResizeObserver() {\n      this.updateMaxSize();\n      this.resizeObserver = new ResizeObserver(() => {\n        this.updateMaxSize();\n      });\n      this.resizeObserver.observe(this.filePreviewPopover);\n      window.addEventListener("resize", this.updateMaxSize);\n    }\n    dragPreviewCallback(event) {\n      event.stopPropagation();\n      this.bringToFront();\n      const offsetX = event.clientX - this.filePreviewPopover.getBoundingClientRect().left;\n      const offsetY = event.clientY - this.filePreviewPopover.getBoundingClientRect().top;\n      const onPointerMove = (event2) => {\n        let newLeft = event2.clientX - offsetX;\n        let newTop = event2.clientY - offsetY;\n        const viewportWidth = window.innerWidth;\n        const viewportHeight = window.innerHeight;\n        const previewRect = this.filePreviewPopover.getBoundingClientRect();\n        newLeft = Math.max(0, Math.min(newLeft, viewportWidth - previewRect.width));\n        newTop = Math.max(0, Math.min(newTop, viewportHeight - previewRect.height));\n        this.filePreviewPopover.style.left = newLeft + "px";\n        this.filePreviewPopover.style.top = newTop + "px";\n        this.updateMaxSize();\n      };\n      const onPointerUp = () => {\n        if (this.isPinned) {\n          _FilePreviewPopover.savePinnedPreviews();\n        }\n        document.removeEventListener("pointermove", onPointerMove);\n        document.removeEventListener("pointerup", onPointerUp);\n      };\n      document.addEventListener("pointermove", onPointerMove);\n      document.addEventListener("pointerup", onPointerUp);\n    }\n    setupDragHandleListeners() {\n      this.dragHandle.addEventListener("pointerdown", this.dragPreviewCallback.bind(this));\n      this.actionContainer.addEventListener("pointerdown", this.dragPreviewCallback.bind(this));\n    }\n    positionPreview() {\n      if (!this.link)\n        return;\n      const linkRect = this.link.getBoundingClientRect();\n      const previewRect = this.filePreviewPopover.getBoundingClientRect();\n      const viewportWidth = window.innerWidth;\n      const viewportHeight = window.innerHeight;\n      this.filePreviewPopover.style.top = "";\n      this.filePreviewPopover.style.left = "";\n      const margin = 10;\n      let top, left;\n      if (viewportHeight - linkRect.bottom >= previewRect.height + margin) {\n        top = linkRect.bottom + margin;\n      } else {\n        top = Math.max(margin, linkRect.top - previewRect.height - margin);\n      }\n      left = linkRect.left;\n      if (left + previewRect.width > viewportWidth - margin) {\n        left = Math.max(margin, linkRect.right - previewRect.width);\n      }\n      top = Math.min(Math.max(margin, top), viewportHeight - previewRect.height - margin);\n      left = Math.min(Math.max(margin, left), viewportWidth - previewRect.width - margin);\n      this.filePreviewPopover.style.top = `${top}px`;\n      this.filePreviewPopover.style.left = `${left}px`;\n    }\n    setupOutsideClickListener() {\n      this.outsideClickListener = (event) => {\n        if (!this.isPinned && !this.filePreviewPopover.contains(event.target) && !this.link?.contains(event.target)) {\n          this.remove();\n        }\n      };\n      document.addEventListener("pointerdown", this.outsideClickListener);\n    }\n    startShowTimeout() {\n      this.clearShowTimeout();\n      this.showTimeout = window.setTimeout(() => this.show(), 350);\n    }\n    clearShowTimeout() {\n      if (this.showTimeout !== null) {\n        clearTimeout(this.showTimeout);\n        this.showTimeout = null;\n      }\n    }\n    async show() {\n      this.filePreviewDocument = new WebpageDocument(this.target);\n      await (await this.filePreviewDocument.load(null, this.markdownEmbedContent, true, true))?.show();\n      this.positionPreview();\n      this.filePreviewPopover.classList.remove("hide");\n    }\n    bringToFront() {\n      let maxZIndex = Math.max(_FilePreviewPopover.baseZIndex, ..._FilePreviewPopover.pinnedPreviews.map((p) => parseInt(p.filePreviewPopover.style.zIndex) || _FilePreviewPopover.baseZIndex));\n      if (maxZIndex >= _FilePreviewPopover.maxZIndex) {\n        _FilePreviewPopover.pinnedPreviews.forEach((p, index) => {\n          p.filePreviewPopover.style.zIndex = (_FilePreviewPopover.baseZIndex + index).toString();\n        });\n        maxZIndex = _FilePreviewPopover.baseZIndex + _FilePreviewPopover.pinnedPreviews.length - 1;\n      }\n      this.filePreviewPopover.style.zIndex = (maxZIndex + 1).toString();\n    }\n    startRemoveTimeout() {\n      this.clearRemoveTimeout();\n      this.hoverTimeout = window.setTimeout(() => this.remove(), 300);\n    }\n    clearRemoveTimeout() {\n      if (this.hoverTimeout !== null) {\n        clearTimeout(this.hoverTimeout);\n        this.hoverTimeout = null;\n      }\n    }\n    remove() {\n      this.clearRemoveTimeout();\n      this.clearShowTimeout();\n      if (this.filePreviewPopover && this.filePreviewPopover.parentNode) {\n        this.filePreviewPopover.parentNode.removeChild(this.filePreviewPopover);\n      }\n      if (this.resizeObserver) {\n        this.resizeObserver.disconnect();\n      }\n      window.removeEventListener("resize", this.updateMaxSize);\n      document.removeEventListener("pointerdown", this.outsideClickListener);\n      this.onRemove();\n    }\n  };\n  var FilePreviewPopover = _FilePreviewPopover;\n  FilePreviewPopover.baseZIndex = 100;\n  FilePreviewPopover.maxZIndex = 1e3;\n  FilePreviewPopover.pinnedPreviews = [];\n\n  // src/frontend/main/links.ts\n  var LinkHandler = class {\n    static initializeLinks(onElement) {\n      console.log("Initializing links on element", onElement);\n      onElement?.querySelectorAll(".internal-link, a.tag, a.tree-item-self, a.footnote-link").forEach(function(link) {\n        const target = link.getAttribute("href") ?? "null";\n        if (target == "null") {\n          console.log("No target found for link");\n          return;\n        }\n        link.addEventListener("click", function(event) {\n          event.preventDefault();\n          event.stopPropagation();\n          ObsidianSite.loadURL(target);\n          if (ObsidianSite.deviceSize === "phone") {\n            const leftSidebar = link.closest("#left-sidebar");\n            const rightSidebar = link.closest("#right-sidebar");\n            if (leftSidebar && ObsidianSite.leftSidebar?.collapsed === false) {\n              ObsidianSite.leftSidebar.collapsed = true;\n            } else if (rightSidebar && ObsidianSite.rightSidebar?.collapsed === false) {\n              ObsidianSite.rightSidebar.collapsed = true;\n            }\n          }\n        });\n        if (target && !target.startsWith("http") && !ObsidianSite.documentExists(target)) {\n          link.classList.add("is-unresolved");\n        } else if (link.classList.contains("internal-link")) {\n          if (!ObsidianSite.metadata?.ignoreMetadata && ObsidianSite.metadata?.featureOptions?.linkPreview?.enabled) {\n            FilePreviewPopover.initializeLink(link, target);\n          }\n        }\n      });\n    }\n    static getPathnameFromURL(url) {\n      if (url == "" || url == "/" || url == "\\\\")\n        return "index.html";\n      if (url?.startsWith("#") || url?.startsWith("?"))\n        return (ObsidianSite.document?.pathname?.split("#")[0]?.split("?")[0] ?? "") + (url ?? "");\n      return url?.split("?")[0]?.split("#")[0]?.trim() ?? "";\n    }\n    static getHashFromURL(url) {\n      return (url.split("#")[1] ?? "").split("?")[0]?.trim() ?? "";\n    }\n    static getQueryFromURL(url) {\n      return url.split("?")[1]?.trim() ?? "";\n    }\n    static getFileDataIdFromURL(url) {\n      url = this.getPathnameFromURL(url);\n      if (url.startsWith("./"))\n        url = url.substring(2);\n      while (url.startsWith("../")) {\n        url = url.substring(3);\n      }\n      return btoa(encodeURI(url));\n    }\n  };\n\n  // src/frontend/main/lists.ts\n  var ListItem = class {\n    constructor(element, parent) {\n      this.parent = void 0;\n      this.collapsible = false;\n      this.collapseEl = void 0;\n      this.line = 0;\n      this.itemEl = element;\n      this.parent = parent;\n      this.line = parseInt(this.itemEl.getAttribute("data-line") ?? "0");\n      this.collapseEl = Array.from(this.itemEl.children).find((el) => el.classList.contains("list-collapse-indicator"));\n      const child = this.itemEl.querySelector("ol, ul");\n      if (child) {\n        this.child = new List(child, this);\n        if (this.collapseEl) {\n          this.collapsible = true;\n          const localThis = this;\n          this.collapseEl.addEventListener("click", function(event) {\n            localThis.isCollapsed = !localThis.isCollapsed;\n            event.stopPropagation();\n          });\n        }\n      }\n    }\n    get isChecked() {\n      return this.itemEl.classList.contains("is-checked");\n    }\n    get isCollapsed() {\n      return this.itemEl.classList.contains("is-collapsed");\n    }\n    set isCollapsed(collapse) {\n      this.itemEl.classList.toggle("is-collapsed", collapse);\n      if (this.collapseEl)\n        this.collapseEl.classList.toggle("is-collapsed", collapse);\n    }\n    get textContent() {\n      return Array.prototype.filter.call(this.itemEl.childNodes, (child) => child.nodeType === Node.TEXT_NODE).map((child) => child.textContent).join("").trim();\n    }\n    get htmlContent() {\n      return this.itemEl.innerHTML;\n    }\n  };\n  var List = class {\n    constructor(element, parent) {\n      this.children = [];\n      this.parent = void 0;\n      if (element.tagName != "OL" && element.tagName != "UL")\n        throw new Error("Invalid list element");\n      this.listType = element.tagName == "OL" ? "ordered" /* Ordered */ : element.classList.contains("contains-task-list") ? "checklist" /* Checklist */ : "unordered" /* Unordered */;\n      this.listEl = element;\n      this.parent = parent;\n      const childItems = Array.from(this.listEl.children).filter((el) => el.tagName == "LI");\n      childItems.forEach((child) => {\n        this.children.push(new ListItem(child, this));\n      });\n    }\n    get linearList() {\n      let list = [];\n      this.children.forEach((child) => {\n        list.push(child);\n        if (child.child)\n          list = list.concat(child.child.linearList);\n      });\n      return list;\n    }\n  };\n\n  // src/frontend/main/notifications.ts\n  var Notice = class {\n    constructor(message, duration = 5e3) {\n      this.message = message;\n      this.duration = duration;\n      this.show();\n    }\n    show() {\n      if (!Notice.container) {\n        Notice.container = document.createElement("div");\n        Notice.container.classList.add("notice-container");\n        Notice.container.style.top = "0";\n        Notice.container.style.right = "0";\n        document.body.appendChild(Notice.container);\n      }\n      this.notification = document.createElement("div");\n      this.notification.classList.add("notice");\n      this.notification.innerHTML = this.message;\n      Notice.container.appendChild(this.notification);\n      this.notification.style.opacity = "0";\n      this.notification.style.transform = "translateX(350px)";\n      this.notification.style.transition = "all 0.5s";\n      setTimeout(() => {\n        this.notification.style.opacity = "1";\n        this.notification.style.transform = "translateX(0)";\n        this.notification.style.height = this.notification.scrollHeight + "px";\n      }, 100);\n      setTimeout(() => {\n        this.dismiss();\n      }, this.duration);\n      this.notification.addEventListener("click", () => {\n        this.dismiss();\n      }, { once: true });\n    }\n    dismiss() {\n      if (!this.notification)\n        return;\n      this.notification.style.opacity = "0";\n      this.notification.style.height = "0";\n      this.notification.style.margin = "0";\n      this.notification.style.padding = "0";\n      setTimeout(() => {\n        this.notification.remove();\n      }, 500);\n    }\n  };\n\n  // src/frontend/main/document.ts\n  var WebpageDocument = class {\n    constructor(url) {\n      this.title = "";\n      this.headers = [];\n      this.callouts = [];\n      this.lists = [];\n      this.children = [];\n      this.isPreview = false;\n      this.initialized = false;\n      this._exists = false;\n      if (!window?.location)\n        return;\n      url = url.trim();\n      if (url.startsWith("http") || url.startsWith("www") || url.startsWith("/") || url.startsWith("\\\\")) {\n        console.error("Please use a relative path from the root of the wesite to load a webpage");\n        return;\n      }\n      this.pathname = LinkHandler.getPathnameFromURL(url);\n      this.hash = LinkHandler.getHashFromURL(url);\n      this.query = LinkHandler.getQueryFromURL(url);\n      let origin = window?.location?.origin;\n      if (origin == "null")\n        origin = "file://";\n      this.info = ObsidianSite.getWebpageData(this.pathname);\n      if (!this.info && !ObsidianSite.metadata.ignoreMetadata) {\n        new Notice("This page does not exist yet.");\n        console.warn("This page does not exist yet.", this.pathname);\n        return;\n      }\n      this._exists = true;\n      this.documentType = this.info?.type ?? "markdown" /* Markdown */;\n      this.title = this.info?.title ?? this.pathname;\n    }\n    get isMainDocument() {\n      return this.parent == null && !this.isPreview;\n    }\n    get bounds() {\n      return Bounds.fromElement(this.documentEl);\n    }\n    get exists() {\n      return this._exists;\n    }\n    findHeader(predicate) {\n      for (const header of this.headers) {\n        let result = header.find(predicate);\n        if (result)\n          return result;\n      }\n      return null;\n    }\n    getFlatHeaders() {\n      return this.headers.flatMap((h) => h.getFlatChildren());\n    }\n    scrollToHeader(headerId) {\n      console.log("Scrolling to header", headerId);\n      const header = this.findHeader((h) => h.id == headerId);\n      if (header)\n        header.scrollTo();\n    }\n    findElements() {\n      if (!this.containerEl)\n        this.containerEl = ObsidianSite.centerContentEl;\n      this.sizerEl = this.documentType == "markdown" /* Markdown */ ? this.containerEl.querySelector(".markdown-preview-sizer") : void 0;\n      this.documentEl = this.containerEl.querySelector(".obsidian-document");\n      this.headerEl = this.containerEl.querySelector(".header");\n      this.footerEl = this.containerEl.querySelector(".footer");\n    }\n    async load(parent = null, containerEl = ObsidianSite.centerContentEl, isPreview = false, headerOnly = false) {\n      this.parent = parent;\n      this.isPreview = isPreview;\n      if (!this.pathname || !this.exists)\n        return this;\n      let oldDocument = ObsidianSite.document;\n      await ObsidianSite.showLoading(true, containerEl);\n      this.containerEl = containerEl;\n      const documentReq = await ObsidianSite.fetch(this.pathname);\n      if (documentReq?.ok) {\n        const documentText = await documentReq.text();\n        this.sourceHtml = new DOMParser().parseFromString(documentText, "text/html");\n        let newDocumentEl = this.sourceHtml.querySelector(".obsidian-document");\n        if (newDocumentEl) {\n          newDocumentEl = document.adoptNode(newDocumentEl);\n          const docEl = containerEl.querySelector(".obsidian-document");\n          if (docEl) {\n            docEl.before(newDocumentEl);\n            docEl.remove();\n          } else\n            containerEl.appendChild(newDocumentEl);\n        }\n        await this.loadChildDocuments();\n        await this.postLoadInit();\n        if (this.sizerEl && headerOnly && this.hash && this.hash != "") {\n          var header = this.headers.find((h) => h.findByID(this.hash))?.findByID(this.hash);\n          if (header) {\n            this.sizerEl.innerHTML = header.getHeaderWithContentRecursive().map((e) => e.outerHTML).join("");\n          }\n        }\n        this.initialized = false;\n      } else {\n        new Notice("This document could not be loaded.");\n        console.error("Failed to load document", this.pathname);\n        return void 0;\n      }\n      return this;\n    }\n    async show() {\n      await ObsidianSite.showLoading(false, this.containerEl);\n    }\n    async postLoadInit() {\n      this.findElements();\n      this.postProcess();\n      if (this.isMainDocument || this.isPreview) {\n        this.processHeaders();\n        this.processCallouts();\n        this.processLists();\n      }\n      if (this.documentType == "canvas" /* Canvas */) {\n        this.canvas = new Canvas(this);\n      }\n      if (this.isMainDocument || this.isPreview)\n        LinkHandler.initializeLinks(this.documentEl ?? this.containerEl);\n      return this;\n    }\n    processHeaders() {\n      this.headers = Header.createHeaderTree(this.documentEl);\n    }\n    processCallouts() {\n      const calloutEls = Array.from(this.documentEl.querySelectorAll(".callout"));\n      this.callouts = [];\n      for (const calloutEl of calloutEls) {\n        this.callouts.push(new Callout(calloutEl));\n      }\n    }\n    processLists() {\n      const listEls = Array.from(this.documentEl.querySelectorAll(":is(ul, ol):not(:is(ul, ol) :is(ul, ol))"));\n      this.lists = [];\n      for (const listEl of listEls) {\n        this.lists.push(new List(listEl, void 0));\n      }\n    }\n    postProcess() {\n      this.documentEl?.querySelectorAll(".kanban-plugin__item.is-complete input[type=\'checkbox\']").forEach((el) => el.checked = true);\n      if (!ObsidianSite.metadata.ignoreMetadata) {\n        this.documentEl?.classList.toggle("allow-fold-headings", ObsidianSite.metadata.featureOptions.document.allowFoldingHeadings);\n        this.documentEl?.classList.toggle("allow-fold-lists", ObsidianSite.metadata.featureOptions.document.allowFoldingLists);\n      }\n    }\n    async loadChildDocuments() {\n      this.findElements();\n      let parentTemp = this;\n      let parentCount = 0;\n      while (parentTemp) {\n        parentTemp = parentTemp.parent;\n        parentCount++;\n      }\n      if (parentCount > 4)\n        return;\n      const childRefs = Array.from(this.documentEl.querySelectorAll("link[itemprop=\'include-document\']"));\n      const promises = [];\n      for (const ref of childRefs) {\n        const url = ref.getAttribute("href");\n        if (!url)\n          continue;\n        const childPromise = new WebpageDocument(url).load(this, ref.parentElement);\n        promises.push(childPromise);\n        console.log("Loading child", url);\n        ref.remove();\n      }\n      const childrenTemp = await Promise.all(promises);\n      console.log("Loaded child documents", childrenTemp);\n      this.children.push(...childrenTemp.filter((c) => c != void 0));\n    }\n    async loadChild(url, containerEl) {\n      let child = new WebpageDocument(url);\n      let loaded = await child.load(this, containerEl);\n      if (loaded)\n        this.children.push(loaded);\n      return loaded;\n    }\n    async unloadChild(child) {\n      this.children = this.children.filter((c) => c != child);\n      child.documentEl?.remove();\n    }\n    getMinReadableWidth() {\n      const fontSize = parseFloat(getComputedStyle(this.sizerEl ?? this.documentEl).fontSize);\n      return fontSize * 30;\n    }\n  };\n\n  // node_modules/minisearch/dist/es/index.js\n  function __awaiter(thisArg, _arguments, P, generator) {\n    function adopt(value) {\n      return value instanceof P ? value : new P(function(resolve) {\n        resolve(value);\n      });\n    }\n    return new (P || (P = Promise))(function(resolve, reject) {\n      function fulfilled(value) {\n        try {\n          step(generator.next(value));\n        } catch (e) {\n          reject(e);\n        }\n      }\n      function rejected(value) {\n        try {\n          step(generator["throw"](value));\n        } catch (e) {\n          reject(e);\n        }\n      }\n      function step(result) {\n        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);\n      }\n      step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n  }\n  var ENTRIES = "ENTRIES";\n  var KEYS = "KEYS";\n  var VALUES = "VALUES";\n  var LEAF = "";\n  var TreeIterator = class {\n    constructor(set, type) {\n      const node = set._tree;\n      const keys = Array.from(node.keys());\n      this.set = set;\n      this._type = type;\n      this._path = keys.length > 0 ? [{ node, keys }] : [];\n    }\n    next() {\n      const value = this.dive();\n      this.backtrack();\n      return value;\n    }\n    dive() {\n      if (this._path.length === 0) {\n        return { done: true, value: void 0 };\n      }\n      const { node, keys } = last$1(this._path);\n      if (last$1(keys) === LEAF) {\n        return { done: false, value: this.result() };\n      }\n      const child = node.get(last$1(keys));\n      this._path.push({ node: child, keys: Array.from(child.keys()) });\n      return this.dive();\n    }\n    backtrack() {\n      if (this._path.length === 0) {\n        return;\n      }\n      const keys = last$1(this._path).keys;\n      keys.pop();\n      if (keys.length > 0) {\n        return;\n      }\n      this._path.pop();\n      this.backtrack();\n    }\n    key() {\n      return this.set._prefix + this._path.map(({ keys }) => last$1(keys)).filter((key) => key !== LEAF).join("");\n    }\n    value() {\n      return last$1(this._path).node.get(LEAF);\n    }\n    result() {\n      switch (this._type) {\n        case VALUES:\n          return this.value();\n        case KEYS:\n          return this.key();\n        default:\n          return [this.key(), this.value()];\n      }\n    }\n    [Symbol.iterator]() {\n      return this;\n    }\n  };\n  var last$1 = (array) => {\n    return array[array.length - 1];\n  };\n  var fuzzySearch = (node, query, maxDistance) => {\n    const results = /* @__PURE__ */ new Map();\n    if (query === void 0)\n      return results;\n    const n = query.length + 1;\n    const m = n + maxDistance;\n    const matrix = new Uint8Array(m * n).fill(maxDistance + 1);\n    for (let j = 0; j < n; ++j)\n      matrix[j] = j;\n    for (let i = 1; i < m; ++i)\n      matrix[i * n] = i;\n    recurse(node, query, maxDistance, results, matrix, 1, n, "");\n    return results;\n  };\n  var recurse = (node, query, maxDistance, results, matrix, m, n, prefix) => {\n    const offset = m * n;\n    key:\n      for (const key of node.keys()) {\n        if (key === LEAF) {\n          const distance = matrix[offset - 1];\n          if (distance <= maxDistance) {\n            results.set(prefix, [node.get(key), distance]);\n          }\n        } else {\n          let i = m;\n          for (let pos = 0; pos < key.length; ++pos, ++i) {\n            const char = key[pos];\n            const thisRowOffset = n * i;\n            const prevRowOffset = thisRowOffset - n;\n            let minDistance = matrix[thisRowOffset];\n            const jmin = Math.max(0, i - maxDistance - 1);\n            const jmax = Math.min(n - 1, i + maxDistance);\n            for (let j = jmin; j < jmax; ++j) {\n              const different = char !== query[j];\n              const rpl = matrix[prevRowOffset + j] + +different;\n              const del = matrix[prevRowOffset + j + 1] + 1;\n              const ins = matrix[thisRowOffset + j] + 1;\n              const dist = matrix[thisRowOffset + j + 1] = Math.min(rpl, del, ins);\n              if (dist < minDistance)\n                minDistance = dist;\n            }\n            if (minDistance > maxDistance) {\n              continue key;\n            }\n          }\n          recurse(node.get(key), query, maxDistance, results, matrix, i, n, prefix + key);\n        }\n      }\n  };\n  var SearchableMap = class {\n    constructor(tree = /* @__PURE__ */ new Map(), prefix = "") {\n      this._size = void 0;\n      this._tree = tree;\n      this._prefix = prefix;\n    }\n    atPrefix(prefix) {\n      if (!prefix.startsWith(this._prefix)) {\n        throw new Error("Mismatched prefix");\n      }\n      const [node, path] = trackDown(this._tree, prefix.slice(this._prefix.length));\n      if (node === void 0) {\n        const [parentNode, key] = last(path);\n        for (const k of parentNode.keys()) {\n          if (k !== LEAF && k.startsWith(key)) {\n            const node2 = /* @__PURE__ */ new Map();\n            node2.set(k.slice(key.length), parentNode.get(k));\n            return new SearchableMap(node2, prefix);\n          }\n        }\n      }\n      return new SearchableMap(node, prefix);\n    }\n    clear() {\n      this._size = void 0;\n      this._tree.clear();\n    }\n    delete(key) {\n      this._size = void 0;\n      return remove(this._tree, key);\n    }\n    entries() {\n      return new TreeIterator(this, ENTRIES);\n    }\n    forEach(fn) {\n      for (const [key, value] of this) {\n        fn(key, value, this);\n      }\n    }\n    fuzzyGet(key, maxEditDistance) {\n      return fuzzySearch(this._tree, key, maxEditDistance);\n    }\n    get(key) {\n      const node = lookup(this._tree, key);\n      return node !== void 0 ? node.get(LEAF) : void 0;\n    }\n    has(key) {\n      const node = lookup(this._tree, key);\n      return node !== void 0 && node.has(LEAF);\n    }\n    keys() {\n      return new TreeIterator(this, KEYS);\n    }\n    set(key, value) {\n      if (typeof key !== "string") {\n        throw new Error("key must be a string");\n      }\n      this._size = void 0;\n      const node = createPath(this._tree, key);\n      node.set(LEAF, value);\n      return this;\n    }\n    get size() {\n      if (this._size) {\n        return this._size;\n      }\n      this._size = 0;\n      const iter = this.entries();\n      while (!iter.next().done)\n        this._size += 1;\n      return this._size;\n    }\n    update(key, fn) {\n      if (typeof key !== "string") {\n        throw new Error("key must be a string");\n      }\n      this._size = void 0;\n      const node = createPath(this._tree, key);\n      node.set(LEAF, fn(node.get(LEAF)));\n      return this;\n    }\n    fetch(key, initial) {\n      if (typeof key !== "string") {\n        throw new Error("key must be a string");\n      }\n      this._size = void 0;\n      const node = createPath(this._tree, key);\n      let value = node.get(LEAF);\n      if (value === void 0) {\n        node.set(LEAF, value = initial());\n      }\n      return value;\n    }\n    values() {\n      return new TreeIterator(this, VALUES);\n    }\n    [Symbol.iterator]() {\n      return this.entries();\n    }\n    static from(entries) {\n      const tree = new SearchableMap();\n      for (const [key, value] of entries) {\n        tree.set(key, value);\n      }\n      return tree;\n    }\n    static fromObject(object) {\n      return SearchableMap.from(Object.entries(object));\n    }\n  };\n  var trackDown = (tree, key, path = []) => {\n    if (key.length === 0 || tree == null) {\n      return [tree, path];\n    }\n    for (const k of tree.keys()) {\n      if (k !== LEAF && key.startsWith(k)) {\n        path.push([tree, k]);\n        return trackDown(tree.get(k), key.slice(k.length), path);\n      }\n    }\n    path.push([tree, key]);\n    return trackDown(void 0, "", path);\n  };\n  var lookup = (tree, key) => {\n    if (key.length === 0 || tree == null) {\n      return tree;\n    }\n    for (const k of tree.keys()) {\n      if (k !== LEAF && key.startsWith(k)) {\n        return lookup(tree.get(k), key.slice(k.length));\n      }\n    }\n  };\n  var createPath = (node, key) => {\n    const keyLength = key.length;\n    outer:\n      for (let pos = 0; node && pos < keyLength; ) {\n        for (const k of node.keys()) {\n          if (k !== LEAF && key[pos] === k[0]) {\n            const len = Math.min(keyLength - pos, k.length);\n            let offset = 1;\n            while (offset < len && key[pos + offset] === k[offset])\n              ++offset;\n            const child2 = node.get(k);\n            if (offset === k.length) {\n              node = child2;\n            } else {\n              const intermediate = /* @__PURE__ */ new Map();\n              intermediate.set(k.slice(offset), child2);\n              node.set(key.slice(pos, pos + offset), intermediate);\n              node.delete(k);\n              node = intermediate;\n            }\n            pos += offset;\n            continue outer;\n          }\n        }\n        const child = /* @__PURE__ */ new Map();\n        node.set(key.slice(pos), child);\n        return child;\n      }\n    return node;\n  };\n  var remove = (tree, key) => {\n    const [node, path] = trackDown(tree, key);\n    if (node === void 0) {\n      return;\n    }\n    node.delete(LEAF);\n    if (node.size === 0) {\n      cleanup(path);\n    } else if (node.size === 1) {\n      const [key2, value] = node.entries().next().value;\n      merge(path, key2, value);\n    }\n  };\n  var cleanup = (path) => {\n    if (path.length === 0) {\n      return;\n    }\n    const [node, key] = last(path);\n    node.delete(key);\n    if (node.size === 0) {\n      cleanup(path.slice(0, -1));\n    } else if (node.size === 1) {\n      const [key2, value] = node.entries().next().value;\n      if (key2 !== LEAF) {\n        merge(path.slice(0, -1), key2, value);\n      }\n    }\n  };\n  var merge = (path, key, value) => {\n    if (path.length === 0) {\n      return;\n    }\n    const [node, nodeKey] = last(path);\n    node.set(nodeKey + key, value);\n    node.delete(nodeKey);\n  };\n  var last = (array) => {\n    return array[array.length - 1];\n  };\n  var OR = "or";\n  var AND = "and";\n  var AND_NOT = "and_not";\n  var MiniSearch = class {\n    constructor(options) {\n      if ((options === null || options === void 0 ? void 0 : options.fields) == null) {\n        throw new Error(\'MiniSearch: option "fields" must be provided\');\n      }\n      const autoVacuum = options.autoVacuum == null || options.autoVacuum === true ? defaultAutoVacuumOptions : options.autoVacuum;\n      this._options = Object.assign(Object.assign(Object.assign({}, defaultOptions), options), { autoVacuum, searchOptions: Object.assign(Object.assign({}, defaultSearchOptions), options.searchOptions || {}), autoSuggestOptions: Object.assign(Object.assign({}, defaultAutoSuggestOptions), options.autoSuggestOptions || {}) });\n      this._index = new SearchableMap();\n      this._documentCount = 0;\n      this._documentIds = /* @__PURE__ */ new Map();\n      this._idToShortId = /* @__PURE__ */ new Map();\n      this._fieldIds = {};\n      this._fieldLength = /* @__PURE__ */ new Map();\n      this._avgFieldLength = [];\n      this._nextId = 0;\n      this._storedFields = /* @__PURE__ */ new Map();\n      this._dirtCount = 0;\n      this._currentVacuum = null;\n      this._enqueuedVacuum = null;\n      this._enqueuedVacuumConditions = defaultVacuumConditions;\n      this.addFields(this._options.fields);\n    }\n    add(document2) {\n      const { extractField, tokenize, processTerm, fields, idField } = this._options;\n      const id = extractField(document2, idField);\n      if (id == null) {\n        throw new Error(`MiniSearch: document does not have ID field "${idField}"`);\n      }\n      if (this._idToShortId.has(id)) {\n        throw new Error(`MiniSearch: duplicate ID ${id}`);\n      }\n      const shortDocumentId = this.addDocumentId(id);\n      this.saveStoredFields(shortDocumentId, document2);\n      for (const field of fields) {\n        const fieldValue = extractField(document2, field);\n        if (fieldValue == null)\n          continue;\n        const tokens = tokenize(fieldValue.toString(), field);\n        const fieldId = this._fieldIds[field];\n        const uniqueTerms = new Set(tokens).size;\n        this.addFieldLength(shortDocumentId, fieldId, this._documentCount - 1, uniqueTerms);\n        for (const term of tokens) {\n          const processedTerm = processTerm(term, field);\n          if (Array.isArray(processedTerm)) {\n            for (const t of processedTerm) {\n              this.addTerm(fieldId, shortDocumentId, t);\n            }\n          } else if (processedTerm) {\n            this.addTerm(fieldId, shortDocumentId, processedTerm);\n          }\n        }\n      }\n    }\n    addAll(documents) {\n      for (const document2 of documents)\n        this.add(document2);\n    }\n    addAllAsync(documents, options = {}) {\n      const { chunkSize = 10 } = options;\n      const acc = { chunk: [], promise: Promise.resolve() };\n      const { chunk, promise } = documents.reduce(({ chunk: chunk2, promise: promise2 }, document2, i) => {\n        chunk2.push(document2);\n        if ((i + 1) % chunkSize === 0) {\n          return {\n            chunk: [],\n            promise: promise2.then(() => new Promise((resolve) => setTimeout(resolve, 0))).then(() => this.addAll(chunk2))\n          };\n        } else {\n          return { chunk: chunk2, promise: promise2 };\n        }\n      }, acc);\n      return promise.then(() => this.addAll(chunk));\n    }\n    remove(document2) {\n      const { tokenize, processTerm, extractField, fields, idField } = this._options;\n      const id = extractField(document2, idField);\n      if (id == null) {\n        throw new Error(`MiniSearch: document does not have ID field "${idField}"`);\n      }\n      const shortId = this._idToShortId.get(id);\n      if (shortId == null) {\n        throw new Error(`MiniSearch: cannot remove document with ID ${id}: it is not in the index`);\n      }\n      for (const field of fields) {\n        const fieldValue = extractField(document2, field);\n        if (fieldValue == null)\n          continue;\n        const tokens = tokenize(fieldValue.toString(), field);\n        const fieldId = this._fieldIds[field];\n        const uniqueTerms = new Set(tokens).size;\n        this.removeFieldLength(shortId, fieldId, this._documentCount, uniqueTerms);\n        for (const term of tokens) {\n          const processedTerm = processTerm(term, field);\n          if (Array.isArray(processedTerm)) {\n            for (const t of processedTerm) {\n              this.removeTerm(fieldId, shortId, t);\n            }\n          } else if (processedTerm) {\n            this.removeTerm(fieldId, shortId, processedTerm);\n          }\n        }\n      }\n      this._storedFields.delete(shortId);\n      this._documentIds.delete(shortId);\n      this._idToShortId.delete(id);\n      this._fieldLength.delete(shortId);\n      this._documentCount -= 1;\n    }\n    removeAll(documents) {\n      if (documents) {\n        for (const document2 of documents)\n          this.remove(document2);\n      } else if (arguments.length > 0) {\n        throw new Error("Expected documents to be present. Omit the argument to remove all documents.");\n      } else {\n        this._index = new SearchableMap();\n        this._documentCount = 0;\n        this._documentIds = /* @__PURE__ */ new Map();\n        this._idToShortId = /* @__PURE__ */ new Map();\n        this._fieldLength = /* @__PURE__ */ new Map();\n        this._avgFieldLength = [];\n        this._storedFields = /* @__PURE__ */ new Map();\n        this._nextId = 0;\n      }\n    }\n    discard(id) {\n      const shortId = this._idToShortId.get(id);\n      if (shortId == null) {\n        throw new Error(`MiniSearch: cannot discard document with ID ${id}: it is not in the index`);\n      }\n      this._idToShortId.delete(id);\n      this._documentIds.delete(shortId);\n      this._storedFields.delete(shortId);\n      (this._fieldLength.get(shortId) || []).forEach((fieldLength, fieldId) => {\n        this.removeFieldLength(shortId, fieldId, this._documentCount, fieldLength);\n      });\n      this._fieldLength.delete(shortId);\n      this._documentCount -= 1;\n      this._dirtCount += 1;\n      this.maybeAutoVacuum();\n    }\n    maybeAutoVacuum() {\n      if (this._options.autoVacuum === false) {\n        return;\n      }\n      const { minDirtFactor, minDirtCount, batchSize, batchWait } = this._options.autoVacuum;\n      this.conditionalVacuum({ batchSize, batchWait }, { minDirtCount, minDirtFactor });\n    }\n    discardAll(ids) {\n      const autoVacuum = this._options.autoVacuum;\n      try {\n        this._options.autoVacuum = false;\n        for (const id of ids) {\n          this.discard(id);\n        }\n      } finally {\n        this._options.autoVacuum = autoVacuum;\n      }\n      this.maybeAutoVacuum();\n    }\n    replace(updatedDocument) {\n      const { idField, extractField } = this._options;\n      const id = extractField(updatedDocument, idField);\n      this.discard(id);\n      this.add(updatedDocument);\n    }\n    vacuum(options = {}) {\n      return this.conditionalVacuum(options);\n    }\n    conditionalVacuum(options, conditions) {\n      if (this._currentVacuum) {\n        this._enqueuedVacuumConditions = this._enqueuedVacuumConditions && conditions;\n        if (this._enqueuedVacuum != null) {\n          return this._enqueuedVacuum;\n        }\n        this._enqueuedVacuum = this._currentVacuum.then(() => {\n          const conditions2 = this._enqueuedVacuumConditions;\n          this._enqueuedVacuumConditions = defaultVacuumConditions;\n          return this.performVacuuming(options, conditions2);\n        });\n        return this._enqueuedVacuum;\n      }\n      if (this.vacuumConditionsMet(conditions) === false) {\n        return Promise.resolve();\n      }\n      this._currentVacuum = this.performVacuuming(options);\n      return this._currentVacuum;\n    }\n    performVacuuming(options, conditions) {\n      return __awaiter(this, void 0, void 0, function* () {\n        const initialDirtCount = this._dirtCount;\n        if (this.vacuumConditionsMet(conditions)) {\n          const batchSize = options.batchSize || defaultVacuumOptions.batchSize;\n          const batchWait = options.batchWait || defaultVacuumOptions.batchWait;\n          let i = 1;\n          for (const [term, fieldsData] of this._index) {\n            for (const [fieldId, fieldIndex] of fieldsData) {\n              for (const [shortId] of fieldIndex) {\n                if (this._documentIds.has(shortId)) {\n                  continue;\n                }\n                if (fieldIndex.size <= 1) {\n                  fieldsData.delete(fieldId);\n                } else {\n                  fieldIndex.delete(shortId);\n                }\n              }\n            }\n            if (this._index.get(term).size === 0) {\n              this._index.delete(term);\n            }\n            if (i % batchSize === 0) {\n              yield new Promise((resolve) => setTimeout(resolve, batchWait));\n            }\n            i += 1;\n          }\n          this._dirtCount -= initialDirtCount;\n        }\n        yield null;\n        this._currentVacuum = this._enqueuedVacuum;\n        this._enqueuedVacuum = null;\n      });\n    }\n    vacuumConditionsMet(conditions) {\n      if (conditions == null) {\n        return true;\n      }\n      let { minDirtCount, minDirtFactor } = conditions;\n      minDirtCount = minDirtCount || defaultAutoVacuumOptions.minDirtCount;\n      minDirtFactor = minDirtFactor || defaultAutoVacuumOptions.minDirtFactor;\n      return this.dirtCount >= minDirtCount && this.dirtFactor >= minDirtFactor;\n    }\n    get isVacuuming() {\n      return this._currentVacuum != null;\n    }\n    get dirtCount() {\n      return this._dirtCount;\n    }\n    get dirtFactor() {\n      return this._dirtCount / (1 + this._documentCount + this._dirtCount);\n    }\n    has(id) {\n      return this._idToShortId.has(id);\n    }\n    getStoredFields(id) {\n      const shortId = this._idToShortId.get(id);\n      if (shortId == null) {\n        return void 0;\n      }\n      return this._storedFields.get(shortId);\n    }\n    search(query, searchOptions = {}) {\n      const rawResults = this.executeQuery(query, searchOptions);\n      const results = [];\n      for (const [docId, { score, terms, match }] of rawResults) {\n        const quality = terms.length || 1;\n        const result = {\n          id: this._documentIds.get(docId),\n          score: score * quality,\n          terms: Object.keys(match),\n          queryTerms: terms,\n          match\n        };\n        Object.assign(result, this._storedFields.get(docId));\n        if (searchOptions.filter == null || searchOptions.filter(result)) {\n          results.push(result);\n        }\n      }\n      if (query === MiniSearch.wildcard && searchOptions.boostDocument == null && this._options.searchOptions.boostDocument == null) {\n        return results;\n      }\n      results.sort(byScore);\n      return results;\n    }\n    autoSuggest(queryString, options = {}) {\n      options = Object.assign(Object.assign({}, this._options.autoSuggestOptions), options);\n      const suggestions = /* @__PURE__ */ new Map();\n      for (const { score, terms } of this.search(queryString, options)) {\n        const phrase = terms.join(" ");\n        const suggestion = suggestions.get(phrase);\n        if (suggestion != null) {\n          suggestion.score += score;\n          suggestion.count += 1;\n        } else {\n          suggestions.set(phrase, { score, terms, count: 1 });\n        }\n      }\n      const results = [];\n      for (const [suggestion, { score, terms, count }] of suggestions) {\n        results.push({ suggestion, terms, score: score / count });\n      }\n      results.sort(byScore);\n      return results;\n    }\n    get documentCount() {\n      return this._documentCount;\n    }\n    get termCount() {\n      return this._index.size;\n    }\n    static loadJSON(json, options) {\n      if (options == null) {\n        throw new Error("MiniSearch: loadJSON should be given the same options used when serializing the index");\n      }\n      return this.loadJS(JSON.parse(json), options);\n    }\n    static loadJSONAsync(json, options) {\n      return __awaiter(this, void 0, void 0, function* () {\n        if (options == null) {\n          throw new Error("MiniSearch: loadJSON should be given the same options used when serializing the index");\n        }\n        return this.loadJSAsync(JSON.parse(json), options);\n      });\n    }\n    static getDefault(optionName) {\n      if (defaultOptions.hasOwnProperty(optionName)) {\n        return getOwnProperty(defaultOptions, optionName);\n      } else {\n        throw new Error(`MiniSearch: unknown option "${optionName}"`);\n      }\n    }\n    static loadJS(js, options) {\n      const { index, documentIds, fieldLength, storedFields, serializationVersion } = js;\n      const miniSearch = this.instantiateMiniSearch(js, options);\n      miniSearch._documentIds = objectToNumericMap(documentIds);\n      miniSearch._fieldLength = objectToNumericMap(fieldLength);\n      miniSearch._storedFields = objectToNumericMap(storedFields);\n      for (const [shortId, id] of miniSearch._documentIds) {\n        miniSearch._idToShortId.set(id, shortId);\n      }\n      for (const [term, data] of index) {\n        const dataMap = /* @__PURE__ */ new Map();\n        for (const fieldId of Object.keys(data)) {\n          let indexEntry = data[fieldId];\n          if (serializationVersion === 1) {\n            indexEntry = indexEntry.ds;\n          }\n          dataMap.set(parseInt(fieldId, 10), objectToNumericMap(indexEntry));\n        }\n        miniSearch._index.set(term, dataMap);\n      }\n      return miniSearch;\n    }\n    static loadJSAsync(js, options) {\n      return __awaiter(this, void 0, void 0, function* () {\n        const { index, documentIds, fieldLength, storedFields, serializationVersion } = js;\n        const miniSearch = this.instantiateMiniSearch(js, options);\n        miniSearch._documentIds = yield objectToNumericMapAsync(documentIds);\n        miniSearch._fieldLength = yield objectToNumericMapAsync(fieldLength);\n        miniSearch._storedFields = yield objectToNumericMapAsync(storedFields);\n        for (const [shortId, id] of miniSearch._documentIds) {\n          miniSearch._idToShortId.set(id, shortId);\n        }\n        let count = 0;\n        for (const [term, data] of index) {\n          const dataMap = /* @__PURE__ */ new Map();\n          for (const fieldId of Object.keys(data)) {\n            let indexEntry = data[fieldId];\n            if (serializationVersion === 1) {\n              indexEntry = indexEntry.ds;\n            }\n            dataMap.set(parseInt(fieldId, 10), yield objectToNumericMapAsync(indexEntry));\n          }\n          if (++count % 1e3 === 0)\n            yield wait(0);\n          miniSearch._index.set(term, dataMap);\n        }\n        return miniSearch;\n      });\n    }\n    static instantiateMiniSearch(js, options) {\n      const { documentCount, nextId, fieldIds, averageFieldLength, dirtCount, serializationVersion } = js;\n      if (serializationVersion !== 1 && serializationVersion !== 2) {\n        throw new Error("MiniSearch: cannot deserialize an index created with an incompatible version");\n      }\n      const miniSearch = new MiniSearch(options);\n      miniSearch._documentCount = documentCount;\n      miniSearch._nextId = nextId;\n      miniSearch._idToShortId = /* @__PURE__ */ new Map();\n      miniSearch._fieldIds = fieldIds;\n      miniSearch._avgFieldLength = averageFieldLength;\n      miniSearch._dirtCount = dirtCount || 0;\n      miniSearch._index = new SearchableMap();\n      return miniSearch;\n    }\n    executeQuery(query, searchOptions = {}) {\n      if (query === MiniSearch.wildcard) {\n        return this.executeWildcardQuery(searchOptions);\n      }\n      if (typeof query !== "string") {\n        const options2 = Object.assign(Object.assign(Object.assign({}, searchOptions), query), { queries: void 0 });\n        const results2 = query.queries.map((subquery) => this.executeQuery(subquery, options2));\n        return this.combineResults(results2, options2.combineWith);\n      }\n      const { tokenize, processTerm, searchOptions: globalSearchOptions } = this._options;\n      const options = Object.assign(Object.assign({ tokenize, processTerm }, globalSearchOptions), searchOptions);\n      const { tokenize: searchTokenize, processTerm: searchProcessTerm } = options;\n      const terms = searchTokenize(query).flatMap((term) => searchProcessTerm(term)).filter((term) => !!term);\n      const queries = terms.map(termToQuerySpec(options));\n      const results = queries.map((query2) => this.executeQuerySpec(query2, options));\n      return this.combineResults(results, options.combineWith);\n    }\n    executeQuerySpec(query, searchOptions) {\n      const options = Object.assign(Object.assign({}, this._options.searchOptions), searchOptions);\n      const boosts = (options.fields || this._options.fields).reduce((boosts2, field) => Object.assign(Object.assign({}, boosts2), { [field]: getOwnProperty(options.boost, field) || 1 }), {});\n      const { boostDocument, weights, maxFuzzy, bm25: bm25params } = options;\n      const { fuzzy: fuzzyWeight, prefix: prefixWeight } = Object.assign(Object.assign({}, defaultSearchOptions.weights), weights);\n      const data = this._index.get(query.term);\n      const results = this.termResults(query.term, query.term, 1, query.termBoost, data, boosts, boostDocument, bm25params);\n      let prefixMatches;\n      let fuzzyMatches;\n      if (query.prefix) {\n        prefixMatches = this._index.atPrefix(query.term);\n      }\n      if (query.fuzzy) {\n        const fuzzy = query.fuzzy === true ? 0.2 : query.fuzzy;\n        const maxDistance = fuzzy < 1 ? Math.min(maxFuzzy, Math.round(query.term.length * fuzzy)) : fuzzy;\n        if (maxDistance)\n          fuzzyMatches = this._index.fuzzyGet(query.term, maxDistance);\n      }\n      if (prefixMatches) {\n        for (const [term, data2] of prefixMatches) {\n          const distance = term.length - query.term.length;\n          if (!distance) {\n            continue;\n          }\n          fuzzyMatches === null || fuzzyMatches === void 0 ? void 0 : fuzzyMatches.delete(term);\n          const weight = prefixWeight * term.length / (term.length + 0.3 * distance);\n          this.termResults(query.term, term, weight, query.termBoost, data2, boosts, boostDocument, bm25params, results);\n        }\n      }\n      if (fuzzyMatches) {\n        for (const term of fuzzyMatches.keys()) {\n          const [data2, distance] = fuzzyMatches.get(term);\n          if (!distance) {\n            continue;\n          }\n          const weight = fuzzyWeight * term.length / (term.length + distance);\n          this.termResults(query.term, term, weight, query.termBoost, data2, boosts, boostDocument, bm25params, results);\n        }\n      }\n      return results;\n    }\n    executeWildcardQuery(searchOptions) {\n      const results = /* @__PURE__ */ new Map();\n      const options = Object.assign(Object.assign({}, this._options.searchOptions), searchOptions);\n      for (const [shortId, id] of this._documentIds) {\n        const score = options.boostDocument ? options.boostDocument(id, "", this._storedFields.get(shortId)) : 1;\n        results.set(shortId, {\n          score,\n          terms: [],\n          match: {}\n        });\n      }\n      return results;\n    }\n    combineResults(results, combineWith = OR) {\n      if (results.length === 0) {\n        return /* @__PURE__ */ new Map();\n      }\n      const operator = combineWith.toLowerCase();\n      const combinator = combinators[operator];\n      if (!combinator) {\n        throw new Error(`Invalid combination operator: ${combineWith}`);\n      }\n      return results.reduce(combinator) || /* @__PURE__ */ new Map();\n    }\n    toJSON() {\n      const index = [];\n      for (const [term, fieldIndex] of this._index) {\n        const data = {};\n        for (const [fieldId, freqs] of fieldIndex) {\n          data[fieldId] = Object.fromEntries(freqs);\n        }\n        index.push([term, data]);\n      }\n      return {\n        documentCount: this._documentCount,\n        nextId: this._nextId,\n        documentIds: Object.fromEntries(this._documentIds),\n        fieldIds: this._fieldIds,\n        fieldLength: Object.fromEntries(this._fieldLength),\n        averageFieldLength: this._avgFieldLength,\n        storedFields: Object.fromEntries(this._storedFields),\n        dirtCount: this._dirtCount,\n        index,\n        serializationVersion: 2\n      };\n    }\n    termResults(sourceTerm, derivedTerm, termWeight, termBoost, fieldTermData, fieldBoosts, boostDocumentFn, bm25params, results = /* @__PURE__ */ new Map()) {\n      if (fieldTermData == null)\n        return results;\n      for (const field of Object.keys(fieldBoosts)) {\n        const fieldBoost = fieldBoosts[field];\n        const fieldId = this._fieldIds[field];\n        const fieldTermFreqs = fieldTermData.get(fieldId);\n        if (fieldTermFreqs == null)\n          continue;\n        let matchingFields = fieldTermFreqs.size;\n        const avgFieldLength = this._avgFieldLength[fieldId];\n        for (const docId of fieldTermFreqs.keys()) {\n          if (!this._documentIds.has(docId)) {\n            this.removeTerm(fieldId, docId, derivedTerm);\n            matchingFields -= 1;\n            continue;\n          }\n          const docBoost = boostDocumentFn ? boostDocumentFn(this._documentIds.get(docId), derivedTerm, this._storedFields.get(docId)) : 1;\n          if (!docBoost)\n            continue;\n          const termFreq = fieldTermFreqs.get(docId);\n          const fieldLength = this._fieldLength.get(docId)[fieldId];\n          const rawScore = calcBM25Score(termFreq, matchingFields, this._documentCount, fieldLength, avgFieldLength, bm25params);\n          const weightedScore = termWeight * termBoost * fieldBoost * docBoost * rawScore;\n          const result = results.get(docId);\n          if (result) {\n            result.score += weightedScore;\n            assignUniqueTerm(result.terms, sourceTerm);\n            const match = getOwnProperty(result.match, derivedTerm);\n            if (match) {\n              match.push(field);\n            } else {\n              result.match[derivedTerm] = [field];\n            }\n          } else {\n            results.set(docId, {\n              score: weightedScore,\n              terms: [sourceTerm],\n              match: { [derivedTerm]: [field] }\n            });\n          }\n        }\n      }\n      return results;\n    }\n    addTerm(fieldId, documentId, term) {\n      const indexData = this._index.fetch(term, createMap);\n      let fieldIndex = indexData.get(fieldId);\n      if (fieldIndex == null) {\n        fieldIndex = /* @__PURE__ */ new Map();\n        fieldIndex.set(documentId, 1);\n        indexData.set(fieldId, fieldIndex);\n      } else {\n        const docs = fieldIndex.get(documentId);\n        fieldIndex.set(documentId, (docs || 0) + 1);\n      }\n    }\n    removeTerm(fieldId, documentId, term) {\n      if (!this._index.has(term)) {\n        this.warnDocumentChanged(documentId, fieldId, term);\n        return;\n      }\n      const indexData = this._index.fetch(term, createMap);\n      const fieldIndex = indexData.get(fieldId);\n      if (fieldIndex == null || fieldIndex.get(documentId) == null) {\n        this.warnDocumentChanged(documentId, fieldId, term);\n      } else if (fieldIndex.get(documentId) <= 1) {\n        if (fieldIndex.size <= 1) {\n          indexData.delete(fieldId);\n        } else {\n          fieldIndex.delete(documentId);\n        }\n      } else {\n        fieldIndex.set(documentId, fieldIndex.get(documentId) - 1);\n      }\n      if (this._index.get(term).size === 0) {\n        this._index.delete(term);\n      }\n    }\n    warnDocumentChanged(shortDocumentId, fieldId, term) {\n      for (const fieldName of Object.keys(this._fieldIds)) {\n        if (this._fieldIds[fieldName] === fieldId) {\n          this._options.logger("warn", `MiniSearch: document with ID ${this._documentIds.get(shortDocumentId)} has changed before removal: term "${term}" was not present in field "${fieldName}". Removing a document after it has changed can corrupt the index!`, "version_conflict");\n          return;\n        }\n      }\n    }\n    addDocumentId(documentId) {\n      const shortDocumentId = this._nextId;\n      this._idToShortId.set(documentId, shortDocumentId);\n      this._documentIds.set(shortDocumentId, documentId);\n      this._documentCount += 1;\n      this._nextId += 1;\n      return shortDocumentId;\n    }\n    addFields(fields) {\n      for (let i = 0; i < fields.length; i++) {\n        this._fieldIds[fields[i]] = i;\n      }\n    }\n    addFieldLength(documentId, fieldId, count, length) {\n      let fieldLengths = this._fieldLength.get(documentId);\n      if (fieldLengths == null)\n        this._fieldLength.set(documentId, fieldLengths = []);\n      fieldLengths[fieldId] = length;\n      const averageFieldLength = this._avgFieldLength[fieldId] || 0;\n      const totalFieldLength = averageFieldLength * count + length;\n      this._avgFieldLength[fieldId] = totalFieldLength / (count + 1);\n    }\n    removeFieldLength(documentId, fieldId, count, length) {\n      if (count === 1) {\n        this._avgFieldLength[fieldId] = 0;\n        return;\n      }\n      const totalFieldLength = this._avgFieldLength[fieldId] * count - length;\n      this._avgFieldLength[fieldId] = totalFieldLength / (count - 1);\n    }\n    saveStoredFields(documentId, doc) {\n      const { storeFields, extractField } = this._options;\n      if (storeFields == null || storeFields.length === 0) {\n        return;\n      }\n      let documentFields = this._storedFields.get(documentId);\n      if (documentFields == null)\n        this._storedFields.set(documentId, documentFields = {});\n      for (const fieldName of storeFields) {\n        const fieldValue = extractField(doc, fieldName);\n        if (fieldValue !== void 0)\n          documentFields[fieldName] = fieldValue;\n      }\n    }\n  };\n  MiniSearch.wildcard = Symbol("*");\n  var getOwnProperty = (object, property) => Object.prototype.hasOwnProperty.call(object, property) ? object[property] : void 0;\n  var combinators = {\n    [OR]: (a, b) => {\n      for (const docId of b.keys()) {\n        const existing = a.get(docId);\n        if (existing == null) {\n          a.set(docId, b.get(docId));\n        } else {\n          const { score, terms, match } = b.get(docId);\n          existing.score = existing.score + score;\n          existing.match = Object.assign(existing.match, match);\n          assignUniqueTerms(existing.terms, terms);\n        }\n      }\n      return a;\n    },\n    [AND]: (a, b) => {\n      const combined = /* @__PURE__ */ new Map();\n      for (const docId of b.keys()) {\n        const existing = a.get(docId);\n        if (existing == null)\n          continue;\n        const { score, terms, match } = b.get(docId);\n        assignUniqueTerms(existing.terms, terms);\n        combined.set(docId, {\n          score: existing.score + score,\n          terms: existing.terms,\n          match: Object.assign(existing.match, match)\n        });\n      }\n      return combined;\n    },\n    [AND_NOT]: (a, b) => {\n      for (const docId of b.keys())\n        a.delete(docId);\n      return a;\n    }\n  };\n  var defaultBM25params = { k: 1.2, b: 0.7, d: 0.5 };\n  var calcBM25Score = (termFreq, matchingCount, totalCount, fieldLength, avgFieldLength, bm25params) => {\n    const { k, b, d } = bm25params;\n    const invDocFreq = Math.log(1 + (totalCount - matchingCount + 0.5) / (matchingCount + 0.5));\n    return invDocFreq * (d + termFreq * (k + 1) / (termFreq + k * (1 - b + b * fieldLength / avgFieldLength)));\n  };\n  var termToQuerySpec = (options) => (term, i, terms) => {\n    const fuzzy = typeof options.fuzzy === "function" ? options.fuzzy(term, i, terms) : options.fuzzy || false;\n    const prefix = typeof options.prefix === "function" ? options.prefix(term, i, terms) : options.prefix === true;\n    const termBoost = typeof options.boostTerm === "function" ? options.boostTerm(term, i, terms) : 1;\n    return { term, fuzzy, prefix, termBoost };\n  };\n  var defaultOptions = {\n    idField: "id",\n    extractField: (document2, fieldName) => document2[fieldName],\n    tokenize: (text) => text.split(SPACE_OR_PUNCTUATION),\n    processTerm: (term) => term.toLowerCase(),\n    fields: void 0,\n    searchOptions: void 0,\n    storeFields: [],\n    logger: (level, message) => {\n      if (typeof (console === null || console === void 0 ? void 0 : console[level]) === "function")\n        console[level](message);\n    },\n    autoVacuum: true\n  };\n  var defaultSearchOptions = {\n    combineWith: OR,\n    prefix: false,\n    fuzzy: false,\n    maxFuzzy: 6,\n    boost: {},\n    weights: { fuzzy: 0.45, prefix: 0.375 },\n    bm25: defaultBM25params\n  };\n  var defaultAutoSuggestOptions = {\n    combineWith: AND,\n    prefix: (term, i, terms) => i === terms.length - 1\n  };\n  var defaultVacuumOptions = { batchSize: 1e3, batchWait: 10 };\n  var defaultVacuumConditions = { minDirtFactor: 0.1, minDirtCount: 20 };\n  var defaultAutoVacuumOptions = Object.assign(Object.assign({}, defaultVacuumOptions), defaultVacuumConditions);\n  var assignUniqueTerm = (target, term) => {\n    if (!target.includes(term))\n      target.push(term);\n  };\n  var assignUniqueTerms = (target, source) => {\n    for (const term of source) {\n      if (!target.includes(term))\n        target.push(term);\n    }\n  };\n  var byScore = ({ score: a }, { score: b }) => b - a;\n  var createMap = () => /* @__PURE__ */ new Map();\n  var objectToNumericMap = (object) => {\n    const map = /* @__PURE__ */ new Map();\n    for (const key of Object.keys(object)) {\n      map.set(parseInt(key, 10), object[key]);\n    }\n    return map;\n  };\n  var objectToNumericMapAsync = (object) => __awaiter(void 0, void 0, void 0, function* () {\n    const map = /* @__PURE__ */ new Map();\n    let count = 0;\n    for (const key of Object.keys(object)) {\n      map.set(parseInt(key, 10), object[key]);\n      if (++count % 1e3 === 0) {\n        yield wait(0);\n      }\n    }\n    return map;\n  });\n  var wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));\n  var SPACE_OR_PUNCTUATION = /[\\n\\r\\p{Z}\\p{P}]+/u;\n\n  // src/frontend/main/search.ts\n  var allSearch = 1 /* Title */ | 2 /* Aliases */ | 4 /* Headers */ | 8 /* Tags */ | 16 /* Path */ | 32 /* Content */;\n  var Search = class {\n    search(query, type = allSearch) {\n      if (query.length == 0) {\n        this.clear();\n        return;\n      }\n      this.input.value = query;\n      if (type != allSearch) {\n        this.input.style.color = "var(--text-accent)";\n      } else {\n        this.input.style.color = "";\n      }\n      const searchFields = [];\n      if (type & 1 /* Title */)\n        searchFields.push("title");\n      if (type & 2 /* Aliases */)\n        searchFields.push("aliases");\n      if (type & 4 /* Headers */)\n        searchFields.push("headers");\n      if (type & 8 /* Tags */)\n        searchFields.push("tags");\n      if (type & 16 /* Path */)\n        searchFields.push("path");\n      if (type & 32 /* Content */)\n        searchFields.push("content");\n      console.log(type & 1 /* Title */, type & 2 /* Aliases */, type & 4 /* Headers */, type & 8 /* Tags */, type & 16 /* Path */, type & 32 /* Content */);\n      const results = this.index.search(query, {\n        prefix: true,\n        fuzzy: 0.2,\n        boost: { title: 2, aliases: 1.8, headers: 1.5, tags: 1.3, path: 1.1 },\n        fields: searchFields\n      });\n      console.log("Search results", results);\n      if (results.length > 50)\n        results.splice(50);\n      const showPaths = [];\n      const headerLinks = /* @__PURE__ */ new Map();\n      for (const result of results) {\n        if (result.score < results[0].score * 0.3 && showPaths.length > 4 || result.score < results[0].score * 0.1)\n          break;\n        showPaths.push(result.path);\n        if (query.length > 2) {\n          const headers = [];\n          let breakEarly = false;\n          for (const match in result.match) {\n            if (result.match[match].includes("headers")) {\n              for (const header of result.headers) {\n                if (header.toLowerCase().includes(match.toLowerCase())) {\n                  if (!headers.includes(header))\n                    headers.push(header);\n                  if (query.toLowerCase() != match.toLowerCase()) {\n                    breakEarly = true;\n                    break;\n                  }\n                }\n              }\n            }\n            if (breakEarly)\n              break;\n          }\n          headerLinks.set(result.path, headers);\n        }\n      }\n      ObsidianSite.fileTree?.filter(showPaths);\n      ObsidianSite.fileTree?.setSubHeadings(headerLinks);\n      ObsidianSite.fileTree?.sort((a, b) => {\n        if (!a || !b)\n          return 0;\n        return showPaths.findIndex((path) => a.path == path) - showPaths.findIndex((path) => b.path == path);\n      });\n      if (!ObsidianSite.fileTree) {\n        const list = document.createElement("div");\n        results.filter((result) => result.path.endsWith(".html")).slice(0, 20).forEach((result) => {\n          const item = document.createElement("div");\n          item.classList.add("search-result");\n          const link = document.createElement("a");\n          link.classList.add("tree-item-self");\n          const searchURL = result.path + "?mark=" + encodeURIComponent(query);\n          link.setAttribute("href", searchURL);\n          link.appendChild(document.createTextNode(result.title));\n          item.appendChild(link);\n          list.append(item);\n        });\n        this.dedicatedSearchResultsList.replaceChildren(list);\n        this.container.after(this.dedicatedSearchResultsList);\n        LinkHandler.initializeLinks(this.dedicatedSearchResultsList);\n      }\n    }\n    searchParseFilters(queryString) {\n      if (queryString.startsWith("?"))\n        queryString = queryString.substring(1);\n      let filterName = queryString.split(":")[0];\n      if (!queryString.includes(":"))\n        filterName = "";\n      if (filterName == "content" || filterName == "text" || filterName == "body") {\n        this.search(queryString, 32 /* Content */);\n      } else if (filterName == "title" || filterName == "name") {\n        this.search(queryString, 1 /* Title */);\n      } else if (filterName == "path") {\n        this.search(queryString, 16 /* Path */);\n      } else if (filterName == "header" || filterName == "headers") {\n        this.search(queryString, 4 /* Headers */);\n      } else if (filterName == "tag" || filterName == "tags" || queryString.startsWith("#")) {\n        this.search(queryString, 8 /* Tags */);\n      } else if (filterName == "alias" || filterName == "aliases") {\n        this.search(queryString, 2 /* Aliases */);\n      } else {\n        this.search(queryString);\n      }\n    }\n    clear() {\n      this.container?.classList.remove("has-content");\n      this.input.value = "";\n      this.clearCurrentDocumentSearch();\n      ObsidianSite.fileTree?.unfilter();\n      ObsidianSite.fileTree?.removeSubHeadings();\n      ObsidianSite.fileTree?.unsort();\n    }\n    async init() {\n      this.input = document.querySelector(\'input[type="search"]\');\n      this.container = this.input?.closest("#search-container");\n      if (!this.input || !this.container)\n        return;\n      ObsidianSite.metadata.featureOptions.search.insertFeature(document.body, this.container);\n      const indexResp = await ObsidianSite.fetch(Shared.libFolderName + "/search-index.json");\n      if (!indexResp?.ok) {\n        console.error("Failed to fetch search index");\n        return;\n      }\n      const indexJSON = await indexResp.json();\n      try {\n        this.index = MiniSearch.loadJS(indexJSON, { fields: ["title", "path", "tags", "headers"] });\n      } catch (e) {\n        console.error("Failed to load search index: ", e);\n        return;\n      }\n      const inputClear = document.querySelector("#search-clear-button");\n      inputClear?.addEventListener("click", (event) => {\n        this.clear();\n      });\n      this.input.addEventListener("input", (event) => {\n        const query = event.target?.value ?? "";\n        if (query.length == 0) {\n          this.clear();\n          return;\n        }\n        this.searchParseFilters(query);\n      });\n      if (!ObsidianSite.fileTree) {\n        this.dedicatedSearchResultsList = document.createElement("div");\n        this.dedicatedSearchResultsList.setAttribute("id", "search-results");\n      }\n      return this;\n    }\n    async searchCurrentDocument(query) {\n      this.clearCurrentDocumentSearch();\n      const textNodes = getTextNodes(ObsidianSite.document.sizerEl ?? ObsidianSite.document.documentEl);\n      textNodes.forEach(async (node) => {\n        const content = node.nodeValue;\n        const newContent = content?.replace(new RegExp(query, "gi"), (match) => `<mark>${match}</mark>`);\n        if (newContent && newContent !== content) {\n          const tempDiv = document.createElement("div");\n          tempDiv.innerHTML = newContent;\n          const newNodes = Array.from(tempDiv.childNodes);\n          newNodes.forEach((newNode) => {\n            if (newNode.nodeType != Node.TEXT_NODE) {\n              newNode?.setAttribute("class", "search-mark");\n            }\n            node?.parentNode?.insertBefore(newNode, node);\n          });\n          node?.parentNode?.removeChild(node);\n        }\n      });\n      const firstMark = document.querySelector(".search-mark");\n      setTimeout(() => {\n        if (firstMark)\n          ObsidianSite.scrollTo(firstMark);\n      }, 500);\n    }\n    clearCurrentDocumentSearch() {\n      document.querySelectorAll(".search-mark").forEach((node) => {\n        node.outerHTML = node.innerHTML;\n      });\n    }\n  };\n\n  // src/frontend/main/sidebars.ts\n  var Sidebar = class {\n    constructor(container) {\n      this.minWidthEm = 15;\n      if (!container.classList.contains("sidebar"))\n        throw new Error("Invalid sidebar container");\n      this.containerEl = container;\n      this.contentEl = container.querySelector(".leaf-content");\n      this.topbarEl = container.querySelector(".sidebar-topbar");\n      this.collapseEl = container.querySelector(".sidebar-collapse-icon");\n      this.topbarContentEl = container.querySelector(".topbar-content");\n      this.resizeHandleEl = container.querySelector(".sidebar-handle") ?? void 0;\n      this._isLeft = container.id == "left-sidebar";\n      this._sidebarID = container.id;\n      this.collapseEl.addEventListener("click", () => {\n        this.collapsed = !this.collapsed;\n      });\n      this.clickOutsideCollapse = this.clickOutsideCollapse.bind(this);\n      this.minResizeWidth = parseFloat(getComputedStyle(this.resizeHandleEl?.parentElement ?? this.resizeHandleEl).fontSize) * this.minWidthEm;\n      this.collapseWidth = this.minResizeWidth / 4;\n      this.setupSidebarResize();\n    }\n    get sidebarID() {\n      return this._sidebarID;\n    }\n    get isLeft() {\n      return this._isLeft;\n    }\n    get resizing() {\n      return this._resizing;\n    }\n    get collapsed() {\n      return this._collapsed;\n    }\n    set collapsed(collapse) {\n      if (this._collapsed === collapse) {\n        return;\n      }\n      this._collapsed = collapse;\n      const isPhone = ObsidianSite.deviceSize === "phone";\n      const isTablet = ObsidianSite.deviceSize === "tablet";\n      if (!collapse) {\n        if (isPhone) {\n          if (this.isLeft) {\n            if (ObsidianSite.rightSidebar && !ObsidianSite.rightSidebar.collapsed) {\n              ObsidianSite.rightSidebar.collapsed = true;\n            }\n          } else {\n            if (ObsidianSite.leftSidebar && !ObsidianSite.leftSidebar.collapsed) {\n              ObsidianSite.leftSidebar.collapsed = true;\n            }\n          }\n        }\n        if (isPhone || isTablet) {\n          document.body.removeEventListener("click", this.clickOutsideCollapse);\n          document.body.addEventListener("click", this.clickOutsideCollapse);\n        }\n      } else {\n        document.body.removeEventListener("click", this.clickOutsideCollapse);\n      }\n      this.containerEl.classList.toggle("is-collapsed", collapse);\n    }\n    get floating() {\n      return this._floating;\n    }\n    set floating(floating) {\n      this._floating = floating;\n      this.containerEl.classList.toggle("floating", floating);\n    }\n    get width() {\n      return this.containerEl.offsetWidth;\n    }\n    set width(width) {\n      const newWidth = `min(max(${width}px, ${this.minWidthEm}em), 40vw)`;\n      if (width < this.collapseWidth) {\n        this.collapsed = true;\n        this.containerEl.style.removeProperty("transition-duration");\n      } else {\n        this.collapsed = false;\n        this.containerEl.style.setProperty("--sidebar-width", newWidth);\n        if (width > this.minResizeWidth)\n          this.containerEl.style.transitionDuration = "0s";\n      }\n      if (ObsidianSite.graphView)\n        ObsidianSite.graphView.graphRenderer.autoResizeCanvas();\n    }\n    setupSidebarResize() {\n      if (!this.resizeHandleEl)\n        return;\n      const savedWidth = localStorage.getItem(`${this.sidebarID}-width`);\n      if (savedWidth)\n        this.containerEl.style.setProperty("--sidebar-width", savedWidth);\n      const localThis = this;\n      function resizeMove(e) {\n        if (!localThis.resizing)\n          return;\n        const distance = localThis.isLeft ? e.clientX : window.innerWidth - e.clientX;\n        localThis.width = distance;\n      }\n      function handleClick(e) {\n        localThis._resizing = true;\n        localThis.containerEl.classList.add("is-resizing");\n        document.addEventListener("pointermove", resizeMove);\n        document.addEventListener("pointerup", function() {\n          document.removeEventListener("pointermove", resizeMove);\n          const finalWidth = getComputedStyle(localThis.containerEl).getPropertyValue("--sidebar-width");\n          localStorage.setItem(`${localThis.sidebarID}-width`, finalWidth);\n          localThis.containerEl.classList.remove("is-resizing");\n          localThis.containerEl.style.removeProperty("transition-duration");\n        });\n      }\n      this.resizeHandleEl.addEventListener("pointerdown", handleClick);\n      function resetSidebarEvent(e) {\n        localThis.resetWidth();\n      }\n      this.resizeHandleEl.addEventListener("dblclick", resetSidebarEvent);\n    }\n    resetWidth() {\n      this.containerEl.style.removeProperty("transition-duration");\n      this.containerEl.style.removeProperty("--sidebar-width");\n      localStorage.removeItem(`${this.sidebarID}-width`);\n      setTimeout(() => {\n        console.log("Resizing canvas");\n        if (ObsidianSite.graphView) {\n          ObsidianSite.graphView.graphRenderer.autoResizeCanvas();\n          ObsidianSite.graphView.graphRenderer.centerCamera();\n        }\n      }, 500);\n    }\n    clickOutsideCollapse(event) {\n      if (event.target?.closest(`#${this.containerEl.id}`)) {\n        return;\n      }\n      const isPhone = ObsidianSite.deviceSize === "phone";\n      const isTablet = ObsidianSite.deviceSize === "tablet";\n      if (isPhone || isTablet) {\n        this.collapsed = true;\n      }\n    }\n  };\n\n  // src/frontend/main/trees.ts\n  var TreeItem = class {\n    constructor(itemEl, parent, depth = 0, minCollapseDepth = 1) {\n      this._path = "";\n      this.collapseAnimationLength = 150;\n      this._oldAnimationLength = this.collapseAnimationLength;\n      this.root = this instanceof Tree ? this : parent?.root ?? (parent instanceof Tree ? parent : void 0);\n      this.parent = parent;\n      this.minCollapseDepth = minCollapseDepth;\n      let isRoot = this instanceof Tree;\n      this.itemEl = itemEl;\n      this.selfEl = isRoot ? itemEl : itemEl.querySelector(".tree-item-self");\n      this.collapseIconEl = isRoot ? itemEl : this.selfEl.querySelector(".collapse-icon");\n      this.innerEl = isRoot ? itemEl : this.selfEl.querySelector(".tree-item-inner");\n      this.childrenEl = isRoot ? itemEl : itemEl.querySelector(".tree-item-children");\n      const hrefAttr = this.selfEl.getAttribute("href");\n      if (hrefAttr)\n        this.path = hrefAttr;\n      this.children = [];\n      const childItems = Array.from(this.childrenEl.children).filter((el) => el.classList.contains("tree-item"));\n      childItems.forEach((child) => {\n        this.children.push(new TreeItem(child, this, depth + 1, this.minCollapseDepth));\n      });\n      this._isFolder = this.itemEl.classList.contains("nav-folder");\n      this._isLink = this.selfEl.tagName == "A";\n      this.depth = depth;\n      this._isCollapsible = this.itemEl.classList.contains("mod-collapsible") && this.depth >= this.minCollapseDepth;\n      if (!this._isCollapsible) {\n        if (this.collapseIconEl && !(this instanceof Tree)) {\n          console.log(this);\n          this.collapseIconEl.remove();\n          this.collapseIconEl = void 0;\n        }\n        this.selfEl.classList.remove("mod-collapsible");\n        this.itemEl.classList.remove("mod-collapsible");\n        this.itemEl.classList.remove("is-collapsed");\n      }\n      this.collapsed = this.itemEl.classList.contains("is-collapsed");\n      if (this._isCollapsible) {\n        const clickItem = this.isLink ? this.collapseIconEl ?? this.selfEl : this.selfEl;\n        clickItem.addEventListener("click", (e) => {\n          this.collapsed = !this.collapsed;\n          e.preventDefault();\n          e.stopPropagation();\n        });\n      }\n      this._checkAnyChildrenOpen();\n    }\n    get path() {\n      return this._path;\n    }\n    set path(path) {\n      if (this.root.pathToItem) {\n        this.root.pathToItem.delete(this._path);\n        this.root.pathToItem.set(path, this);\n      }\n      this._path = path;\n      this.selfEl.setAttribute("href", path);\n    }\n    get title() {\n      return this.innerEl.innerHTML;\n    }\n    set title(title) {\n      this.innerEl.innerHTML = title;\n    }\n    get isFolder() {\n      return this._isFolder;\n    }\n    get isLink() {\n      return this._isLink;\n    }\n    get collapsable() {\n      return this._isCollapsible;\n    }\n    get collapsed() {\n      return this._collapsed;\n    }\n    set collapsed(collapse) {\n      if (!this.collapsable)\n        collapse = false;\n      if (this.collapsed == collapse)\n        return;\n      if (!collapse && this.parent instanceof TreeItem && this.parent.collapsed) {\n        this.parent.collapsed = false;\n      }\n      this._collapsed = collapse;\n      this.itemEl.classList.toggle("is-collapsed", collapse);\n      this.collapseIconEl?.classList.toggle("is-collapsed", collapse);\n      if (collapse)\n        slideUp(this.childrenEl, this.collapseAnimationLength);\n      else\n        slideDown(this.childrenEl, this.collapseAnimationLength);\n      this.parent?._checkAnyChildrenOpen();\n    }\n    get collapsedRecursive() {\n      return this._collapsedRecursive;\n    }\n    set collapsedRecursive(collapse) {\n      if (this.collapsedRecursive == collapse)\n        return;\n      this._collapsedRecursive = collapse;\n      this.children.forEach((child) => {\n        child.collapsed = collapse;\n        child.collapsedRecursive = collapse;\n      });\n    }\n    get anyChildrenOpen() {\n      return this._anyChildrenOpen;\n    }\n    _checkAnyChildrenOpen() {\n      this._anyChildrenOpen = this.children.some((child) => !child.collapsed && child.collapsable);\n      this._collapsedRecursive = !this._anyChildrenOpen;\n      return this._anyChildrenOpen;\n    }\n    forAllChildren(callback) {\n      this.children.forEach((child) => {\n        callback(child);\n        child.forAllChildren(callback);\n      });\n    }\n    overrideAnimationLength(length) {\n      this._oldAnimationLength = this.collapseAnimationLength;\n      this.collapseAnimationLength = length;\n      this.children.forEach((child) => {\n        child.overrideAnimationLength(length);\n      });\n    }\n    restoreAnimationLength() {\n      this.collapseAnimationLength = this._oldAnimationLength;\n      this.children.forEach((child) => {\n        child.restoreAnimationLength();\n      });\n    }\n    setActive() {\n      if (this.root.activeItem)\n        this.root.activeItem.selfEl.classList.remove("is-active");\n      this.root.activeItem = this;\n      this.selfEl.classList.add("is-active");\n    }\n    setFiltered(filteredOut) {\n      if (filteredOut) {\n        this.itemEl.classList.add("filtered-out");\n      } else {\n        this.itemEl.classList.remove("filtered-out");\n        this.parent?.setFiltered(false);\n      }\n    }\n    filter(paths) {\n      this.overrideAnimationLength(0);\n      this.itemEl.classList.add("filtered");\n      this.collapsedRecursive = false;\n      this.forAllChildren((child) => {\n        child.setFiltered(true);\n      });\n      paths.forEach((path) => {\n        const item = this.findByPath(path);\n        if (item)\n          item.setFiltered(false);\n      });\n    }\n    async unfilter() {\n      this.itemEl.classList.remove("filtered");\n      this.forAllChildren((child) => {\n        child.setFiltered(false);\n      });\n      this.collapsedRecursive = true;\n      this.restoreAnimationLength();\n    }\n    setSubHeadings(hintLabelLists) {\n      this.removeSubHeadings();\n      for (const [path, hintLabels] of hintLabelLists) {\n        if (hintLabels.length == 0)\n          continue;\n        const item = this.findByPath(path);\n        if (!item)\n          continue;\n        item.itemEl.classList.add("has-hints");\n        const hintContainer = document.createElement("div");\n        hintContainer.classList.add("tree-hint-container");\n        item.itemEl.appendChild(hintContainer);\n        hintLabels.forEach((label) => {\n          const hintLabelEl = document.createElement("a");\n          hintLabelEl.classList.add("tree-hint-label");\n          hintLabelEl.classList.add("internal-link");\n          hintLabelEl.textContent = label;\n          hintLabelEl.href = path + "#" + label;\n          hintContainer.appendChild(hintLabelEl);\n        });\n        LinkHandler.initializeLinks(hintContainer);\n      }\n    }\n    removeSubHeadings() {\n      this.itemEl.classList.remove("has-hints");\n      this.itemEl.querySelectorAll(".tree-hint-container").forEach((el) => {\n        el.remove();\n      });\n      this.itemEl.querySelectorAll(".has-hints").forEach((el) => {\n        el.classList.remove("has-hints");\n      });\n    }\n    sort(sortFunction) {\n      this.itemEl.classList.add("sorted");\n      this.children.sort(sortFunction);\n      this.children.forEach((child) => {\n        child.sort(sortFunction);\n      });\n      this.children.forEach((child) => {\n        this.childrenEl.appendChild(child.itemEl);\n      });\n    }\n    unsort() {\n      this.itemEl.classList.remove("sorted");\n      this.sort((a, b) => (ObsidianSite.getWebpageData(a.path)?.treeOrder ?? 0) - (ObsidianSite.getWebpageData(b.path)?.treeOrder ?? 0));\n    }\n    find(predicate) {\n      if (predicate(this))\n        return this;\n      for (const child of this.children) {\n        const found = child.find(predicate);\n        if (found)\n          return found;\n      }\n      return void 0;\n    }\n    findByPath(path) {\n      return this.root.pathToItem.get(path);\n    }\n  };\n  var _Tree = class extends TreeItem {\n    constructor(container, minCollapseDepth = 1) {\n      const wrapperEl = container.classList.contains("tree-container") ? container : container.querySelector(".tree-container");\n      if (wrapperEl == null)\n        throw new Error("Invalid tree container");\n      super(wrapperEl, void 0, 0, minCollapseDepth);\n      this.pathToItem = /* @__PURE__ */ new Map();\n      this.rootEl = wrapperEl;\n      this.childrenEl = this.rootEl;\n      this.selfEl = this.rootEl;\n      this.innerEl = this.rootEl;\n      this.collapseAllEl = this.rootEl.querySelector(".tree-collapse-all");\n      const collapseSvg = this.collapseAllEl?.querySelector("svg");\n      if (collapseSvg) {\n        collapseSvg.innerHTML = "<path d></path><path d></path>";\n        this.collapsePath1 = collapseSvg.querySelector("path");\n        this.collapsePath2 = collapseSvg.querySelector("path:last-child");\n      }\n      this.forAllChildren((child) => {\n        if (child.path != "")\n          this.pathToItem.set(child.path, child);\n      });\n      this.collapseAllEl?.addEventListener("click", () => {\n        this.setCollapseIcon(!this.collapsedRecursive);\n        this.collapsedRecursive = !this.collapsedRecursive;\n      });\n      LinkHandler.initializeLinks(this.rootEl);\n      this.setCollapseIcon(!this.anyChildrenOpen);\n    }\n    _checkAnyChildrenOpen() {\n      const open = super._checkAnyChildrenOpen();\n      this.setCollapseIcon(!open);\n      return open;\n    }\n    setCollapseIcon(collapsed) {\n      if (collapsed) {\n        this.collapsePath1?.setAttribute("d", _Tree.collapsePaths[0]);\n        this.collapsePath2?.setAttribute("d", _Tree.collapsePaths[1]);\n      } else {\n        this.collapsePath1?.setAttribute("d", _Tree.uncollapsePaths[0]);\n        this.collapsePath2?.setAttribute("d", _Tree.uncollapsePaths[1]);\n      }\n    }\n    revealPath(path) {\n      const item = this.findByPath(path);\n      if (!item)\n        return;\n      item.collapsed = false;\n    }\n  };\n  var Tree = _Tree;\n  Tree.collapsePaths = ["m7 15 5 5 5-5", "m7 9 5-5 5 5"];\n  Tree.uncollapsePaths = ["m7 20 5-5 5 5", "m7 4 5 5 5-5"];\n\n  // src/frontend/graph-view/graph-wasm-helper.ts\n  var _positionsPtr, _positionsByteLength, _radiiPtr, _linkSourcesPtr, _linkTargetsPtr;\n  var GraphWASMHelper = class {\n    constructor() {\n      this.nodeCount = 0;\n      this.linkCount = 0;\n      this.hoveredNode = -1;\n      __privateAdd(this, _positionsPtr, 0);\n      __privateAdd(this, _positionsByteLength, 0);\n      __privateAdd(this, _radiiPtr, 0);\n      __privateAdd(this, _linkSourcesPtr, 0);\n      __privateAdd(this, _linkTargetsPtr, 0);\n      this.startPositions = new Float32Array(0);\n      this.linkSources = new Int32Array(0);\n      this.linkTargets = new Int32Array(0);\n      this.radii = new Float32Array(0);\n      this.maxRadius = 0;\n      this.averageRadius = 0;\n      this.minRadius = 0;\n    }\n    init(graph, positions) {\n      this.free();\n      this.graphView = graph;\n      this.nodeCount = graph.nodeCount;\n      this.linkCount = graph.linkCount;\n      if (positions?.length != this.nodeCount * 2) {\n        throw new Error("Invalid positions array length");\n      }\n      this.radii = new Float32Array(graph.radii);\n      this.linkSources = new Int32Array(graph.linkSources);\n      this.linkTargets = new Int32Array(graph.linkTargets);\n      this.maxRadius = this.radii.reduce((a, b) => Math.max(a, b));\n      this.averageRadius = this.radii.reduce((a, b) => a + b) / this.radii.length;\n      this.minRadius = this.radii.reduce((a, b) => Math.min(a, b));\n      this.startPositions = new Float32Array(this.nodeCount * 2);\n      this.startPositions = this.generatePositions(positions);\n      __privateSet(this, _positionsPtr, Module._malloc(this.startPositions.byteLength));\n      __privateSet(this, _positionsByteLength, this.startPositions.byteLength);\n      __privateSet(this, _radiiPtr, Module._malloc(this.radii.byteLength));\n      __privateSet(this, _linkSourcesPtr, Module._malloc(this.linkSources.byteLength));\n      __privateSet(this, _linkTargetsPtr, Module._malloc(this.linkTargets.byteLength));\n      Module.HEAP32.set(new Int32Array(this.startPositions.buffer), __privateGet(this, _positionsPtr) / this.startPositions.BYTES_PER_ELEMENT);\n      Module.HEAP32.set(new Int32Array(this.radii.buffer), __privateGet(this, _radiiPtr) / this.radii.BYTES_PER_ELEMENT);\n      Module.HEAP32.set(new Int32Array(this.linkSources.buffer), __privateGet(this, _linkSourcesPtr) / this.linkSources.BYTES_PER_ELEMENT);\n      Module.HEAP32.set(new Int32Array(this.linkTargets.buffer), __privateGet(this, _linkTargetsPtr) / this.linkTargets.BYTES_PER_ELEMENT);\n      Module._Init(__privateGet(this, _positionsPtr), __privateGet(this, _radiiPtr), __privateGet(this, _linkSourcesPtr), __privateGet(this, _linkTargetsPtr), this.nodeCount, this.linkCount, graph.batchFraction, graph.ticker.deltaTime, graph.options.attractionForce, graph.options.linkLength, graph.options.repulsionForce, graph.options.centralForce);\n    }\n    get positions() {\n      return Module.HEAP32.buffer.slice(__privateGet(this, _positionsPtr), __privateGet(this, _positionsPtr) + __privateGet(this, _positionsByteLength));\n    }\n    get positionsF() {\n      return new Float32Array(this.positions);\n    }\n    generatePositions(defaultPositions) {\n      let positions = new Float32Array(defaultPositions ?? new Array(this.nodeCount * 2).fill(0));\n      const spawnRadius = this.averageRadius * 2 * Math.sqrt(this.nodeCount) * 2;\n      for (let i = 0; i < this.nodeCount; i++) {\n        const value = positions[i * 2];\n        if (value != 0 && !isNaN(value) && value != void 0) {\n          continue;\n        }\n        const distance = (1 - this.radii[i] / this.maxRadius) * spawnRadius;\n        positions[i * 2] = Math.cos(i / this.nodeCount * 7.41 * 2 * Math.PI) * distance;\n        positions[i * 2 + 1] = Math.sin(i / this.nodeCount * 7.41 * 2 * Math.PI) * distance;\n      }\n      return positions;\n    }\n    getBounds() {\n      let bounds = new Bounds(0, 0, 0, 0);\n      const positions = new Float32Array(this.positions);\n      for (let i = 0; i < this.nodeCount - 1; i += 2) {\n        const pos = new Vector2(positions[i], positions[i + 1]);\n        bounds.encapsulatePoint(pos.scale(2));\n      }\n      const centerDelta = bounds.center;\n      const centerDist = centerDelta.magnitude;\n      bounds = bounds.expand(50 + centerDist);\n      bounds.translate(centerDelta.inverse);\n      return bounds;\n    }\n    update(mousePosition, grabbedNode, cameraScale) {\n      this.hoveredNode = Module._Update(mousePosition.x, mousePosition.y, grabbedNode, cameraScale);\n    }\n    free() {\n      Module._free(__privateGet(this, _positionsPtr));\n      Module._free(__privateGet(this, _radiiPtr));\n      Module._free(__privateGet(this, _linkSourcesPtr));\n      Module._free(__privateGet(this, _linkTargetsPtr));\n      Module._FreeMemory();\n    }\n    set batchFraction(value) {\n      Module._SetBatchFractionSize(value);\n    }\n    set attractionForce(value) {\n      Module._SetAttractionForce(value);\n    }\n    set repulsionForce(value) {\n      Module._SetRepulsionForce(value);\n    }\n    set centralForce(value) {\n      Module._SetCentralForce(value);\n    }\n    set linkLength(value) {\n      Module._SetLinkLength(value);\n    }\n    set dt(value) {\n      Module._SetDt(value);\n    }\n    set settleness(value) {\n      Module._SetSettleness(value);\n    }\n  };\n  _positionsPtr = new WeakMap();\n  _positionsByteLength = new WeakMap();\n  _radiiPtr = new WeakMap();\n  _linkSourcesPtr = new WeakMap();\n  _linkTargetsPtr = new WeakMap();\n\n  // src/frontend/graph-view/graph-worker-helper.ts\n  var _pixiInit, pixiInit_fn, _pixiSetInteraction, pixiSetInteraction_fn, _pixiSetCamera, pixiSetCamera_fn, _pixiSetColors, pixiSetColors_fn;\n  var GraphRenderWorker = class {\n    constructor(graph) {\n      __privateAdd(this, _pixiInit);\n      __privateAdd(this, _pixiSetInteraction);\n      __privateAdd(this, _pixiSetCamera);\n      __privateAdd(this, _pixiSetColors);\n      this.graph = graph;\n      this.canvas = document.querySelector("#graph-canvas");\n      this.canvasSidebar = this.canvas.closest(".sidebar");\n      console.log("Creating graph worker");\n      try {\n        this.view = this.canvas.transferControlToOffscreen();\n      } catch (e) {\n        console.log("Failed to transfer control to offscreen canvas");\n      }\n      var workerPath = `${ObsidianSite.document.info.pathToRoot}/${Shared.libFolderName}/${Shared.scriptsFolderName}/graph-render-worker.js`;\n      if (window.location.protocol === "file:") {\n        var fileInfo = ObsidianSite.getLocalDataFromId(LinkHandler.getFileDataIdFromURL(workerPath));\n        const data = Uint8Array.from(Array.from(fileInfo.data).map((s) => s.charCodeAt(0)));\n        this.worker = new Worker(URL.createObjectURL(new Blob([data], { type: "application/javascript" })));\n      } else {\n        this.worker = new Worker(new URL(workerPath, window.location.href).pathname);\n      }\n      this._cameraOffset = new Vector2(0, 0);\n      this._cameraScale = 1;\n      this._hoveredNode = -1;\n      this._grabbedNode = -1;\n      this._colors = {\n        background: 0,\n        link: 0,\n        node: 0,\n        outline: 0,\n        text: 0,\n        accent: 0\n      };\n      this._width = 0;\n      this._height = 0;\n      this.cameraOffset = new Vector2(this.canvas.width, this.canvas.height).scale(0.5);\n      this.cameraScale = 1;\n      this.hoveredNode = -1;\n      this.grabbedNode = -1;\n      this.resampleColors();\n      __privateMethod(this, _pixiInit, pixiInit_fn).call(this, true);\n      this.width = this.canvas.width;\n      this.height = this.canvas.height;\n      this.autoResizeCanvas();\n    }\n    get cameraOffset() {\n      return this._cameraOffset;\n    }\n    set cameraOffset(offset) {\n      this._cameraOffset = offset;\n      __privateMethod(this, _pixiSetCamera, pixiSetCamera_fn).call(this, offset, this.cameraScale);\n    }\n    get cameraScale() {\n      return this._cameraScale;\n    }\n    set cameraScale(scale) {\n      this._cameraScale = scale;\n      __privateMethod(this, _pixiSetCamera, pixiSetCamera_fn).call(this, this.cameraOffset, scale);\n    }\n    get hoveredNode() {\n      return this._hoveredNode;\n    }\n    set hoveredNode(node) {\n      this._hoveredNode = node;\n      __privateMethod(this, _pixiSetInteraction, pixiSetInteraction_fn).call(this, node, this._grabbedNode);\n    }\n    get grabbedNode() {\n      return this._grabbedNode;\n    }\n    set grabbedNode(node) {\n      this._grabbedNode = node;\n      __privateMethod(this, _pixiSetInteraction, pixiSetInteraction_fn).call(this, this._hoveredNode, node);\n    }\n    get colors() {\n      return this._colors;\n    }\n    set colors(colors) {\n      this._colors = colors;\n      __privateMethod(this, _pixiSetColors, pixiSetColors_fn).call(this, colors);\n    }\n    get width() {\n      return this._width;\n    }\n    set width(width) {\n      this._width = width;\n      this.resizeCanvas(width, this._height);\n    }\n    get height() {\n      return this._height;\n    }\n    set height(height) {\n      this._height = height;\n      this.resizeCanvas(this._width, height);\n    }\n    set activeNode(node) {\n      this.worker.postMessage({\n        type: "set_active",\n        active: node\n      });\n    }\n    updateData(graph) {\n      this.graph = graph;\n      __privateMethod(this, _pixiInit, pixiInit_fn).call(this);\n    }\n    sampleColor(variable) {\n      const testEl = document.createElement("div");\n      document.body.appendChild(testEl);\n      testEl.style.setProperty("display", "none");\n      testEl.style.setProperty("color", "var(" + variable + ")");\n      const col = getComputedStyle(testEl).color;\n      const opacity = getComputedStyle(testEl).opacity;\n      testEl.remove();\n      function toColorObject(str) {\n        const match = str.match(/rgb?\\((\\d+),\\s*(\\d+),\\s*(\\d+)\\)/);\n        return match ? {\n          red: parseInt(match[1]),\n          green: parseInt(match[2]),\n          blue: parseInt(match[3]),\n          alpha: 1\n        } : null;\n      }\n      const color = toColorObject(col);\n      const alpha = parseFloat(opacity);\n      const result = {\n        a: alpha * (color?.alpha ?? 1),\n        rgb: (color?.red ?? 8912896) << 16 | (color?.green ?? 34816) << 8 | (color?.blue ?? 136)\n      };\n      return result;\n    }\n    resampleColors() {\n      this.colors = {\n        background: this.sampleColor("--background-secondary").rgb,\n        link: this.sampleColor("--graph-line").rgb,\n        node: this.sampleColor("--graph-node").rgb,\n        outline: this.sampleColor("--graph-line").rgb,\n        text: this.sampleColor("--graph-text").rgb,\n        accent: this.sampleColor("--interactive-accent").rgb\n      };\n    }\n    draw(_positions) {\n      this.worker.postMessage({\n        type: "draw",\n        positions: _positions\n      }, [_positions]);\n    }\n    resizeCanvas(width, height) {\n      this.worker.postMessage({\n        type: "resize",\n        width,\n        height\n      });\n      this._width = width;\n      this._height = height;\n    }\n    autoResizeCanvas() {\n      let canvasWidth = this.canvas.offsetWidth;\n      let canvasHeight = this.canvas.offsetHeight;\n      if (this.width != canvasWidth || this.height != canvasHeight) {\n        this.centerCamera();\n        this.resizeCanvas(canvasWidth, canvasHeight);\n      }\n    }\n    centerCamera() {\n      this.cameraOffset = new Vector2(this.width, this.height).scale(0.5);\n    }\n    toScreenSpace(x, y, floor = true) {\n      let xScreen = x * this.cameraScale + this.cameraOffset.x;\n      let yScreen = y * this.cameraScale + this.cameraOffset.y;\n      if (floor) {\n        xScreen = Math.floor(xScreen);\n        yScreen = Math.floor(yScreen);\n      }\n      return new Vector2(xScreen, yScreen);\n    }\n    vecToScreenSpace(vector, floor = true) {\n      return this.toScreenSpace(vector.x, vector.y, floor);\n    }\n    toWorldspace(x, y) {\n      const xWorld = (x - this.cameraOffset.x) / this.cameraScale;\n      const yWorld = (y - this.cameraOffset.y) / this.cameraScale;\n      return new Vector2(xWorld, yWorld);\n    }\n    vecToWorldspace(vector) {\n      return this.toWorldspace(vector.x, vector.y);\n    }\n    setCameraCenterWorldspace(position) {\n      this.cameraOffset = new Vector2(this.width / 2 - position.x * this.cameraScale, this.height / 2 - position.y * this.cameraScale);\n    }\n    getCameraCenterWorldspace() {\n      return this.toWorldspace(this.width / 2, this.height / 2);\n    }\n  };\n  _pixiInit = new WeakSet();\n  pixiInit_fn = function(initial = false) {\n    const { width, height } = this.view;\n    let options = { width, height, view: this.view };\n    let objects = [this.view];\n    if (!initial) {\n      options = { width, height };\n      objects = [];\n    }\n    this.worker.postMessage({\n      type: "init",\n      linkCount: this.graph.graphSim.linkCount,\n      linkSources: this.graph.graphSim.linkSources,\n      linkTargets: this.graph.graphSim.linkTargets,\n      nodeCount: this.graph.graphSim.nodeCount,\n      radii: this.graph.graphSim.radii,\n      labels: this.graph.labels,\n      linkLength: this.graph.options.linkLength,\n      edgePruning: this.graph.options.edgePruning,\n      options\n    }, objects);\n  };\n  _pixiSetInteraction = new WeakSet();\n  pixiSetInteraction_fn = function(hoveredNodeIndex, grabbedNodeIndex) {\n    const obj = {\n      type: "update_interaction",\n      hoveredNode: hoveredNodeIndex,\n      grabbedNode: grabbedNodeIndex\n    };\n    this.worker.postMessage(obj);\n  };\n  _pixiSetCamera = new WeakSet();\n  pixiSetCamera_fn = function(cameraOffset, cameraScale) {\n    this.worker.postMessage({\n      type: "update_camera",\n      cameraOffset,\n      cameraScale\n    });\n  };\n  _pixiSetColors = new WeakSet();\n  pixiSetColors_fn = function(colors) {\n    this.worker.postMessage({\n      type: "update_colors",\n      colors\n    });\n  };\n\n  // src/shared/inserted-feature.ts\n  var _InsertedFeature = class {\n    constructor(options, existingElement) {\n      this.elements = /* @__PURE__ */ new Map();\n      this._options = options;\n      if (existingElement) {\n        this.replaceFeature(existingElement);\n      } else {\n        this.setupFeatureContainer();\n      }\n      this.options.insertFeature(document.body, this.getElement(_InsertedFeature.FEATURE_KEY));\n      this.onAfterMount();\n    }\n    getElementDefinitions() {\n      return {\n        [_InsertedFeature.FEATURE_KEY]: {\n          type: "div",\n          className: ["feature", "hide"],\n          id: this.options.featureId\n        },\n        [_InsertedFeature.HEADER_KEY]: {\n          type: "div",\n          className: "feature-header"\n        },\n        [_InsertedFeature.CONTENT_KEY]: {\n          type: "div",\n          className: `${this.options.featureId}-content`\n        },\n        [_InsertedFeature.TITLE_KEY]: {\n          type: "div",\n          className: "feature-title"\n        }\n      };\n    }\n    getElementHierarchy() {\n      return {\n        [_InsertedFeature.FEATURE_KEY]: null,\n        [_InsertedFeature.HEADER_KEY]: _InsertedFeature.FEATURE_KEY,\n        [_InsertedFeature.TITLE_KEY]: _InsertedFeature.HEADER_KEY,\n        [_InsertedFeature.CONTENT_KEY]: _InsertedFeature.FEATURE_KEY\n      };\n    }\n    createElement(definition) {\n      const element = document.createElement(definition.type);\n      if (definition.className) {\n        const classes = Array.isArray(definition.className) ? definition.className : [definition.className];\n        element.classList.add(...classes);\n      }\n      if (definition.id) {\n        element.id = definition.id;\n      }\n      if (definition.attributes) {\n        Object.entries(definition.attributes).forEach(([key, value]) => {\n          element.setAttribute(key, value);\n        });\n      }\n      return element;\n    }\n    getElement(key) {\n      return this.elements.get(key);\n    }\n    setupFeatureContainer() {\n      const definitions = this.getElementDefinitions();\n      const hierarchy = this.getElementHierarchy();\n      Object.entries(definitions).forEach(([key, def]) => {\n        this.elements.set(key, this.createElement(def));\n      });\n      Object.entries(hierarchy).forEach(([key, parentKey]) => {\n        if (parentKey === null)\n          return;\n        const element = this.elements.get(key);\n        const parent = this.elements.get(parentKey);\n        if (element && parent) {\n          parent.appendChild(element);\n        }\n      });\n      if (this._options instanceof InsertedFeatureOptionsWithTitle && this._options.displayTitle?.length > 0) {\n        const titleEl = this.getElement(_InsertedFeature.TITLE_KEY);\n        if (titleEl) {\n          titleEl.innerText = this._options.displayTitle;\n        }\n      }\n      setTimeout(() => {\n        const featureEl = this.getElement(_InsertedFeature.FEATURE_KEY);\n        featureEl?.classList.remove("hide");\n      }, 0);\n    }\n    replaceFeature(existingElement) {\n      this.destroy();\n      const definitions = this.getElementDefinitions();\n      const hierarchy = this.getElementHierarchy();\n      this.elements.set(_InsertedFeature.FEATURE_KEY, existingElement);\n      Object.entries(definitions).forEach(([key, def]) => {\n        if (key === _InsertedFeature.FEATURE_KEY)\n          return;\n        let element = existingElement.querySelector(`.${Array.isArray(def.className) ? def.className[0] : def.className}`);\n        if (!element) {\n          element = this.createElement(def);\n          const parentKey = hierarchy[key];\n          if (parentKey) {\n            const parent = this.elements.get(parentKey);\n            parent?.appendChild(element);\n          }\n        }\n        this.elements.set(key, element);\n      });\n    }\n    onAfterMount() {\n    }\n    get options() {\n      return this._options;\n    }\n    destroy() {\n      this.elements.forEach((element) => {\n        if (element.parentNode) {\n          element.parentNode.removeChild(element);\n        }\n      });\n      this.elements.clear();\n    }\n  };\n  var InsertedFeature = _InsertedFeature;\n  InsertedFeature.FEATURE_KEY = "feature";\n  InsertedFeature.HEADER_KEY = "header";\n  InsertedFeature.CONTENT_KEY = "content";\n  InsertedFeature.TITLE_KEY = "title";\n\n  // src/frontend/main/graph-view.ts\n  var GraphView = class extends InsertedFeature {\n    constructor(featureEl) {\n      super(ObsidianSite.metadata.featureOptions.graphView, featureEl);\n      this.batchFraction = 1;\n      this.graphExpanded = false;\n      this._paused = false;\n      this._isGlobalGraph = false;\n      this.eventsInitialized = false;\n      this.updateRunning = false;\n      this.mouseWorldPos = new Vector2(0, 0);\n      this.scrollVelocity = 0;\n      this.firstUpdate = true;\n      this.drawLastTime = 0;\n      this.graphSim = new GraphWASMHelper();\n      this.graphContainer = document.querySelector(".graph-view-container");\n      this.globalGraphButton = document.querySelector(".graph-global.graph-icon");\n      this.expandGraphButton = document.querySelector(".graph-expand.graph-icon");\n      this.ticker = new Ticker(60);\n      this.ticker.add(this.update.bind(this));\n      this.ticker.start();\n      requestAnimationFrame(this.draw.bind(this));\n    }\n    set options(value) {\n      this._options = value;\n      if (!this.graphSim)\n        return;\n      this.graphSim.attractionForce = value.attractionForce;\n      this.graphSim.centralForce = value.centralForce;\n      this.graphSim.linkLength = value.linkLength;\n      this.graphSim.repulsionForce = value.repulsionForce / this.batchFraction;\n    }\n    get options() {\n      return this._options;\n    }\n    set attractionForce(value) {\n      if (value == this.options.attractionForce)\n        return;\n      this.options.attractionForce = value;\n      if (this.graphSim) {\n        this.graphSim.attractionForce = value;\n        this.graphSim.settleness = 1;\n      }\n    }\n    get attractionForce() {\n      return this.options.attractionForce;\n    }\n    set centralForce(value) {\n      if (value == this.options.centralForce)\n        return;\n      this.options.centralForce = value;\n      if (this.graphSim) {\n        this.graphSim.centralForce = value;\n        this.graphSim.settleness = 1;\n      }\n    }\n    get centralForce() {\n      return this.options.centralForce;\n    }\n    set linkLength(value) {\n      if (value == this.options.linkLength)\n        return;\n      this.options.linkLength = value;\n      if (this.graphSim) {\n        this.graphSim.linkLength = value;\n        this.graphSim.settleness = 1;\n      }\n    }\n    get linkLength() {\n      return this.options.linkLength;\n    }\n    set repulsionForce(value) {\n      if (value == this.options.repulsionForce)\n        return;\n      this.options.repulsionForce = value;\n      if (this.graphSim) {\n        this.graphSim.repulsionForce = value / this.batchFraction;\n        this.graphSim.settleness = 1;\n      }\n    }\n    get repulsionForce() {\n      return this.options.repulsionForce;\n    }\n    get paused() {\n      return this._paused;\n    }\n    set paused(value) {\n      this._paused = value;\n    }\n    get isGlobalGraph() {\n      return this._isGlobalGraph;\n    }\n    set isGlobalGraph(value) {\n      this._isGlobalGraph = value;\n    }\n    initEvents() {\n      const localThis = this;\n      function getMousePositionOnCanvas(event) {\n        const rect = localThis.graphRenderer.canvas.getBoundingClientRect();\n        const pos = getPointerPosition(event);\n        return new Vector2(pos.x - rect.left, pos.y - rect.top);\n      }\n      function getTouchPositionOnCanvas(event) {\n        const rect = localThis.graphRenderer.canvas.getBoundingClientRect();\n        const pos = getTouchPosition(event);\n        return new Vector2(pos.x - rect.left, pos.y - rect.top);\n      }\n      let pointerPos = new Vector2(0, 0);\n      let lastPointerPos = new Vector2(0, 0);\n      let pointerDelta = new Vector2(0, 0);\n      let dragDisplacement = new Vector2(0, 0);\n      let startDragTime = 0;\n      let pointerDown = false;\n      let middleDown = false;\n      let startPointerPos = new Vector2(0, 0);\n      let firstPointerDownId = -1;\n      let pointerInside = false;\n      const graphContainer = this.graphContainer;\n      const graphRenderer = this.graphRenderer;\n      function handlePointerEnter(enter) {\n        let lastDistance = 0;\n        let startZoom = false;\n        function handleMouseMove(move) {\n          pointerPos = getMousePositionOnCanvas(move);\n          localThis.mouseWorldPos = graphRenderer.vecToWorldspace(pointerPos);\n          pointerDelta = new Vector2(pointerPos.x - lastPointerPos.x, pointerPos.y - lastPointerPos.y);\n          lastPointerPos = pointerPos;\n          if (graphRenderer.grabbedNode != -1)\n            dragDisplacement = new Vector2(pointerPos.x - startPointerPos.x, pointerPos.y - startPointerPos.y);\n          if (pointerDown && graphRenderer.hoveredNode != -1 && graphRenderer.grabbedNode == -1 && graphRenderer.hoveredNode != graphRenderer.grabbedNode) {\n            graphRenderer.grabbedNode = graphRenderer.hoveredNode;\n          }\n          if (pointerDown && graphRenderer.hoveredNode == -1 && graphRenderer.grabbedNode == -1 || middleDown) {\n            graphRenderer.cameraOffset = new Vector2(graphRenderer.cameraOffset.x + pointerDelta.x, graphRenderer.cameraOffset.y + pointerDelta.y);\n          } else {\n            if (graphRenderer.hoveredNode != -1)\n              graphRenderer.canvas.style.cursor = "pointer";\n            else\n              graphRenderer.canvas.style.cursor = "default";\n          }\n        }\n        function handleTouchMove(move) {\n          if (move.touches?.length == 1) {\n            if (startZoom) {\n              lastPointerPos = getTouchPositionOnCanvas(move);\n              startZoom = false;\n            }\n            handleMouseMove(move);\n            return;\n          }\n          if (move.touches?.length == 2) {\n            const touch1 = getTouchPositionVector(move.touches[0]);\n            const touch2 = getTouchPositionVector(move.touches[1]);\n            pointerPos = getTouchPositionOnCanvas(move);\n            pointerDelta = new Vector2(pointerPos.x - lastPointerPos.x, pointerPos.y - lastPointerPos.y);\n            lastPointerPos = pointerPos;\n            const distance = Math.sqrt(Math.pow(touch1.x - touch2.x, 2) + Math.pow(touch1.y - touch2.y, 2));\n            if (!startZoom) {\n              startZoom = true;\n              lastDistance = distance;\n              pointerDelta = new Vector2(0, 0);\n              localThis.mouseWorldPos = Vector2.Undefined;\n              graphRenderer.grabbedNode = -1;\n              graphRenderer.hoveredNode = -1;\n            }\n            const distanceDelta = distance - lastDistance;\n            const scaleDelta = distanceDelta / lastDistance;\n            localThis.scaleAround(graphRenderer.vecToWorldspace(pointerPos), 1 + scaleDelta, 0.15, 15);\n            graphRenderer.cameraOffset = new Vector2(graphRenderer.cameraOffset.x + pointerDelta.x, graphRenderer.cameraOffset.y + pointerDelta.y);\n            lastDistance = distance;\n          }\n        }\n        function handlePointerUp(up) {\n          document.removeEventListener("pointerup", handlePointerUp);\n          const pointerUpTime = Date.now();\n          setTimeout(() => {\n            if (pointerDown && graphRenderer.hoveredNode != -1 && Math.abs(dragDisplacement.x) <= 4 && Math.abs(dragDisplacement.y) <= 4 && pointerUpTime - startDragTime < 300) {\n              localThis.navigateToNode(graphRenderer.hoveredNode);\n            }\n            if (pointerDown && graphRenderer.grabbedNode != -1) {\n              graphRenderer.grabbedNode = -1;\n            }\n            if (up.button == 0)\n              pointerDown = false;\n            if (up.pointerType == "touch" && firstPointerDownId == up.pointerId) {\n              firstPointerDownId = -1;\n              pointerDown = false;\n            }\n            if (up.button == 1)\n              middleDown = false;\n            if (!pointerInside) {\n              document.removeEventListener("mousemove", handleMouseMove);\n              document.removeEventListener("touchmove", handleTouchMove);\n            }\n          }, 0);\n        }\n        function handlePointerDown(down) {\n          document.addEventListener("pointerup", handlePointerUp);\n          localThis.mouseWorldPos = graphRenderer.vecToWorldspace(pointerPos);\n          dragDisplacement = new Vector2(0, 0);\n          if (down.button == 0)\n            pointerDown = true;\n          if (down.pointerType == "touch" && firstPointerDownId == -1) {\n            firstPointerDownId = down.pointerId;\n            pointerDown = true;\n          }\n          if (down.button == 1)\n            middleDown = true;\n          startPointerPos = pointerPos;\n          startDragTime = Date.now();\n        }\n        function handlePointerLeave(leave) {\n          setTimeout(() => {\n            pointerInside = false;\n            if (!pointerDown) {\n              document.removeEventListener("mousemove", handleMouseMove);\n              document.removeEventListener("touchmove", handleTouchMove);\n              localThis.mouseWorldPos = Vector2.Undefined;\n            }\n            graphContainer.removeEventListener("pointerdown", handlePointerDown);\n            graphContainer.removeEventListener("pointerleave", handlePointerLeave);\n          }, 1);\n        }\n        pointerPos = getMousePositionOnCanvas(enter);\n        localThis.mouseWorldPos = graphRenderer.vecToWorldspace(pointerPos);\n        lastPointerPos = getMousePositionOnCanvas(enter);\n        pointerInside = true;\n        document.addEventListener("mousemove", handleMouseMove);\n        document.addEventListener("touchmove", handleTouchMove);\n        graphContainer.addEventListener("pointerdown", handlePointerDown);\n        graphContainer.addEventListener("pointerleave", handlePointerLeave);\n      }\n      this.graphRenderer.canvas.addEventListener("pointerenter", handlePointerEnter);\n      this.expandGraphButton?.addEventListener("click", (event) => {\n        event.stopPropagation();\n        localThis.toggleExpandedGraph();\n      });\n      this.globalGraphButton?.addEventListener("click", (event) => {\n        event.stopPropagation();\n        if (!localThis.isGlobalGraph) {\n          localThis.showGraph();\n        } else {\n          localThis.showGraph([ObsidianSite.document.pathname]);\n        }\n      });\n      graphContainer.addEventListener("wheel", function(e) {\n        const startingScrollVelocity = 0.065;\n        const delta = e.deltaY;\n        if (delta > 0) {\n          if (localThis.scrollVelocity >= -startingScrollVelocity) {\n            localThis.scrollVelocity = -startingScrollVelocity;\n          }\n          localThis.scrollVelocity *= 1.16;\n        } else {\n          if (localThis.scrollVelocity <= startingScrollVelocity) {\n            localThis.scrollVelocity = startingScrollVelocity;\n          }\n          localThis.scrollVelocity *= 1.16;\n        }\n      });\n      graphContainer.addEventListener("dblclick", function(e) {\n        localThis.fitToNodes();\n      });\n      document.querySelector(".theme-toggle-input")?.addEventListener("change", (event) => {\n        setTimeout(() => graphRenderer.resampleColors(), 0);\n      });\n    }\n    async generate(paths) {\n      this.paths = paths;\n      this.nodeCount = this.paths.length;\n      this.linkSources = [];\n      this.linkTargets = [];\n      this.labels = [];\n      this.radii = [];\n      this.colors = [];\n      const linkCounts = [];\n      for (let i = 0; i < this.nodeCount; i++) {\n        linkCounts.push(0);\n      }\n      let pathIndex = 0;\n      for (const source of this.paths) {\n        const fileInfo = ObsidianSite.getWebpageData(source);\n        if (!fileInfo)\n          continue;\n        this.labels.push(fileInfo.title);\n        const links = fileInfo.links.map((l) => LinkHandler.getPathnameFromURL(l)).concat(fileInfo.attachments).concat(fileInfo.backlinks);\n        let uniqueLinks = [...new Set(links)];\n        uniqueLinks.push(source);\n        for (const link of uniqueLinks) {\n          const targetIndex = this.paths.indexOf(link);\n          if (targetIndex != -1) {\n            this.linkSources.push(targetIndex);\n            this.linkTargets.push(pathIndex);\n            linkCounts[pathIndex]++;\n            linkCounts[targetIndex]++;\n          }\n        }\n        pathIndex++;\n      }\n      const maxLinks = Math.max(...linkCounts);\n      this.radii = linkCounts.map((l) => inOutQuadBlend(this.options.minNodeRadius, this.options.maxNodeRadius, Math.min(l / (maxLinks * 0.8), 1)));\n      this.linkCount = this.linkSources.length;\n    }\n    async showGraph(paths) {\n      this.paused = true;\n      let linked = [];\n      if (paths) {\n        for (const element of paths) {\n          const fileInfo = ObsidianSite.getWebpageData(element);\n          if (fileInfo?.backlinks)\n            linked.push(...fileInfo.backlinks);\n          if (fileInfo?.links)\n            linked.push(...fileInfo.links.map((l) => LinkHandler.getPathnameFromURL(l)));\n          if (fileInfo?.attachments)\n            linked.push(...fileInfo.attachments);\n        }\n        linked.push(...paths);\n      } else {\n        linked = ObsidianSite.metadata.allFiles;\n      }\n      if (linked.length == ObsidianSite.metadata.allFiles.length)\n        this.isGlobalGraph = true;\n      else\n        this.isGlobalGraph = false;\n      linked = linked.filter((l) => {\n        let data = ObsidianSite.getWebpageData(l);\n        if (!data?.backlinks || !data?.links || !data?.type)\n          return false;\n        if (data.backlinks.length == 0) {\n          console.log("No backlinks for", l);\n        }\n        if (!this.options.showOrphanNodes && data.backlinks.length == 0 && data.links.length == 0)\n          return false;\n        if (!this.options.showAttachments && (data.type == "attachment" || data.type == "media" || data.type == "other"))\n          return false;\n        return true;\n      });\n      if (linked.length == 0) {\n        console.log("No nodes to display.");\n        return;\n      }\n      const uniquePaths = [...new Set(linked)];\n      const newPositions = new Array(uniquePaths.length * 2).fill(0);\n      if (this.paths?.length > 0) {\n        const oldPositions = this.graphSim.positionsF;\n        for (let i = 0; i < uniquePaths.length; i++) {\n          const path = uniquePaths[i];\n          const index = this.paths.indexOf(path);\n          if (index == -1)\n            continue;\n          newPositions[i * 2] = oldPositions[index * 2];\n          newPositions[i * 2 + 1] = oldPositions[index * 2 + 1];\n        }\n      }\n      await this.generate(uniquePaths);\n      this.graphSim.init(this, newPositions);\n      if (!this.graphRenderer)\n        this.graphRenderer = new GraphRenderWorker(this);\n      else\n        this.graphRenderer.updateData(this);\n      this.fitToNodes();\n      if (!this.eventsInitialized) {\n        this.initEvents();\n        this.eventsInitialized = true;\n      }\n      this.paused = false;\n      const localSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-circle-dot"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg>`;\n      const globalSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-git-fork"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>`;\n      this.globalGraphButton.innerHTML = this.isGlobalGraph ? localSVG : globalSVG;\n      this.setActiveNodeByPath(ObsidianSite.document.pathname);\n    }\n    fitToNodes() {\n      this.graphRenderer.centerCamera();\n      this.graphRenderer.cameraScale = 1 / Math.sqrt(this.nodeCount) * this.graphRenderer.canvas.width / 200;\n      this.graphSim.settleness = 1;\n    }\n    update(dt) {\n      if (this.paused || !this.graphRenderer || !this.graphSim) {\n        return;\n      }\n      if (this.firstUpdate) {\n        setTimeout(() => this.graphRenderer?.canvas?.classList.remove("hide"), 500);\n        this.firstUpdate = false;\n      }\n      this.graphSim.dt = dt;\n      this.graphSim.update(this.mouseWorldPos, this.graphRenderer.grabbedNode, this.graphRenderer.cameraScale);\n      if (this.graphSim.hoveredNode != this.graphRenderer.hoveredNode) {\n        this.graphRenderer.hoveredNode = this.graphSim.hoveredNode;\n        this.graphRenderer.canvas.style.cursor = this.graphSim.hoveredNode == -1 ? "default" : "pointer";\n      }\n    }\n    async draw(time) {\n      if (!this.graphRenderer || !this.graphSim || this.paths.length == 0)\n        return;\n      const dt = (time - this.drawLastTime) / 1e3;\n      this.drawLastTime = time;\n      this.graphRenderer.draw(this.graphSim.positions);\n      if (this.scrollVelocity != 0) {\n        if (Math.abs(this.scrollVelocity) < 1e-3) {\n          this.scrollVelocity = 0;\n        }\n        this.zoomAround(this.mouseWorldPos, this.scrollVelocity);\n        this.scrollVelocity *= 1 - dt * 15;\n      }\n      requestAnimationFrame(this.draw.bind(this));\n    }\n    zoomAround(point, zoom, minScale = 0.15, maxScale = 15) {\n      const cameraCenter = this.graphRenderer.getCameraCenterWorldspace();\n      this.graphRenderer.cameraScale = Math.max(Math.min(this.graphRenderer.cameraScale + zoom * this.graphRenderer.cameraScale, maxScale), minScale);\n      if (this.graphRenderer.cameraScale != minScale && this.graphRenderer.cameraScale != maxScale && this.scrollVelocity > 0 && !this.mouseWorldPos.isUndefined) {\n        const aroundDiff = new Vector2(point.x - cameraCenter.x, point.y - cameraCenter.y);\n        const movePos = new Vector2(cameraCenter.x + aroundDiff.x * zoom, cameraCenter.y + aroundDiff.y * zoom);\n        this.graphRenderer.setCameraCenterWorldspace(movePos);\n      } else\n        this.graphRenderer.setCameraCenterWorldspace(cameraCenter);\n    }\n    scaleAround(point, scale, minScale = 0.15, maxScale = 15) {\n      const cameraCenter = this.graphRenderer.getCameraCenterWorldspace();\n      const scaleBefore = this.graphRenderer.cameraScale;\n      this.graphRenderer.cameraScale = Math.max(Math.min(scale * this.graphRenderer.cameraScale, maxScale), minScale);\n      const diff = (scaleBefore - this.graphRenderer.cameraScale) / scaleBefore;\n      if (this.graphRenderer.cameraScale != minScale && this.graphRenderer.cameraScale != maxScale && scale != 0) {\n        const aroundDiff = new Vector2(point.x - cameraCenter.x, point.y - cameraCenter.y);\n        const movePos = new Vector2(cameraCenter.x - aroundDiff.x * diff, cameraCenter.y - aroundDiff.y * diff);\n        this.graphRenderer.setCameraCenterWorldspace(movePos);\n      } else\n        this.graphRenderer.setCameraCenterWorldspace(cameraCenter);\n    }\n    async navigateToNode(nodeIndex) {\n      if (nodeIndex < 0 || nodeIndex >= this.nodeCount)\n        return;\n      if (this.graphExpanded)\n        this.toggleExpandedGraph();\n      const url = this.paths[nodeIndex];\n      await ObsidianSite.loadURL(url);\n    }\n    toggleExpandedGraph() {\n      const initialWidth = this.graphContainer.clientWidth;\n      const initialHeight = this.graphContainer.clientHeight;\n      this.graphContainer.classList.add("scale-down");\n      const fadeOutAnimation = this.graphContainer.animate({ opacity: 0 }, { duration: 100, easing: "ease-in", fill: "forwards" });\n      const localThis = this;\n      fadeOutAnimation.addEventListener("finish", function() {\n        localThis.graphContainer.classList.toggle("expanded");\n        localThis.graphRenderer.autoResizeCanvas();\n        localThis.graphRenderer.centerCamera();\n        const finalWidth = localThis.graphContainer.clientWidth;\n        const finalHeight = localThis.graphContainer.clientHeight;\n        localThis.graphRenderer.cameraScale *= (finalWidth / initialWidth + finalHeight / initialHeight) / 2;\n        localThis.graphContainer.classList.remove("scale-down");\n        localThis.graphContainer.classList.add("scale-up");\n        const fadeInAnimation = localThis.graphContainer.animate({ opacity: 1 }, { duration: 200, easing: "ease-out", fill: "forwards" });\n        fadeInAnimation.addEventListener("finish", function() {\n          localThis.graphContainer.classList.remove("scale-up");\n        });\n      });\n      this.graphExpanded = !this.graphExpanded;\n      if (this.graphExpanded) {\n        document.addEventListener("pointerdown", handleOutsideClick, { once: true });\n      } else {\n        document.removeEventListener("pointerdown", handleOutsideClick);\n      }\n      function handleOutsideClick(event) {\n        if (!localThis.graphExpanded)\n          return;\n        if (event.composedPath().includes(localThis.graphContainer)) {\n          document.addEventListener("pointerdown", handleOutsideClick, { once: true });\n          return;\n        }\n        localThis.toggleExpandedGraph();\n      }\n      this.graphRenderer.autoResizeCanvas();\n    }\n    getNodeByPath(path) {\n      return this.paths.indexOf(path);\n    }\n    setActiveNode(nodeIndex) {\n      if (nodeIndex < 0 || nodeIndex >= this.nodeCount)\n        return;\n      this.graphRenderer.activeNode = nodeIndex;\n    }\n    setActiveNodeByPath(path) {\n      this.setActiveNode(this.getNodeByPath(path));\n    }\n  };\n\n  // src/frontend/main/theme.ts\n  var Theme = class {\n    constructor() {\n      this.themeToggle = document.querySelector(".theme-toggle-input");\n      this.themeToggle?.addEventListener("change", (event) => {\n        this.switchTheme();\n      });\n    }\n    switchTheme() {\n      const current = localStorage.getItem("theme");\n      let opposite = current == "light" /* Light */ ? "dark" /* Dark */ : "light" /* Light */;\n      this.setTheme(opposite, false);\n    }\n    setTheme(theme, instant = false) {\n      let state = theme == "light" /* Light */;\n      this.themeToggle.checked = state;\n      let oldTransition = "";\n      if (instant) {\n        oldTransition = document.body.style.transition;\n        document.body.style.transition = "none";\n      }\n      if (!this.themeToggle.classList.contains("is-checked") && state) {\n        this.themeToggle.classList.add("is-checked");\n      } else if (this.themeToggle.classList.contains("is-checked") && !state) {\n        this.themeToggle.classList.remove("is-checked");\n      }\n      if (!state) {\n        if (document.body.classList.contains("theme-light")) {\n          document.body.classList.remove("theme-light");\n        }\n        if (!document.body.classList.contains("theme-dark")) {\n          document.body.classList.add("theme-dark");\n        }\n      } else {\n        if (document.body.classList.contains("theme-dark")) {\n          document.body.classList.remove("theme-dark");\n        }\n        if (!document.body.classList.contains("theme-light")) {\n          document.body.classList.add("theme-light");\n        }\n      }\n      if (instant) {\n        setTimeout(function() {\n          document.body.style.transition = oldTransition;\n        }, 100);\n      }\n      localStorage.setItem("theme", state ? "light" : "dark");\n    }\n  };\n\n  // src/shared/dynamic-inserted-feature.ts\n  var DynamicInsertedFeature = class extends InsertedFeature {\n    constructor(options, dependencies, existingElement) {\n      super(options, existingElement);\n      this.dependencies = dependencies;\n      this.updateContent();\n    }\n    regenerate() {\n      this.updateContent();\n    }\n    updateDependencies(newDependencies, autoRegenerate = true) {\n      this.dependencies = newDependencies;\n      if (autoRegenerate) {\n        this.regenerate();\n      }\n    }\n    modifyDependencies(modifier, autoRegenerate = true) {\n      modifier(this.dependencies);\n      if (autoRegenerate) {\n        this.regenerate();\n      }\n    }\n    getDependencies() {\n      return this.dependencies;\n    }\n    updateContent() {\n      const contentEl = this.getElement(InsertedFeature.CONTENT_KEY);\n      if (!contentEl)\n        return;\n      while (contentEl.firstChild) {\n        contentEl.removeChild(contentEl.firstChild);\n      }\n      const featureEl = this.getElement(InsertedFeature.FEATURE_KEY);\n      if (!featureEl?.isConnected && featureEl) {\n        this.options.insertFeature(document.body, featureEl);\n      }\n      this.generateContent(contentEl);\n    }\n    hide() {\n      const featureEl = this.getElement(InsertedFeature.FEATURE_KEY);\n      if (featureEl) {\n        featureEl.style.display = "none";\n      }\n    }\n    show() {\n      const featureEl = this.getElement(InsertedFeature.FEATURE_KEY);\n      if (featureEl) {\n        featureEl.style.display = "";\n      }\n    }\n  };\n\n  // src/frontend/main/backlinks.ts\n  var Backlink = class {\n    get url() {\n      return this._url;\n    }\n    constructor(container, targetURL) {\n      this.targetData = ObsidianSite.getWebpageData(targetURL);\n      if (!this.targetData) {\n        console.error("Failed to find target for backlink", targetURL);\n        return;\n      }\n      this._url = targetURL;\n      this.backlinkEl = document.createElement("a");\n      this.backlinkEl.href = targetURL;\n      this.backlinkEl.classList.add("backlink");\n      container.appendChild(this.backlinkEl);\n      this.backlinkIconEl = document.createElement("div");\n      this.backlinkIconEl.classList.add("backlink-icon");\n      this.backlinkIconEl.innerHTML = this.targetData.icon;\n      this.backlinkEl.appendChild(this.backlinkIconEl);\n      this.backlinkTitleEl = document.createElement("div");\n      this.backlinkTitleEl.classList.add("backlink-title");\n      this.backlinkTitleEl.innerText = this.targetData.title;\n      this.backlinkEl.appendChild(this.backlinkTitleEl);\n      this.backlinkEl.addEventListener("click", (e) => {\n        e.preventDefault();\n        ObsidianSite.loadURL(this.url);\n      });\n    }\n  };\n  var BacklinkList = class extends DynamicInsertedFeature {\n    constructor(backlinkPaths) {\n      super(ObsidianSite.metadata.featureOptions.backlinks, {\n        backlinkPaths\n      });\n    }\n    generateContent(container) {\n      const deps = this.getDependencies();\n      this.backlinks = deps.backlinkPaths.map((url) => new Backlink(container, url));\n    }\n  };\n\n  // src/frontend/main/tags.ts\n  var Tags = class extends DynamicInsertedFeature {\n    constructor(tags) {\n      super(ObsidianSite.metadata.featureOptions.tags, { tags });\n    }\n    generateContent(container) {\n      const deps = this.getDependencies();\n      for (const tagName of deps.tags) {\n        const tagEl = document.createElement("a");\n        tagEl.classList.add("tag");\n        tagEl.setAttribute("href", `?query=tag:${tagName.replace("#", "")}`);\n        tagEl.innerText = tagName;\n        container.appendChild(tagEl);\n      }\n      LinkHandler.initializeLinks(container);\n    }\n  };\n\n  // src/frontend/main/aliases.ts\n  var Aliases = class extends DynamicInsertedFeature {\n    constructor(aliases) {\n      super(ObsidianSite.metadata.featureOptions.alias, {\n        aliases\n      });\n    }\n    generateContent(container) {\n      const deps = this.getDependencies();\n      for (const aliasName of deps.aliases) {\n        const aliasEl = document.createElement("span");\n        aliasEl.classList.add("alias");\n        aliasEl.innerText = aliasName;\n        container.appendChild(aliasEl);\n      }\n      return container;\n    }\n  };\n\n  // src/frontend/main/website.ts\n  var ObsidianWebsite = class {\n    constructor() {\n      this.LinkHandler = LinkHandler;\n      this.LinkPreview = FilePreviewPopover;\n      this.isLoaded = false;\n      this.isHttp = window.location.protocol != "file:";\n      this.fileTree = void 0;\n      this.outlineTree = void 0;\n      this.search = void 0;\n      this.leftSidebar = void 0;\n      this.rightSidebar = void 0;\n      this.graphView = void 0;\n      this.backlinkList = void 0;\n      this.tags = void 0;\n      this.aliases = void 0;\n      this.onloadCallbacks = [];\n      this.cachedWebpageDataMap = /* @__PURE__ */ new Map();\n      this.cachedFileDataMap = /* @__PURE__ */ new Map();\n      this.lastScreenWidth = void 0;\n      this.isResizing = false;\n      this.checkStillResizingTimeout = void 0;\n      this._deviceSize = "large-screen";\n    }\n    onDocumentLoad(callback) {\n      this.onloadCallbacks.push(callback);\n    }\n    async init() {\n      window.addEventListener("load", () => ObsidianSite.onInit());\n      if (this.isHttp) {\n        this.metadata = await this.loadWebsiteData();\n        if (!this.metadata) {\n          console.error("Failed to load website data.");\n          return;\n        }\n      }\n    }\n    async onInit() {\n      if (!this.isHttp) {\n        this.metadata = await this.loadWebsiteData();\n        if (!this.metadata) {\n          console.error("Failed to load website data.");\n          this.metadata = new WebsiteData();\n          this.metadata.ignoreMetadata = true;\n        }\n      }\n      await waitUntil(() => this.metadata != void 0, 16);\n      console.log("Website init");\n      if (window.location.protocol != "file:") {\n        await loadIncludes();\n      }\n      this.theme = new Theme();\n      this.bodyEl = document.body;\n      this.horizontalLayout = document.querySelector("#main-horizontal");\n      this.centerContentEl = document.querySelector("#center-content");\n      const fileTreeEl = document.querySelector("#file-explorer");\n      const outlineTreeEl = document.querySelector("#outline");\n      const leftSidebarEl = document.querySelector(".sidebar#left-sidebar");\n      const rightSidebarEl = document.querySelector(".sidebar#right-sidebar");\n      this.bodyEl.className += " " + this.metadata.bodyClasses;\n      this.createLoadingEl();\n      if (fileTreeEl)\n        this.fileTree = new Tree(fileTreeEl);\n      if (outlineTreeEl)\n        this.outlineTree = new Tree(outlineTreeEl, this.metadata.featureOptions.outline.minCollapseDepth);\n      if (leftSidebarEl)\n        this.leftSidebar = new Sidebar(leftSidebarEl);\n      if (rightSidebarEl)\n        this.rightSidebar = new Sidebar(rightSidebarEl);\n      this.search = await new Search().init();\n      const pathname = document.querySelector("meta[name=\'pathname\']")?.getAttribute("content") ?? "unknown";\n      this.entryPage = pathname;\n      this.document = await new WebpageDocument(pathname);\n      await this.document.loadChildDocuments();\n      await this.document.postLoadInit();\n      if (!ObsidianSite.metadata.ignoreMetadata && ObsidianSite.metadata.featureOptions.graphView.enabled) {\n        this.loadGraphView().then(() => this.graphView?.showGraph([pathname]));\n      }\n      this.initEvents();\n      FilePreviewPopover.loadPinnedPreviews();\n      this.onDocumentLoad((doc) => {\n        if (!ObsidianSite.metadata.ignoreMetadata) {\n          const insertBacklinks = doc.isMainDocument && !ObsidianSite.metadata.ignoreMetadata && ObsidianSite.metadata.featureOptions.backlinks.enabled && doc.documentType == "markdown" /* Markdown */;\n          const insertTags = doc.isMainDocument && !ObsidianSite.metadata.ignoreMetadata && ObsidianSite.metadata.featureOptions.tags.enabled && doc.documentType == "markdown" /* Markdown */;\n          const insertAliases = doc.isMainDocument && !ObsidianSite.metadata.ignoreMetadata && ObsidianSite.metadata.featureOptions.alias.enabled && doc.documentType == "markdown" /* Markdown */;\n          if (insertBacklinks) {\n            const backlinks = doc.info.backlinks?.filter((b) => b != doc.pathname);\n            if (!this.backlinkList) {\n              this.backlinkList = new BacklinkList(doc.info.backlinks ?? []);\n            } else {\n              this.backlinkList?.modifyDependencies((d) => {\n                d.backlinkPaths = doc.info.backlinks ?? [];\n              });\n            }\n            if (!backlinks || backlinks.length == 0) {\n              this.backlinkList?.hide();\n            } else {\n              this.backlinkList?.show();\n            }\n          } else {\n            this.backlinkList?.hide();\n          }\n          if (insertTags) {\n            const tags = [];\n            if (ObsidianSite.metadata.featureOptions.tags.showInlineTags && doc.info.inlineTags) {\n              tags.push(...doc.info.inlineTags);\n            }\n            if (ObsidianSite.metadata.featureOptions.tags.showFrontmatterTags && doc.info.frontmatterTags) {\n              tags.push(...doc.info.frontmatterTags);\n            }\n            if (!this.tags) {\n              this.tags = new Tags(tags);\n            } else {\n              this.tags?.modifyDependencies((d) => {\n                d.tags = tags;\n              });\n            }\n            if (tags.length == 0) {\n              this.tags?.hide();\n            } else {\n              this.tags?.show();\n            }\n          } else {\n            this.tags?.hide();\n          }\n          if (insertAliases) {\n            const aliases = doc.info.aliases;\n            if (!this.aliases) {\n              this.aliases = new Aliases(aliases ?? []);\n            } else {\n              this.aliases?.modifyDependencies((d) => {\n                d.aliases = aliases ?? [];\n              });\n            }\n            if (!aliases || aliases.length == 0) {\n              this.aliases?.hide();\n            } else {\n              this.aliases?.show();\n            }\n          } else {\n            this.aliases?.hide();\n          }\n        }\n      });\n      if (this.isHttp) {\n        let initialPath = this.document.pathname;\n        if (initialPath == "index.html")\n          initialPath = "";\n        history.replaceState({ pathname: initialPath }, this.document.title, initialPath);\n      }\n      this.isLoaded = true;\n      this.onloadCallbacks.forEach((cb) => cb(this.document));\n    }\n    initEvents() {\n      window.addEventListener("popstate", async (e) => {\n        console.log("popstate", e);\n        if (!e.state)\n          return;\n        const pathname = e.state.pathname;\n        await ObsidianSite.loadURL(pathname, false);\n      });\n      const localThis = this;\n      window.addEventListener("resize", () => {\n        localThis.onResize();\n      });\n      this.onResize();\n    }\n    updateMetaTag(name, content) {\n      let meta = document.querySelector(`meta[name="${name}"], meta[property="${name}"]`);\n      if (!meta) {\n        meta = document.createElement("meta");\n        if (name.startsWith("og:")) {\n          meta.setAttribute("property", name);\n        } else {\n          meta.setAttribute("name", name);\n        }\n        document.head.appendChild(meta);\n      }\n      meta.setAttribute("content", content);\n    }\n    async loadURL(url, pushState = true) {\n      const header = LinkHandler.getHashFromURL(url);\n      const query = LinkHandler.getQueryFromURL(url);\n      url = LinkHandler.getPathnameFromURL(url);\n      console.log("Loading URL", url, header, query);\n      if (query && query.startsWith("query=")) {\n        this.search?.searchParseFilters(query.substring(6));\n        return;\n      }\n      if (this.document.pathname == url) {\n        if (header)\n          this.document.scrollToHeader(header);\n        else {\n          new Notice("This page is already loaded.");\n        }\n        return this.document;\n      }\n      const data = ObsidianSite.getWebpageData(url);\n      if (!data) {\n        new Notice("This page does not exist yet.");\n        console.warn("Page does not exist", url);\n        return void 0;\n      }\n      const page = await new WebpageDocument(url).load();\n      if (!page) {\n        new Notice("Failed to load page. Unknown error.");\n        return;\n      }\n      document.title = page.title;\n      this.updateMetaTag("pathname", page.pathname);\n      this.updateMetaTag("description", page.info?.description || "");\n      this.updateMetaTag("author", page.info?.author || "");\n      this.updateMetaTag("og:title", page.title);\n      this.updateMetaTag("og:description", page.info?.description || "");\n      this.updateMetaTag("og:url", window.location.href);\n      this.updateMetaTag("og:image", page.info?.coverImageURL || "");\n      await this.graphView?.showGraph([page.pathname]);\n      this.fileTree?.findByPath(page.pathname)?.setActive();\n      this.fileTree?.revealPath(page.pathname);\n      this.graphView?.setActiveNodeByPath(page.pathname);\n      this.document = page;\n      if (this.document && this.isHttp && pushState) {\n        let currentPath = this.document.pathname;\n        if (currentPath == "index.html")\n          currentPath = "";\n        history.pushState({ pathname: currentPath }, this.document.title, currentPath);\n      }\n      let newOutlineEl = page.sourceHtml.querySelector("#outline");\n      if (newOutlineEl) {\n        newOutlineEl = document.adoptNode(newOutlineEl);\n        document.querySelector("#outline")?.replaceWith(newOutlineEl);\n        ObsidianSite.outlineTree = new Tree(newOutlineEl, this.metadata.featureOptions.outline.minCollapseDepth);\n      }\n      setTimeout(async () => {\n        this.onloadCallbacks.forEach((cb) => cb(page));\n        await page.show();\n        if (header) {\n          page.scrollToHeader(header);\n        }\n      }, 100);\n      return page;\n    }\n    async fetch(url) {\n      url = LinkHandler.getPathnameFromURL(url);\n      if (this.isHttp || url.startsWith("http")) {\n        const req = await fetch(url);\n        if (req.ok) {\n          return req;\n        } else {\n          console.error("Failed to fetch", url);\n          return;\n        }\n      } else {\n        const file = this.getFileData(url);\n        if (!file?.data) {\n          console.error("Failed to fetch", url);\n          return;\n        }\n        const req = new Response(file.data, { status: 200 });\n        return req;\n      }\n    }\n    documentExists(url) {\n      url = LinkHandler.getPathnameFromURL(url);\n      if (this.isHttp) {\n        return !!this.metadata.webpages[url];\n      } else {\n        return !!this.getFileData(url)?.data;\n      }\n    }\n    async loadWebsiteData() {\n      if (this.isHttp) {\n        try {\n          const dataReq = await fetch(Shared.libFolderName + "/metadata.json");\n          if (dataReq.ok) {\n            const jsonStr = await dataReq.text();\n            return WebsiteData.fromJSON(jsonStr);\n          }\n        } catch (e) {\n          console.error("Failed to load website metadata.", e);\n          new Notice("Failed to load website metadata.");\n        }\n      } else {\n        const jsonData = this.getLocalDataFromId("website-metadata");\n        return jsonData ? WebsiteData.fromJSON(JSON.stringify(jsonData)) : void 0;\n      }\n      return void 0;\n    }\n    async loadGraphView() {\n      const graphViewFeature = document.querySelector(".graph-view-wrapper");\n      if (!graphViewFeature)\n        return;\n      const localThis = this;\n      waitLoadScripts(["graph-render-worker", "graph-wasm"], () => {\n        console.log("scripts loaded");\n        async function initGraphView() {\n          console.log("Initializing graph view");\n          const graphView = new GraphView(graphViewFeature);\n          localThis.graphView = graphView;\n          console.log("Graph view initialized");\n        }\n        Module["onRuntimeInitialized"] = () => {\n          console.log("Wasm loaded");\n          initGraphView();\n        };\n        run();\n        setTimeout(() => {\n          if (localThis.graphView == void 0) {\n            initGraphView();\n          }\n        }, 100);\n      });\n      await waitUntil(() => this.graphView != void 0);\n    }\n    getLocalDataFromId(id) {\n      const el = document.getElementById(id);\n      if (!el)\n        return;\n      return JSON.parse(decodeURI(atob(el.getAttribute("value") ?? "")));\n    }\n    getWebpageData(url) {\n      if (!this.isHttp) {\n        if (this.cachedWebpageDataMap.has(url)) {\n          return this.cachedWebpageDataMap.get(url);\n        } else {\n          const data = this.getLocalDataFromId(LinkHandler.getFileDataIdFromURL(url));\n          this.cachedWebpageDataMap.set(url, data);\n          return data;\n        }\n      }\n      if (this.metadata) {\n        const data = this.metadata.webpages[url];\n        if (data) {\n          return data;\n        }\n      }\n      return;\n    }\n    getFileData(url) {\n      if (!this.isHttp) {\n        if (this.cachedFileDataMap.has(url)) {\n          return this.cachedFileDataMap.get(url);\n        } else {\n          const data = this.getLocalDataFromId(LinkHandler.getFileDataIdFromURL(url));\n          this.cachedFileDataMap.set(url, data);\n          return data;\n        }\n      }\n      if (this.metadata) {\n        const data = this.metadata.fileInfo[url];\n        if (data) {\n          return data;\n        }\n      }\n      return {};\n    }\n    scrollTo(element) {\n      element.scrollIntoView();\n    }\n    async showLoading(loading, inside = this.centerContentEl) {\n      inside.style.transitionDuration = "";\n      inside.classList.toggle("hide", loading);\n      this.loadingEl.classList.toggle("show", loading);\n      if (loading) {\n        const viewBounds = Bounds.fromElement(inside);\n        this.loadingEl.style.left = viewBounds.center.x - this.loadingEl.offsetWidth / 2 + "px";\n        this.loadingEl.style.top = viewBounds.center.y - this.loadingEl.offsetHeight / 2 + "px";\n      }\n      await delay(200);\n    }\n    createLoadingEl() {\n      this.loadingEl = document.createElement("div");\n      this.loadingEl.classList.add("loading-icon");\n      document.body.appendChild(this.loadingEl);\n      this.loadingEl.innerHTML = `<div></div><div></div><div></div><div></div>`;\n    }\n    get documentBounds() {\n      return Bounds.fromElement(this.centerContentEl);\n    }\n    onEndResize() {\n      this.graphView?.graphRenderer?.autoResizeCanvas();\n      document.body.classList.toggle("resizing", false);\n    }\n    onStartResize() {\n      document.body.classList.toggle("resizing", true);\n    }\n    get deviceSize() {\n      return this._deviceSize;\n    }\n    set deviceSize(size) {\n      this._deviceSize = size;\n    }\n    onResize() {\n      if (!this.isResizing) {\n        this.onStartResize();\n        this.isResizing = true;\n      }\n      const localThis = this;\n      function widthNowInRange(low, high) {\n        const w = window.innerWidth;\n        return w > low && w < high && localThis.lastScreenWidth == void 0 || w > low && w < high && ((localThis.lastScreenWidth ?? 0) <= low || (localThis.lastScreenWidth ?? 0) >= high);\n      }\n      function widthNowGreaterThan(value) {\n        const w = window.innerWidth;\n        return w > value && localThis.lastScreenWidth == void 0 || w > value && (localThis.lastScreenWidth ?? 0) < value;\n      }\n      function widthNowLessThan(value) {\n        const w = window.innerWidth;\n        return w < value && localThis.lastScreenWidth == void 0 || w < value && (localThis.lastScreenWidth ?? 0) > value;\n      }\n      const docWidthCSS = this.metadata.featureOptions.document?.documentWidth ?? "45em";\n      const leftWdithCSS = this.metadata.featureOptions.sidebar?.leftDefaultWidth ?? "20em";\n      const rightWidthCSS = this.metadata.featureOptions.sidebar?.rightDefaultWidth ?? "20em";\n      const docWidth = getLengthInPixels(docWidthCSS, this.centerContentEl);\n      const leftWidth = this.leftSidebar ? getLengthInPixels(leftWdithCSS, this.leftSidebar?.containerEl) : 0;\n      const rightWidth = this.rightSidebar ? getLengthInPixels(rightWidthCSS, this.rightSidebar?.containerEl) : 0;\n      if (widthNowGreaterThan(docWidth + leftWidth + rightWidth) || widthNowGreaterThan(1025)) {\n        this.deviceSize = "large-screen";\n        document.body.classList.toggle("floating-sidebars", false);\n        document.body.classList.toggle("is-large-screen", true);\n        document.body.classList.toggle("is-small-screen", false);\n        document.body.classList.toggle("is-tablet", false);\n        document.body.classList.toggle("is-phone", false);\n        if (this.leftSidebar)\n          this.leftSidebar.collapsed = false;\n        if (this.rightSidebar)\n          this.rightSidebar.collapsed = false;\n      } else if (widthNowInRange(docWidth + leftWidth, docWidth + leftWidth + rightWidth) || widthNowInRange(769, 1024)) {\n        this.deviceSize = "small screen";\n        document.body.classList.toggle("floating-sidebars", false);\n        document.body.classList.toggle("is-large-screen", false);\n        document.body.classList.toggle("is-small-screen", true);\n        document.body.classList.toggle("is-tablet", false);\n        document.body.classList.toggle("is-phone", false);\n        if (this.leftSidebar && this.rightSidebar && !this.leftSidebar.collapsed) {\n          this.rightSidebar.collapsed = true;\n        }\n      } else if (widthNowInRange(leftWidth + rightWidth, docWidth + leftWidth) || widthNowInRange(481, 768)) {\n        this.deviceSize = "tablet";\n        document.body.classList.toggle("floating-sidebars", true);\n        document.body.classList.toggle("is-large-screen", false);\n        document.body.classList.toggle("is-small-screen", false);\n        document.body.classList.toggle("is-tablet", true);\n        document.body.classList.toggle("is-phone", false);\n        if (this.leftSidebar && this.rightSidebar && !this.leftSidebar.collapsed) {\n          this.rightSidebar.collapsed = true;\n        }\n      } else if (widthNowLessThan(leftWidth + rightWidth) || widthNowLessThan(480)) {\n        this.deviceSize = "phone";\n        document.body.classList.toggle("floating-sidebars", true);\n        document.body.classList.toggle("is-large-screen", false);\n        document.body.classList.toggle("is-small-screen", false);\n        document.body.classList.toggle("is-tablet", false);\n        document.body.classList.toggle("is-phone", true);\n        if (this.leftSidebar)\n          this.leftSidebar.collapsed = true;\n        if (this.rightSidebar)\n          this.rightSidebar.collapsed = true;\n      }\n      this.lastScreenWidth = window.innerWidth;\n      if (this.checkStillResizingTimeout != void 0)\n        clearTimeout(this.checkStillResizingTimeout);\n      const screenWidthSnapshot = window.innerWidth;\n      this.checkStillResizingTimeout = setTimeout(function() {\n        if (window.innerWidth == screenWidthSnapshot) {\n          localThis.checkStillResizingTimeout = void 0;\n          localThis.isResizing = false;\n          localThis.onEndResize();\n        }\n      }, 200);\n    }\n  };\n\n  // src/frontend/main/index.txt.ts\n  if (window && window.location) {\n    window.ObsidianSite = new ObsidianWebsite();\n    ObsidianSite = window.ObsidianSite;\n    window.WebpageDocument = WebpageDocument;\n    window.Canvas = Canvas;\n    window.Bounds = Bounds;\n    window.Vector2 = Vector2;\n    window.LinkHandler = LinkHandler;\n    window.FilePreviewPopover = FilePreviewPopover;\n    ObsidianSite.init();\n  }\n})();\n';
 
 // src/plugin/asset-loaders/website-js.ts
 var WebsiteJS = class extends AssetLoader {
@@ -81324,7 +78188,7 @@ var _AssetHandler = class {
     this.vaultPluginsPath = Path.vaultPath.joinString(app.vault.configDir, "plugins/").absolute();
   }
   static async initialize() {
-    var _a2, _b2;
+    var _a3, _b3;
     this.obsidianStyles = new ObsidianStyles();
     this.otherPluginStyles = new OtherPluginStyles();
     this.themeStyles = new ThemeStyles();
@@ -81344,7 +78208,7 @@ var _AssetHandler = class {
     this.customHeadContent = new CustomHeadContent();
     this.initPaths();
     this.mainJsPath = this.vaultPluginsPath.joinString("webpage-html-export/main.js");
-    this.mainJsModTime = (_b2 = (_a2 = this.mainJsPath.stat) == null ? void 0 : _a2.mtimeMs) != null ? _b2 : 0;
+    this.mainJsModTime = (_b3 = (_a3 = this.mainJsPath.stat) == null ? void 0 : _a3.mtimeMs) != null ? _b3 : 0;
     this.staticAssets.forEach((asset) => asset.sourceStat.mtime = this.mainJsModTime);
     this.allAssets.sort((a, b) => a.loadPriority - b.loadPriority);
     const loadPromises = [];
@@ -81557,7 +78421,7 @@ AssetHandler.exportOptions = new ExportPipelineOptions();
 AssetHandler.mainJsModTime = 0;
 
 // src/plugin/exporter.ts
-var import_obsidian12 = require("obsidian");
+var import_obsidian11 = require("obsidian");
 
 // src/plugin/features/tree.ts
 var Tree = class {
@@ -81602,8 +78466,8 @@ var Tree = class {
     const header = wrapper.createDiv("feature-header");
     if (this.title || this.addCollapseAllButton) {
       if (this.title) {
-        const title = header.createDiv("feature-title");
-        title.textContent = this.title;
+        const titleEl = header.createDiv("feature-title");
+        titleEl.textContent = this.title;
       }
       if (this.addCollapseAllButton) {
         const collapseAllEl = header.createEl("button", { cls: "clickable-icon nav-action-button tree-collapse-all" });
@@ -81641,6 +78505,7 @@ var TreeItem = class {
     this.minCollapsableDepth = 1;
     this.isCollapsed = false;
     this.childContainer = void 0;
+    this.treeOrder = 0;
     this.itemEl = void 0;
     this.collapseIcon = void 0;
     this.tree = tree;
@@ -81651,9 +78516,9 @@ var TreeItem = class {
     return this._href;
   }
   set href(value) {
-    var _a2;
+    var _a3;
     this._href = value;
-    this.dataRef = (_a2 = this.dataRef) != null ? _a2 : value;
+    this.dataRef = (_a3 = this.dataRef) != null ? _a3 : value;
   }
   async insert(container, startClosed = true) {
     if (startClosed)
@@ -81671,28 +78536,28 @@ var TreeItem = class {
     }
   }
   async setCollapse(collapsed, animate = true) {
-    var _a2, _b2;
+    var _a3, _b3;
     if (!this.isCollapsible())
       return;
     if (!this.itemEl || !this.itemEl.classList.contains("mod-collapsible"))
       return;
-    const children = this.itemEl.querySelector(".tree-item-children");
-    if (children == null)
+    const childrenEl = this.itemEl.querySelector(".tree-item-children");
+    if (childrenEl == null)
       return;
     if (collapsed) {
       this.itemEl.classList.add("is-collapsed");
-      (_a2 = this.collapseIcon) == null ? void 0 : _a2.classList.add("is-collapsed");
+      (_a3 = this.collapseIcon) == null ? void 0 : _a3.classList.add("is-collapsed");
       if (animate)
-        this.slideUp(children, 100);
+        this.slideUp(childrenEl, 100);
       else
-        children.style.display = "none";
+        childrenEl.style.display = "none";
     } else {
       this.itemEl.classList.remove("is-collapsed");
-      (_b2 = this.collapseIcon) == null ? void 0 : _b2.classList.remove("is-collapsed");
+      (_b3 = this.collapseIcon) == null ? void 0 : _b3.classList.remove("is-collapsed");
       if (animate)
-        this.slideDown(children, 100);
+        this.slideDown(childrenEl, 100);
       else
-        children.style.removeProperty("display");
+        childrenEl.style.removeProperty("display");
     }
     this.isCollapsed = collapsed;
   }
@@ -81734,13 +78599,13 @@ var TreeItem = class {
     return itemContentsEl;
   }
   async insertSelf(container) {
-    var _a2, _b2;
+    var _a3, _b3;
     if (this.tree.makeLinksWebStyle && this.href)
       this.href = Path.slugify(this.href);
     const itemLinkEl = container.createEl(this.href ? "a" : "div", { cls: "tree-item-self is-clickable" });
     if (this.href)
       itemLinkEl.setAttribute("href", this.href);
-    itemLinkEl.setAttribute("data-path", (_b2 = (_a2 = this.dataRef) != null ? _a2 : this.href) != null ? _b2 : this.title);
+    itemLinkEl.setAttribute("data-path", (_b3 = (_a3 = this.dataRef) != null ? _a3 : this.href) != null ? _b3 : this.title);
     if (this.isCollapsible()) {
       this.insertCollapseIcon(itemLinkEl);
       itemLinkEl.classList.add("mod-collapsible");
@@ -81835,9 +78700,9 @@ var FileTree = class extends Tree {
     this.hideFileExtentionTags = [];
     this.regexBlacklist = [];
     this.regexWhitelist = [];
+    this.pathToItem = /* @__PURE__ */ new Map();
     if (files.some((file) => file.isDirectory)) {
-      console.error("FileTree: All paths must be files, not directories");
-      files = files.filter((file) => !file.isDirectory);
+      console.warn("FileTree: Some paths are directories. These will be treated as folders in the tree.");
     }
     this.files = files;
     this.keepOriginalExtensions = keepOriginalExtensions;
@@ -81847,100 +78712,161 @@ var FileTree = class extends Tree {
   }
   async populateTree() {
     this.regexBlacklist = this.regexBlacklist.filter((pattern) => pattern.trim() != "");
-    let filteredFiles = this.files.filter((file) => this.regexBlacklist.every((pattern) => !file.path.match(new RegExp(pattern))));
-    filteredFiles = filteredFiles.filter((file) => this.regexWhitelist.every((pattern) => file.path.match(new RegExp(pattern))));
+    this.regexWhitelist = this.regexWhitelist.filter((pattern) => pattern.trim() != "");
+    let filteredFiles = this.files.filter((file) => this.regexBlacklist.every((pattern) => !file.path.match(new RegExp(pattern))) && (this.regexWhitelist.length === 0 || this.regexWhitelist.some((pattern) => file.path.match(new RegExp(pattern)))));
+    this.children = [];
+    this.pathToItem.clear();
     for (const file of filteredFiles) {
       const pathSections = [];
-      let parentFile = file;
-      while (parentFile != void 0) {
-        pathSections.push(parentFile);
-        parentFile = parentFile.parent;
+      let currentPathSegment = file;
+      while (currentPathSegment != void 0 && currentPathSegment.path !== "") {
+        pathSections.push(currentPathSegment);
+        currentPathSegment = currentPathSegment.parent;
       }
       pathSections.reverse();
-      let parent = this;
+      let currentParentNode = this;
       for (let i = 0; i < pathSections.length; i++) {
         const section = pathSections[i];
         const depth = i + 1;
-        const isFolder = section.isDirectory;
-        let child = parent.children.find((sibling) => sibling.title == section.basename && sibling.isFolder == isFolder && sibling.depth == depth);
+        const isFolder = i < pathSections.length - 1 || file.isDirectory;
+        const titleForLookup = section.basename;
+        let child = currentParentNode.children.find((sibling) => sibling.dataRef == section.path);
         if (child == void 0) {
-          child = new FileTreeItem(this, parent, depth);
-          child.title = section.basename;
+          child = new FileTreeItem(this, currentParentNode, depth);
           child.isFolder = isFolder;
           child.dataRef = section.path;
+          child.title = titleForLookup;
           if (child.isFolder) {
-            const tfolder = app.vault.getFolderByPath(section.path);
-            if (tfolder) {
+            const tfolder = app.vault.getAbstractFileByPath(section.path);
+            if (tfolder && tfolder.name !== "") {
+              child.title = tfolder.name;
               child.icon = (await _MarkdownRendererInternal.getIconForFile(tfolder)).icon;
             }
           }
-          parent.children.push(child);
+          currentParentNode.children.push(child);
+          this.pathToItem.set(child.dataRef, child);
         }
-        parent = child;
+        currentParentNode = child;
       }
-      if (parent instanceof FileTreeItem) {
-        const path = file.copy;
-        const tfile = app.vault.getAbstractFileByPath(path.path);
-        if (file.isDirectory)
-          path.folderize();
-        else {
-          if (path.path.endsWith(".excalidraw.md"))
-            path.setExtension("drawing");
-          parent.originalExtension = path.extensionName;
-          if (!this.keepOriginalExtensions && MarkdownRendererAPI.isConvertable(path.extensionName))
-            path.setExtension("html");
+      if (currentParentNode instanceof FileTreeItem && currentParentNode.dataRef === file.path) {
+        const targetPath = file.copy;
+        const tfile = app.vault.getAbstractFileByPath(file.path);
+        currentParentNode.isFolder = file.isDirectory;
+        if (file.isDirectory) {
+          targetPath.folderize();
+          if (tfile)
+            currentParentNode.title = tfile.name;
+        } else {
+          if (targetPath.path.endsWith(".excalidraw.md"))
+            targetPath.setExtension("drawing");
+          currentParentNode.originalExtension = file.extensionName;
+          if (!this.keepOriginalExtensions && MarkdownRendererAPI.isConvertable(targetPath.extensionName))
+            targetPath.setExtension("html");
+          if (tfile)
+            currentParentNode.title = (await _MarkdownRendererInternal.getTitleForFile(tfile)).title;
         }
-        parent.href = path.path;
-        if (tfile) {
-          parent.title = (await _MarkdownRendererInternal.getTitleForFile(tfile)).title;
-          parent.icon = (await _MarkdownRendererInternal.getIconForFile(tfile)).icon;
-        }
+        currentParentNode.href = targetPath.path;
       }
     }
     if (this.sort) {
       this.sortAlphabetically();
       this.sortByIsFolder();
     }
+    this.assignTreeOrder();
+  }
+  assignTreeOrder() {
+    let orderCounter = { value: 0 };
+    if (this.sort) {
+      this.children.sort((a, b) => a.title.localeCompare(b.title, void 0, { numeric: true }));
+      this.children.sort((a, b) => a.isFolder === b.isFolder ? 0 : a.isFolder ? -1 : 1);
+    }
+    for (const child of this.children) {
+      this.assignTreeOrderRecursive(child, orderCounter);
+    }
+  }
+  assignTreeOrderRecursive(item, orderCounter) {
+    item.treeOrder = orderCounter.value++;
+    if (this.sort) {
+      item.children.sort((a, b) => a.title.localeCompare(b.title, void 0, { numeric: true }));
+      item.children.sort((a, b) => a.isFolder === b.isFolder ? 0 : a.isFolder ? -1 : 1);
+    }
+    for (const child of item.children) {
+      this.assignTreeOrderRecursive(child, orderCounter);
+    }
+  }
+  getItemBySourcePath(sourcePath) {
+    return this.pathToItem.get(sourcePath);
   }
   async generateTree(container) {
     await this.populateTree();
     await super.generateTree(container);
   }
   sortByIsFolder(reverse = false) {
-    this.children.sort((a, b) => reverse ? a.isFolder && !b.isFolder ? -1 : 1 : a.isFolder && !b.isFolder ? -1 : 1);
+    this.children.sort((a, b) => {
+      if (a.isFolder === b.isFolder)
+        return 0;
+      return reverse ? a.isFolder ? 1 : -1 : a.isFolder ? -1 : 1;
+    });
     for (const child of this.children) {
-      child.sortByIsFolder(reverse);
+      if (child.children.length > 0)
+        child.sortByIsFolder(reverse);
+    }
+  }
+  sortAlphabetically(reverse = false) {
+    this.children.sort((a, b) => reverse ? b.title.localeCompare(a.title, void 0, { numeric: true }) : a.title.localeCompare(b.title, void 0, { numeric: true }));
+    for (const child of this.children) {
+      if (child.children.length > 0)
+        child.sortAlphabetically(reverse);
     }
   }
   forAllChildren(func, recursive = true) {
     for (const child of this.children) {
       func(child);
-      if (recursive)
-        child.forAllChildren(func);
+      if (recursive && child.children.length > 0)
+        child.forAllChildren(func, recursive);
     }
   }
 };
 var FileTreeItem = class extends TreeItem {
-  constructor() {
-    super(...arguments);
+  constructor(tree, parent, depth) {
+    super(tree, parent, depth);
     this.children = [];
     this.isFolder = false;
     this.originalExtension = "";
+    this.tree = tree;
+    this.parent = parent;
   }
   forAllChildren(func, recursive = true) {
-    super.forAllChildren(func, recursive);
+    for (const child of this.children) {
+      func(child);
+      if (recursive && child.children.length > 0) {
+        child.forAllChildren(func, recursive);
+      }
+    }
   }
   sortByIsFolder(reverse = false) {
-    this.children.sort((a, b) => reverse ? a.isFolder && !b.isFolder ? -1 : 1 : a.isFolder && !b.isFolder ? -1 : 1);
+    this.children.sort((a, b) => {
+      if (a.isFolder === b.isFolder)
+        return 0;
+      return reverse ? a.isFolder ? 1 : -1 : a.isFolder ? -1 : 1;
+    });
     for (const child of this.children) {
-      child.sortByIsFolder(reverse);
+      if (child.children.length > 0)
+        child.sortByIsFolder(reverse);
+    }
+  }
+  sortAlphabetically(reverse = false) {
+    this.children.sort((a, b) => reverse ? b.title.localeCompare(a.title, void 0, { numeric: true }) : a.title.localeCompare(b.title, void 0, { numeric: true }));
+    for (const child of this.children) {
+      if (child.children.length > 0)
+        child.sortAlphabetically(reverse);
     }
   }
   async insertSelf(container) {
     const self2 = await super.insertSelf(container);
     self2.classList.toggle("nav-folder-title", this.isFolder);
     self2.classList.toggle("nav-file-title", !this.isFolder);
-    if (!this.isFolder && this.tree.showFileExtentionTags && !this.tree.hideFileExtentionTags.contains(this.originalExtension) && this.originalExtension != "") {
+    if (!this.isFolder && this.tree.showFileExtentionTags && !this.tree.hideFileExtentionTags.includes(this.originalExtension) && this.originalExtension != "") {
       const tag = self2.createDiv({ cls: "nav-file-tag" });
       tag.textContent = this.originalExtension;
     }
@@ -81964,17 +78890,17 @@ var FileTreeItem = class extends TreeItem {
     return item;
   }
   insertChildren(container) {
-    const children = super.insertChildren(container);
-    children.classList.toggle("nav-folder-children", this.isFolder);
-    children.classList.toggle("nav-file-children", !this.isFolder);
-    return children;
+    const childrenContainer = super.insertChildren(container);
+    childrenContainer.classList.toggle("nav-folder-children", this.isFolder);
+    childrenContainer.classList.toggle("nav-file-children", !this.isFolder);
+    return childrenContainer;
   }
 };
 
 // src/plugin/features/outline-tree.ts
 var OutlineTree = class extends Tree {
   constructor(webpage, minDepth = 1) {
-    var _a2, _b2;
+    var _a3, _b3;
     super();
     this.minDepth = 1;
     this.depth = 0;
@@ -82003,10 +78929,10 @@ var OutlineTree = class extends Tree {
       } else if (heading.level < parent.depth) {
         if (parent instanceof OutlineTreeItem) {
           const levelChange = parent.depth - heading.level;
-          let backParent = (_a2 = parent.parent) != null ? _a2 : parent;
+          let backParent = (_a3 = parent.parent) != null ? _a3 : parent;
           for (let i = 0; i < levelChange; i++) {
             if (backParent instanceof OutlineTreeItem)
-              backParent = (_b2 = backParent.parent) != null ? _b2 : backParent;
+              backParent = (_b3 = backParent.parent) != null ? _b3 : backParent;
           }
           const child = this.createTreeItem(heading, backParent);
           backParent.children.push(child);
@@ -82097,7 +79023,7 @@ var Webpage = class extends Attachment {
     super.source = file;
   }
   async generateOutput() {
-    var _a2;
+    var _a3;
     const output = new WebpageOutputData();
     output.html = this.html;
     output.title = this.title;
@@ -82107,7 +79033,7 @@ var Webpage = class extends Attachment {
     output.fullURL = this.fullURL;
     output.rssDate = this.rssDate;
     output.pathToRoot = this.pathToRoot.path;
-    output.coverImageURL = (_a2 = this.coverImageURL) != null ? _a2 : "";
+    output.coverImageURL = (_a3 = this.coverImageURL) != null ? _a3 : "";
     output.allTags = this.allTags;
     output.frontmatterTags = this.frontmatterTags;
     output.aliases = this.aliases;
@@ -82123,19 +79049,19 @@ var Webpage = class extends Attachment {
     this.outputData = output;
   }
   get searchContent() {
-    var _a2, _b2, _c2;
-    const contentElement = (_c2 = (_a2 = this.sizerElement) != null ? _a2 : this.viewElement) != null ? _c2 : (_b2 = this.pageDocument) == null ? void 0 : _b2.body;
+    var _a3, _b3, _c2;
+    const contentElement = (_c2 = (_a3 = this.sizerElement) != null ? _a3 : this.viewElement) != null ? _c2 : (_b3 = this.pageDocument) == null ? void 0 : _b3.body;
     if (!contentElement) {
       return "";
     }
     const skipSelector = ".math, svg, img, .frontmatter, .metadata-container, .heading-after, style, script";
     function getTextNodes(element) {
-      var _a3;
+      var _a4;
       const textNodes2 = [];
       const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
       let node;
       while (node = walker.nextNode()) {
-        if ((_a3 = node.parentElement) == null ? void 0 : _a3.closest(skipSelector)) {
+        if ((_a4 = node.parentElement) == null ? void 0 : _a4.closest(skipSelector)) {
           continue;
         }
         textNodes2.push(node);
@@ -82160,8 +79086,8 @@ var Webpage = class extends Attachment {
     return this.pageDocument.querySelector(".obsidian-document");
   }
   get sizerElement() {
-    var _a2, _b2;
-    return (_b2 = (_a2 = this.pageDocument.querySelector(".canvas-wrapper")) != null ? _a2 : this.pageDocument.querySelector(".markdown-preview-sizer")) != null ? _b2 : this.pageDocument.querySelector(".obsidian-document");
+    var _a3, _b3;
+    return (_b3 = (_a3 = this.pageDocument.querySelector(".canvas-wrapper")) != null ? _a3 : this.pageDocument.querySelector(".markdown-preview-sizer")) != null ? _b3 : this.pageDocument.querySelector(".obsidian-document");
   }
   get headerElement() {
     return this.pageDocument.querySelector(".header");
@@ -82179,9 +79105,9 @@ var Webpage = class extends Attachment {
     return uniqueTags;
   }
   get frontmatterTags() {
-    var _a2;
+    var _a3;
     let tags = [];
-    const frontmatterTags = ((_a2 = this.frontmatter) == null ? void 0 : _a2.tags) || [];
+    const frontmatterTags = ((_a3 = this.frontmatter) == null ? void 0 : _a3.tags) || [];
     if (!Array.isArray(frontmatterTags)) {
       tags = [String(frontmatterTags)];
     } else {
@@ -82191,8 +79117,8 @@ var Webpage = class extends Attachment {
     return tags;
   }
   get inlineTags() {
-    var _a2, _b2;
-    const tagCaches = (_b2 = (_a2 = app.metadataCache.getFileCache(this.source)) == null ? void 0 : _a2.tags) == null ? void 0 : _b2.values();
+    var _a3, _b3;
+    const tagCaches = (_b3 = (_a3 = app.metadataCache.getFileCache(this.source)) == null ? void 0 : _a3.tags) == null ? void 0 : _b3.values();
     const tags = [];
     if (tagCaches) {
       tags.push(...Array.from(tagCaches).map((tag) => tag.tag));
@@ -82203,30 +79129,30 @@ var Webpage = class extends Attachment {
     const headers = [];
     if (this.pageDocument) {
       this.pageDocument.querySelectorAll(".heading").forEach((headerEl) => {
-        var _a2, _b2;
+        var _a3, _b3;
         let level = parseInt(headerEl.tagName[1]);
         if (headerEl.closest("[class^='block-language-']") || headerEl.closest(".markdown-embed.inline-embed"))
           level += 6;
-        const heading = (_b2 = (_a2 = headerEl.getAttribute("data-heading")) != null ? _a2 : headerEl.innerText) != null ? _b2 : "";
+        const heading = (_b3 = (_a3 = headerEl.getAttribute("data-heading")) != null ? _a3 : headerEl.innerText) != null ? _b3 : "";
         headers.push({ heading, level, id: headerEl.id, headingEl: headerEl });
       });
     }
     return headers;
   }
   async getRenderedHeadings() {
-    var _a2;
+    var _a3;
     const headings = this.headings.map((header) => {
       return { heading: header.heading, level: header.level, id: header.id };
     });
     for (const header of headings) {
-      const h = (_a2 = await MarkdownRendererAPI.renderMarkdownSimple(header.heading)) != null ? _a2 : header.heading;
+      const h = (_a3 = await MarkdownRendererAPI.renderMarkdownSimple(header.heading)) != null ? _a3 : header.heading;
       header.heading = h;
     }
     return headings;
   }
   get aliases() {
-    var _a2, _b2;
-    const aliases = (_b2 = (_a2 = this.frontmatter) == null ? void 0 : _a2.aliases) != null ? _b2 : [];
+    var _a3, _b3;
+    const aliases = (_b3 = (_a3 = this.frontmatter) == null ? void 0 : _a3.aliases) != null ? _b3 : [];
     return aliases;
   }
   get description() {
@@ -82237,7 +79163,7 @@ var Webpage = class extends Attachment {
     let localThis = this;
     if (!description) {
       let keepTextLinksImages = function(element) {
-        var _a2, _b2, _c2;
+        var _a3, _b3, _c2;
         const walker = localThis.pageDocument.createTreeWalker(element, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
         let node;
         const nodes = [];
@@ -82248,7 +79174,7 @@ var Webpage = class extends Attachment {
               nodes.push(element2);
             }
             if (element2.tagName == "DIV") {
-              const classes = (_a2 = element2.parentElement) == null ? void 0 : _a2.classList;
+              const classes = (_a3 = element2.parentElement) == null ? void 0 : _a3.classList;
               if ((classes == null ? void 0 : classes.contains("heading-children")) || (classes == null ? void 0 : classes.contains("markdown-preview-sizer"))) {
                 nodes.push(document.createElement("br"));
               }
@@ -82257,7 +79183,7 @@ var Webpage = class extends Attachment {
               nodes.push(document.createElement("br"));
             }
           } else {
-            if (((_b2 = node.parentElement) == null ? void 0 : _b2.tagName) != "A" && ((_c2 = node.parentElement) == null ? void 0 : _c2.tagName) != "IMG")
+            if (((_b3 = node.parentElement) == null ? void 0 : _b3.tagName) != "A" && ((_c2 = node.parentElement) == null ? void 0 : _c2.tagName) != "IMG")
               nodes.push(node);
           }
         }
@@ -82270,7 +79196,7 @@ var Webpage = class extends Attachment {
       content.querySelectorAll(`h1, h2, h3, h4, h5, h6, .mermaid, table, mjx-container, style, script, 
 .mod-header, .mod-footer, .metadata-container, .frontmatter, img[src^="data:"]`).forEach((heading) => heading.remove());
       content.querySelectorAll("[src]").forEach((el) => {
-        var _a2;
+        var _a3;
         let src = el.getAttribute("src");
         if (!src)
           return;
@@ -82282,11 +79208,11 @@ var Webpage = class extends Attachment {
         }
         src = src.replace("app://obsidian", "");
         src = src.replace(".md", "");
-        const path = Path.joinStrings((_a2 = this.exportOptions.rssOptions.siteUrl) != null ? _a2 : "", src);
+        const path = Path.joinStrings((_a3 = this.exportOptions.rssOptions.siteUrl) != null ? _a3 : "", src);
         el.setAttribute("src", path.path);
       });
       content.querySelectorAll("[href]").forEach((el) => {
-        var _a2;
+        var _a3;
         let href = el.getAttribute("href");
         if (!href)
           return;
@@ -82294,7 +79220,7 @@ var Webpage = class extends Attachment {
           return;
         href = href.replace("app://obsidian", "");
         href = href.replace(".md", "");
-        const path = Path.joinStrings((_a2 = this.exportOptions.rssOptions.siteUrl) != null ? _a2 : "", href);
+        const path = Path.joinStrings((_a3 = this.exportOptions.rssOptions.siteUrl) != null ? _a3 : "", href);
         el.setAttribute("href", path.path);
       });
       keepTextLinksImages(content);
@@ -82319,8 +79245,8 @@ var Webpage = class extends Attachment {
     return this.frontmatter["author"] || this.exportOptions.rssOptions.authorName || "";
   }
   get fullURL() {
-    var _a2;
-    const url = Path.joinStrings((_a2 = this.exportOptions.rssOptions.siteUrl) != null ? _a2 : "", this.targetPath.path).path;
+    var _a3;
+    const url = Path.joinStrings((_a3 = this.exportOptions.rssOptions.siteUrl) != null ? _a3 : "", this.targetPath.path).path;
     return url;
   }
   get rssDate() {
@@ -82333,31 +79259,38 @@ var Webpage = class extends Attachment {
     return rssDate;
   }
   get backlinks() {
-    var _a2, _b2;
-    const backlinks = (_b2 = Object.keys((_a2 = app.metadataCache.getBacklinksForFile(this.source)) == null ? void 0 : _a2.data)) != null ? _b2 : [];
+    var _a3, _b3, _c2;
+    const backlinks = Array.from(((_c2 = (_b3 = (_a3 = app.metadataCache.getBacklinksForFile(this.source)) == null ? void 0 : _a3.data) == null ? void 0 : _b3.keys) == null ? void 0 : _c2.call(_b3)) || []);
     let linkedWebpages = backlinks.map((path) => this.website.index.getWebpage(path));
     linkedWebpages = linkedWebpages.filter((page) => page != void 0);
     return linkedWebpages;
   }
   get coverImageURL() {
-    var _a2, _b2, _c2;
+    var _a3, _b3, _c2;
     if (!this.viewElement)
       return void 0;
-    let mediaPathStr = (_b2 = (_a2 = this.viewElement.querySelector("img")) == null ? void 0 : _a2.getAttribute("src")) != null ? _b2 : "";
+    let mediaPathStr = (_b3 = (_a3 = this.viewElement.querySelector("img")) == null ? void 0 : _a3.getAttribute("src")) != null ? _b3 : "";
     if (mediaPathStr.startsWith("data:"))
       return void 0;
     const hasMedia = mediaPathStr.length > 0;
     if (!hasMedia)
       return void 0;
     if (!mediaPathStr.startsWith("http") && !mediaPathStr.startsWith("data:")) {
+      const resolvedPath = this.website.getFilePathFromSrc(mediaPathStr, this.source.path);
+      const attachment = this.website.index.getFile(resolvedPath.pathname, true);
+      if (attachment) {
+        mediaPathStr = attachment.targetPath.path;
+      } else {
+        mediaPathStr = resolvedPath.path;
+      }
       const mediaPath = Path.joinStrings((_c2 = this.exportOptions.rssOptions.siteUrl) != null ? _c2 : "", mediaPathStr);
       mediaPathStr = mediaPath.path;
     }
     return mediaPathStr;
   }
   get frontmatter() {
-    var _a2, _b2;
-    const frontmatter = (_b2 = (_a2 = app.metadataCache.getFileCache(this.source)) == null ? void 0 : _a2.frontmatter) != null ? _b2 : {};
+    var _a3, _b3;
+    const frontmatter = (_b3 = (_a3 = app.metadataCache.getFileCache(this.source)) == null ? void 0 : _a3.frontmatter) != null ? _b3 : {};
     return frontmatter;
   }
   get srcLinks() {
@@ -82382,16 +79315,16 @@ var Webpage = class extends Attachment {
     return otherFiles;
   }
   async build() {
-    var _a2, _b2, _c2, _d, _e;
+    var _a3, _b3, _c2, _d, _e;
     let isMedia = MarkdownRendererAPI.viewableMediaExtensions.contains(this.source.extension);
     if (isMedia)
       this.type = "attachment" /* Attachment */;
-    (_a2 = this.viewElement) == null ? void 0 : _a2.setAttribute("data-type", this.type);
+    (_a3 = this.viewElement) == null ? void 0 : _a3.setAttribute("data-type", this.type);
     const titleInfo = await _MarkdownRendererInternal.getTitleForFile(this.source);
     const iconInfo = await _MarkdownRendererInternal.getIconForFile(this.source);
     this.title = titleInfo.title;
     this.icon = iconInfo.icon;
-    this.icon = (_b2 = await MarkdownRendererAPI.renderMarkdownSimple(this.icon)) != null ? _b2 : this.icon;
+    this.icon = (_b3 = await MarkdownRendererAPI.renderMarkdownSimple(this.icon)) != null ? _b3 : this.icon;
     if (this.exportOptions.inlineMedia)
       await this.inlineMedia();
     if (this.exportOptions.addHeadTag)
@@ -82440,7 +79373,7 @@ var Webpage = class extends Attachment {
     return this;
   }
   async renderDocument() {
-    var _a2;
+    var _a3;
     this.pageDocument.documentElement.innerHTML = this.website.webpageTemplate.getDocElementInner();
     const centerContent = this.pageDocument.querySelector("#center-content");
     if (!centerContent)
@@ -82452,7 +79385,7 @@ var Webpage = class extends Attachment {
       return void 0;
     if (MarkdownRendererAPI.checkCancelled())
       return void 0;
-    this.type = (_a2 = renderInfo == null ? void 0 : renderInfo.viewType) != null ? _a2 : "markdown" /* Markdown */;
+    this.type = (_a3 = renderInfo == null ? void 0 : renderInfo.viewType) != null ? _a3 : "markdown" /* Markdown */;
     if (this.type == "markdown") {
       contentEl.classList.toggle("allow-fold-headings", this.exportOptions.documentOptions.allowFoldingHeadings);
       contentEl.classList.toggle("allow-fold-lists", this.exportOptions.documentOptions.allowFoldingLists);
@@ -82484,7 +79417,7 @@ var Webpage = class extends Attachment {
     return this.attachments;
   }
   resolveLink(link, linkEl, preferAttachment = false) {
-    var _a2, _b2, _c2, _d;
+    var _a3, _b3, _c2;
     if (!link)
       return "";
     if (!link.startsWith("app://") && /\w+:(\/\/|\\\\)/.exec(link))
@@ -82493,12 +79426,17 @@ var Webpage = class extends Attachment {
       return;
     if (link == null ? void 0 : link.startsWith("?"))
       return;
+    if (link.startsWith("mailto:"))
+      return;
     if (link.startsWith("#")) {
-      let headerText = ((_a2 = linkEl == null ? void 0 : linkEl.getAttribute("data-href")) != null ? _a2 : link).replaceAll(" ", "_").replaceAll(":", "").replaceAll("__", "_").substring(1);
-      let hrefValue = `#${headerText}_${(_b2 = this.headerMap.get(headerText)) != null ? _b2 : 0}`;
-      if (!this.exportOptions.relativeHeaderLinks)
-        hrefValue = this.targetPath + hrefValue;
-      return hrefValue;
+      let headerText = ((_a3 = linkEl == null ? void 0 : linkEl.getAttribute("data-href")) != null ? _a3 : link).replaceAll(" ", "_").replaceAll(":", "").replaceAll("__", "_").substring(1);
+      if (this.headerMap.has(headerText)) {
+        let hrefValue = `#${headerText}_${this.headerMap.get(headerText)}`;
+        if (!this.exportOptions.relativeHeaderLinks)
+          hrefValue = this.targetPath + hrefValue;
+        return hrefValue;
+      }
+      return link;
     }
     const linkSplit = link.split("#")[0].split("?")[0];
     const attachmentPath = this.website.getFilePathFromSrc(linkSplit, this.source.path);
@@ -82507,21 +79445,23 @@ var Webpage = class extends Attachment {
       const resolved = attachmentPath.slugify(this.exportOptions.slugifyPaths).setExtension("html");
       return resolved.path;
     }
-    let hash = (_d = ((_c2 = linkEl == null ? void 0 : linkEl.getAttribute("data-href")) != null ? _c2 : link).split("#")[1]) != null ? _d : "";
+    let hash = (_c2 = ((_b3 = linkEl == null ? void 0 : linkEl.getAttribute("data-href")) != null ? _b3 : link).split("#")[1]) != null ? _c2 : "";
     if (hash != "")
       hash = "#" + hash;
     if (attachment.targetPath.extensionName == "html") {
       const headerText = hash.replaceAll(" ", "_").replaceAll(":", "").replaceAll("__", "_").substring(1);
-      const headerId = this.headerMap.get(headerText);
-      hash = `#${headerText}_${headerId != null ? headerId : 0}`;
+      if (this.headerMap.has(headerText)) {
+        const headerId = this.headerMap.get(headerText);
+        hash = `#${headerText}_${headerId}`;
+      }
     }
     return attachment.targetPath.path + hash;
   }
   remapLinks() {
-    var _a2;
+    var _a3;
     this.pageDocument.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach((headerEl) => {
-      var _a3, _b2;
-      let headerText = ((_b2 = (_a3 = headerEl.getAttribute("data-heading")) != null ? _a3 : headerEl.textContent) != null ? _b2 : "").replaceAll(" ", "_").replaceAll(":", "").replaceAll("__", "_");
+      var _a4, _b3;
+      let headerText = ((_b3 = (_a4 = headerEl.getAttribute("data-heading")) != null ? _a4 : headerEl.textContent) != null ? _b3 : "").replaceAll(" ", "_").replaceAll(":", "").replaceAll("__", "_");
       let headerId = this.headerMap.get(headerText);
       if (headerId) {
         headerId = `${+headerId + 1}`;
@@ -82535,18 +79475,18 @@ var Webpage = class extends Attachment {
     for (const link of links) {
       const href = link.getAttribute("href");
       const newHref = this.resolveLink(href, link);
-      link.setAttribute("href", (_a2 = newHref != null ? newHref : href) != null ? _a2 : "");
+      link.setAttribute("href", (_a3 = newHref != null ? newHref : href) != null ? _a3 : "");
       link.setAttribute("target", "_self");
       link.classList.toggle("is-unresolved", !newHref);
     }
   }
   remapEmbedLinks() {
-    var _a2;
+    var _a3;
     const links = this.srcLinkElements;
     for (const link of links) {
       const src = link.getAttribute("src");
       const newSrc = this.resolveLink(src, link, true);
-      link.setAttribute("src", (_a2 = newSrc != null ? newSrc : src) != null ? _a2 : "");
+      link.setAttribute("src", (_a3 = newSrc != null ? newSrc : src) != null ? _a3 : "");
       link.setAttribute("target", "_self");
       link.classList.toggle("is-unresolved", !newSrc);
     }
@@ -82555,7 +79495,7 @@ var Webpage = class extends Attachment {
     let rootPath = this.pathToRoot.slugified(this.exportOptions.slugifyPaths).path;
     if (rootPath == "")
       rootPath = ".";
-    const description = this.description || this.exportOptions.rssOptions.siteName + " - " + this.title;
+    const description = this.description || this.exportOptions.siteName + " - " + this.title;
     let head = `
 <title>${this.title}</title>
 <base href="${rootPath}">
@@ -82573,10 +79513,10 @@ var Webpage = class extends Attachment {
     this.pageDocument.head.innerHTML = head + this.pageDocument.head.innerHTML;
   }
   async inlineMedia() {
-    var _a2, _b2;
+    var _a3, _b3;
     const elements = Array.from(this.pageDocument.querySelectorAll("[src]:not(head [src])"));
     for (const mediaEl of elements) {
-      const rawSrc = (_a2 = mediaEl.getAttribute("src")) != null ? _a2 : "";
+      const rawSrc = (_a3 = mediaEl.getAttribute("src")) != null ? _a3 : "";
       const filePath = this.website.getFilePathFromSrc(rawSrc, this.source.path);
       if (filePath.isEmpty || filePath.isDirectory || filePath.isAbsolute)
         continue;
@@ -82584,7 +79524,7 @@ var Webpage = class extends Attachment {
       if (!base64)
         return;
       let ext = filePath.extensionName;
-      const type = (_b2 = app.viewRegistry.typeByExtension[ext]) != null ? _b2 : "audio";
+      const type = (_b3 = app.viewRegistry.typeByExtension[ext]) != null ? _b3 : "audio";
       if (ext === "svg")
         ext += "+xml";
       mediaEl.setAttribute("src", `data:${type}/${ext};base64,${base64}`);
@@ -82592,14 +79532,11 @@ var Webpage = class extends Attachment {
     ;
   }
   dispose() {
-    var _a2;
-    (_a2 = this.viewElement) == null ? void 0 : _a2.remove();
+    var _a3;
+    (_a3 = this.viewElement) == null ? void 0 : _a3.remove();
     this.pageDocument = void 0;
   }
 };
-
-// src/plugin/website/index.ts
-var import_obsidian10 = require("obsidian");
 
 // node_modules/minisearch/dist/es/index.js
 function __awaiter(thisArg, _arguments, P, generator) {
@@ -83683,7 +80620,7 @@ var wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 var SPACE_OR_PUNCTUATION = /[\n\r\p{Z}\p{P}]+/u;
 
 // src/plugin/website/index.ts
-var import_rss2 = __toESM(require_lib5());
+var import_rss3 = __toESM(require_lib5());
 
 // src/plugin/website/webpage-template.ts
 var _WebpageTemplate = class {
@@ -83696,9 +80633,9 @@ var _WebpageTemplate = class {
     this.doc = document.implementation.createHTMLDocument();
     const collapseSidebarIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg>`;
     const head = this.doc.head;
-    head.innerHTML += `<meta property="og:site_name" content="${this.options.rssOptions.siteName}">`;
+    head.innerHTML = `<meta charset="UTF-8">` + head.innerHTML;
+    head.innerHTML += `<meta property="og:site_name" content="${this.options.siteName}">`;
     head.innerHTML += `<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0">`;
-    head.innerHTML += `<meta charset="UTF-8">`;
     if (!this.options.combineAsSingleFile) {
       if (this.options.rssOptions.enabled) {
         head.innerHTML += `<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="${this.rssURL}">`;
@@ -83708,8 +80645,10 @@ var _WebpageTemplate = class {
     const body = this.doc.body;
     if (this.options.addBodyClasses)
       body.setAttribute("class", await _WebpageTemplate.getValidBodyClasses());
-    const layout = this.doc.body.createDiv({ attr: { id: "layout" } });
-    const leftContent = layout.createDiv({ attr: { id: "left-content", class: "leaf" } });
+    const main = body.createDiv({ attr: { id: "main" } });
+    const navbar = main.createDiv({ attr: { id: "navbar" } });
+    const mainHorizontal = main.createDiv({ attr: { id: "main-horizontal" } });
+    const leftContent = mainHorizontal.createDiv({ attr: { id: "left-content", class: "leaf" } });
     const leftSidebar = leftContent.createDiv({ attr: { id: "left-sidebar", class: "sidebar" } });
     const leftSidebarHandle = leftSidebar.createDiv({ attr: { class: "sidebar-handle" } });
     const leftTopbar = leftSidebar.createDiv({ attr: { class: "sidebar-topbar" } });
@@ -83718,8 +80657,8 @@ var _WebpageTemplate = class {
     leftCollapseIcon.innerHTML = collapseSidebarIcon;
     const leftSidebarContentWrapper = leftSidebar.createDiv({ attr: { class: "sidebar-content-wrapper" } });
     const leftSidebarContent = leftSidebarContentWrapper.createDiv({ attr: { id: "left-sidebar-content", class: "leaf-content" } });
-    const centerContent = layout.createDiv({ attr: { id: "center-content", class: "leaf" } });
-    const rightContent = layout.createDiv({ attr: { id: "right-content", class: "leaf" } });
+    const centerContent = mainHorizontal.createDiv({ attr: { id: "center-content", class: "leaf" } });
+    const rightContent = mainHorizontal.createDiv({ attr: { id: "right-content", class: "leaf" } });
     const rightSidebar = rightContent.createDiv({ attr: { id: "right-sidebar", class: "sidebar" } });
     const rightSidebarHandle = rightSidebar.createDiv({ attr: { class: "sidebar-handle" } });
     const rightTopbar = rightSidebar.createDiv({ attr: { class: "sidebar-topbar" } });
@@ -83841,7 +80780,7 @@ var Index = class {
     this.allFiles = [];
   }
   async load(website, options) {
-    var _a2, _b2, _c2, _d, _e, _f, _g;
+    var _a3, _b3, _c2, _d, _e, _f, _g;
     this.website = website;
     this.exportOptions = options;
     try {
@@ -83850,7 +80789,7 @@ var Index = class {
       if (metadata) {
         this.oldWebsiteData = JSON.parse(metadata);
         this.websiteData = JSON.parse(metadata);
-        this.deletedFiles = (_a2 = this.oldWebsiteData.allFiles) != null ? _a2 : [];
+        this.deletedFiles = (_a3 = this.oldWebsiteData.allFiles) != null ? _a3 : [];
       } else {
         console.log("No metadata found. Creating new metadata.");
         this.websiteData = {};
@@ -83881,10 +80820,11 @@ var Index = class {
         sidebar: options.sidebarOptions,
         customHead: options.customHeadOptions,
         document: options.documentOptions,
-        rss: options.rssOptions
+        rss: options.rssOptions,
+        linkPreview: options.linkPreviewOptions
       };
       this.websiteData.modifiedTime = Date.now();
-      this.websiteData.siteName = (_b2 = this.website.exportOptions.rssOptions.siteName) != null ? _b2 : "";
+      this.websiteData.siteName = (_b3 = this.website.exportOptions.siteName) != null ? _b3 : "";
       this.websiteData.vaultName = app.vault.getName();
       this.websiteData.exportRoot = (_c2 = this.website.exportOptions.exportRoot) != null ? _c2 : "";
       this.websiteData.baseURL = (_d = this.website.exportOptions.rssOptions.siteUrl) != null ? _d : "";
@@ -83925,34 +80865,6 @@ var Index = class {
       }
     }
   }
-  async purge() {
-    var _a2, _b2;
-    if (!this.oldWebsiteData)
-      return;
-    function allPromisesProgress(promises2, callback) {
-      let d = 0;
-      callback(0);
-      for (const p of promises2) {
-        p.then(() => {
-          d++;
-          callback(d * 100 / promises2.length);
-        });
-      }
-      return Promise.all(promises2);
-    }
-    new import_obsidian10.Notice("Deleting website data. This may take a minute...", 10);
-    await Utils.delay(500);
-    const files = (_b2 = (_a2 = this.oldWebsiteData) == null ? void 0 : _a2.allFiles) == null ? void 0 : _b2.map((file) => new Path(file).setWorkingDirectory(this.website.destination.path));
-    const promises = files == null ? void 0 : files.map((file) => file.delete());
-    await allPromisesProgress(promises, async (progress) => {
-      if (progress % 10 == 0) {
-        new import_obsidian10.Notice(`Deleting website data. ${progress.toFixed(0)}%`);
-      }
-      await Utils.delay(0);
-    });
-    Path.removeEmptyDirectories(this.website.destination.path);
-    new import_obsidian10.Notice("Website data deletion finished.");
-  }
   async clearCache() {
     const metadataPath = this.website.destination.join(AssetHandler.libraryPath).joinString(Shared.metadataFileName);
     const indexPath = this.website.destination.join(AssetHandler.libraryPath).joinString(Shared.searchIndexFileName);
@@ -83960,14 +80872,14 @@ var Index = class {
     await indexPath.delete();
   }
   async createRSSFeed() {
-    var _a2, _b2, _c2, _d, _e, _f, _g;
+    var _a3, _b3, _c2, _d, _e, _f, _g;
     let author = this.exportOptions.rssOptions.authorName || void 0;
-    this.rssFeed = new import_rss2.default({
-      title: (_a2 = this.exportOptions.rssOptions.siteName) != null ? _a2 : app.vault.getName(),
+    this.rssFeed = new import_rss3.default({
+      title: (_a3 = this.exportOptions.siteName) != null ? _a3 : app.vault.getName(),
       description: "Obsidian digital garden",
       generator: "Webpage HTML Export plugin for Obsidian",
       feed_url: this.rssURL.path,
-      site_url: (_b2 = this.exportOptions.rssOptions.siteUrl) != null ? _b2 : "",
+      site_url: (_b3 = this.exportOptions.rssOptions.siteUrl) != null ? _b3 : "",
       image_url: Path.joinStrings((_c2 = this.exportOptions.rssOptions.siteUrl) != null ? _c2 : "", AssetHandler.favicon.targetPath.path).path,
       pubDate: new Date(this.websiteData.modifiedTime),
       copyright: author,
@@ -84006,12 +80918,12 @@ var Index = class {
       let oldItems = Array.from(rssDocOld.querySelectorAll("item"));
       let newItems = Array.from(rssDocNew.querySelectorAll("item"));
       oldItems = oldItems.filter((oldItem) => {
-        var _a3, _b3;
-        return !this.deletedFiles.includes((_b3 = (_a3 = oldItem.querySelector("guid")) == null ? void 0 : _a3.textContent) != null ? _b3 : "");
+        var _a4, _b4;
+        return !this.deletedFiles.includes((_b4 = (_a4 = oldItem.querySelector("guid")) == null ? void 0 : _a4.textContent) != null ? _b4 : "");
       });
       oldItems = oldItems.filter((oldItem) => !newItems.some((newItem) => {
-        var _a3, _b3;
-        return ((_a3 = newItem.querySelector("guid")) == null ? void 0 : _a3.textContent) == ((_b3 = oldItem.querySelector("guid")) == null ? void 0 : _b3.textContent);
+        var _a4, _b4;
+        return ((_a4 = newItem.querySelector("guid")) == null ? void 0 : _a4.textContent) == ((_b4 = oldItem.querySelector("guid")) == null ? void 0 : _b4.textContent);
       }));
       newItems.forEach((item) => item.remove());
       newItems = newItems.concat(oldItems);
@@ -84050,8 +80962,8 @@ var Index = class {
     if (!this.allFiles.includes(file)) {
       this.allFiles.push(file);
       this.allFiles.sort((a, b) => {
-        var _a2, _b2, _c2, _d;
-        return ((_b2 = (_a2 = b.source) == null ? void 0 : _a2.stat.mtime) != null ? _b2 : 0) - ((_d = (_c2 = a.source) == null ? void 0 : _c2.stat.mtime) != null ? _d : 0);
+        var _a3, _b3, _c2, _d;
+        return ((_b3 = (_a3 = b.source) == null ? void 0 : _a3.stat.mtime) != null ? _b3 : 0) - ((_d = (_c2 = a.source) == null ? void 0 : _c2.stat.mtime) != null ? _d : 0);
       });
     }
     if (file.showInTree && !this.attachmentsShownInTree.includes(file))
@@ -84098,26 +81010,26 @@ var Index = class {
     return this.sourceToWebpage.get(sourcePath);
   }
   getFile(sourcePath, preferAttachment = false) {
-    var _a2, _b2;
+    var _a3, _b3;
     if (preferAttachment) {
-      return (_a2 = this.sourceToAttachment.get(sourcePath)) != null ? _a2 : this.sourceToWebpage.get(sourcePath);
+      return (_a3 = this.sourceToAttachment.get(sourcePath)) != null ? _a3 : this.sourceToWebpage.get(sourcePath);
     }
-    return (_b2 = this.sourceToWebpage.get(sourcePath)) != null ? _b2 : this.sourceToAttachment.get(sourcePath);
+    return (_b3 = this.sourceToWebpage.get(sourcePath)) != null ? _b3 : this.sourceToAttachment.get(sourcePath);
   }
   hasFile(sourcePath) {
     return this.sourceToWebpage.has(sourcePath);
   }
   hadFile(targetPath) {
-    var _a2;
-    return ((_a2 = this.oldWebsiteData) == null ? void 0 : _a2.fileInfo[targetPath]) != void 0;
+    var _a3;
+    return ((_a3 = this.oldWebsiteData) == null ? void 0 : _a3.fileInfo[targetPath]) != void 0;
   }
   getOldFile(targetPath) {
-    var _a2;
-    return (_a2 = this.oldWebsiteData) == null ? void 0 : _a2.fileInfo[targetPath];
+    var _a3;
+    return (_a3 = this.oldWebsiteData) == null ? void 0 : _a3.fileInfo[targetPath];
   }
   getOldWebpage(targetPath) {
-    var _a2;
-    return (_a2 = this.oldWebsiteData) == null ? void 0 : _a2.webpages[targetPath];
+    var _a3;
+    return (_a3 = this.oldWebsiteData) == null ? void 0 : _a3.webpages[targetPath];
   }
   async applyToOldWebpages(callback) {
     const promises = [];
@@ -84150,7 +81062,7 @@ ${document3.documentElement.outerHTML}`));
       webpageInfo.headers = await webpage.outputData.renderedHeadings;
       webpageInfo.links = webpage.outputData.linksToOtherFiles;
       webpageInfo.author = webpage.outputData.author;
-      webpageInfo.coverImageURL = "";
+      webpageInfo.coverImageURL = webpage.outputData.coverImageURL;
       webpageInfo.fullURL = webpage.outputData.fullURL;
       webpageInfo.pathToRoot = webpage.outputData.pathToRoot == "" ? "." : webpage.outputData.pathToRoot;
       webpageInfo.attachments = webpage.attachments.map((download) => download.targetPath.path);
@@ -84211,7 +81123,7 @@ ${document3.documentElement.outerHTML}`));
     await this.addWebpageToMinisearch(webpage);
   }
   addAttachmentToWebsiteData(attachment) {
-    var _a2;
+    var _a3;
     const exportPath = attachment.targetPath.path;
     const key = exportPath;
     if (this.websiteData) {
@@ -84219,7 +81131,7 @@ ${document3.documentElement.outerHTML}`));
       fileInfo.createdTime = attachment.sourceStat.ctime;
       fileInfo.modifiedTime = attachment.sourceStat.mtime;
       fileInfo.sourceSize = attachment.sourceStat.size;
-      fileInfo.sourcePath = (_a2 = attachment.sourcePath) != null ? _a2 : "";
+      fileInfo.sourcePath = (_a3 = attachment.sourcePath) != null ? _a3 : "";
       fileInfo.exportPath = exportPath;
       fileInfo.showInTree = attachment.showInTree;
       fileInfo.treeOrder = attachment.treeOrder;
@@ -84244,8 +81156,8 @@ ${document3.documentElement.outerHTML}`));
     if (!this.attachments.includes(attachment)) {
       this.attachments.push(attachment);
       this.attachments.sort((a, b) => {
-        var _a2, _b2, _c2, _d;
-        return ((_b2 = (_a2 = b.source) == null ? void 0 : _a2.stat.mtime) != null ? _b2 : 0) - ((_d = (_c2 = a.source) == null ? void 0 : _c2.stat.mtime) != null ? _d : 0);
+        var _a3, _b3, _c2, _d;
+        return ((_b3 = (_a3 = b.source) == null ? void 0 : _a3.stat.mtime) != null ? _b3 : 0) - ((_d = (_c2 = a.source) == null ? void 0 : _c2.stat.mtime) != null ? _d : 0);
       });
     }
   }
@@ -84307,10 +81219,10 @@ var GraphView = class {
 // src/plugin/features/theme-toggle.ts
 var ThemeToggle = class {
   async generate(container, featureOptions) {
-    var _a2;
+    var _a3;
     container = container != null ? container : document.body;
     const label = container.createEl("label", {
-      attr: { for: "theme-toggle-input", id: (_a2 = featureOptions == null ? void 0 : featureOptions.featureId) != null ? _a2 : "" },
+      attr: { for: "theme-toggle-input", id: (_a3 = featureOptions == null ? void 0 : featureOptions.featureId) != null ? _a3 : "" },
       cls: "theme-toggle-container"
     });
     label.createEl("input", { attr: { type: "checkbox", id: "theme-toggle-input" }, cls: "theme-toggle-input" });
@@ -84371,12 +81283,12 @@ var Website = class {
     }
   }
   findCommonRootPath(files) {
-    var _a2, _b2;
+    var _a3, _b3;
     if (!files || files.length === 0) {
       return "";
     }
     if (files.length === 1) {
-      return (_b2 = (_a2 = new Path(files[0].path).parent) == null ? void 0 : _a2.path) != null ? _b2 : "";
+      return (_b3 = (_a3 = new Path(files[0].path).parent) == null ? void 0 : _a3.path) != null ? _b3 : "";
     }
     const paths = files.map((file) => new Path(file.path).split());
     let commonPath = [];
@@ -84399,10 +81311,10 @@ var Website = class {
     return commonPath.length > 0 ? new Path(commonPath.join("/")).path : "";
   }
   async load(files) {
-    var _a2, _b2, _c2, _d, _e;
+    var _a3, _b3, _c2, _d, _e;
     ExportLog.resetProgress();
-    ExportLog.addToProgressCap((_a2 = files == null ? void 0 : files.length) != null ? _a2 : 0);
-    ExportLog.addToProgressCap(((_b2 = files == null ? void 0 : files.length) != null ? _b2 : 0) * 0.1);
+    ExportLog.addToProgressCap((_a3 = files == null ? void 0 : files.length) != null ? _a3 : 0);
+    ExportLog.addToProgressCap(((_b3 = files == null ? void 0 : files.length) != null ? _b3 : 0) * 0.1);
     this.sourceFiles = (_c2 = files == null ? void 0 : files.filter((file) => file)) != null ? _c2 : [];
     let rootPath = this.findCommonRootPath(this.sourceFiles);
     this.exportOptions.exportRoot = rootPath;
@@ -84444,8 +81356,8 @@ var Website = class {
     try {
       if (this.exportOptions.fileNavigationOptions.enabled) {
         const paths = this.index.attachmentsShownInTree.map((file) => {
-          var _a3;
-          return new Path((_a3 = file.sourcePathRootRelative) != null ? _a3 : "");
+          var _a4;
+          return new Path((_a4 = file.sourcePathRootRelative) != null ? _a4 : "");
         });
         this.fileTree = new FileTree(paths, false, true);
         this.fileTree.makeLinksWebStyle = (_d = this.exportOptions.slugifyPaths) != null ? _d : true;
@@ -84453,11 +81365,19 @@ var Website = class {
         this.fileTree.generateWithItemsClosed = true;
         this.fileTree.showFileExtentionTags = true;
         this.fileTree.hideFileExtentionTags = ["md"];
-        this.fileTree.title = (_e = this.exportOptions.rssOptions.siteName) != null ? _e : app.vault.getName();
+        this.fileTree.title = (_e = this.exportOptions.siteName) != null ? _e : app.vault.getName();
         this.fileTree.id = "file-explorer";
         const tempContainer = document.createElement("div");
         await this.fileTree.generate(tempContainer);
         const data = tempContainer.innerHTML;
+        this.index.attachmentsShownInTree.forEach((file) => {
+          var _a4, _b4;
+          if (!file.sourcePathRootRelative)
+            return;
+          const fileTreeItem = (_a4 = this.fileTree) == null ? void 0 : _a4.getItemBySourcePath(file.sourcePathRootRelative);
+          file.treeOrder = (_b4 = fileTreeItem == null ? void 0 : fileTreeItem.treeOrder) != null ? _b4 : 0;
+          console.log("File tree order for " + file.sourcePathRootRelative + ": " + file.treeOrder);
+        });
         tempContainer.remove();
         this.fileTreeAsset = new AssetLoader("file-tree.html", data, null, "html" /* HTML */, "auto" /* Auto */, true, "temporary" /* Temporary */);
       }
@@ -84537,8 +81457,8 @@ var Website = class {
     }
   }
   validateSettings() {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t;
-    if ((_b2 = (_a2 = app.plugins) == null ? void 0 : _a2.enabledPlugins) == null ? void 0 : _b2.has("obsidian-icon-folder")) {
+    var _a3, _b3, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t;
+    if ((_b3 = (_a3 = app.plugins) == null ? void 0 : _a3.enabledPlugins) == null ? void 0 : _b3.has("obsidian-icon-folder")) {
       const fileToIconName = (_e = (_d = (_c2 = app.plugins) == null ? void 0 : _c2.plugins) == null ? void 0 : _d["obsidian-icon-folder"]) == null ? void 0 : _e.data;
       const noteIconsEnabled = (_g = (_f = fileToIconName == null ? void 0 : fileToIconName.settings) == null ? void 0 : _f.iconsInNotesEnabled) != null ? _g : false;
       if (!noteIconsEnabled) {
@@ -84565,8 +81485,8 @@ var Website = class {
   }
   validateSite() {
     this.index.webpages.forEach(async (webpage) => {
-      var _a2;
-      const titles = (_a2 = webpage.pageDocument) == null ? void 0 : _a2.querySelectorAll(".feature-title");
+      var _a3;
+      const titles = (_a3 = webpage.pageDocument) == null ? void 0 : _a3.querySelectorAll(".feature-title");
       if (!titles)
         return;
       titles.forEach(async (title) => {
@@ -84578,21 +81498,21 @@ var Website = class {
     });
   }
   getTargetPathForFile(file, filename) {
-    var _a2;
+    var _a3;
     const targetPath = new Path(file.path);
     if (filename)
       targetPath.fullName = filename;
-    targetPath.setWorkingDirectory(((_a2 = this.destination) != null ? _a2 : Path.vaultPath.joinString("Web Export")).path);
+    targetPath.setWorkingDirectory(((_a3 = this.destination) != null ? _a3 : Path.vaultPath.joinString("Web Export")).path);
     targetPath.slugify(this.exportOptions.slugifyPaths);
     return targetPath;
   }
   async createAttachmentFromSrc(src, sourceFile) {
-    var _a2;
+    var _a3;
     const attachedFile = this.getFilePathFromSrc(src, sourceFile.path);
     if (attachedFile.isDirectory)
       return;
     const file = app.vault.getFileByPath(attachedFile.pathname);
-    let path = (_a2 = file == null ? void 0 : file.path) != null ? _a2 : "";
+    let path = (_a3 = file == null ? void 0 : file.path) != null ? _a3 : "";
     if (!file)
       path = AssetHandler.mediaPath.joinString(attachedFile.fullName).path;
     const data = await attachedFile.readAsBuffer();
@@ -84605,12 +81525,12 @@ var Website = class {
     return attachment;
   }
   getFilePathFromSrc(src, exportingFilePath) {
-    var _a2, _b2, _c2, _d, _e;
+    var _a3, _b3, _c2, _d, _e;
     let pathString = "";
     if (src.startsWith("app://")) {
       let fail = false;
       try {
-        pathString = (_b2 = (_a2 = app.vault.resolveFileUrl(src)) == null ? void 0 : _a2.path) != null ? _b2 : "";
+        pathString = (_b3 = (_a3 = app.vault.resolveFileUrl(src)) == null ? void 0 : _a3.path) != null ? _b3 : "";
         if (pathString == "")
           fail = true;
       } catch (e) {
@@ -84670,13 +81590,13 @@ ${html.documentElement.outerHTML}`;
   }
   async saveAsCombinedHTML() {
     const html = await this.getCombinedHTML();
-    const path = this.destination.joinString(this.exportOptions.rssOptions.siteName + ".html");
+    const path = this.destination.joinString(this.exportOptions.siteName + ".html");
     await path.write(html);
   }
 };
 
 // src/plugin/settings/export-modal.ts
-var import_obsidian11 = require("obsidian");
+var import_obsidian10 = require("obsidian");
 
 // src/plugin/features/file-picker.ts
 var FilePickerTree = class extends FileTree {
@@ -84779,9 +81699,9 @@ var FilePickerTree = class extends FileTree {
     return selectedFiles;
   }
   getSelectedFilesSavePaths() {
-    var _a2;
+    var _a3;
     let selectedFiles = [];
-    if ((_a2 = this.selectAllItem) == null ? void 0 : _a2.checked) {
+    if ((_a3 = this.selectAllItem) == null ? void 0 : _a3.checked) {
       selectedFiles = ["all"];
       return selectedFiles;
     }
@@ -84791,15 +81711,15 @@ var FilePickerTree = class extends FileTree {
     return selectedFiles;
   }
   setSelectedFiles(files) {
-    var _a2;
+    var _a3;
     if (files.includes("all")) {
-      (_a2 = this.selectAllItem) == null ? void 0 : _a2.check(true, false, true);
+      (_a3 = this.selectAllItem) == null ? void 0 : _a3.check(true, false, true);
       this.forAllChildren((child) => child.check(true));
       return;
     }
     this.forAllChildren((child) => {
-      var _a3;
-      if (files.includes((_a3 = child.dataRef) != null ? _a3 : "")) {
+      var _a4;
+      if (files.includes((_a4 = child.dataRef) != null ? _a4 : "")) {
         child.check(true);
       }
     });
@@ -84809,22 +81729,22 @@ var FilePickerTree = class extends FileTree {
     super.forAllChildren(func, recursive);
   }
   evaluateFolderChecks() {
-    var _a2, _b2;
+    var _a3, _b3;
     this.forAllChildren((child) => {
-      var _a3, _b3;
+      var _a4, _b4;
       if (child.isFolder) {
-        const uncheckedChildren = (_a3 = child == null ? void 0 : child.itemEl) == null ? void 0 : _a3.querySelectorAll(".nav-file .file-checkbox:not(.checked)");
+        const uncheckedChildren = (_a4 = child == null ? void 0 : child.itemEl) == null ? void 0 : _a4.querySelectorAll(".nav-file .file-checkbox:not(.checked)");
         if (!child.checked && (uncheckedChildren == null ? void 0 : uncheckedChildren.length) == 0) {
           child.check(true, false, true);
-        } else if ((_b3 = uncheckedChildren == null ? void 0 : uncheckedChildren.length) != null ? _b3 : 0 > 0) {
+        } else if ((_b4 = uncheckedChildren == null ? void 0 : uncheckedChildren.length) != null ? _b4 : 0 > 0) {
           child.check(false, false, true);
         }
       }
     });
     if (this.children.reduce((acc, child) => acc && child.checked, true)) {
-      (_a2 = this.selectAllItem) == null ? void 0 : _a2.check(true, false, true);
+      (_a3 = this.selectAllItem) == null ? void 0 : _a3.check(true, false, true);
     } else {
-      (_b2 = this.selectAllItem) == null ? void 0 : _b2.check(false, false, true);
+      (_b3 = this.selectAllItem) == null ? void 0 : _b3.check(false, false, true);
     }
   }
 };
@@ -84872,10 +81792,10 @@ var FilePickerTreeItem = class extends FileTreeItem {
     super.forAllChildren(func, recursive);
   }
   getSelectedFilesSavePaths() {
-    var _a2;
+    var _a3;
     const selectedFiles = [];
     if (this.checked) {
-      selectedFiles.push((_a2 = this.dataRef) != null ? _a2 : "");
+      selectedFiles.push((_a3 = this.dataRef) != null ? _a3 : "");
     } else if (this.isFolder) {
       this.forAllChildren((child) => {
         selectedFiles.push(...child.getSelectedFilesSavePaths());
@@ -84886,7 +81806,7 @@ var FilePickerTreeItem = class extends FileTreeItem {
 };
 
 // src/plugin/settings/export-modal.ts
-var _ExportModal = class extends import_obsidian11.Modal {
+var _ExportModal = class extends import_obsidian10.Modal {
   constructor() {
     super(app);
     this.isClosed = true;
@@ -84898,7 +81818,7 @@ var _ExportModal = class extends import_obsidian11.Modal {
     this.pickedFiles = files;
   }
   async open() {
-    var _a2, _b2, _c2, _d;
+    var _a3, _b3, _c2, _d;
     this.isClosed = false;
     this.canceled = true;
     const lang = i18n.exportModal;
@@ -84931,11 +81851,11 @@ var _ExportModal = class extends import_obsidian11.Modal {
       this.filePicker.title = lang.filePicker.title;
       this.filePicker.class = "file-picker";
       await this.filePicker.generate(scrollArea);
-      if (((_b2 = (_a2 = this.pickedFiles) == null ? void 0 : _a2.length) != null ? _b2 : 0 > 0) || Settings.exportOptions.filesToExport.length > 0) {
+      if (((_b3 = (_a3 = this.pickedFiles) == null ? void 0 : _a3.length) != null ? _b3 : 0 > 0) || Settings.exportOptions.filesToExport.length > 0) {
         const filesToPick = (_d = (_c2 = this.pickedFiles) == null ? void 0 : _c2.map((file) => file.path)) != null ? _d : Settings.exportOptions.filesToExport;
         this.filePicker.setSelectedFiles(filesToPick);
       }
-      const saveFiles = new import_obsidian11.Setting(this.filePickerModalEl).addButton((button) => {
+      const saveFiles = new import_obsidian10.Setting(this.filePickerModalEl).addButton((button) => {
         button.setButtonText(lang.filePicker.save).onClick(async () => {
           Settings.exportOptions.filesToExport = this.filePicker.getSelectedFilesSavePaths();
           await SettingsPage.saveSettings();
@@ -84976,7 +81896,7 @@ var _ExportModal = class extends import_obsidian11.Modal {
       "local": lang.exportMode.local,
       "raw-documents": lang.exportMode.rawDocuments
     };
-    const exportModeSetting = new import_obsidian11.Setting(contentEl).setName(lang.exportMode.title).setDesc(modeDescriptions[Settings.exportPreset]).setHeading().addDropdown((dropdown) => dropdown.addOption("online", "Online Website").addOption("local", "Local Website").addOption("raw-documents", "Raw HTML Documents").setValue(["online", "local", "raw-documents"].contains(Settings.exportPreset) ? Settings.exportPreset : "website").onChange(async (value) => {
+    const exportModeSetting = new import_obsidian10.Setting(contentEl).setName(lang.exportMode.title).setDesc(modeDescriptions[Settings.exportPreset]).setHeading().addDropdown((dropdown) => dropdown.addOption("online", "Online Website").addOption("local", "Local Website").addOption("raw-documents", "Raw HTML Documents").setValue(["online", "local", "raw-documents"].contains(Settings.exportPreset) ? Settings.exportPreset : "website").onChange(async (value) => {
       Settings.exportPreset = value;
       switch (value) {
         case "online":
@@ -84993,29 +81913,16 @@ var _ExportModal = class extends import_obsidian11.Modal {
     }));
     exportModeSetting.descEl.style.whiteSpace = "pre-wrap";
     exportModeSetting.settingEl.style.paddingRight = "1em";
-    new import_obsidian11.Setting(contentEl).addButton((button) => button.setButtonText(lang.purgeExport.clearCache).onClick(async () => {
-      const confirmModal = new import_obsidian11.Modal(app);
+    new import_obsidian10.Setting(contentEl).addButton((button) => button.setButtonText(lang.purgeExport.clearCache).onClick(async () => {
+      const confirmModal = new import_obsidian10.Modal(app);
       confirmModal.titleEl.setText(lang.purgeExport.confirmation);
       let warning = confirmModal.contentEl.createEl("p", { text: lang.purgeExport.clearWarning });
       warning.style.whiteSpace = "pre-wrap";
       confirmModal.open();
-      new import_obsidian11.Setting(confirmModal.contentEl).addButton((button2) => button2.setButtonText(i18n.cancel).onClick(() => confirmModal.close())).addButton((button2) => button2.setButtonText(lang.purgeExport.clearCache).onClick(async () => {
+      new import_obsidian10.Setting(confirmModal.contentEl).addButton((button2) => button2.setButtonText(i18n.cancel).onClick(() => confirmModal.close())).addButton((button2) => button2.setButtonText(lang.purgeExport.clearCache).onClick(async () => {
         const path = new Path(exportPathInput.textInput.getValue());
         const website = await new Website(path).load();
         await website.index.clearCache();
-        onChanged(path);
-        confirmModal.close();
-      }));
-    })).addButton((button) => button.setButtonText(lang.purgeExport.purgeSite).onClick(async () => {
-      const confirmModal = new import_obsidian11.Modal(app);
-      confirmModal.titleEl.setText(lang.purgeExport.confirmation);
-      let warning = confirmModal.contentEl.createEl("p", { text: lang.purgeExport.purgeWarning });
-      warning.style.whiteSpace = "pre-wrap";
-      confirmModal.open();
-      new import_obsidian11.Setting(confirmModal.contentEl).addButton((button2) => button2.setButtonText(i18n.cancel).onClick(() => confirmModal.close())).addButton((button2) => button2.setButtonText(lang.purgeExport.purgeSite).onClick(async () => {
-        const path = new Path(exportPathInput.textInput.getValue());
-        const website = await new Website(path).load();
-        await website.index.purge();
         onChanged(path);
         confirmModal.close();
       }));
@@ -85041,7 +81948,7 @@ var _ExportModal = class extends import_obsidian11.Modal {
     });
     const onChangedValidate = (path) => !validatePath(path).valid ? setExportDisabled(true) : setExportDisabled(false);
     const onChanged = async (path) => {
-      var _a3;
+      var _a4;
       onChangedValidate(path);
       const valid = validatePath(path);
       this.validPath = valid.valid;
@@ -85061,7 +81968,7 @@ var _ExportModal = class extends import_obsidian11.Modal {
         return;
       }
       const lastExportDate = new Date(index.oldWebsiteData.modifiedTime).toLocaleString();
-      const lastExportFiles = (_a3 = index.oldWebsiteData.allFiles) == null ? void 0 : _a3.length;
+      const lastExportFiles = (_a4 = index.oldWebsiteData.allFiles) == null ? void 0 : _a4.length;
       const lastExportName = index.oldWebsiteData.siteName;
       exportDescription.setText(`${lang.currentSite.pathContainsSite}: "${lastExportName}"
 ${lang.currentSite.fileCount}: ${lastExportFiles}
@@ -85090,7 +81997,7 @@ ${lang.currentSite.lastExported}: ${lastExportDate}`);
     exportDescription.style.marginBottom = "1em";
     onChanged(new Path(exportPathInput.textInput.getValue()));
     this.filePickerModalEl.style.height = this.modalEl.clientHeight * 2 + "px";
-    new import_obsidian11.Setting(contentEl).setDesc(lang.moreOptions).addExtraButton((button) => button.setTooltip("Open plugin settings").onClick(() => {
+    new import_obsidian10.Setting(contentEl).setDesc(lang.moreOptions).addExtraButton((button) => button.setTooltip("Open plugin settings").onClick(() => {
       app.setting.open();
       app.setting.openTabById("webpage-html-export");
     }));
@@ -85122,7 +82029,7 @@ var HTMLExporter = class {
     const files = Settings.exportOptions.filesToExport[0];
     const path = overrideExportPath != null ? overrideExportPath : new Path(Settings.exportOptions.exportPath);
     if (files.length == 0 && overrideFiles == void 0 || !path.exists || !path.isAbsolute || !path.isDirectory) {
-      new import_obsidian12.Notice("Please set the export path and files to export in the settings first.", 5e3);
+      new import_obsidian11.Notice("Please set the export path and files to export in the settings first.", 5e3);
       const modal = new ExportModal();
       if (overrideFiles)
         modal.overridePickedFiles(overrideFiles);
@@ -85131,18 +82038,18 @@ var HTMLExporter = class {
     return void 0;
   }
   static async export(usePreviousSettings = true, overrideFiles = void 0, overrideExportPath = void 0) {
-    var _a2, _b2, _c2;
+    var _a3, _b3, _c2;
     const info = await this.updateSettings(usePreviousSettings, overrideFiles, overrideExportPath);
     if (!info && !usePreviousSettings || info && info.canceled)
       return;
-    const files = (_b2 = (_a2 = info == null ? void 0 : info.pickedFiles) != null ? _a2 : overrideFiles) != null ? _b2 : Settings.getFilesToExport();
+    const files = (_b3 = (_a3 = info == null ? void 0 : info.pickedFiles) != null ? _a3 : overrideFiles) != null ? _b3 : Settings.getFilesToExport();
     const exportPath = (_c2 = overrideExportPath != null ? overrideExportPath : info == null ? void 0 : info.exportPath) != null ? _c2 : new Path(Settings.exportOptions.exportPath);
     const website = await HTMLExporter.exportFiles(files, exportPath, true, Settings.deleteOldFiles);
     if (!website)
       return;
     if (Settings.openAfterExport)
       Utils.openPath(exportPath);
-    new import_obsidian12.Notice("\u2705 Finished HTML Export:\n\n" + exportPath, 5e3);
+    new import_obsidian11.Notice("\u2705 Finished HTML Export:\n\n" + exportPath, 5e3);
   }
   static async exportFiles(files, destination, saveFiles, deleteOld) {
     MarkdownRendererAPI.beginBatch();
@@ -85150,7 +82057,7 @@ var HTMLExporter = class {
     try {
       website = await (await new Website(destination).load(files)).build();
       if (!website) {
-        new import_obsidian12.Notice("\u274C Export Cancelled", 5e3);
+        new import_obsidian11.Notice("\u274C Export Cancelled", 5e3);
         return;
       }
       if (deleteOld) {
@@ -85158,6 +82065,10 @@ var HTMLExporter = class {
         ExportLog.addToProgressCap(website.index.deletedFiles.length / 2);
         for (const dFile of website.index.deletedFiles) {
           const path = new Path(dFile, destination.path);
+          if (path.extension == "woff" || path.extension == "woff2" || path.extension == "ttf" || path.extension == "otf") {
+            ExportLog.progress(0.5, "Deleting Old Files", "Skipping: " + path.path, "var(--color-yellow)");
+            continue;
+          }
           await path.delete();
           ExportLog.progress(0.5, "Deleting Old Files", "Deleting: " + path.path, "var(--color-red)");
           i++;
@@ -85178,7 +82089,7 @@ var HTMLExporter = class {
         }
       }
     } catch (e) {
-      new import_obsidian12.Notice("\u274C Export Failed: " + e, 5e3);
+      new import_obsidian11.Notice("\u274C Export Failed: " + e, 5e3);
       ExportLog.error(e, "Export Failed", true);
     }
     MarkdownRendererAPI.endBatch();
@@ -85197,7 +82108,7 @@ var HTMLExporter = class {
 };
 
 // src/plugin/main.ts
-var _HTMLExportPlugin = class extends import_obsidian13.Plugin {
+var _HTMLExportPlugin = class extends import_obsidian12.Plugin {
   constructor() {
     super(...arguments);
     this.api = MarkdownRendererAPI;
@@ -85226,17 +82137,17 @@ var _HTMLExportPlugin = class extends import_obsidian13.Plugin {
     this.addCommand({
       id: "export-html-vault",
       name: "Export using previous settings",
-      callback: async () => {
-        await await await await await await await await await await await await await await await HTMLExporter.export(true);
+      callback: () => {
+        HTMLExporter.export(true);
       }
     });
     this.addCommand({
       id: "export-html-current",
       name: "Export only current file using previous settings",
-      callback: async () => {
+      callback: () => {
         const file = this.app.workspace.getActiveFile();
         if (!file) {
-          new import_obsidian13.Notice("No file is currently open!", 5e3);
+          new import_obsidian12.Notice("No file is currently open!", 5e3);
           return;
         }
         HTMLExporter.export(true, [file]);
@@ -85245,7 +82156,7 @@ var _HTMLExportPlugin = class extends import_obsidian13.Plugin {
     this.addCommand({
       id: "export-html-setting",
       name: "Set html export settings",
-      callback: async () => {
+      callback: () => {
         HTMLExporter.export(false);
       }
     });
@@ -85253,40 +82164,50 @@ var _HTMLExportPlugin = class extends import_obsidian13.Plugin {
       menu.addItem((item) => {
         item.setTitle(i18n.exportAsHTML).setIcon("download").setSection("export").onClick(() => {
           ExportModal.title = i18n.exportModal.exportAsTitle.format(file.name);
-          if (file instanceof import_obsidian13.TFile) {
+          if (file instanceof import_obsidian12.TFile) {
             HTMLExporter.export(false, [file]);
-          } else if (file instanceof import_obsidian13.TFolder) {
+          } else if (file instanceof import_obsidian12.TFolder) {
             const filesInFolder = this.app.vault.getFiles().filter((f) => new Path(f.path).directory.path.startsWith(file.path));
             HTMLExporter.export(false, filesInFolder);
           } else {
             ExportLog.error("File is not a TFile or TFolder! Invalid type: " + typeof file);
-            new import_obsidian13.Notice("File is not a File or Folder! Invalid type: " + typeof file, 5e3);
+            new import_obsidian12.Notice("File is not a File or Folder! Invalid type: " + typeof file, 5e3);
           }
         });
       });
     }));
   }
   async checkForUpdates() {
-    var _a2, _b2;
+    var _a3, _b3;
     const currentVersion = this.manifest.version;
     try {
       let url = "https://raw.githubusercontent.com/KosmosisDire/obsidian-webpage-export/master/manifest.json?cache=" + Date.now();
       if (this.manifest.version.endsWith("b"))
         url = "https://raw.githubusercontent.com/KosmosisDire/obsidian-webpage-export/master/manifest-beta.json?cache=" + Date.now();
-      const manifestResp = await (0, import_obsidian13.requestUrl)(url);
+      const manifestResp = await (0, import_obsidian12.requestUrl)(url);
       if (manifestResp.status != 200)
         throw new Error("Could not fetch manifest");
       const manifest = manifestResp.json;
-      const latestVersion = (_a2 = manifest.version) != null ? _a2 : currentVersion;
+      const latestVersion = (_a3 = manifest.version) != null ? _a3 : currentVersion;
       const updateAvailable = currentVersion < latestVersion;
-      const updateNote = (_b2 = manifest.updateNote) != null ? _b2 : "";
-      _HTMLExportPlugin.updateInfo = { updateAvailable, latestVersion, currentVersion, updateNote };
+      const updateNote = (_b3 = manifest.updateNote) != null ? _b3 : "";
+      _HTMLExportPlugin.updateInfo = {
+        updateAvailable,
+        latestVersion,
+        currentVersion,
+        updateNote
+      };
       if (updateAvailable)
         ExportLog.log(`${i18n.updateAvailable}: ${currentVersion} \u27F6 ${latestVersion}`);
       return _HTMLExportPlugin.updateInfo;
     } catch (e) {
       ExportLog.log("Could not check for update");
-      _HTMLExportPlugin.updateInfo = { updateAvailable: false, latestVersion: currentVersion, currentVersion, updateNote: "" };
+      _HTMLExportPlugin.updateInfo = {
+        updateAvailable: false,
+        latestVersion: currentVersion,
+        currentVersion,
+        updateNote: ""
+      };
       return _HTMLExportPlugin.updateInfo;
     }
   }
@@ -85295,7 +82216,12 @@ var _HTMLExportPlugin = class extends import_obsidian13.Plugin {
   }
 };
 var HTMLExportPlugin = _HTMLExportPlugin;
-HTMLExportPlugin.updateInfo = { updateAvailable: false, latestVersion: "0", currentVersion: "0", updateNote: "" };
+HTMLExportPlugin.updateInfo = {
+  updateAvailable: false,
+  latestVersion: "0",
+  currentVersion: "0",
+  updateNote: ""
+};
 HTMLExportPlugin.pluginVersion = "0.0.0";
 /*!
  * HTML Parser By John Resig (ejohn.org)
@@ -85315,8 +82241,5 @@ HTMLExportPlugin.pluginVersion = "0.0.0";
  * MIT Licensed
  */
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
-//! license : MIT
-//! moment.js
-//! momentjs.com
-//! version : 2.29.4
+
+/* nosourcemap */
