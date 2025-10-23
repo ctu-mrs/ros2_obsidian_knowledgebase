@@ -20,9 +20,11 @@ jobs:
         run: |
           mkdir -p ./.output
 
-          docker run --rm -v .:/vault -v ./.output:/output klaxalk/obsidian_html_export:latest
+          EXIT_CODE=0
 
-          if [ $? -eq 137 ]; then
+          docker run --rm -v .:/vault -v ./.output:/output klaxalk/obsidian_html_export:latest || EXIT_CODE=$?
+
+          if [ "$EXIT_CODE" -eq 137 ]; then
             exit 0
             echo "output=./.output" >> $GITHUB_OUTPUT
           fi
