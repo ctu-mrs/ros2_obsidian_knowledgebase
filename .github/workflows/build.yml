@@ -24,9 +24,15 @@ jobs:
 
           docker run --rm -v .:/vault -v ./.output:/output klaxalk/obsidian_html_export:latest || EXIT_CODE=$?
 
+          # it always exits with 137, because it somehow fails to terminate obsidian within the container
+          # this is fine...
           if [ "$EXIT_CODE" -eq 137 ]; then
-            exit 0
+            echo "Obsidian build suceeded"
             echo "output=./.output" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "We probably failed to produce an output"
+            exit 1
           fi
 
       - name: Upload site
