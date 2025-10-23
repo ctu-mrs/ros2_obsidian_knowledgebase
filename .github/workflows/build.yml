@@ -18,12 +18,9 @@ jobs:
 
       - name: Build page
         run: |
-          set -e
           mkdir -p ./.output
 
-          docker run --rm -v .:/vault -v ./.output:/output klaxalk/obsidian_html_export:latest >> ./.log.txt
-
-          cat ./.log.txt
+          docker run --rm -v .:/vault -v ./.output:/output klaxalk/obsidian_html_export:latest
 
           if [ $? -eq 137 ]; then
             exit 0
