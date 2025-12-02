@@ -15,13 +15,25 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 120.65298573575319,
-                  "y": 2712.61349140303,
-                  "zoom": -0.5849595254926541
+                  "x": 184.496125726243,
+                  "y": 2166.2940310228505,
+                  "zoom": -0.6954732383740864
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
+            }
+          },
+          {
+            "id": "762ca7208f0beaad",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.10.6"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.10.6"
             }
           }
         ]
@@ -175,11 +187,11 @@
   },
   "active": "3021d3c0625056f6",
   "lastOpenFiles": [
+    "index.md",
     "buildfarm_canvas.canvas",
     "main_canvas.canvas",
     "Untitled.base",
     "ROS1_to_ROS2 patterns.md",
-    "index.md",
     "Untitled Diagram.svg",
     "Untitled.md",
     "fig/single_test_pipeline.png",
