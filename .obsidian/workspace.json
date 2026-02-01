@@ -15,25 +15,13 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 2589.7647936928256,
-                  "y": 1359.3619977417811,
-                  "zoom": -1.0954732383740868
+                  "x": 122.92731861152565,
+                  "y": 3087.693551118236,
+                  "zoom": -0.8066272309477213
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
-            }
-          },
-          {
-            "id": "762ca7208f0beaad",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.10.6"
-              },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.10.6"
             }
           }
         ]
@@ -93,7 +81,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 303.49999618530273
+    "width": 273.5
   },
   "right": {
     "id": "d605f05cc0a271b4",
@@ -187,9 +175,9 @@
   },
   "active": "3021d3c0625056f6",
   "lastOpenFiles": [
+    "main_canvas.canvas",
     "index.md",
     "buildfarm_canvas.canvas",
-    "main_canvas.canvas",
     "Untitled.base",
     "ROS1_to_ROS2 patterns.md",
     "Untitled Diagram.svg",
