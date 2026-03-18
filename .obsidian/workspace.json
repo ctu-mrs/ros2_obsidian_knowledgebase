@@ -15,16 +15,34 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 441.03213317278926,
-                  "y": 373.11758756315857,
-                  "zoom": -0.2792274100302811
+                  "x": 1291.1126968365388,
+                  "y": 2715.9570213148622,
+                  "zoom": 0.7029393357416042
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "main_canvas"
+            }
+          },
+          {
+            "id": "2e4021eab3f9ae93",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "main_canvas.canvas",
+                "viewState": {
+                  "x": 2599.5482625187733,
+                  "y": 4011.778678769224,
+                  "zoom": -0.15887077202691113
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "main_canvas"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -173,12 +191,12 @@
       "webpage-html-export:Export as HTML": false
     }
   },
-  "active": "3021d3c0625056f6",
+  "active": "2e4021eab3f9ae93",
   "lastOpenFiles": [
     "buildfarm_canvas.canvas",
+    "ROS1_to_ROS2 patterns.md",
     "main_canvas.canvas",
     "README.md",
-    "ROS1_to_ROS2 patterns.md",
     "index.md",
     "Untitled.base",
     "Untitled Diagram.svg",
