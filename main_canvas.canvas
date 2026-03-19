@@ -2443,16 +2443,6 @@
 			"height":3313
 		},
 		{
-			"id":"19624fa5944dcf29",
-			"styleAttributes":{},
-			"text":"# TODOs\n## Minor TODO\n\n- [ ] Although the estimation manager checks for data on the \"control input\" topic, the particular estimator might be subscribing a wrong topic, therefore, you might miss the error of bad remapping\n- [x] Mavros config needs different configs for Garmin with old (id 33) and new fw (id 0, pitch_270)\n- [ ] Batch visualizerer topics are not shown in rviz (**MrsLib**)\n- [ ] tf for rtk antenna currently hardcoded in transform manager's launch file (**TransformManager**)\n- [ ] Test for \"Transform Reference List\" (**ControllManager**)\n- [ ] Documentation: **add information about Zenoh**\n## makeprg compilation of a package in neovim\n\n- `:make` in vim should trigger `colcon buiild` of the current packaage\n\t- we need to be able to detect which package does the currently opened file originates from\n## Key-signed disarming\n- implement key exchange mechanism for the disarming service: the caller should first get a random key from the hw api that will allow him to disarm. This will prevent a random caller from disarming the drone in mid air.\n\n- [ ] implementation\n- [ ] tests\n\n## Controller and Tracker timeouting\n\n- [ ] implementation\n- [ ] tests\n\n## Proper handling of UTM zones\n\n- [ ] implementation\n- [ ] tests\n\n## Landing detection for all output modalities\n\nThink of a way how to detect that we landed for all output modalities...\n\n- [ ] implementation\n- [ ] tests\n\n## PCL specialization of mrs_lib (Transformer)\n- [ ] implementation\n- [ ] tests\n\n## Speed tracker (Rethink and refactor?)\n\n- I would rethink it as \"Passthrough tracker\" using the TrackerCommand\n\n## MRS UAV Status\n\n- the remote mode should use desired velocity instead of relative position command\n\n## MRS Multirotor simulator plugin API\n\n- allow loading UAV-plugins and WORLD-plugins\n- [ ] implementation\n- [ ] tests\n\n## MidAir activation\n\n- parametrize the sleep after arming by the rate if incoming odometry\n\n## Launch file\n\n- make debug_roslaunch conditional in the launch files\n\n## Remote controller abstraction\n- from HW API -> Control manager\n\n## Ouster driver\n- [ ] TF frames should be prefixed by \"$UAV_NAME/\"\n- [ ] The parameters should not use the \"/$UAV_NAME/ouster\" prefix\n- [ ] Set as default: timestamp_mode: 'TIME_FROM_ROS_TIME'\n\n## PX4 API\n- [ ] replicate the UTM fix https://github.com/ctu-mrs/mrs_uav_px4_api/pull/3\n\n## ControlManager diagnostics\n- [ ] trackers and controllers should be able to invoke publishing of ControlManager's diagnostics when there is a significant change in the state\n\n## Basic tests sometimes produce segfaults\n- [x] added more prints to min_height_check\n- [ ] seems to fail near the end, when flying normally check should pass\n- [ ] check later if it fails again\n- [ ] e.g., min_height_check, goto_fcu_service\n\n## [Docu] State machine diagrams of internal processes\n\n- [ ] takeoff\n- [ ] landing\n- [ ] landing home\n- [ ] escalating failsafe\n\t- [ ] failsafe\n\t- [ ] eland\n- [ ] trajectory following\n- [ ] rc remote mode\n\n## Incorporate Yaml remapper from Jakub\n- [ ] use in core packages\n- [ ] use in example packages\n\n## We are not using Service Server Handler, why?\n\n## Explicitly set callback groups\n- [x] core\n- [ ] flightforge\n- [ ] hw api\n\n## MRS package version printed during system startup\n\n- [ ] done\n\n## Luxonis's depth-AI ROS\n\n- [ ] fork or create a wrapper package and fix the launch files\n\t- [ ] it is publishing outside of its namespace\n\n## Make mrs sim stepable\n\n- [ ] done\n\n## Make a way to fly with \"local gps world file\"\n\n- user will select a gps_local_world.yaml\n- the world_origin will be initialized at the current spot\n- the safety are will be in fixed_origin\n- [ ] done\n\n## System for \"doing stuff\" before landing\n- e.g., deploying landing gear\n- [ ] done\n\n## 1 repo for the whole core?\n\n- [ ] todo\n- [ ] nope\n# run build on push only for ctu-mrs\n\n- check the github runner instance for ctu-mrs\n- [ ] todo\n\n## run test on push to ros2\n\n- [ ] todo \n# clean up header installation and paths in mrs_multirotor_simulator\n\n- [ ] todo\n\n# fix cmakelists and node export\n- `rclcpp_components_register_nodes(MrsUavAutostart_AutomaticStart \"mrs_uav_autostart::automatic_start::AutomaticStart\")`\n\n## Controller's common handlers should offer IMU subscribe handler\n\n- [ ] done\n\n## Service client handler\n- should expose api for checking if the other side is ready\n\n## Docker image tagging\n- [ ] tag images also with year_week tag to backup older versions\n\n## Estimation manager should use this to wait for time\n\n- https://docs.ros.org/en/jazzy/p/rclcpp/generated/classrclcpp_1_1Clock.html#_CPPv4N6rclcpp5Clock18wait_until_startedEN7Context9SharedPtrE\n\n## Rework ROS1 PRS\n- https://github.com/ctu-mrs/mrs_uav_state_estimators/pull/11 (f9p fix)\n- https://github.com/ctu-mrs/mrs_uav_managers/pull/33 (throttle model)\n- https://github.com/ctu-mrs/mrs_lib/pull/97 (throttle model)",
-			"type":"text",
-			"x":1920,
-			"y":-1280,
-			"width":820,
-			"height":5660
-		},
-		{
 			"id":"19d79edc2763f36e",
 			"styleAttributes":{"textAlign":"center"},
 			"text":"## START",
@@ -2817,16 +2807,6 @@
 			"color":"4"
 		},
 		{
-			"id":"2fcbe9210a768f7f",
-			"styleAttributes":{},
-			"text":"# Observations\n\n## Pixhawk 4 with GPS\n- missing `mavros/odometry/in` which is a source for `hw_api/orientation`\n\n## Pixhawk 6x with GPS (but fying with VIO)\n\n- missing `mavros/local_position/odom` which is a source for `hw_api/velocity`",
-			"type":"text",
-			"x":1920,
-			"y":4440,
-			"width":820,
-			"height":380
-		},
-		{
 			"id":"01260bb672856725",
 			"styleAttributes":{"shape":"diamond","textAlign":"center"},
 			"text":"# Is it better to merge them into the ROS2 version?",
@@ -2846,6 +2826,26 @@
 			"width":420,
 			"height":220,
 			"color":"4"
+		},
+		{
+			"id":"19624fa5944dcf29",
+			"styleAttributes":{},
+			"text":"# TODOs\n## Minor TODO\n\n- [ ] Although the estimation manager checks for data on the \"control input\" topic, the particular estimator might be subscribing a wrong topic, therefore, you might miss the error of bad remapping\n- [x] Mavros config needs different configs for Garmin with old (id 33) and new fw (id 0, pitch_270)\n- [ ] Batch visualizerer topics are not shown in rviz (**MrsLib**)\n- [ ] tf for rtk antenna currently hardcoded in transform manager's launch file (**TransformManager**)\n- [ ] Test for \"Transform Reference List\" (**ControllManager**)\n- [ ] Documentation: **add information about Zenoh**\n## makeprg compilation of a package in neovim\n\n- `:make` in vim should trigger `colcon buiild` of the current packaage\n\t- we need to be able to detect which package does the currently opened file originates from\n## Key-signed disarming\n- implement key exchange mechanism for the disarming service: the caller should first get a random key from the hw api that will allow him to disarm. This will prevent a random caller from disarming the drone in mid air.\n\n- [ ] implementation\n- [ ] tests\n\n## Controller and Tracker timeouting\n\n- [ ] implementation\n- [ ] tests\n\n## Proper handling of UTM zones\n\n- [ ] implementation\n- [ ] tests\n\n## Landing detection for all output modalities\n\nThink of a way how to detect that we landed for all output modalities...\n\n- [ ] implementation\n- [ ] tests\n\n## PCL specialization of mrs_lib (Transformer)\n- [ ] implementation\n- [ ] tests\n\n## Speed tracker (Rethink and refactor?)\n\n- I would rethink it as \"Passthrough tracker\" using the TrackerCommand\n\n## MRS UAV Status\n\n- the remote mode should use desired velocity instead of relative position command\n\n## MRS Multirotor simulator plugin API\n\n- allow loading UAV-plugins and WORLD-plugins\n- [ ] implementation\n- [ ] tests\n\n## MidAir activation\n\n- parametrize the sleep after arming by the rate if incoming odometry\n\n## Launch file\n\n- make debug_roslaunch conditional in the launch files\n\n## Remote controller abstraction\n- from HW API -> Control manager\n\n## Ouster driver\n- [ ] TF frames should be prefixed by \"$UAV_NAME/\"\n- [ ] The parameters should not use the \"/$UAV_NAME/ouster\" prefix\n- [ ] Set as default: timestamp_mode: 'TIME_FROM_ROS_TIME'\n\n## PX4 API\n- [ ] replicate the UTM fix https://github.com/ctu-mrs/mrs_uav_px4_api/pull/3\n\n## ControlManager diagnostics\n- [ ] trackers and controllers should be able to invoke publishing of ControlManager's diagnostics when there is a significant change in the state\n\n## Basic tests sometimes produce segfaults\n- [x] added more prints to min_height_check\n- [ ] seems to fail near the end, when flying normally check should pass\n- [ ] check later if it fails again\n- [ ] e.g., min_height_check, goto_fcu_service\n\n## [Docu] State machine diagrams of internal processes\n\n- [ ] takeoff\n- [ ] landing\n- [ ] landing home\n- [ ] escalating failsafe\n\t- [ ] failsafe\n\t- [ ] eland\n- [ ] trajectory following\n- [ ] rc remote mode\n\n## Incorporate Yaml remapper from Jakub\n- [ ] use in core packages\n- [ ] use in example packages\n\n## We are not using Service Server Handler, why?\n\n## Explicitly set callback groups\n- [x] core\n- [ ] flightforge\n- [ ] hw api\n\n## MRS package version printed during system startup\n\n- [ ] done\n\n## Luxonis's depth-AI ROS\n\n- [ ] fork or create a wrapper package and fix the launch files\n\t- [ ] it is publishing outside of its namespace\n\n## Make mrs sim stepable\n\n- [ ] done\n\n## Make a way to fly with \"local gps world file\"\n\n- user will select a gps_local_world.yaml\n- the world_origin will be initialized at the current spot\n- the safety are will be in fixed_origin\n- [ ] done\n\n## System for \"doing stuff\" before landing\n- e.g., deploying landing gear\n- [ ] done\n\n## 1 repo for the whole core?\n\n- [ ] todo\n- [ ] nope\n# run build on push only for ctu-mrs\n\n- check the github runner instance for ctu-mrs\n- [ ] todo\n\n## run test on push to ros2\n\n- [ ] todo \n# clean up header installation and paths in mrs_multirotor_simulator\n\n- [ ] todo\n\n# fix cmakelists and node export\n- `rclcpp_components_register_nodes(MrsUavAutostart_AutomaticStart \"mrs_uav_autostart::automatic_start::AutomaticStart\")`\n\n## Controller's common handlers should offer IMU subscribe handler\n\n- [ ] done\n\n## Service client handler\n- should expose api for checking if the other side is ready\n\n## Docker image tagging\n- [ ] tag images also with year_week tag to backup older versions\n\n## Estimation manager should use this to wait for time\n\n- https://docs.ros.org/en/jazzy/p/rclcpp/generated/classrclcpp_1_1Clock.html#_CPPv4N6rclcpp5Clock18wait_until_startedEN7Context9SharedPtrE\n",
+			"type":"text",
+			"x":1920,
+			"y":-1280,
+			"width":820,
+			"height":5660
+		},
+		{
+			"id":"2fcbe9210a768f7f",
+			"styleAttributes":{},
+			"text":"# Observations\n\n## Pixhawk 4 with GPS\n- missing `mavros/odometry/in` which is a source for `hw_api/orientation`\n\n## Pixhawk 6x with GPS (but fying with VIO)\n\n- missing `mavros/local_position/odom` which is a source for `hw_api/velocity`",
+			"type":"text",
+			"x":1920,
+			"y":4440,
+			"width":820,
+			"height":380
 		}
 	],
 	"metadata":{
