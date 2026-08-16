@@ -15,9 +15,9 @@
               "state": {
                 "file": "main_canvas.canvas",
                 "viewState": {
-                  "x": 1988.0909171575086,
-                  "y": 3144.5899596714657,
-                  "zoom": -0.09706066425839588
+                  "x": -1105487.0036744848,
+                  "y": 92644.00201428765,
+                  "zoom": -0.11063730237417296
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -44,7 +44,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "Files"

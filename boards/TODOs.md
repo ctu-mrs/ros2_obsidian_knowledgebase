@@ -125,10 +125,6 @@ Think of a way how to detect that we landed for all output modalities...
 - e.g., deploying landing gear
 - [ ] done
 
-## 1 repo for the whole core?
-
-- [ ] todo
-- [ ] nope
 # run build on push only for ctu-mrs
 
 - check the github runner instance for ctu-mrs
@@ -139,7 +135,7 @@ Think of a way how to detect that we landed for all output modalities...
 - [ ] todo 
 # clean up header installation and paths in mrs_multirotor_simulator
 
-- [ ] todo
+- [x] todo
 
 # fix cmakelists and node export
 - `rclcpp_components_register_nodes(MrsUavAutostart_AutomaticStart "mrs_uav_autostart::automatic_start::AutomaticStart")`
@@ -152,7 +148,7 @@ Think of a way how to detect that we landed for all output modalities...
 - should expose api for checking if the other side is ready
 
 ## Docker image tagging
-- [ ] tag images also with year_week tag to backup older versions
+- [x] tag images also with year_week tag to backup older versions
 
 ## Estimation manager should use this to wait for time
 
